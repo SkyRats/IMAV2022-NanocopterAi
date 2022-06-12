@@ -17,11 +17,12 @@ echo "--------------------------------------------------------------------------
 sudo apt install imagemagick
 echo "----------------------------------------------------------------------------------------------------------"
 echo "Criando pasta 'output' onde as imagens serão depositadas."
-mkdir output_gray
-chmod output_gray
+mkdir dataset/training/output_gray
 echo "----------------------------------------------------------------------------------------------------------"
 echo "Começando o processo!"
 
-mogrify -path output_gray -gravity South -crop 320x320+0+0 +noise Gaussian -grayscale Rec709Luminance -modulate 80,50 -format jpeg dataset/*.jpg
+for picture in dataset/fine_tuning/HMB_1/images/*.png; do
+    convert $picture -gravity South -crop 320x320+0+0 -grayscale Rec709Luminance -format jpeg $picture
+done
 
 echo "Pronto!"
