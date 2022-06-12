@@ -24,10 +24,12 @@ echo "Começando o processo!"
 
 for picture in `find dataset/ -regex ".*\.\(png\)"`; do
     convert $picture -gravity South -crop 320x320+0+0 -grayscale Rec709Luminance -format jpeg "${picture/.png/.jpeg}"
+    rm $picture
 done
 
 for picture in `find dataset/ -regex ".*\.\(jpg\)"`; do
     convert $picture -gravity South -crop 320x320+0+0 -grayscale Rec709Luminance -format jpeg "${picture/.jpg/.jpeg}"
+    rm $picture
 done
 
 echo "Pronto!"
