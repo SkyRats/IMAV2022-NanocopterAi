@@ -4,7 +4,7 @@ import cv2 as cv
 
 
 
-im = cv.imread('Gate2.png' ) #Loads the image
+im = cv.imread('gate3.png' ) #Loads the image
 hsv = cv.cvtColor(im, cv.COLOR_BGR2HSV) #Changes the formatting to HSV
 orangeLower = np.array([22,100,100])
 orangeUpper = np.array([25,255,255])

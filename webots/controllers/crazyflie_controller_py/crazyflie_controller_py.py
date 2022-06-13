@@ -1,3 +1,5 @@
+
+  
 #  ...........       ____  _ __
 #  |  ,-^-,  |      / __ )(_) /_______________ _____  ___
 #  | (  O  ) |     / __  / / __/ ___/ ___/ __ `/_  / / _ \
@@ -22,11 +24,6 @@ from controller import Gyro
 from controller import Keyboard
 from controller import Camera
 from controller import DistanceSensor
-
-import cv2
-import numpy as np
-import random
-random.seed()
 
 from math import cos, sin
 
@@ -70,44 +67,69 @@ range_back = robot.getDevice("range_back")
 range_back.enable(timestep)
 range_right = robot.getDevice("range_right")
 range_right.enable(timestep)
+
+## Wait for two seconds
+#while robot.step(timestep) != -1:
+#    if robot.getTime()>2.0:
+#        break
     
 ## Initialize variables
 actualState = ActualState_t()
 desiredState = DesiredState_t()
 pastXGlobal = 0
 pastYGlobal = 0
+currentPos = [0,0]
+currentVel = [0,0]
 past_time = robot.getTime()
-
+loopCounter = 0
 ## Initialize PID gains.
 gainsPID = GainsPID_t()
 gainsPID.kp_att_y = 1
 gainsPID.kd_att_y = 0.5
 gainsPID.kp_att_rp =0.5
 gainsPID.kd_att_rp = 0.1
-gainsPID.kp_vel_xy = 2
-gainsPID.kd_vel_xy = 0.5
+gainsPID.kp_vel_xy = 2;
+gainsPID.kd_vel_xy = 0.5;
 gainsPID.kp_z = 10
 gainsPID.ki_z = 50
 gainsPID.kd_z = 5
-init_pid_attitude_fixed_height_controller()
-
-## Speeds
-forward_speed = 0.2
-yaw_rate = 0.5
-
-## Avoidance state
-avoid_yawDesired = 0
-avoid_yawTime = 0
+init_pid_attitude_fixed_height_controller();
 
 ## Initialize struct for motor power
 motorPower = MotorPower_t()
 
 print('Take off!')
 
+
+def go_to_POS(actualPOS, desiredPOS): 
+    print(actualPOS, desiredPOS)
+    dX = desiredPOS[0] - actualPOS[0]
+    dY = desiredPOS[1] - actualPOS[1]
+    
+    print(dX,dY)
+    forwardDesired = 0.0
+    sidewaysDesired = 0.0
+
+    if dX > 0.1:
+        forwardDesired += 0.2
+        print(1)
+    elif dX < -0.1:
+        forwardDesired -= 0.2
+        print(2)
+    if dY > 0.1:
+        sidewaysDesired += 0.2
+        print(3)
+    elif dY < -0.1:
+        sidewaysDesired -= 0.2
+        print(4)
+        
+    return forwardDesired, sidewaysDesired
+        
 # Main loop:
 while robot.step(timestep) != -1:
 
     dt = robot.getTime() - past_time;
+    
 
     ## Get measurements
     actualState.roll = imu.getRollPitchYaw()[0]
@@ -118,87 +140,75 @@ while robot.step(timestep) != -1:
     vxGlobal = (xGlobal - pastXGlobal)/dt
     yGlobal = gps.getValues()[1]
     vyGlobal = (yGlobal - pastYGlobal)/dt
-
+    currentPos[0] += currentVel[0]*dt
+    currentPos[1] += currentVel[1]*dt
+    
+   
     ## Get body fixed velocities
     actualYaw = imu.getRollPitchYaw()[2];
     cosyaw = cos(actualYaw)
     sinyaw = sin(actualYaw)
     actualState.vx = vxGlobal * cosyaw + vyGlobal * sinyaw
     actualState.vy = - vxGlobal * sinyaw + vyGlobal * cosyaw
+    
 
-    ## Initialize setpoints
+    ## Initialize values
     desiredState.roll = 0
     desiredState.pitch = 0
     desiredState.vx = 0
     desiredState.vy = 0
     desiredState.yaw_rate = 0
-    desiredState.altitude = 2.0
-
-    forwardDesired = 0
-    sidewaysDesired = 0
+    desiredState.altitude = 1
+    
+    #targets = [[1,2]]
+    
+    if loopCounter == 100:
+        forwardDesired, sidewaysDesired = go_to_POS(currentPos, [2,2])
+    else:
+        forwardDesired, sidewaysDesired = 0,0
+        loopCounter += 1
+    
     yawDesired = 0
 
-    ## Get camera image
-    w, h = camera.getWidth(), camera.getHeight()
-    cameraData = camera.getImage()  # Note: uint8 string
-    image = np.fromstring(cameraData, np.uint8).reshape(h, w, 4)
-
-    # Show image
-    # cv2.imshow('Drone camera', image)
-    # cv2.waitKey(1)
-
-    ## Detect empty floor (green) in front of the drone
-    image_hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
-    xmin, xmax = int(0.20 * w), int(0.80 * w)
-    ymin, ymax = int(0.80 * h), int(1.00 * h)
-    max_pix = (xmax - xmin) * (ymax - ymin)
-    hmin, hmax = 30, 46
-    roi_hue = image[ymin:ymax, xmin:xmax, 0]
-    roi_sat = image[ymin:ymax, xmin:xmax, 1]
-    pix_count = np.count_nonzero((roi_hue >= hmin) & (roi_hue <= hmax) & (roi_sat > 64))
-    green_pct = pix_count / max_pix
-
-    ## Avoidance state machine
-    if avoid_yawTime > 0:
-        # Turning
-        avoid_yawTime -= dt
-        yawDesired += avoid_yawDesired
-    else:
-        # Not turning
-        if green_pct > 0.20:
-            # No obstacle: fly forwards
-            forwardDesired += forward_speed
-            turn_rate = 0
-        else:
-            # Obstacle in front: start turn
-            sign = 1 if random.random() > 0.5 else -1
-            avoid_yawDesired = sign * yaw_rate
-            avoid_yawTime = random.random() * 5.0
-
-    # Manual override
     key = Keyboard().getKey()
     while key>0:
         if key == Keyboard.UP:
-            forwardDesired = forward_speed
+            forwardDesired = 0.2
         elif key == Keyboard.DOWN:
-            forwardDesired = -forward_speed
+            forwardDesired = -0.2
         elif key == Keyboard.RIGHT:
-            sidewaysDesired  = -forward_speed
+            sidewaysDesired  = -0.2
         elif key == Keyboard.LEFT:
-            sidewaysDesired = forward_speed
+            sidewaysDesired = 0.2
         elif key == ord('Q'):
             yawDesired =  + yaw_rate
         elif key == ord('E'):
             yawDesired = - yaw_rate
 
-        key = Keyboard().getKey()
+    key = Keyboard().getKey()
+
+    ## Example how to get sensor data
+    ## range_front_value = range_front.getValue();
+    ## cameraData = camera.getImage()
+
 
     desiredState.yaw_rate = yawDesired;
 
     ## PID velocity controller with fixed height
     desiredState.vy = sidewaysDesired;
     desiredState.vx = forwardDesired;
-    pid_velocity_fixed_height_controller(actualState, desiredState, gainsPID, dt, motorPower);
+   
+    pid_velocity_fixed_height_controller(actualState, desiredState,
+    gainsPID, dt, motorPower);
+    
+
+    ## PID attitude controller with fixed height
+    
+    #desiredState.roll = sidewaysDesired;
+    #desiredState.pitch = forwardDesired;
+    #pid_attitude_fixed_height_controller(actualState, desiredState,
+    #gainsPID, dt, motorPower);
+    
 
     m1_motor.setVelocity(-motorPower.m1)
     m2_motor.setVelocity(motorPower.m2)
@@ -208,3 +218,6 @@ while robot.step(timestep) != -1:
     past_time = robot.getTime()
     pastXGlobal = xGlobal
     pastYGlobal = yGlobal
+    currentVel = [forwardDesired, sidewaysDesired]
+    
+    pass
