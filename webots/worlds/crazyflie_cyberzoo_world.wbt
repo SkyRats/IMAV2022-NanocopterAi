@@ -3,8 +3,8 @@ WorldInfo {
 }
 Viewpoint {
   fieldOfView 0.9
-  orientation 0.24954153176844523 0.39737580161863595 -0.883075022979704 1.236290939604155
-  position -0.8413921699025797 1.9362647916217814 1.3257767607319106
+  orientation -0.3122139960885266 -0.13143910240813753 0.9408752218039206 3.8958803601026046
+  position 2.190498721599154 2.65659992240741 2.414613911558053
   follow "Crazyflie"
   followType "Mounted Shot"
   followSmoothness 0.1
@@ -16,7 +16,7 @@ TexturedBackgroundLight {
   texture "factory"
 }
 Robot {
-  translation 0 0 0.015
+  translation 0 0 0.0150027
   rotation 0 0 1 -1.5708003061004252
   children [
     DEF Multiranger Transform {

@@ -82,6 +82,11 @@ currentPos = [0,0]
 currentVel = [0,0]
 past_time = robot.getTime()
 loopCounter = 0
+turnBool = False
+turnCounter = 0
+
+targets = [[-3.5,-3.5,1], [3.5,-3.5,2]] # TODO: target setting function
+reachTarget = False
 ## Initialize PID gains.
 gainsPID = GainsPID_t()
 gainsPID.kp_att_y = 1
@@ -102,29 +107,49 @@ print('Take off!')
 
 
 def go_to_POS(actualPOS, desiredPOS): 
-    print(actualPOS, desiredPOS)
+    
     dX = desiredPOS[0] - actualPOS[0]
     dY = desiredPOS[1] - actualPOS[1]
+    reachedX = 0
+    reachedY = 0
     
-    print(dX,dY)
+    
     forwardDesired = 0.0
     sidewaysDesired = 0.0
 
     if dX > 0.1:
-        forwardDesired += 0.2
-        print(1)
+        forwardDesired += 0.5
+       
     elif dX < -0.1:
-        forwardDesired -= 0.2
-        print(2)
+        forwardDesired -= 0.5
+    else:
+        reachedX += 1
+       
     if dY > 0.1:
-        sidewaysDesired += 0.2
-        print(3)
+        sidewaysDesired += 0.5
+        
     elif dY < -0.1:
-        sidewaysDesired -= 0.2
-        print(4)
+        sidewaysDesired -= 0.5
+    else:
+        reachedY += 1   
         
-    return forwardDesired, sidewaysDesired
+    if reachedX + reachedY == 2:    
+        return forwardDesired, sidewaysDesired, True
         
+    else:
+        return forwardDesired, sidewaysDesired, False
+
+
+def turn90(turnBool, turnCounter):
+    if turnBool:
+       if turnCounter < 50:
+           turnCounter += 1
+           return 1, turnCounter, turnBool
+       else:
+           turnCounter = 0
+           turnBool = False
+    return 0, turnCounter, turnBool
+       
 # Main loop:
 while robot.step(timestep) != -1:
 
@@ -151,7 +176,8 @@ while robot.step(timestep) != -1:
     actualState.vx = vxGlobal * cosyaw + vyGlobal * sinyaw
     actualState.vy = - vxGlobal * sinyaw + vyGlobal * cosyaw
     
-
+    
+    
     ## Initialize values
     desiredState.roll = 0
     desiredState.pitch = 0
@@ -159,16 +185,22 @@ while robot.step(timestep) != -1:
     desiredState.vy = 0
     desiredState.yaw_rate = 0
     desiredState.altitude = 1
+    yawDesired = 0
     
-    #targets = [[1,2]]
     
-    if loopCounter == 100:
-        forwardDesired, sidewaysDesired = go_to_POS(currentPos, [2,2])
+    if loopCounter == 100 and len(targets) > 0:
+        forwardDesired, sidewaysDesired,reachTarget =go_to_POS(currentPos, targets[0])
+        desiredState.altitude = targets[0][2]
+        yawDesired, turnCounter, turnBool = turn90(turnBool, turnCounter)
     else:
         forwardDesired, sidewaysDesired = 0,0
         loopCounter += 1
     
-    yawDesired = 0
+    
+    if reachTarget:
+        targets.pop(0)
+        reachTarget = False
+    
 
     key = Keyboard().getKey()
     while key>0:
@@ -181,9 +213,9 @@ while robot.step(timestep) != -1:
         elif key == Keyboard.LEFT:
             sidewaysDesired = 0.2
         elif key == ord('Q'):
-            yawDesired =  + yaw_rate
+            yawDesired =  + 1
         elif key == ord('E'):
-            yawDesired = - yaw_rate
+            yawDesired = - 1
 
     key = Keyboard().getKey()
 
@@ -209,7 +241,7 @@ while robot.step(timestep) != -1:
     #pid_attitude_fixed_height_controller(actualState, desiredState,
     #gainsPID, dt, motorPower);
     
-
+    
     m1_motor.setVelocity(-motorPower.m1)
     m2_motor.setVelocity(motorPower.m2)
     m3_motor.setVelocity(-motorPower.m3)
