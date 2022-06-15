@@ -85,7 +85,7 @@ loopCounter = 0
 turnBool = False
 turnCounter = 0
 
-targets = [[-3.5,-3.5,1], [3.5,-3.5,2]] # TODO: target setting function
+targets = [[3,-3,1]] # TODO: target setting function
 reachTarget = False
 ## Initialize PID gains.
 gainsPID = GainsPID_t()
@@ -141,15 +141,19 @@ def go_to_POS(actualPOS, desiredPOS):
 
 
 def turn90(turnBool, turnCounter):
-    if turnBool:
-       if turnCounter < 50:
-           turnCounter += 1
-           return 1, turnCounter, turnBool
-       else:
-           turnCounter = 0
-           turnBool = False
-    return 0, turnCounter, turnBool
-       
+    if turnCounter < 50:
+        turnCounter += 1
+        return 1, turnCounter, turnBool
+    else:
+        turnCounter = 0
+        turnBool = False
+        return 0, turnCounter, turnBool
+
+def targetSetter(currentPos, targets):
+    #In the future, this is where the AI and gate finder functions will be called
+    targets.append([6,0,1]) 
+    return targets
+           
 # Main loop:
 while robot.step(timestep) != -1:
 
@@ -188,10 +192,17 @@ while robot.step(timestep) != -1:
     yawDesired = 0
     
     
+    
+        
     if loopCounter == 100 and len(targets) > 0:
         forwardDesired, sidewaysDesired,reachTarget =go_to_POS(currentPos, targets[0])
-        desiredState.altitude = targets[0][2]
-        yawDesired, turnCounter, turnBool = turn90(turnBool, turnCounter)
+        desiredState.altitude = targets[0][2]        
+    elif len(targets) == 0:
+        if turnBool:
+            yawDesired, turnCounter, turnBool = turn90(turnBool, turnCounter)
+        else:
+            forwardDesired, sidewaysDesired = 0,0
+            targets = targetSetter(currentPos, targets)
     else:
         forwardDesired, sidewaysDesired = 0,0
         loopCounter += 1
@@ -200,8 +211,11 @@ while robot.step(timestep) != -1:
     if reachTarget:
         targets.pop(0)
         reachTarget = False
-    
-
+        if len(targets) == 0:
+            currentPos = [0,0]
+            currentVel = [0,0]
+            turnBool = True
+            
     key = Keyboard().getKey()
     while key>0:
         if key == Keyboard.UP:
