@@ -1,2 +1,5 @@
 dataset/
 dataset.zip
+__pycache__/
+model/__pycache__/
+runs/
