@@ -48,7 +48,7 @@ def read_csv_label(filename):
 # collision
 def read_txt_label(filename):
     try:
-        return np.loadtxt(filename, usecols=0, delimiter=',')
+        return np.loadtxt(filename, usecols=0)
     except OSError as e:
          print("No labels found in dir", filename)
 
@@ -92,7 +92,6 @@ class DronetDataset(Dataset):
 
     def __len__(self):
         if len(self.filenames) == len(self.labels) == len(self.types):
-            print(len(self.filenames))
             return len(self.filenames)
         else:
             print("DronetDataset size error", len(self.filenames))
