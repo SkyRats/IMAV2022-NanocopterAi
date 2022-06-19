@@ -32,4 +32,9 @@ for picture in `find dataset/ -regex ".*\.\(jpg\)"`; do
     rm $picture
 done
 
+for picture in `find dataset/ -regex ".*\.\(pgm\)"`; do
+    convert $picture -gravity South -crop 200x200+0+0 -format jpeg "${picture/.pgm/.jpeg}"
+    rm $picture
+done
+
 echo "Pronto!"
