@@ -22,12 +22,14 @@
 # Date:   18.02.2021                                                            #
 #-------------------------------------------------------------------------------#
 
+
 import torch
 import torchvision
 import torchvision.transforms as transforms
 import torch.nn as nn
 import torch.optim as optim
 import nemo
+
 
 class ResBlock(nn.Module):
     def __init__(self, in_channels, out_channels):
@@ -42,7 +44,8 @@ class ResBlock(nn.Module):
         self.bn_bypass = nn.BatchNorm2d(num_features=out_channels, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
         self.relu3 = nn.ReLU6(inplace=False)
         self.add = nemo.quant.pact.PACT_IntegerAdd()
-
+        
+        
     def forward(self, x):
         identity = x
         x = self.conv1(x)
@@ -123,6 +126,7 @@ class dronet_nemo(nn.Module):
         x = self.resBlock3(x)
         # x = self.dropout(x)
         x = x.flatten(1)
+
         x = self.fc(x)
         steer = x[:, 0]
         coll = self.sig(x[:, 1])
