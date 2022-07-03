@@ -4,7 +4,7 @@ WorldInfo {
 Viewpoint {
   fieldOfView 0.9
   orientation -0.3122139960885266 -0.13143910240813753 0.9408752218039206 3.8958803601026046
-  position 2.190498721599154 2.65659992240741 2.414613911558053
+  position 2.497300553760608 2.970573064285331 2.7420019650175074
   follow "Crazyflie"
   followType "Mounted Shot"
   followSmoothness 0.1
@@ -58,8 +58,9 @@ Robot {
     Camera {
       translation 0.03 0 0.01
       fieldOfView 0.87
-      width 324
-      height 324
+      width 200
+      height 200
+      ambientOcclusionRadius 2
     }
     Solid {
       translation 0 0 -0.015

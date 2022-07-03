@@ -24,16 +24,27 @@ from controller import Gyro
 from controller import Keyboard
 from controller import Camera
 from controller import DistanceSensor
+import torch
+import torchvision.transforms as transforms
+import numpy as np
 
+import cv2 as cv
+from PIL import Image, ImageOps
 from math import cos, sin
 
 import sys
 sys.path.append('../../../controllers/')
+from dronet_v2_nemo_dory import dronet_nemo
 from  pid_controller import init_pid_attitude_fixed_height_controller, pid_velocity_fixed_height_controller
 from pid_controller import MotorPower_t, ActualState_t, GainsPID_t, DesiredState_t
 robot = Robot()
 
 timestep = int(robot.getBasicTimeStep())
+## Initialize Ai model
+#Initialize model
+model = dronet_nemo()
+#load the parameters into the model
+model.load_state_dict(torch.load("../../../controllers/Pulp-Dronet/dronet_v2_nemo_dory_original.pth"), "CUDA")
 
 ## Initialize motors
 m1_motor = robot.getDevice("m1_motor");
@@ -85,7 +96,7 @@ loopCounter = 0
 turnBool = False
 turnCounter = 0
 
-targets = [[3,-3,1]] # TODO: target setting function
+targets = [[3,-3,2]] 
 reachTarget = False
 ## Initialize PID gains.
 gainsPID = GainsPID_t()
@@ -149,16 +160,29 @@ def turn90(turnBool, turnCounter):
         turnBool = False
         return 0, turnCounter, turnBool
 
+def ObsChecker(): #Uses Pulp Dronet to calculate chance of collision
+    cameraData = camera.getImage()
+    im = np.frombuffer(cameraData, np.uint8).reshape((camera.getHeight(), camera.getWidth(), 4))
+    im = cv.cvtColor(im, cv.COLOR_BGR2GRAY)
+    #Gets camera data, transforms into cv2 image Garyscale image
+    
+    imP = Image.fromarray(im) #Transforms image into Pillow image
+    transform = transforms.ToTensor()
+    Tensor = transform(imP) #Transforms image into Tensor
+    Tensor = Tensor.unsqueeze(0)
+    Result = model.forward(Tensor)
+    return Result[1][0].item()
+    
+
 def targetSetter(currentPos, targets):
-    #In the future, this is where the AI and gate finder functions will be called
-    targets.append([6,0,1]) 
+    #In the future, this is where the AI and gate finder functions will be called         
+    targets.append([6,0,2]) 
     return targets
            
 # Main loop:
 while robot.step(timestep) != -1:
 
     dt = robot.getTime() - past_time;
-    
 
     ## Get measurements
     actualState.roll = imu.getRollPitchYaw()[0]
@@ -188,7 +212,7 @@ while robot.step(timestep) != -1:
     desiredState.vx = 0
     desiredState.vy = 0
     desiredState.yaw_rate = 0
-    desiredState.altitude = 1
+    desiredState.altitude = 2
     yawDesired = 0
     
     
@@ -254,7 +278,9 @@ while robot.step(timestep) != -1:
     #desiredState.pitch = forwardDesired;
     #pid_attitude_fixed_height_controller(actualState, desiredState,
     #gainsPID, dt, motorPower);
-    
+    ObsChance = ObsChecker()
+    if ObsChance >= 0.8:
+        print(ObsChance)
     
     m1_motor.setVelocity(-motorPower.m1)
     m2_motor.setVelocity(motorPower.m2)
