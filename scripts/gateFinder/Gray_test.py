@@ -3,17 +3,15 @@ import numpy as np
 import cv2 as cv
 
 
-
-im = cv.imread('gate1.png', cv.IMREAD_GRAYSCALE) #Loads the image
+# Loads the grayscale image, processes it until we can find the contours a little easier
+im = cv.imread('gate1.png', cv.IMREAD_GRAYSCALE) 
 blur_im = cv.blur(im, (3,3))
 edges = cv.Canny(blur_im, 77, 186)
 kernel = np.ones((5,5), np.uint8)
 dilEdges = cv.dilate(edges,kernel, iterations=2)
 contours, hierarchy = cv.findContours(dilEdges, cv.RETR_CCOMP, cv.CHAIN_APPROX_SIMPLE )
-#cv.imshow('thresh', dilEdges)
-#cv.imshow('im', im)
-#cv.waitKey(-1)
 
+#Aproximates the contours, and saves the ones who form a straight line with a minimal size
 lines = []
 for i in contours:
     aprox =cv.approxPolyDP(i,8,True)
@@ -29,7 +27,7 @@ for i in contours:
                         lines.append([aprox[i], aprox[j+i], distance])
 
 squares = []
-
+#Checks if the lines found share one coordinate and if they have about the same lenght. If so, they can form a square
 while len(lines) > 1:
     j = 1
     while j <= len(lines)-1:
@@ -43,24 +41,25 @@ while len(lines) > 1:
             dy21 = lines[0][1][0][1] - lines[j][0][0][1]
             dy22 = lines[0][1][0][1] - lines[j][1][0][1]
             if (dx11 >= -10 and dx11 <= 10) and (dy11 >= -10 and dy11 <= 10):
-                squares.append([lines[0][0], lines[0][1], lines[j][1], 0])
+                squares.append([lines[0][0], lines[0][1], lines[j][1]])
                 lines.pop(j)
                 lines.pop(0)
             elif (dx12 >= -10 and dx12 <= 10) and (dy12 >= -10 and dy12 <= 10):
-                squares.append([lines[0][0], lines[0][1], lines[j][0],0])
+                squares.append([lines[0][0], lines[0][1], lines[j][0]])
                 lines.pop(j)
                 lines.pop(0)
             elif (dx21 >= -10 and dx21 <= 10) and (dy21 >= -10 and dy21 <= 10):
-                squares.append([lines[0][0], lines[0][1], lines[j][1],1])
+                squares.append([lines[0][0], lines[0][1], lines[j][1]])
                 lines.pop(j)
                 lines.pop(0)
             elif (dx22 >= -10 and dx22 <= 10) and (dy22 >= -10 and dy22 <= 10):
-                squares.append([lines[0][0], lines[0][1], lines[j][0],1])
+                squares.append([lines[0][0], lines[0][1], lines[j][0]])
                 lines.pop(j)
                 lines.pop(0)
         j += 1
     lines.pop(0)
 
+# Calculates the centers for each square found, removes the ones on the extremities.
 Centers = []
 for i in squares:
     cv.drawMarker(im, i[0][0], (0,255,0))
@@ -84,6 +83,7 @@ for i in squares:
     if (CenterX >= 100 and CenterX <= im.shape[1] - 100) and (CenterY >= 100 and CenterY <= im.shape[0] - 200):
         Centers.append([CenterX,CenterY])
 
+# Calculates the average of the centers found, which is roughly the desired center of the square
 SumX = 0
 SumY = 0
 for i in Centers:
