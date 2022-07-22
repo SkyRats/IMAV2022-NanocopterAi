@@ -29,7 +29,7 @@ image_gray = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
 image = image_gray[left:right, top:bottom]
 
 image = PIL.Image.fromarray(image)
-print(image.size())
+
 
 
 #grayim = grayim.crop((left, top, right, bottom))
