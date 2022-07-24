@@ -126,6 +126,7 @@ class dronet_nemo(nn.Module):
         x = self.resBlock3(x)
         # x = self.dropout(x)
         x = x.flatten(1)
+
         x = self.fc(x)
         steer = x[:, 0]
         coll = self.sig(x[:, 1])
