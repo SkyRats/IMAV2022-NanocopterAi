@@ -1,12 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "ppmReader.h"
+#include "imageIO.h"
 
 
-PPMGRAYImage *readGrayscalePPM(const char *filename)
+PGMImage *readPGM(const char *filename)
 {
          char buff[16];
-         PPMGRAYImage *img;
+         PGMImage *img;
          FILE *fp;
          int c, rgb_comp_color;
          //open PPM file for reading
@@ -29,7 +29,7 @@ PPMGRAYImage *readGrayscalePPM(const char *filename)
     }
 
     //alloc memory form image
-    img = (PPMGRAYImage *)malloc(sizeof(PPMGRAYImage));
+    img = (PGMImage *)malloc(sizeof(PGMImage));
     if (!img) {
          fprintf(stderr, "Unable to allocate memory\n");
          exit(1);
@@ -64,7 +64,7 @@ PPMGRAYImage *readGrayscalePPM(const char *filename)
 
     while (fgetc(fp) != '\n') ;
     //memory allocation for pixel data
-    img->data = (PPMGRAYPixel*)malloc(img->x * img->y * sizeof(PPMGRAYPixel));
+    img->data = (PGMPixel*)malloc(img->x * img->y * sizeof(PGMPixel));
 
     if (!img) {
          fprintf(stderr, "Unable to allocate memory\n");
@@ -80,7 +80,7 @@ PPMGRAYImage *readGrayscalePPM(const char *filename)
     fclose(fp);
     return img;
 }
-void writeGrayscalePPM(const char *filename, PPMGRAYImage *img)
+void writePGM(const char *filename, PGMImage *img)
 {
     FILE *fp;
     //open file for output
@@ -108,7 +108,7 @@ void writeGrayscalePPM(const char *filename, PPMGRAYImage *img)
     fclose(fp);
 }
 
-void changeColorPPM(PPMGRAYImage *img)
+void changeContrastPGM(PGMImage *img)
 {
     int i;
     if(img){

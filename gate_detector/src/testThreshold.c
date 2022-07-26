@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "ppmReader.h"
+#include "imageIO.h"
 #include "threshold.h"
 
 int main(int argc, char** argv)
@@ -14,10 +14,10 @@ int main(int argc, char** argv)
 
     char** placeholder = NULL;
 
-    PPMGRAYImage *image;
-    image = readGrayscalePPM(argv[1]);
+    PGMImage *image;
+    image = readPGM(argv[1]);
     thresholdImage(image, strtol(argv[3], placeholder, 10));
-    writeGrayscalePPM(argv[2],image);
+    writePGM(argv[2],image);
     printf("Done.\n");
 
     return 0;

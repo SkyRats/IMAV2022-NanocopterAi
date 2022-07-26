@@ -1,7 +1,7 @@
 #include "threshold.h"
 
 
-void thresholdImage(PPMGRAYImage *img, uint8_t thresholdValue)
+void thresholdImage(PGMImage *img, uint8_t thresholdValue)
 {
     int i;
 
