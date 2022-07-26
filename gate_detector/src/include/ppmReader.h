@@ -1,3 +1,5 @@
+#ifndef __PPM_READER_H__
+#define __PPM_READER_H__
 #define CREATOR "RPFELGUEIRAS"
 #define MAXIMUM_VALUE 255
 
@@ -22,3 +24,4 @@ typedef struct {
 void writeGrayscalePPM(const char *filename, PPMGRAYImage *img);
 PPMGRAYImage *readGrayscalePPM(const char *filename);
 void changeColorPPM(PPMGRAYImage *img);
+#endif
