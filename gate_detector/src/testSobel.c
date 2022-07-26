@@ -27,6 +27,8 @@ int main(int argc, char** argv)
     }
 
     writePGM(argv[2],sobelTestImg);
+    free(image);
+    free(sobelTestImg);
     printf("Done.\n");
 
     return 0;
