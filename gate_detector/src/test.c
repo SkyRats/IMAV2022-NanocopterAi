@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "../include/ppmReader.h"
+#include "ppmReader.h"
 
 int main(){
     PPMGRAYImage *image;
