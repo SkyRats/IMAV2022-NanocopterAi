@@ -34,6 +34,7 @@ from math import cos, sin
 
 import sys
 sys.path.append('../../../controllers/')
+from gateFinder import gateFinder
 from dronet_v2_nemo_dory import dronet_nemo
 from  pid_controller import init_pid_attitude_fixed_height_controller, pid_velocity_fixed_height_controller
 from pid_controller import MotorPower_t, ActualState_t, GainsPID_t, DesiredState_t
@@ -89,7 +90,7 @@ actualState = ActualState_t()
 desiredState = DesiredState_t()
 pastXGlobal = 0
 pastYGlobal = 0
-currentPos = [0,0]
+currentPos = [0,0,0]
 currentVel = [0,0]
 past_time = robot.getTime()
 loopCounter = 0
@@ -160,12 +161,16 @@ def turn90(turnBool, turnCounter):
         turnBool = False
         return 0, turnCounter, turnBool
 
-def ObsChecker(): #Uses Pulp Dronet to calculate chance of collision
-    cameraData = camera.getImage()
-    im = np.frombuffer(cameraData, np.uint8).reshape((camera.getHeight(), camera.getWidth(), 4))
-    im = cv.cvtColor(im, cv.COLOR_BGR2GRAY)
-    #Gets camera data, transforms into cv2 image Garyscale image
+def ObsChecker(im): #Uses Pulp Dronet to calculate chance of collision
     
+    """
+    height, width = camera.getHeight(), camera.getWidth()
+    left = width//2 - 100
+    top = height - 200
+    right = width//2 + 100
+    bottom = height
+    im = im[left:right, top:bottom]
+    """
     imP = Image.fromarray(im) #Transforms image into Pillow image
     transform = transforms.ToTensor()
     Tensor = transform(imP) #Transforms image into Tensor
@@ -173,9 +178,24 @@ def ObsChecker(): #Uses Pulp Dronet to calculate chance of collision
     Result = model.forward(Tensor)
     return Result[1][0].item()
     
-
 def targetSetter(currentPos, targets):
     #In the future, this is where the AI and gate finder functions will be called         
+    #Gets camera data, transforms into cv2 Grayscale image
+    cameraData = camera.getImage()
+    im = np.frombuffer(cameraData, np.uint8).reshape((camera.getHeight(), camera.getWidth(), 4))
+    im = cv.cvtColor(im, cv.COLOR_BGR2GRAY)
+    
+    gate = gateFinder(im)
+    
+    if gate != False:
+        print(gate)
+        offsetY = 100 - gate[0]
+        #offsetZ = 200 - gate[1]
+        gateY = offsetY/200
+        #gateZ = offsetZ//200
+        targets.append([currentPos[0] + 4, gateY,2])
+        print(targets)
+        
     targets.append([6,0,2]) 
     return targets
            
@@ -195,7 +215,7 @@ while robot.step(timestep) != -1:
     vyGlobal = (yGlobal - pastYGlobal)/dt
     currentPos[0] += currentVel[0]*dt
     currentPos[1] += currentVel[1]*dt
-    
+    currentPos[2] = actualState.altitude
    
     ## Get body fixed velocities
     actualYaw = imu.getRollPitchYaw()[2];
@@ -236,7 +256,7 @@ while robot.step(timestep) != -1:
         targets.pop(0)
         reachTarget = False
         if len(targets) == 0:
-            currentPos = [0,0]
+            currentPos = [0,0,0]
             currentVel = [0,0]
             turnBool = True
             
@@ -278,9 +298,7 @@ while robot.step(timestep) != -1:
     #desiredState.pitch = forwardDesired;
     #pid_attitude_fixed_height_controller(actualState, desiredState,
     #gainsPID, dt, motorPower);
-    ObsChance = ObsChecker()
-    if ObsChance >= 0.8:
-        print(ObsChance)
+    
     
     m1_motor.setVelocity(-motorPower.m1)
     m2_motor.setVelocity(motorPower.m2)
