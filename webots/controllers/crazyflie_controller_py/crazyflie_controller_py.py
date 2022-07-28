@@ -29,7 +29,7 @@ import torchvision.transforms as transforms
 import numpy as np
 
 import cv2 as cv
-from PIL import Image, ImageOps
+from PIL import Image, ImageOps, ImageFilter
 from math import cos, sin
 
 import sys
@@ -44,7 +44,7 @@ timestep = int(robot.getBasicTimeStep())
 #Initialize model
 model = dronet_nemo()
 #load the parameters into the model
-model.load_state_dict(torch.load("../../../controllers/Pulp-Dronet/dronet_v2_nemo_dory_original.pth"), "CUDA")
+model.load_state_dict(torch.load("../../../controllers/Pulp-Dronet/dronet_v2_nemo_dory_original_himax.pth"), "CUDA")
 
 ## Initialize motors
 m1_motor = robot.getDevice("m1_motor");
@@ -163,10 +163,12 @@ def turn90(turnBool, turnCounter):
 def ObsChecker(): #Uses Pulp Dronet to calculate chance of collision
     cameraData = camera.getImage()
     im = np.frombuffer(cameraData, np.uint8).reshape((camera.getHeight(), camera.getWidth(), 4))
-    im = cv.cvtColor(im, cv.COLOR_BGR2GRAY)
+    #im = cv.cvtColor(im, cv.COLOR_BGR2GRAY)
     #Gets camera data, transforms into cv2 image Garyscale image
     
     imP = Image.fromarray(im) #Transforms image into Pillow image
+    imP = imP.filter(ImageFilter.GaussianBlur(2))
+    imP = imP.convert("L")
     transform = transforms.ToTensor()
     Tensor = transform(imP) #Transforms image into Tensor
     Tensor = Tensor.unsqueeze(0)
@@ -279,7 +281,7 @@ while robot.step(timestep) != -1:
     #pid_attitude_fixed_height_controller(actualState, desiredState,
     #gainsPID, dt, motorPower);
     ObsChance = ObsChecker()
-    if ObsChance >= 0.8:
+    if ObsChance >= 0.5:
         print(ObsChance)
     
     m1_motor.setVelocity(-motorPower.m1)
