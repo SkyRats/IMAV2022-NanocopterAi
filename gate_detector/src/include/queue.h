@@ -1,16 +1,17 @@
 #ifndef __QUEUE__
 #define __QUEUE__
-#include <stdio.h>
 #include <stdint.h>
 #include <stdbool.h>
 
-typedef struct
+struct Queue
 {
     uint16_t *queueItem;
     uint32_t head;
     uint32_t tail;
     uint32_t max;
-} Queue;
+}__attribute__((packed));
+
+typedef struct Queue Queue;
 
 Queue * createQueue(uint32_t size);
 void destroyQueue(Queue*);

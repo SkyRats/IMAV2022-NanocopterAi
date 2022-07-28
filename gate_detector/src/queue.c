@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include "include/queue.h"
+#include "queue.h"
 
 Queue * createQueue(uint32_t size)
 {
