@@ -33,7 +33,8 @@ cfg.data_path= '../pulp-dronet-dataset/'
 cfg.logs_path='./logs/'
 cfg.flow='nemo_dory'
 cfg.testing_dataset='original'
-cfg.model_weights='model/dronet_v2_nemo_dory_original.pth'
+#cfg.model_weights='model/dronet_v2_nemo_dory_original.pth'
+cfg.model_weights='model/dronet_v2_nemo_dory_original_himax.pth'
 cfg.gpu='0'
 cfg.workers=4
 
@@ -49,7 +50,8 @@ cfg.hard_mining_train = True
 cfg.early_stopping = False
 cfg.patience = 15
 cfg.delta = 0
-cfg.resume_training = False
+#cfg.resume_training = False
+cfg.resume_training = True
 
 # testing.py
 cfg.testing_batch_size=32
