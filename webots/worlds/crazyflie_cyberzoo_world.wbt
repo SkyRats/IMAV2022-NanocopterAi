@@ -4,7 +4,7 @@ WorldInfo {
 Viewpoint {
   fieldOfView 0.9
   orientation -0.08682501984150341 -0.15451154938171707 0.9841684800059304 5.1303149627185665
-  position -0.4671089817123657 1.091442955257661 0.45340797820052103
+  position -0.5956458238879379 1.308709204273547 0.41986050484354015
   follow "Crazyflie"
   followType "Mounted Shot"
   followSmoothness 0.1
@@ -253,7 +253,7 @@ Robot {
     density -1
     mass 0.05
   }
-  controller "crazyflie_controller_py"
+  controller "crazyflie_controller"
 }
 DEF Cyberzoo Transform {
   translation -5 -5 0
@@ -505,7 +505,7 @@ DEF Cyberzoo Transform {
               boundingObject USE SHAPE
             }
             Solid {
-              translation 194.3 92.33 0
+              translation 360.77 26.42 0
               rotation 0 0 1 1.5708
               children [
                 DEF SHAPE Group {
@@ -21839,7 +21839,7 @@ DEF Objects Group {
       name "Panel - Metal 1"
     }
     Solid {
-      translation 2.28012 0.90014 -7.10716e-08
+      translation 4.40012 0.900141 -7.10716e-08
       rotation -0.02761878697395516 1.5824392536629253e-08 0.9996185285428073 2.85387e-06
       scale 0.0254 0.0254 0.0254
       children [

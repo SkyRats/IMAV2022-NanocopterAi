@@ -27,10 +27,39 @@
 
 #include "../../../controllers/pid_controller.h"
 
+#define PI 3.142857
+
+int currentState = 0; //0 - Goes forward, 1- Backs up, 2 - arena scan/rotate, 3- align to object, 4- Avoid obstacle
+double oldYaw = 0;
+
 int main(int argc, char **argv) {
   wb_robot_init();
 
   int timestep = (int)wb_robot_get_basic_time_step();
+  
+
+//Rotates to the desired angle (in radians)
+float rotate(double actualYaw, double desiredYaw) {
+  printf("%lf \n", actualYaw);
+  if (desiredYaw > PI){
+    desiredYaw = PI - desiredYaw;
+  }
+  else if(desiredYaw < -PI){
+    desiredYaw = -(desiredYaw +PI);
+  }
+  actualYaw *= 10;
+  desiredYaw *= 10;
+  if (round(actualYaw)  < round(desiredYaw)) {
+    return 0.5;
+  }
+  else if (round(actualYaw) > round(desiredYaw)){
+    return -0.5;
+  }
+  else{
+    currentState = 0;
+    return 0;
+  } 
+}
 
   // Initialize motors
   WbDeviceTag m1_motor = wb_robot_get_device("m1_motor");
@@ -110,7 +139,8 @@ int main(int argc, char **argv) {
     double vxGlobal = (xGlobal - pastXGlobal)/dt;
     double yGlobal = wb_gps_get_values(gps)[1];
     double vyGlobal = (yGlobal - pastYGlobal)/dt;
-
+    
+    
     // Get body fixed velocities
     double actualYaw = wb_inertial_unit_get_roll_pitch_yaw(imu)[2];
     double cosyaw = cos(actualYaw);
@@ -118,6 +148,7 @@ int main(int argc, char **argv) {
     actualState.vx = vxGlobal * cosyaw + vyGlobal * sinyaw;
     actualState.vy = - vxGlobal * sinyaw + vyGlobal * cosyaw;
 
+    
     // Initialize values
     desiredState.roll = 0;
     desiredState.pitch = 0;
@@ -129,7 +160,34 @@ int main(int argc, char **argv) {
     double forwardDesired = 0;
     double sidewaysDesired = 0;
     double yawDesired = 0;
-
+    
+    switch(currentState){
+      case 0:// Going toward something
+        if (xGlobal >= 2.5 || xGlobal <= -2.5 || yGlobal >= 2.5 || yGlobal <= -2.5){
+          currentState = 1;
+          break;
+        }
+        forwardDesired = 1;
+        break;
+      case 1:// Reached the borders, backing up
+        if (xGlobal >= 2.5 || xGlobal <= -2.5 || yGlobal >= 2.5 || yGlobal <= -2.5){
+          forwardDesired = -1;
+        }
+        else{
+          oldYaw = actualYaw;
+          currentState = 2;
+        }
+        
+        break;
+      case 2: // Rotating, Scanning for gates
+        yawDesired = rotate(actualYaw, oldYaw - PI/2 );
+        //Gatefinder algorithm goes here
+        break;
+      case 3: // Gate Alignment
+        break;
+      case 4: // Avoiding detected obstacles
+        break;
+    }
     // Control altitude
     int key = wb_keyboard_get_key();
     while (key > 0) {
