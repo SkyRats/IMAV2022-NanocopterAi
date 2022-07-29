@@ -4,7 +4,7 @@ import cv2 as cv
 
 
 # Loads the grayscale image, processes it until we can find the contours a little easier
-im = cv.imread('gate1.png', cv.IMREAD_GRAYSCALE) 
+im = cv.imread('gate3.png', cv.IMREAD_GRAYSCALE) 
 blur_im = cv.blur(im, (3,3))
 edges = cv.Canny(blur_im, 77, 186)
 kernel = np.ones((5,5), np.uint8)
@@ -62,9 +62,7 @@ while len(lines) > 1:
 # Calculates the centers for each square found, removes the ones on the extremities.
 Centers = []
 for i in squares:
-    cv.drawMarker(im, i[0][0], (0,255,0))
-    cv.drawMarker(im, i[0][0], (0,255,0))
-    cv.drawMarker(im, i[0][0], (0,255,0))
+
     maiorX = 0
     smaiorX = 1
     maiorY = 0
