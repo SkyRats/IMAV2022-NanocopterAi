@@ -5,9 +5,9 @@
 #include "threshold.h"
 
 const uint8_t sobel_mask_0[9] =
-   { 1, 0, -1,
-    2, 0, -2,
-   1, 0, -1 };
+   { -1, 0, -1,
+    0, 4, 0,
+   -1, 0, -1 };
 
 int main(int argc, char** argv)
 {

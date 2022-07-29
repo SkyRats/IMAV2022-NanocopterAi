@@ -6,14 +6,14 @@
 struct Queue
 {
     uint16_t *queueItem;
-    uint32_t head;
-    uint32_t tail;
-    uint32_t max;
+    uint16_t head;
+    uint16_t tail;
+    uint16_t max;
 }__attribute__((packed));
 
 typedef struct Queue Queue;
 
-Queue * createQueue(uint32_t size);
+Queue * createQueue(uint16_t size);
 void destroyQueue(Queue*);
 bool queueIsEmpty(Queue*);
 void increaseQueue(Queue*);

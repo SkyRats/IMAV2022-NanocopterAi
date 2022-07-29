@@ -32,6 +32,7 @@ Most of the code is experimental.
 ## Second option
 
 - Otsu threshold (Igor/Gentil)
+- Edge detector
 - Erosion (Mateus)
 - distanceTransform (Igor)
 - Watershed (Gentil/Igor/Mateus)

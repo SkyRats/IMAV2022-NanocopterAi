@@ -47,6 +47,15 @@ $(BUILD_DIR)/test.o: test.c
 $(BUILD_DIR)/detectingEdges.o: detectingEdges.c
 	$(CC) $(CFLAGS) -o $(BUILD_DIR)/$@ -c $<
 
+$(BUILD_DIR)/queue.o: queue.c
+	$(CC) $(CFLAGS) -o $(BUILD_DIR)/$@ -c $<
+
+$(BUILD_DIR)/vector.o: vector.c
+	$(CC) $(CFLAGS) -o $(BUILD_DIR)/$@ -c $<
+
+$(BUILD_DIR)/distanceTransform.o: distanceTransform.c
+	$(CC) $(CFLAGS) -o $(BUILD_DIR)/$@ -c $<
+
 .PHONY: clean
 
 clean:

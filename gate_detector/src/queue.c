@@ -1,68 +1,85 @@
 #include <stdlib.h>
 #include "queue.h"
 
-Queue * createQueue(uint32_t size)
+Queue * createQueue(uint16_t size)
 {
     Queue *q = NULL;
     q = malloc(sizeof(Queue));
+    if(q == NULL)
+    {
+        #ifdef DEBUG_ON
+        printf("Allocation of memory failed on createQueue.\n");
+        #endif
+        return NULL;
+    }
     q->queueItem = malloc(size * sizeof(uint16_t));
     q->max = size;
     q->head = 0;
     q->tail = 0;
-
     return q;
 }
 
-void destroyQueue(Queue * f)
+void destroyQueue(Queue * q)
 {
-    free(f->queueItem);
-    free(f);
+    free(q->queueItem);
+    free(q);
 }
 
-bool queueIsEmpty(Queue * f)
+bool queueIsEmpty(Queue * q)
 {
-    return (f->head == f->tail);
+    return (q->head == q->tail);
 }
 
-void increaseQueue(Queue * f)
+void increaseQueue(Queue * q)
 {
-    uint16_t *v2 = malloc(2 * f->max * sizeof(uint16_t));
+    uint16_t *v2 = malloc(2 * q->max * sizeof(uint16_t));
+    if(v2 == NULL)
+    {
+        #ifdef DEBUG_ON
+        printf("Allocation of memory failed on increaseQueue\n");
+        #endif
+        return;
+    }
+
+    #ifdef DEBUG_ON
+    printf("Queue's size was increased to %d\n", 2*q->max*sizeof(uint16_t));
+    #endif
     int i, k;
 
-    for(i = f->head, k = 0; i != f->tail; i = (i + 1)%f->max)
-        v2[k] = f->queueItem[i];
+    for(i = q->head, k = 0; i != q->tail; i = (i + 1)%q->max)
+        v2[k] = q->queueItem[i];
 
-    free(f->queueItem);
+    free(q->queueItem);
 
-    f->head = 0;
-    f->tail = f->max - 1;
-    f->max *= 2;
-    f->queueItem = v2;
+    q->head = 0;
+    q->tail = q->max - 1;
+    q->max *= 2;
+    q->queueItem = v2;
 }
 
-uint16_t queuePeek(Queue * f)
+uint16_t queuePeek(Queue * q)
 {
-    if(!queueIsEmpty(f))
-        return f->queueItem[f->head];
+    if(!queueIsEmpty(q))
+        return q->queueItem[q->head];
     return (uint16_t)65535; /* 2^16 -1*/
 }
 
-void enqueue(Queue * f, uint16_t X)
+void enqueue(Queue * q, uint16_t X)
 {
-    if(f->head == (f->tail + 1)%f->max) /* Queue is full */
-        increaseQueue(f);
+    if(q->head == (q->tail + 1)%q->max) /* Queue is full */
+        increaseQueue(q);
 
-    f->queueItem[f->tail] = X;
-    f->tail = (f->tail + 1)%f->max;
+    q->queueItem[q->tail] = X;
+    q->tail = (q->tail + 1)%q->max;
 }
 
-uint16_t dequeue(Queue * f)
+uint16_t dequeue(Queue * q)
 {
     uint16_t aux;
-    if(!queueIsEmpty(f))
+    if(!queueIsEmpty(q))
     {
-        aux = f->queueItem[f->head];
-        f->head = (f->head + 1)%f->max;
+        aux = q->queueItem[q->head];
+        q->head = (q->head + 1)%q->max;
         return aux;
     }
 
