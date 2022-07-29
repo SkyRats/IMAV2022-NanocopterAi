@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "imageIO.h"
-#include "sobelEdgeDetector.h"
+#include "convolution.h"
 #include "threshold.h"
 
 const uint8_t sobel_mask_0[9] =
@@ -24,7 +24,7 @@ int main(int argc, char** argv)
     PGMImage *image;
     image = readPGM(argv[1]);
     thresholdImage(image, strtol(argv[3], placeholder, 10));
-    PGMImage *sobelTestImg =  sobelEdgeContrast(image, sobel_mask_0);
+    PGMImage *sobelTestImg =  convolution3by3(image, sobel_mask_0);
     if(sobelTestImg == NULL || sobelTestImg->data == NULL)
     {
         printf("Allocation of memory failed.");

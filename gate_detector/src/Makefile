@@ -5,16 +5,19 @@ SRC_DIR ?= .
 
 CFLAGS=-g -Wall -I$(SRC_DIR)/include
 
-detectingEdges: $(BUILD_DIR)/detectingEdges.o $(BUILD_DIR)/threshold.o $(BUILD_DIR)/sobelEdgeDetector.o $(BUILD_DIR)/imageIO.o
+filterAndEdgeDetect: $(BUILD_DIR)/filterAndEdgeDetect.o $(BUILD_DIR)/threshold.o $(BUILD_DIR)/convolution.o $(BUILD_DIR)/filter.o $(BUILD_DIR)/imageIO.o
 	$(CC) $(CFLAGS) $^ -o $(BUILD_DIR)/$@
 
-testSobel: $(BUILD_DIR)/testSobel.o $(BUILD_DIR)/sobelEdgeDetector.o $(BUILD_DIR)/imageIO.o
+testFilter: $(BUILD_DIR)/testFilter.o $(BUILD_DIR)/filter.o $(BUILD_DIR)/imageIO.o
+	$(CC) $(CFLAGS) $^ -o $(BUILD_DIR)/$@
+
+detectingEdges: $(BUILD_DIR)/detectingEdges.o $(BUILD_DIR)/threshold.o $(BUILD_DIR)/convolution.o $(BUILD_DIR)/imageIO.o
+	$(CC) $(CFLAGS) $^ -o $(BUILD_DIR)/$@
+
+testSobel: $(BUILD_DIR)/testSobel.o $(BUILD_DIR)/convolution.o $(BUILD_DIR)/imageIO.o
 	$(CC) $(CFLAGS) $^ -o $(BUILD_DIR)/$@
 
 testThreshold: $(BUILD_DIR)/testThreshold.o $(BUILD_DIR)/threshold.o $(BUILD_DIR)/imageIO.o
-	$(CC) $(CFLAGS) $^ -o $(BUILD_DIR)/$@
-
-edgeDetector: $(BUILD_DIR)/edgeDetector.o $(BUILD_DIR)/kernelUtils.o $(BUILD_DIR)/imageIO.o
 	$(CC) $(CFLAGS) $^ -o $(BUILD_DIR)/$@
 
 test: $(BUILD_DIR)/test.o $(BUILD_DIR)/imageIO.o
@@ -23,7 +26,7 @@ test: $(BUILD_DIR)/test.o $(BUILD_DIR)/imageIO.o
 $(BUILD_DIR)/testSobel.o: testSobel.c
 	$(CC) $(CFLAGS) -o $(BUILD_DIR)/$@ -c $<
 
-$(BUILD_DIR)/sobelEdgeDetector.o: sobelEdgeDetector.c
+$(BUILD_DIR)/convolution.o: convolution.c
 	$(CC) $(CFLAGS) -o $(BUILD_DIR)/$@ -c $<
 
 $(BUILD_DIR)/edgeDetector.o: edgeDetector.c
@@ -54,6 +57,15 @@ $(BUILD_DIR)/vector.o: vector.c
 	$(CC) $(CFLAGS) -o $(BUILD_DIR)/$@ -c $<
 
 $(BUILD_DIR)/distanceTransform.o: distanceTransform.c
+	$(CC) $(CFLAGS) -o $(BUILD_DIR)/$@ -c $<
+
+$(BUILD_DIR)/filter.o: filter.c
+	$(CC) $(CFLAGS) -o $(BUILD_DIR)/$@ -c $<
+
+$(BUILD_DIR)/testFilter.o: testFilter.c
+	$(CC) $(CFLAGS) -o $(BUILD_DIR)/$@ -c $<
+
+$(BUILD_DIR)/filterAndEdgeDetect.o: filterAndEdgeDetect.c
 	$(CC) $(CFLAGS) -o $(BUILD_DIR)/$@ -c $<
 
 .PHONY: clean

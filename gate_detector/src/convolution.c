@@ -58,59 +58,63 @@ PGMImage* convolution3by3(PGMImage const *img, const uint8_t mask[9])
     if(img)
     {
 
-        int idx;
-        int idxr[8];
+        uint8_t x, y, convolutedPixel;
 
-        PGMImage* sobelImg = (PGMImage *)malloc(sizeof(PGMImage));
+        uint16_t idx;
+        uint16_t idxr[8];
+        const uint8_t imageWidth = img->x;
+        const uint8_t imageHeight = img->y;
 
-        if(sobelImg == NULL)
+        PGMImage* convolutedImg = (PGMImage *)malloc(sizeof(PGMImage));
+
+        if(convolutedImg == NULL)
             return NULL;
 
-        sobelImg->x = img->x;
-        sobelImg->y = img->y;
-        sobelImg->data = (PGMPixel*)malloc(sobelImg->x * sobelImg->y * sizeof(PGMPixel));
+        convolutedImg->x = imageWidth;
+        convolutedImg->y = imageHeight;
+        convolutedImg->data = (PGMPixel*)malloc(imageWidth * imageHeight * sizeof(PGMPixel));
 
-        if(sobelImg->data == NULL)
+        if(convolutedImg->data == NULL)
             return NULL;
 
-        for(int y = 0; y < img->y; ++y)
+        for(y = 0; y < imageHeight; ++y)
         {
-            for(int x = 0; x < img->x;++x)
+            for(x = 0; x < imageWidth;++x)
             {
                 /* pixel to be convoluted */
-                idx = y * img->x + x;
+                idx = y * imageWidth + x;
 
-                if(x == 0 || y == 0 || x == img->x -1 || y == img->y -1)
-                    sobelImg->data[idx].gray = 0;
+                if(x == 0 || y == 0 || x == imageWidth -1 || y == imageHeight -1)
+                    convolutedImg->data[idx].gray = 0;
                 else
                 {
                     /* finding position of each pixel around idx*/
-                    idxr[0] = (y - 1)* img->x + (x - 1);
-                    idxr[1] = (y)* img->x + (x - 1);
-                    idxr[2] = (y + 1)* img->x + (x - 1);
-                    idxr[3] = (y + 1)* img->x + (x);
-                    idxr[4] = (y + 1)* img->x + (x + 1);
-                    idxr[5] = (y)* img->x + (x + 1);
-                    idxr[6] = (y - 1)* img->x + (x + 1);
-                    idxr[7] = (y - 1)* img->x + (x);
+                    idxr[0] = (y - 1)* imageWidth + (x - 1);
+                    idxr[1] = (y)* imageWidth + (x - 1);
+                    idxr[2] = (y + 1)* imageWidth + (x - 1);
+                    idxr[3] = (y + 1)* imageWidth + (x);
+                    idxr[4] = (y + 1)* imageWidth + (x + 1);
+                    idxr[5] = (y)* imageWidth + (x + 1);
+                    idxr[6] = (y - 1)* imageWidth + (x + 1);
+                    idxr[7] = (y - 1)* imageWidth + (x);
 
                     /* applying mask */
-                    sobelImg->data[idx].gray = img->data[idxr[0]].gray*mask[0];
-                    sobelImg->data[idx].gray+= img->data[idxr[1]].gray*mask[1];
-                    sobelImg->data[idx].gray+= img->data[idxr[2]].gray*mask[2];
-                    sobelImg->data[idx].gray+= img->data[idxr[3]].gray*mask[3];
-                    sobelImg->data[idx].gray+= img->data[idxr[4]].gray*mask[5];
-                    sobelImg->data[idx].gray+= img->data[idxr[5]].gray*mask[6];
-                    sobelImg->data[idx].gray+= img->data[idxr[6]].gray*mask[7];
-                    sobelImg->data[idx].gray+= img->data[idxr[7]].gray*mask[8];
+                    convolutedPixel = img->data[idxr[0]].gray*mask[0];
+                    convolutedPixel+= img->data[idxr[1]].gray*mask[1];
+                    convolutedPixel+= img->data[idxr[2]].gray*mask[2];
+                    convolutedPixel+= img->data[idxr[3]].gray*mask[3];
+                    convolutedPixel+= img->data[idxr[4]].gray*mask[5];
+                    convolutedPixel+= img->data[idxr[5]].gray*mask[6];
+                    convolutedPixel+= img->data[idxr[6]].gray*mask[7];
+                    convolutedPixel+= img->data[idxr[7]].gray*mask[8];
 
                     /* value of the pixel itself*/
-                    sobelImg->data[idx].gray+= img->data[idx].gray*mask[4];
+                    convolutedImg->data[idx].gray = convolutedPixel + img->data[idx].gray*mask[4];
                 }
             }
         }
 
-        return sobelImg;
+        return convolutedImg;
     }
 
     return NULL;
