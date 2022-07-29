@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include "imageIO.h"
 #include "sobelEdgeDetector.h"
 #include "threshold.h"

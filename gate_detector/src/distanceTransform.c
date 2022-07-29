@@ -1,5 +1,6 @@
 #include <stdint.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include "distanceTransform.h"
 #include "queue.h"
 #include "imageIO.h"

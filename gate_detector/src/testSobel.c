@@ -1,12 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "imageIO.h"
-#include "sobelEdgeDetector.h"
+#include "convolution.h"
 
-const uint8_t sobel_mask_5[9] =
-   {-2, -1, 0,
-   -1, 0, 1,
-    0, 1, 2 };
+const uint8_t sobel_mask_0[9] =
+   { 1, 0, -1,
+    2, 0, -2,
+   1, 0, -1 };
 
 int main(int argc, char** argv)
 {
@@ -19,7 +19,8 @@ int main(int argc, char** argv)
 
     PGMImage *image;
     image = readPGM(argv[1]);
-    PGMImage *sobelTestImg =  sobelEdgeContrast(image, sobel_mask_5);
+    PGMImage *sobelTestImg =  convolution3by3(image, sobel_mask_0);
+    free(image);
     if(sobelTestImg == NULL || sobelTestImg->data == NULL)
     {
         printf("Allocation of memory failed.");
@@ -27,7 +28,6 @@ int main(int argc, char** argv)
     }
 
     writePGM(argv[2],sobelTestImg);
-    free(image);
     free(sobelTestImg);
     printf("Done.\n");
 

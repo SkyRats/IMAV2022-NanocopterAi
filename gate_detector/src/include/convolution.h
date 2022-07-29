@@ -5,7 +5,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 
-PGMImage* sobelEdgeContrast(PGMImage *img, const uint8_t sobelMask[9]);
+PGMImage* convolution3by3(PGMImage const *img, const uint8_t mask[9]);
 
 #endif
 
