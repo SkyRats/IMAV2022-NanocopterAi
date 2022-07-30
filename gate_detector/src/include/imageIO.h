@@ -17,11 +17,13 @@ typedef struct {
 } PPMImage;
 
 typedef struct {
-     int x, y;
+     int x, y; //largura, altura
      PGMPixel *data;
 } PGMImage;
 
 void writePGM(const char *filename, PGMImage *img);
 PGMImage *readPGM(const char *filename);
 void changeContrastPGM(PGMImage *img);
+PGMPixel get_PGM(PGMImage *img, int index);
+void set_PGM(PGMImage *img, int index, int newData);
 #endif

@@ -117,3 +117,19 @@ void changeContrastPGM(PGMImage *img)
               img->data[i].gray = MAXIMUM_VALUE - img->data[i].gray;
     }
 }
+
+     
+PGMPixel get_PGM(PGMImage *img, int index){
+     if (index >= 0 && index < (img->x)*(img->y)){
+          return img->data[index];
+     }
+     return img->data[0];
+
+};
+
+void set_PGM(PGMImage *img, int index, int newData){
+     if (index >= 0 && index < (img->x)*(img->y)){
+          img->data[index].gray = newData;
+     }
+
+}
