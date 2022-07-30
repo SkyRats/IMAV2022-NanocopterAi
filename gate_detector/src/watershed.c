@@ -19,25 +19,31 @@
 */
 
 PGMImage* watershed(PGMImage *image, Vector *Markers){
-    PQueue *pq;
-    PGMImage *markerImage = malloc(sizeof(PGMImage));
-    markerImage->x = image->x;
-    markerImage->y = image->y;
-    markerImage->data = malloc(sizeof(PGMPixel)*(markerImage->x)*(markerImage->y));
-    Vector *colors = malloc(sizeof(Vector));
-    vector_init(colors);
-    int black = 0;
-    vector_add(colors, black);
-    for(int i = 1; i <= (Markers->total) + 5; i++){
-        vector_add(colors, rand()%255);
 
-    }
-    PGMImage  *markerMap = calloc((image->y)*(image->x), sizeof(int));
-    PGMImage *inpq = calloc((image->y)*(image->x), sizeof(int));
+    PQueue *pq;
+    //PGMImage *markerImage = malloc(sizeof(PGMImage));
+    //markerImage->x = image->x;
+    //markerImage->y = image->y;
+    //markerImage->data = malloc(sizeof(PGMPixel)*(markerImage->x)*(markerImage->y));
+//
+    //Vector *colors = malloc(sizeof(Vector));
+    //vector_init(colors);
+//
+    //int black = 0;
+    //vector_add(colors, black);
+    //for(int i = 1; i <= (Markers->total) + 5; i++){
+        //vector_add(colors, rand()%255);
+    //}
+
+    PGMImage *markerMap = calloc((image->y)*(image->x), sizeof(PGMImage));
+    markerMap->data = malloc(sizeof(PGMPixel)*(image->x)*(image->y));
+    PGMImage *inpq = calloc((image->y)*(image->x), sizeof(PGMImage));
+    inpq->data = malloc(sizeof(PGMPixel)*(image->x)*(image->y));
+
     int8_t dx[8] = {-1, 1, 0, 0, -1, -1, 1, 1};
     int8_t dy[8] = {0, 0, -1, 1, -1, 1, 1, -1};
-    
-    
+
+
     //Put markers in priority Queue
     int id = 2;
     for(int i = 0; i <= Markers -> total; i++){
@@ -53,12 +59,12 @@ PGMImage* watershed(PGMImage *image, Vector *Markers){
                 pq = newPQueue(newIndex, get_PGM(image, newIndex).gray);
             }
             else{
-                push(&pq, newIndex, get_PGM(image, newIndex).gray);
+                push(&pq, newIndex, 255 - get_PGM(image, newIndex).gray);
             }
         }
         id++;
     }
-    //do the watershed motherfuker!
+
     while(!isEmpty(&pq)){
         int top = peek(&pq);pop(&pq);
 
@@ -80,7 +86,7 @@ PGMImage* watershed(PGMImage *image, Vector *Markers){
                     }
                     else if (get_PGM(inpq, nextIndex).gray == 0){// Remember, 0=False, 1=True
                         set_PGM(inpq, nextIndex, 1);
-                        push(&pq, nextIndex, nextPixel.gray);
+                        push(&pq, nextIndex, 255 - nextPixel.gray);
                     }
                 }
     }
@@ -89,10 +95,11 @@ PGMImage* watershed(PGMImage *image, Vector *Markers){
         }
    }
     // Transform markerMap into an image
-    for (int i = 0; i < (image->x)*(image->y); i++){
-        int marker = get_PGM(markerMap, i).gray;
-        int newColor = vector_get(colors, marker);
-        set_PGM(markerImage, i, newColor);
-    }
-    return markerImage;
+//    for (int i = 0; i < (image->x)*(image->y); i++){
+        //int marker = get_PGM(markerMap, i).gray;
+        //int newColor = vector_get(colors, marker);
+        //set_PGM(markerImage, i, newColor);
+    //}
+
+    return markerMap;
 }

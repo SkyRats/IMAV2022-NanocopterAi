@@ -5,6 +5,9 @@ SRC_DIR ?= .
 
 CFLAGS=-g -Wall -I$(SRC_DIR)/include
 
+watershedFilter: $(BUILD_DIR)/watershedFilter.o $(BUILD_DIR)/watershed.o $(BUILD_DIR)/PQueue.o $(BUILD_DIR)/queue.o $(BUILD_DIR)/vector.o $(BUILD_DIR)/imageIO.o $(BUILD_DIR)/threshold.o $(BUILD_DIR)/erosion.o $(BUILD_DIR)/distanceTransform.o
+	$(CC) $(CFLAGS) $^ -o $(BUILD_DIR)/$@
+
 filterAndEdgeDetect: $(BUILD_DIR)/filterAndEdgeDetect.o $(BUILD_DIR)/threshold.o $(BUILD_DIR)/convolution.o $(BUILD_DIR)/filter.o $(BUILD_DIR)/imageIO.o
 	$(CC) $(CFLAGS) $^ -o $(BUILD_DIR)/$@
 
@@ -66,6 +69,18 @@ $(BUILD_DIR)/testFilter.o: testFilter.c
 	$(CC) $(CFLAGS) -o $(BUILD_DIR)/$@ -c $<
 
 $(BUILD_DIR)/filterAndEdgeDetect.o: filterAndEdgeDetect.c
+	$(CC) $(CFLAGS) -o $(BUILD_DIR)/$@ -c $<
+
+$(BUILD_DIR)/watershed.o: watershed.c
+	$(CC) $(CFLAGS) -o $(BUILD_DIR)/$@ -c $<
+
+$(BUILD_DIR)/erosion.o: erosion.c
+	$(CC) $(CFLAGS) -o $(BUILD_DIR)/$@ -c $<
+
+$(BUILD_DIR)/PQueue.o: PQueue.c
+	$(CC) $(CFLAGS) -o $(BUILD_DIR)/$@ -c $<
+
+$(BUILD_DIR)/watershedFilter.o: watershedFilter.c
 	$(CC) $(CFLAGS) -o $(BUILD_DIR)/$@ -c $<
 
 .PHONY: clean

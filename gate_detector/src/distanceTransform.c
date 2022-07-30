@@ -33,7 +33,7 @@ void distanceTransform(PGMImage *img, Vector * markers)
             {
                 uint16_t nextPixelIndex = pixelIndex + dy[h]*img->x + dx[h];
 
-                if(!visited[nextPixelIndex] && img->data[nextPixelIndex].gray == 255)
+                if(!visited[nextPixelIndex] && img->data[nextPixelIndex].gray == 254)
                 {
                     visited[nextPixelIndex] = true;
                     img->data[nextPixelIndex].gray = 50;
