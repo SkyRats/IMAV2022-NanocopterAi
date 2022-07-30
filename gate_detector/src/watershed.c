@@ -18,13 +18,14 @@
 9- Transformar o mapa de marcadores em uma imagem, retornar a imagem.
 */
 
-PGMImage watershed(PGMImage *image, Vector *Markers){
+PGMImage* watershed(PGMImage *image, Vector *Markers){
     PQueue *pq;
-    PGMImage *markerImage;
-    markerImage ->x = image->x;
-    markerImage ->y = image->y;
-    
-    Vector *colors;
+    PGMImage *markerImage = malloc(sizeof(PGMImage));
+    markerImage->x = image->x;
+    markerImage->y = image->y;
+    markerImage->data = malloc(sizeof(PGMPixel)*(markerImage->x)*(markerImage->y));
+    Vector *colors = malloc(sizeof(Vector));
+    vector_init(colors);
     int black = 0;
     vector_add(colors, black);
     for(int i = 1; i <= (Markers->total) + 5; i++){
@@ -93,4 +94,5 @@ PGMImage watershed(PGMImage *image, Vector *Markers){
         int newColor = vector_get(colors, marker);
         set_PGM(markerImage, i, newColor);
     }
+    return markerImage;
 }

@@ -125,7 +125,7 @@ PGMPixel get_PGM(PGMImage *img, int index){
      }
      return img->data[0];
 
-};
+}
 
 void set_PGM(PGMImage *img, int index, int newData){
      if (index >= 0 && index < (img->x)*(img->y)){
