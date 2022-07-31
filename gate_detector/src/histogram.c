@@ -68,7 +68,7 @@ void peaksBoundsPeakTechnique(uint16_t *restrict histogram, uint8_t firstPeak, u
     }
 }
 
-void findPeaks(uint16_t *restrict histogram, uint8_t  *restrict firstPeak, uint8_t  *restrict secondPeak)
+void findPeaks(uint16_t * restrict histogram, uint16_t  *restrict firstPeak, uint16_t  * restrict secondPeak)
 {
     uint8_t i;
     int16_t diff;
@@ -77,6 +77,9 @@ void findPeaks(uint16_t *restrict histogram, uint8_t  *restrict firstPeak, uint8
         if(histogram[i] > histogram[*firstPeak])
             *firstPeak = i;
 
+    if(histogram[255] > histogram[*firstPeak])
+        *firstPeak = 255;
+
     for(i = 0; i < 255; ++i)
     {
         diff = *firstPeak - i;
@@ -84,9 +87,6 @@ void findPeaks(uint16_t *restrict histogram, uint8_t  *restrict firstPeak, uint8
         if(histogram[i] > histogram[*secondPeak] && diff > PEAK_SPACE)
             *secondPeak = i;
     }
-
-    if(histogram[255] > histogram[*firstPeak])
-        *firstPeak = 255;
 
     diff = *firstPeak - i;
     diff = diff > 0 ? diff : -diff;
@@ -131,10 +131,10 @@ void smoothHistogram(uint16_t *restrict histogram)
 
 void histogramPeakTechnique(PGMImage* img)
 {
-    uint8_t firstPeak = 0, secondPeak = 0;
+    uint16_t firstPeak = 256, secondPeak = 256;
     uint8_t upperBound, lowerBound;
 
-    uint16_t *histogram = calloc(256, sizeof(uint16_t));
+    uint16_t *histogram = calloc(257, sizeof(uint16_t));
 
     calculateHistogram(img, histogram);
     smoothHistogram(histogram);
@@ -152,10 +152,10 @@ void histogramPeakTechnique(PGMImage* img)
 
 void histogramValleyTechnique(PGMImage* img)
 {
-    uint8_t firstPeak = 0, secondPeak = 0;
+    uint16_t firstPeak = 256, secondPeak = 256;
     uint8_t upperBound, lowerBound;
 
-    uint16_t *histogram = calloc(256, sizeof(uint16_t));
+    uint16_t *histogram = calloc(257, sizeof(uint16_t));
 
     calculateHistogram(img, histogram);
     smoothHistogram(histogram);
@@ -172,12 +172,12 @@ void histogramValleyTechnique(PGMImage* img)
 }
 
 
-void adaptativeHistogramTechnique(PGMImage* img)
+void adaptiveHistogramTechnique(PGMImage* img)
 {
-    uint8_t firstPeak = 1, secondPeak = 0;
+    uint16_t firstPeak = 256, secondPeak = 256;
     uint8_t upperBound, lowerBound, object, background;
 
-    uint16_t *histogram = calloc(256, sizeof(uint16_t));
+    uint16_t *histogram = calloc(257, sizeof(uint16_t));
 
     calculateHistogram(img, histogram);
     smoothHistogram(histogram);

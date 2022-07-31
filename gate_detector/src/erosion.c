@@ -4,42 +4,61 @@
 #include <erosion.h>
 #include <stdbool.h>
 #include "imageIO.h"
-#include "queue.h"
 
+PGMImage* maskErosion(PGMImage *img, bool const mask[8])
+{
 
-void erosion(PGMImage *img, Vector *kernel){
-        uint8_t n = 3;    //check kernel size
-        uint8_t m = 3;
+    const uint16_t imageWidth = img->x, imageHeight = img->y;
+    const uint16_t imageSize = imageWidth*imageHeight;
 
-        bool* shouldBeZeroImage = calloc(img->x * img->y, sizeof(bool));
+    uint16_t pixel, line;
+    uint16_t pixelNeighbours[8];
+    uint8_t i, j;
 
-        for(uint8_t i = n >> 1; i < img->y - (n >> 1); i++) {
-            for(uint8_t j = m >> 1; j < img->x - (m >> 1); j++) {
+    PGMImage* erodedImg = (PGMImage *)malloc(sizeof(PGMImage));
 
-                // Loop the kernel
-                if( img->data[i*(img->x)+j].gray == 254) {
-                    bool shouldBeZero = false;
-                    for(uint8_t crtX = i - (n >> 1), x = 0; crtX <= i + (n >> 1); crtX++, x++) {
-                        for(uint8_t crtY = j - m / 2, y = 0; crtY <= j + (m >> 1); crtY++, y++) {
-                            if(img->data[crtX*(img->x)+crtY].gray == 0 && kernel->items[x*(img->x)+y] == 1) {
-                                shouldBeZero = true;
-                                break;
-                            }
-                        }
-                    }
+    erodedImg->x = imageWidth;
+    erodedImg->y = imageHeight;
+    erodedImg->data = (PGMPixel*)malloc(imageSize * sizeof(PGMPixel));
 
-                    if(shouldBeZero) {
-                        shouldBeZeroImage[i*(img->x)+j] = true;
-                    }
-                }
+    if(erodedImg == NULL || erodedImg->data == NULL)
+    {
+#ifdef DEBUG_ON
+        printf("Allocation of memory for image failed. Exiting.");
+#endif
+        return NULL;
+    }
+
+    for(j = 0; j < imageHeight; ++j)
+    {
+        line = j * imageWidth;
+        for(i = 0, pixel = line; i < imageWidth; ++i, ++pixel)
+            if(i == 0 || j == 0 || i == imageWidth -1 || j == imageHeight -1)
+                erodedImg->data[pixel].gray = 0;
+            else if(img->data[pixel].gray != 0)
+                erodedImg->data[pixel].gray = img->data[pixel].gray;
+            else
+            {
+                pixelNeighbours[0] = line - imageWidth + (i - 1);
+                pixelNeighbours[1] = line + (i - 1);
+                pixelNeighbours[2] = line + imageWidth + (i - 1);
+                pixelNeighbours[3] = line + imageWidth + (i);
+                pixelNeighbours[4] = line + imageWidth + (i + 1);
+                pixelNeighbours[5] = line + (i + 1);
+                pixelNeighbours[6] = line - imageWidth + (i + 1);
+                pixelNeighbours[7] = line - imageWidth + (i);
+
+                /* eroding */
+                erodedImg->data[pixelNeighbours[0]].gray = mask[0] ? 0 : img->data[pixelNeighbours[0]].gray;
+                erodedImg->data[pixelNeighbours[1]].gray = mask[1] ? 0 : img->data[pixelNeighbours[1]].gray;
+                erodedImg->data[pixelNeighbours[2]].gray = mask[2] ? 0 : img->data[pixelNeighbours[2]].gray;
+                erodedImg->data[pixelNeighbours[3]].gray = mask[3] ? 0 : img->data[pixelNeighbours[3]].gray;
+                erodedImg->data[pixelNeighbours[4]].gray = mask[4] ? 0 : img->data[pixelNeighbours[4]].gray;
+                erodedImg->data[pixelNeighbours[5]].gray = mask[5] ? 0 : img->data[pixelNeighbours[5]].gray;
+                erodedImg->data[pixelNeighbours[6]].gray = mask[6] ? 0 : img->data[pixelNeighbours[6]].gray;
+                erodedImg->data[pixelNeighbours[7]].gray = mask[7] ? 0 : img->data[pixelNeighbours[7]].gray;
             }
-        }
-        for(uint8_t i = 0; i < img->y; i++) {
-            for(uint8_t j = 0; j < img->x; j++) {
-                if(shouldBeZeroImage[i*(img->x)+j]) {
-                    img->data[i*(img->x)+j].gray = 0;
-                }
-            }
-        }
+    }
 
+    return erodedImg;
 }
