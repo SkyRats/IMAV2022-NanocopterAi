@@ -5,6 +5,9 @@ SRC_DIR ?= .
 
 CFLAGS=-g -Wall -I$(SRC_DIR)/include
 
+testHistogramTechniques: $(BUILD_DIR)/testHistogramTechniques.o $(BUILD_DIR)/imageIO.o $(BUILD_DIR)/filter.o $(BUILD_DIR)/histogram.o $(BUILD_DIR)/threshold.o
+	$(CC) $(CFLAGS) $^ -o $(BUILD_DIR)/$@
+
 watershedFilter: $(BUILD_DIR)/watershedFilter.o $(BUILD_DIR)/watershed.o $(BUILD_DIR)/PQueue.o $(BUILD_DIR)/queue.o $(BUILD_DIR)/vector.o $(BUILD_DIR)/imageIO.o $(BUILD_DIR)/threshold.o $(BUILD_DIR)/erosion.o $(BUILD_DIR)/distanceTransform.o
 	$(CC) $(CFLAGS) $^ -o $(BUILD_DIR)/$@
 
@@ -81,6 +84,12 @@ $(BUILD_DIR)/PQueue.o: PQueue.c
 	$(CC) $(CFLAGS) -o $(BUILD_DIR)/$@ -c $<
 
 $(BUILD_DIR)/watershedFilter.o: watershedFilter.c
+	$(CC) $(CFLAGS) -o $(BUILD_DIR)/$@ -c $<
+
+$(BUILD_DIR)/histogram.o: histogram.c
+	$(CC) $(CFLAGS) -o $(BUILD_DIR)/$@ -c $<
+
+$(BUILD_DIR)/testHistogramTechniques.o: testHistogramTechniques.c
 	$(CC) $(CFLAGS) -o $(BUILD_DIR)/$@ -c $<
 
 .PHONY: clean

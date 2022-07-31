@@ -20,20 +20,20 @@
 
 PGMImage* watershed(PGMImage *image, Vector *Markers){
 
-    PQueue *pq;
-    //PGMImage *markerImage = malloc(sizeof(PGMImage));
-    //markerImage->x = image->x;
-    //markerImage->y = image->y;
-    //markerImage->data = malloc(sizeof(PGMPixel)*(markerImage->x)*(markerImage->y));
-//
-    //Vector *colors = malloc(sizeof(Vector));
-    //vector_init(colors);
-//
-    //int black = 0;
-    //vector_add(colors, black);
-    //for(int i = 1; i <= (Markers->total) + 5; i++){
-        //vector_add(colors, rand()%255);
-    //}
+    PQueue *pq = NULL;
+    PGMImage *markerImage = malloc(sizeof(PGMImage));
+    markerImage->x = image->x;
+    markerImage->y = image->y;
+    markerImage->data = malloc(sizeof(PGMPixel)*(markerImage->x)*(markerImage->y));
+
+    Vector *colors = malloc(sizeof(Vector));
+    vector_init(colors);
+
+    int black = 0;
+    vector_add(colors, black);
+    for(int i = 1; i <= (Markers->total) + 5; i++){
+        vector_add(colors, rand()%255);
+    }
 
     PGMImage *markerMap = calloc((image->y)*(image->x), sizeof(PGMImage));
     markerMap->data = malloc(sizeof(PGMPixel)*(image->x)*(image->y));
@@ -55,7 +55,7 @@ PGMImage* watershed(PGMImage *image, Vector *Markers){
                 continue;
             }
 
-            if (isEmpty(&pq)){
+            if (pq == NULL){
                 pq = newPQueue(newIndex, get_PGM(image, newIndex).gray);
             }
             else{

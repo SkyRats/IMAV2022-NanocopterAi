@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 
-void thresholdImage(PGMImage *img, uint8_t thresholdValue)
+void thresholdImage(PGMImage * restrict img, uint8_t thresholdValue)
 {
     int i;
 
@@ -25,11 +25,11 @@ void rangeThresholdImage(PGMImage *img, uint8_t lowerThresholdValue, uint8_t upp
         }
 }
 
-void thresholdAndFindMeans(PGMImage* img, uint8_t upperBound, uint8_t lowerBound, uint8_t restrict *objectMean, uint8_t restrict* backgroundMean)
+void thresholdAndFindMeans(PGMImage* img, uint8_t upperBound, uint8_t lowerBound, uint8_t *restrict objectMean, uint8_t * restrict backgroundMean)
 {
-    uint16_t object = 0, background = 0, counter = 0;
+    uint32_t object = 0, background = 0;
     uint8_t imageWidth = img->x, imageHeight = img->y, pixel;
-    uint16_t imageSize = imageWidth*imageHeight;
+    uint16_t imageSize = imageWidth*imageHeight, counter = 0;
 
     for(uint16_t i = 0; i < imageSize; ++i)
     {
@@ -49,7 +49,5 @@ void thresholdAndFindMeans(PGMImage* img, uint8_t upperBound, uint8_t lowerBound
 
     *objectMean = object/counter;
     *backgroundMean = background/(imageSize - counter);
-
-    return outputImage;
 }
 

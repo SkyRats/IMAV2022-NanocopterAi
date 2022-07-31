@@ -9,6 +9,6 @@
 
 void thresholdImage(PGMImage *img, uint8_t thresholdValue);
 void rangeThresholdImage(PGMImage *img, uint8_t lowerThresholdValue, uint8_t upperThresholdValue);
-PGMImage* thresholdAndFindMeans(PGMImage* img, uint8_t upperBound, uint8_t lowerBound, uint8_t *objectMean, uint8_t* backgroundMean);
+void thresholdAndFindMeans(PGMImage* img, uint8_t upperBound, uint8_t lowerBound, uint8_t *objectMean, uint8_t* backgroundMean);
 
 #endif
