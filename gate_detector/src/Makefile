@@ -5,7 +5,7 @@ SRC_DIR ?= .
 
 CFLAGS=-g -Wall -I$(SRC_DIR)/include
 
-testErosion: $(BUILD_DIR)/testErosion.o $(BUILD_DIR)/convolution.o $(BUILD_DIR)/erosion.o $(BUILD_DIR)/imageIO.o $(BUILD_DIR)/filter.o $(BUILD_DIR)/histogram.o $(BUILD_DIR)/threshold.o
+testFilterEdgeDetectionErosionAndAdaptiveThresholding: $(BUILD_DIR)/testFilterEdgeDetectionErosionAndAdaptiveThresholding.o $(BUILD_DIR)/convolution.o $(BUILD_DIR)/erosion.o $(BUILD_DIR)/imageIO.o $(BUILD_DIR)/filter.o $(BUILD_DIR)/histogram.o $(BUILD_DIR)/threshold.o $(BUILD_DIR)/regionGrowing.o $(BUILD_DIR)/stack.o
 	$(CC) $(CFLAGS) $^ -o $(BUILD_DIR)/$@
 
 testHistogramTechniques: $(BUILD_DIR)/testHistogramTechniques.o $(BUILD_DIR)/imageIO.o $(BUILD_DIR)/filter.o $(BUILD_DIR)/histogram.o $(BUILD_DIR)/threshold.o
@@ -95,7 +95,13 @@ $(BUILD_DIR)/histogram.o: histogram.c
 $(BUILD_DIR)/testHistogramTechniques.o: testHistogramTechniques.c
 	$(CC) $(CFLAGS) -o $(BUILD_DIR)/$@ -c $<
 
-$(BUILD_DIR)/testErosion.o: testErosion.c
+$(BUILD_DIR)/testFilterEdgeDetectionErosionAndAdaptiveThresholding.o: testFilterEdgeDetectionErosionAndAdaptiveThresholding.c
+	$(CC) $(CFLAGS) -o $(BUILD_DIR)/$@ -c $<
+
+$(BUILD_DIR)/stack.o: stack.c
+	$(CC) $(CFLAGS) -o $(BUILD_DIR)/$@ -c $<
+
+$(BUILD_DIR)/regionGrowing.o: regionGrowing.c $(BUILD_DIR)/imageIO.o $(BUILD_DIR)/stack.o
 	$(CC) $(CFLAGS) -o $(BUILD_DIR)/$@ -c $<
 
 .PHONY: clean

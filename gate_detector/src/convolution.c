@@ -56,13 +56,13 @@ const uint8_t sobel_mask_7[9] =
 
 PGMImage* convolution3by3(PGMImage const *img, const int8_t mask[9])
 {
-    const uint8_t imageWidth = img->x;
-    const uint8_t imageHeight = img->y;
+    const uint8_t imageWidth = img->x, imageHeight = img->y;
+    const uint16_t imageSize = imageWidth * imageHeight;
 
     uint8_t x, y;
     int32_t convolutedPixel;
 
-    uint16_t idx;
+    uint16_t idx, line;
     uint16_t idxr[8];
 
     PGMImage* convolutedImg = (PGMImage *)malloc(sizeof(PGMImage));
@@ -72,31 +72,29 @@ PGMImage* convolution3by3(PGMImage const *img, const int8_t mask[9])
 
     convolutedImg->x = imageWidth;
     convolutedImg->y = imageHeight;
-    convolutedImg->data = (PGMPixel*)malloc(imageWidth * imageHeight * sizeof(PGMPixel));
+    convolutedImg->data = (PGMPixel*)malloc(imageSize * sizeof(PGMPixel));
 
     if(convolutedImg->data == NULL)
         return NULL;
 
     for(y = 0; y < imageHeight; ++y)
     {
-        for(x = 0; x < imageWidth;++x)
+        line = y * imageWidth;
+        for(x = 0, idx = line; x < imageWidth; ++x, ++idx)
         {
-            /* pixel to be convoluted */
-            idx = y * imageWidth + x;
-
             if(x == 0 || y == 0 || x == imageWidth -1 || y == imageHeight -1)
                 convolutedImg->data[idx].gray = 0;
             else
             {
                 /* finding position of each pixel around idx*/
-                idxr[0] = (y - 1)* imageWidth + (x - 1);
-                idxr[1] = (y)* imageWidth + (x - 1);
-                idxr[2] = (y + 1)* imageWidth + (x - 1);
-                idxr[3] = (y + 1)* imageWidth + (x);
-                idxr[4] = (y + 1)* imageWidth + (x + 1);
-                idxr[5] = (y)* imageWidth + (x + 1);
-                idxr[6] = (y - 1)* imageWidth + (x + 1);
-                idxr[7] = (y - 1)* imageWidth + (x);
+                idxr[0] = line - imageWidth + (x - 1);
+                idxr[1] = line + (x - 1);
+                idxr[2] = line + imageWidth + (x - 1);
+                idxr[3] = line + imageWidth + (x);
+                idxr[4] = line + imageWidth + (x + 1);
+                idxr[5] = line + (x + 1);
+                idxr[6] = line - imageWidth + (x + 1);
+                idxr[7] = line - imageWidth + (x);
 
                 /* applying mask */
                 convolutedPixel  = img->data[idxr[0]].gray * mask[0];

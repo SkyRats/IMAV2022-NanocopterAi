@@ -5,7 +5,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 
-PGMImage* convolution3by3(PGMImage const *img, const uint8_t mask[9]);
+PGMImage* convolution3by3(PGMImage const *img, const int8_t mask[9]);
 
 #endif
 

@@ -40,7 +40,7 @@ PGMImage * lowPixelFilter(PGMImage const * img)
                 idx = y * imageWidth + x;
 
                 if(x == 0 || y == 0 || x == imageWidth - 1 || y == imageHeight -1)
-                    outImg->data[idx].gray = 0;
+                    outImg->data[idx].gray = img->data[idx].gray;
                 else
                 {
                     /* finding position of each pixel around idx*/
