@@ -5,11 +5,11 @@
 #include "imageIO.h"
 #include "regionGrowing.h"
 
-void edgeSegmentation(PGMImage * img)
+uint8_t edgeSegmentation(PGMImage * img)
 {
     const uint8_t imageWidth = img->x, imageHeight = img->y;
 
-    uint8_t y, pixel, label = 50;
+    uint8_t y, pixel, label = 1;
     uint16_t line, pixelIndex;
     Stack* pixelStack = createStack();
 
@@ -27,10 +27,12 @@ void edgeSegmentation(PGMImage * img)
                 while(!isStackEmpty(pixelStack))
                     labelAndCheckNeighbour(img, label, pop(pixelStack), pixelStack);
 
-                label += 10;
+                label++;
             }
         }
     }
+
+    return label - 1; /* amount of regions found */
 }
 
 
