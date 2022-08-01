@@ -32,6 +32,8 @@ uint8_t edgeSegmentation(PGMImage * img)
         }
     }
 
+    destroyStack(pixelStack);
+
     return label - 1; /* amount of regions found */
 }
 
