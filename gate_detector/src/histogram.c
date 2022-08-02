@@ -2,9 +2,9 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <stdbool.h>
+
 #include "histogram.h"
 #include "threshold.h"
-#define DEBUG_ON
 
 void findValley(uint16_t *restrict histogram, uint8_t firstPeak, uint8_t secondPeak, uint8_t *restrict valley)
 {
@@ -21,25 +21,25 @@ void peaksBoundsValleyTechnique(uint16_t *restrict histogram, uint8_t firstPeak,
     uint32_t sum1 = 0, sum2 = 0;
 
     findValley(histogram, firstPeak, secondPeak, &valley);
-#ifdef DEBUG_ON
+    #ifdef DEBUG_ON
     printf("valley: %u\n", valley);
-#endif
+    #endif
 
     for(i = 0; i < valley; ++i)
         sum1 += histogram[i];
 
-    for(i=valley; i<255; ++i)
+    for(i=valley; i<MAX_PIXEL_VALUE - MIN_PIXEL_VALUE; ++i)
         sum2 += histogram[i];
-    sum2 += histogram[255];
+    sum2 += histogram[MAX_PIXEL_VALUE - MIN_PIXEL_VALUE];
 
     if(sum1 >= sum2)
     {
         *lowerBound = valley;
-        *upperBound = 255;
+        *upperBound = MAX_PIXEL_VALUE;
     }
     else
     {
-        *lowerBound = 0;
+        *lowerBound = MIN_PIXEL_VALUE;
         *upperBound = valley;
     }
 }
@@ -52,18 +52,18 @@ void peaksBoundsPeakTechnique(uint16_t *restrict histogram, uint8_t firstPeak, u
     for(i = 0; i < midPoint; ++i)
         sum1 += histogram[i];
 
-    for(i=midPoint; i<255; ++i)
+    for(i=midPoint; i<MAX_PIXEL_VALUE - MIN_PIXEL_VALUE; ++i)
         sum2 += histogram[i];
-    sum2 += histogram[255];
+    sum2 += histogram[MAX_PIXEL_VALUE - MIN_PIXEL_VALUE];
 
     if(sum1 >= sum2)
     {
         *lowerBound = midPoint;
-        *upperBound = 255;
+        *upperBound = MAX_PIXEL_VALUE;
     }
     else
     {
-        *lowerBound = 0;
+        *lowerBound = MIN_PIXEL_VALUE;
         *upperBound = midPoint;
     }
 }
@@ -73,57 +73,58 @@ void findPeaks(uint16_t * restrict histogram, uint16_t  *restrict firstPeak, uin
     uint8_t i;
     int16_t diff;
 
-    for(i = 0; i < 255; ++i)
+    for(i = 0; i < MAX_PIXEL_VALUE - MIN_PIXEL_VALUE; ++i)
         if(histogram[i] > histogram[*firstPeak])
-            *firstPeak = i;
+            *firstPeak = i - MIN_PIXEL_VALUE;
 
-    if(histogram[255] > histogram[*firstPeak])
-        *firstPeak = 255;
+    if(histogram[MAX_PIXEL_VALUE - MIN_PIXEL_VALUE] > histogram[*firstPeak])
+        *firstPeak = MAX_PIXEL_VALUE - MIN_PIXEL_VALUE;
 
-    for(i = 0; i < 255; ++i)
+    for(i = 0; i < MAX_PIXEL_VALUE - MIN_PIXEL_VALUE; ++i)
     {
         diff = *firstPeak - i;
         diff = diff > 0 ? diff : -diff;
         if(histogram[i] > histogram[*secondPeak] && diff > PEAK_SPACE)
-            *secondPeak = i;
+            *secondPeak = i - MIN_PIXEL_VALUE;
     }
 
     diff = *firstPeak - i;
     diff = diff > 0 ? diff : -diff;
-    if(histogram[255] > histogram[*secondPeak] && diff > PEAK_SPACE)
-        *secondPeak = 255;
+    if(histogram[MAX_PIXEL_VALUE - MIN_PIXEL_VALUE] > histogram[*secondPeak] && diff > PEAK_SPACE)
+        *secondPeak = MAX_PIXEL_VALUE - MIN_PIXEL_VALUE;
 }
 
 void calculateHistogram(PGMImage const* img, uint16_t* histogram)
 {
     uint16_t i, size = img->x * img->y;
-    uint8_t index;
+    uint8_t index, pixel;
 
     for(i = 0; i < size; i++)
     {
-        index = img->data[i].gray;
-        histogram[index] += 1;
+        pixel = img->data[i].gray;
+        index =  (pixel <= MAX_PIXEL_VALUE ? pixel : MAX_PIXEL_VALUE) - MIN_PIXEL_VALUE;
+        histogram[index < 0 ? 0 : index] += 1;
     }
 }
 
 void smoothHistogram(uint16_t *restrict histogram)
 {
     uint8_t i = 1;
-    uint16_t *newHistogram = calloc(256, sizeof(uint16_t));
+    uint16_t *newHistogram = calloc((MAX_PIXEL_VALUE + 1) - MIN_PIXEL_VALUE, sizeof(uint16_t));
 
     newHistogram[0] = (histogram[0] + histogram[1]) >> 1;/*divide by 2*/
-    newHistogram[255] = (histogram[255] + histogram[254]) >> 1;
+    newHistogram[MAX_PIXEL_VALUE - MIN_PIXEL_VALUE] = (histogram[MAX_PIXEL_VALUE - MIN_PIXEL_VALUE] + histogram[MAX_PIXEL_VALUE - 1 - MIN_PIXEL_VALUE]) >> 1;
 
     do
     {
         newHistogram[i] = (histogram[i-1] + histogram[i] + histogram[i+1])/3;
         ++i;
-    }while(i != 255);
+    }while(i != MAX_PIXEL_VALUE - MIN_PIXEL_VALUE);
 
-    for(i = 0; i < 255; ++i)
+    for(i = 0; i < MAX_PIXEL_VALUE - MIN_PIXEL_VALUE; ++i)
         histogram[i] = newHistogram[i];
 
-    histogram[255] = newHistogram[255];
+    histogram[MAX_PIXEL_VALUE - MIN_PIXEL_VALUE] = newHistogram[MAX_PIXEL_VALUE - MIN_PIXEL_VALUE];
 
     free(newHistogram);
 }
@@ -131,42 +132,42 @@ void smoothHistogram(uint16_t *restrict histogram)
 
 void histogramPeakTechnique(PGMImage* img)
 {
-    uint16_t firstPeak = 256, secondPeak = 256;
+    uint16_t firstPeak = MAX_PIXEL_VALUE + 1, secondPeak = MAX_PIXEL_VALUE + 1;
     uint8_t upperBound, lowerBound;
 
-    uint16_t *histogram = calloc(257, sizeof(uint16_t));
+    uint16_t *histogram = calloc((MAX_PIXEL_VALUE + 2) - MIN_PIXEL_VALUE, sizeof(uint16_t));
 
     calculateHistogram(img, histogram);
     smoothHistogram(histogram);
     findPeaks(histogram, &firstPeak, &secondPeak);
-#ifdef DEBUG_ON
+    #ifdef DEBUG_ON
     printf("first peak: %u; second peak: %u\n", firstPeak, secondPeak);
-#endif
+    #endif
     peaksBoundsPeakTechnique(histogram, firstPeak, secondPeak, &upperBound, &lowerBound);
-#ifdef DEBUG_ON
+    #ifdef DEBUG_ON
     printf("upper bound: %u; lower bound: %u\n", upperBound, lowerBound);
-#endif
+    #endif
     rangeThresholdImage(img, lowerBound, upperBound);
     free(histogram);
 }
 
 void histogramValleyTechnique(PGMImage* img)
 {
-    uint16_t firstPeak = 256, secondPeak = 256;
+    uint16_t firstPeak = MAX_PIXEL_VALUE + 1, secondPeak = MAX_PIXEL_VALUE + 1;
     uint8_t upperBound, lowerBound;
 
-    uint16_t *histogram = calloc(257, sizeof(uint16_t));
+    uint16_t *histogram = calloc(MAX_PIXEL_VALUE + 2 - MIN_PIXEL_VALUE, sizeof(uint16_t));
 
     calculateHistogram(img, histogram);
     smoothHistogram(histogram);
     findPeaks(histogram, &firstPeak, &secondPeak);
-#ifdef DEBUG_ON
+    #ifdef DEBUG_ON
     printf("first peak: %u; second peak: %u\n", firstPeak, secondPeak);
-#endif
+    #endif
     peaksBoundsValleyTechnique(histogram, firstPeak, secondPeak, &upperBound, &lowerBound);
-#ifdef DEBUG_ON
+    #ifdef DEBUG_ON
     printf("upper bound: %u; lower bound: %u\n", upperBound, lowerBound);
-#endif
+    #endif
     rangeThresholdImage(img, lowerBound, upperBound);
     free(histogram);
 }
@@ -174,29 +175,29 @@ void histogramValleyTechnique(PGMImage* img)
 
 void adaptiveHistogramTechnique(PGMImage* img)
 {
-    uint16_t firstPeak = 256, secondPeak = 256;
+    uint16_t firstPeak = MAX_PIXEL_VALUE + 1, secondPeak = MAX_PIXEL_VALUE + 1;
     uint8_t upperBound, lowerBound, object, background;
 
-    uint16_t *histogram = calloc(257, sizeof(uint16_t));
+    uint16_t *histogram = calloc(MAX_PIXEL_VALUE + 2 -MIN_PIXEL_VALUE, sizeof(uint16_t));
 
     calculateHistogram(img, histogram);
     smoothHistogram(histogram);
     findPeaks(histogram, &firstPeak, &secondPeak);
-#ifdef DEBUG_ON
+    #ifdef DEBUG_ON
     printf("first peak: %u; second peak: %u\n", firstPeak, secondPeak);
-#endif
+    #endif
     peaksBoundsPeakTechnique(histogram, firstPeak, secondPeak, &upperBound, &lowerBound);
-#ifdef DEBUG_ON
+    #ifdef DEBUG_ON
     printf("1st iteration: upper bound: %u; lower bound: %u\n", upperBound, lowerBound);
-#endif
+    #endif
     thresholdAndFindMeans(img, upperBound, lowerBound, &object, &background);
-#ifdef DEBUG_ON
+    #ifdef DEBUG_ON
     printf("object mean: %u; background mean: %u\n", object, background);
-#endif
-    peaksBoundsPeakTechnique(histogram, object, background, &upperBound, &lowerBound);
-#ifdef DEBUG_ON
+    #endif
+    peaksBoundsPeakTechnique(histogram, object - MIN_PIXEL_VALUE, background - MIN_PIXEL_VALUE, &upperBound, &lowerBound);
+    #ifdef DEBUG_ON
     printf("2nd iteration: upper bound: %u; lower bound: %u\n", upperBound, lowerBound);
-#endif
+    #endif
     rangeThresholdImage(img, lowerBound, upperBound);
     free(histogram);
 }

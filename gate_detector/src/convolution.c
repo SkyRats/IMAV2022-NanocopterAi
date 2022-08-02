@@ -1,7 +1,8 @@
-#include "convolution.h"
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+
+#include "convolution.h"
 
 /* masks for sobel operator */
 /*
@@ -83,7 +84,7 @@ PGMImage* convolution3by3(PGMImage const *img, const int8_t mask[9])
         for(x = 0, idx = line; x < imageWidth; ++x, ++idx)
         {
             if(x == 0 || y == 0 || x == imageWidth -1 || y == imageHeight -1)
-                convolutedImg->data[idx].gray = 0;
+                convolutedImg->data[idx].gray = MIN_PIXEL_VALUE;
             else
             {
                 /* finding position of each pixel around idx*/
@@ -108,7 +109,7 @@ PGMImage* convolution3by3(PGMImage const *img, const int8_t mask[9])
 
                 /* value of the pixel itself*/
                 convolutedPixel += img->data[idx].gray * mask[4];
-                convolutedImg->data[idx].gray = 0 <= convolutedPixel && convolutedPixel <= 255 ? convolutedPixel : convolutedPixel < 0 ? -convolutedPixel : 255;
+                convolutedImg->data[idx].gray = MIN_PIXEL_VALUE <= convolutedPixel && convolutedPixel <= MAX_PIXEL_VALUE ? convolutedPixel : convolutedPixel < MIN_PIXEL_VALUE ? -convolutedPixel : MAX_PIXEL_VALUE;
             }
         }
     }

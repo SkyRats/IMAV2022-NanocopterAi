@@ -5,7 +5,11 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+#include "config.h"
+
+#ifndef STACK_INITIAL_SIZE
 #define STACK_INITIAL_SIZE 100
+#endif
 
 struct Stack
 {

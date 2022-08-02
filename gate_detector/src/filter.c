@@ -1,7 +1,8 @@
-#include "filter.h"
 #include <stdlib.h>
 #include <stdint.h>
 #include <stdio.h>
+
+#include "filter.h"
 
 PGMImage * lowPixelFilter(PGMImage const * img)
 {
@@ -10,7 +11,7 @@ PGMImage * lowPixelFilter(PGMImage const * img)
         /* loop variables */
         uint8_t x, y, filteredPixel;
 
-        uint16_t idx;
+        uint16_t idx, line;
         uint16_t idxr[8];
         const uint8_t imageWidth = img->x;
         const uint8_t imageHeight = img->y;
@@ -34,29 +35,24 @@ PGMImage * lowPixelFilter(PGMImage const * img)
 
         for(y = 0; y < imageHeight; ++y)
         {
-            for(x = 0; x < imageWidth; ++x)
+            line = y * imageWidth;
+            for(x = 0, idx = line; x < imageWidth; ++idx, ++x)
             {
-                /* pixel to be filtered */
-                idx = y * imageWidth + x;
-
                 if(x == 0 || y == 0 || x == imageWidth - 1 || y == imageHeight -1)
                     outImg->data[idx].gray = img->data[idx].gray;
                 else
                 {
                     /* finding position of each pixel around idx*/
-                    idxr[0] = (y - 1)* imageWidth + (x - 1);
-                    idxr[1] = (y)* imageWidth + (x - 1);
-                    idxr[2] = (y + 1)* imageWidth + (x - 1);
-                    idxr[3] = (y + 1)* imageWidth + (x);
-                    idxr[4] = (y + 1)* imageWidth + (x + 1);
-                    idxr[5] = (y)* imageWidth + (x + 1);
-                    idxr[6] = (y - 1)* imageWidth + (x + 1);
-                    idxr[7] = (y - 1)* imageWidth + (x);
+                    idxr[0] = line - imageWidth + (x - 1);
+                    idxr[1] = line + (x - 1);
+                    idxr[2] = line + imageWidth + (x - 1);
+                    idxr[3] = line + imageWidth + (x);
+                    idxr[4] = line + imageWidth + (x + 1);
+                    idxr[5] = line + (x + 1);
+                    idxr[6] = line - imageWidth + (x + 1);
+                    idxr[7] = line - imageWidth + (x);
 
                     /* filtering */
-                    #ifdef DEBUG_ON
-                    printf("pixel id %d value: %d\n", idx, img->data[idx].gray);
-                    #endif
                     filteredPixel = img->data[idx].gray;
                     filteredPixel = img->data[idxr[0]].gray < filteredPixel ? img->data[idxr[0]].gray : filteredPixel;
                     filteredPixel = img->data[idxr[1]].gray < filteredPixel ? img->data[idxr[1]].gray : filteredPixel;
@@ -67,7 +63,6 @@ PGMImage * lowPixelFilter(PGMImage const * img)
                     filteredPixel = img->data[idxr[6]].gray < filteredPixel ? img->data[idxr[6]].gray : filteredPixel;
                     filteredPixel = img->data[idxr[7]].gray < filteredPixel ? img->data[idxr[7]].gray : filteredPixel;
 
-                    /* value of the pixel itself*/
                     outImg->data[idx].gray = filteredPixel;
                 }
             }

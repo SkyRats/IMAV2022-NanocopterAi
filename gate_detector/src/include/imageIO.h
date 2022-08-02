@@ -1,9 +1,19 @@
 #ifndef __PPM_READER_H__
 #define __PPM_READER_H__
 #include <stdint.h>
+#include "config.h"
 
+#ifndef CREATOR
 #define CREATOR "POLI_USP SKYRATS"
-#define MAXIMUM_VALUE 255
+#endif
+
+#ifndef MAX_PIXEL_VALUE
+#define MAX_PIXEL_VALUE 255
+#endif
+
+#ifndef MIN_PIXEL_VALUE
+#define MIN_PIXEL_VALUE 0
+#endif
 
 typedef struct {
      unsigned char red,green,blue;

@@ -204,12 +204,12 @@ PGMImage* watershed(PGMImage *image, Vector *Markers){
             set_PGM(markerMap, top, neighboursLabel);
         }
    }
-    // Transform markerMap into an image
-//    for (int i = 0; i < (image->x)*(image->y); i++){
-        //int marker = get_PGM(markerMap, i).gray;
-        //int newColor = vector_get(colors, marker);
-        //set_PGM(markerImage, i, newColor);
-    //}
+    //Transform markerMap into an image
+    for (int i = 0; i < (image->x)*(image->y); i++){
+        int marker = get_PGM(markerMap, i).gray;
+        int newColor = vector_get(colors, marker);
+        set_PGM(markerImage, i, newColor);
+    }
 
-    return markerMap;
+    return markerImage;
 }

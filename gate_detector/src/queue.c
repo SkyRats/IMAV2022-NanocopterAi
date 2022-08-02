@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
+
 #include "queue.h"
-#define DEBUG_ON
 
 Queue * createQueue(uint16_t size)
 {

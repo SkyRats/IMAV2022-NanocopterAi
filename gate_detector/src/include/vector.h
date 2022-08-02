@@ -1,7 +1,10 @@
 #ifndef __VECTOR__
 #define __VECTOR__
 #include <stdint.h>
+
+#ifndef VECTOR_INIT_CAPACITY
 #define VECTOR_INIT_CAPACITY 4
+#endif
 
 struct Vector {
     uint16_t *items;

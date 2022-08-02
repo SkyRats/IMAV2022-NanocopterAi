@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+
 #include "imageIO.h"
 
 
@@ -57,7 +58,7 @@ PGMImage *readPGM(const char *filename)
     }
 
     //check rgb component depth
-    if (rgb_comp_color!= MAXIMUM_VALUE) {
+    if (rgb_comp_color!= MAX_PIXEL_VALUE) {
          fprintf(stderr, "'%s' does not have 8-bits components\n", filename);
          exit(1);
     }
@@ -101,7 +102,7 @@ void writePGM(const char *filename, PGMImage *img)
     fprintf(fp, "%d %d\n",img->x,img->y);
 
     // rgb component depth
-    fprintf(fp, "%d\n",MAXIMUM_VALUE);
+    fprintf(fp, "%d\n",MAX_PIXEL_VALUE);
 
     // pixel data
     fwrite(img->data, img->x, img->y, fp);
@@ -114,11 +115,11 @@ void changeContrastPGM(PGMImage *img)
     if(img){
 
          for(i=0;i<img->x*img->y;i++)
-              img->data[i].gray = MAXIMUM_VALUE - img->data[i].gray;
+              img->data[i].gray = MAX_PIXEL_VALUE - img->data[i].gray;
     }
 }
 
-     
+
 PGMPixel get_PGM(PGMImage *img, int index){
      if (index >= 0 && index < (img->x)*(img->y)){
           return img->data[index];

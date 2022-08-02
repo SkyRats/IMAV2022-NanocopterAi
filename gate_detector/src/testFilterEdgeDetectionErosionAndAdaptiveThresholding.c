@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <stdbool.h>
+
+#include "config.h"
 #include "imageIO.h"
 #include "convolution.h"
 #include "erosion.h"
@@ -10,7 +12,6 @@
 #include "regionGrowing.h"
 #include "queue.h"
 #include "findGate.h"
-#define DEBUG_ON
 
 int main(int argc, char** argv)
 {
@@ -62,9 +63,16 @@ int main(int argc, char** argv)
         exit(-1);
     }
 
+    #if THRESHOLDING_SEGMENTATION_METHOD == 0
+    histogramPeakTechnique(erodedImg);
+    #elif THRESHOLDING_SEGMENTATION_METHOD == 1
+    histogramValleyTechnique(erodedImg);
+    #else
     adaptiveHistogramTechnique(erodedImg);
+    #endif
 
     PQueue * labels = edgeSegmentation(erodedImg);
+
     #ifdef DEBUG_ON
     printf("\nfound %u valid region%s\n", labels->size,labels->size>1?"s.":".");
     #endif
@@ -78,7 +86,7 @@ int main(int argc, char** argv)
 
         Point squareCenter = findGate(erodedImg, label.pQueueItem);
         #ifdef DEBUG_ON
-        printf("center of the gate at (%-3u, %-3u)\n", squareCenter.x, squareCenter.y);
+        printf("found square with center at (%-3u, %-3u)\n", squareCenter.x, squareCenter.y);
         #endif
     }
 

@@ -36,13 +36,13 @@ void thresholdAndFindMeans(PGMImage* img, uint8_t upperBound, uint8_t lowerBound
         pixel = img->data[i].gray;
         if(pixel >= lowerBound && pixel <= upperBound)
         {
-            img->data[i].gray = 255;
+            img->data[i].gray = MAX_PIXEL_VALUE;
             counter++;
             object += pixel;
         }
         else
         {
-            img->data[i].gray = 0;
+            img->data[i].gray = MIN_PIXEL_VALUE;
             background += pixel;
         }
     }

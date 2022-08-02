@@ -1,12 +1,12 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
+
+#include "config.h"
 #include "stack.h"
 #include "imageIO.h"
 #include "regionGrowing.h"
 #include "queue.h"
-
-#define MIN_PIXEL_AMOUNT 3000
 
 PQueue* edgeSegmentation(PGMImage * img)
 {
@@ -25,7 +25,7 @@ PQueue* edgeSegmentation(PGMImage * img)
         {
             pixel = img->data[pixelIndex].gray;
 
-            if(pixel == 255)
+            if(pixel == MAX_PIXEL_VALUE)
             {
                 labelAndCheckNeighbour(img, label, pixelIndex, pixelStack);
 
@@ -77,7 +77,7 @@ void labelAndCheckNeighbour(PGMImage * img, uint8_t label, uint16_t pixelIndex, 
 
         pixel = img->data[pixelNeighbours[i]].gray;
 
-        if(pixel == 255)
+        if(pixel == MAX_PIXEL_VALUE)
             push(pixelStack, pixelNeighbours[i]);
     }
 

@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+
 #include "imageIO.h"
 #include "findGate.h"
 
@@ -44,9 +45,6 @@ Point findGate(PGMImage* img, uint8_t grayShade)
                     gateFinderState = END;
                     break;
                 }
-                #ifdef DEBUG_ON
-                printf("first x: %-5u ", firstPixelIndex % imageWidth);
-                #endif
 
                 firstPixelH = firstPixelIndex % imageWidth;
                 line = firstPixelIndex - firstPixelH;
@@ -61,9 +59,6 @@ Point findGate(PGMImage* img, uint8_t grayShade)
 
                 if(firstPixelIndex != secondPixelIndex)
                 {
-                    #ifdef DEBUG_ON
-                    printf("second x: %-5u\n", secondPixelIndex % imageWidth);
-                    #endif
                     secondPixelH = secondPixelIndex % imageWidth;
                     diff = secondPixelH - firstPixelH;
                     distanceH = diff > distanceH ? diff : distanceH;
@@ -92,6 +87,9 @@ Point findGate(PGMImage* img, uint8_t grayShade)
         }
     }
 
+    #ifdef DEBUG_ON
+    printf("\tgreatest horizontal distance: %-3u ", distanceH);
+    #endif
     gateFinderState = BEGIN;
 
     while(gateFinderState != END)
@@ -116,9 +114,6 @@ Point findGate(PGMImage* img, uint8_t grayShade)
                     else
                         firstPixelIndex += imageWidth;
 
-                #ifdef DEBUG_ON
-                printf("first y: %-5u ", firstPixelIndex / imageWidth);
-                #endif
 
                 if(firstPixelIndex >= imageSize)
                 {
@@ -139,9 +134,6 @@ Point findGate(PGMImage* img, uint8_t grayShade)
 
                 if(firstPixelIndex != secondPixelIndex)
                 {
-                    #ifdef DEBUG_ON
-                    printf("second y: %-5u\n", secondPixelIndex / imageWidth);
-                    #endif
                     secondPixelV = secondPixelIndex / imageWidth;
                     diff = secondPixelV - firstPixelV;
                     distanceV =  diff > distanceV ? diff : distanceV;
@@ -172,19 +164,24 @@ Point findGate(PGMImage* img, uint8_t grayShade)
         }
     }
 
+    #ifdef DEBUG_ON
+    printf("greatest vertical distance: %-3u\n", distanceV);
+    #endif
+
     diff = distanceH - distanceV;
     if(-TOL <= diff && diff <= TOL)
     {
-        uint32_t sum = 0, counter;
-        uint16_t pixelIndex;
+        uint32_t sumH = 0, sumV = 0;
+        uint16_t pixelIndex, counter = 0;
         for(pixelIndex = 0; pixelIndex < imageSize; ++pixelIndex)
             if(img->data[pixelIndex].gray == grayShade)
             {
-                sum += pixelIndex;
+                sumH += pixelIndex % imageWidth;
+                sumV += pixelIndex / imageWidth;
                 counter++;
             }
-        pixelIndex = sum/counter;
-        return (Point){pixelIndex % imageWidth, pixelIndex / imageWidth, img->data[pixelIndex].gray};
+
+        return (Point){sumH / counter, sumV / counter, img->data[pixelIndex].gray};
     }
 
     return (Point){0, 0, 0};

@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <erosion.h>
 #include <stdbool.h>
+
+#include "config.h"
 #include "imageIO.h"
 
 PGMImage* maskErosion(PGMImage *img, bool const mask[8])
@@ -23,9 +25,9 @@ PGMImage* maskErosion(PGMImage *img, bool const mask[8])
 
     if(erodedImg == NULL || erodedImg->data == NULL)
     {
-#ifdef DEBUG_ON
+        #ifdef DEBUG_ON
         printf("Allocation of memory for image failed. Exiting.");
-#endif
+        #endif
         return NULL;
     }
 
@@ -34,8 +36,8 @@ PGMImage* maskErosion(PGMImage *img, bool const mask[8])
         line = j * imageWidth;
         for(i = 0, pixel = line; i < imageWidth; ++i, ++pixel)
             if(i == 0 || j == 0 || i == imageWidth -1 || j == imageHeight -1)
-                erodedImg->data[pixel].gray = 0;
-            else if(img->data[pixel].gray != 0)
+                erodedImg->data[pixel].gray = MIN_PIXEL_VALUE;
+            else if(img->data[pixel].gray != MIN_PIXEL_VALUE)
                 erodedImg->data[pixel].gray = img->data[pixel].gray;
             else
             {
@@ -49,14 +51,14 @@ PGMImage* maskErosion(PGMImage *img, bool const mask[8])
                 pixelNeighbours[7] = line - imageWidth + (i);
 
                 /* eroding */
-                erodedImg->data[pixelNeighbours[0]].gray = mask[0] ? 0 : img->data[pixelNeighbours[0]].gray;
-                erodedImg->data[pixelNeighbours[1]].gray = mask[1] ? 0 : img->data[pixelNeighbours[1]].gray;
-                erodedImg->data[pixelNeighbours[2]].gray = mask[2] ? 0 : img->data[pixelNeighbours[2]].gray;
-                erodedImg->data[pixelNeighbours[3]].gray = mask[3] ? 0 : img->data[pixelNeighbours[3]].gray;
-                erodedImg->data[pixelNeighbours[4]].gray = mask[4] ? 0 : img->data[pixelNeighbours[4]].gray;
-                erodedImg->data[pixelNeighbours[5]].gray = mask[5] ? 0 : img->data[pixelNeighbours[5]].gray;
-                erodedImg->data[pixelNeighbours[6]].gray = mask[6] ? 0 : img->data[pixelNeighbours[6]].gray;
-                erodedImg->data[pixelNeighbours[7]].gray = mask[7] ? 0 : img->data[pixelNeighbours[7]].gray;
+                erodedImg->data[pixelNeighbours[0]].gray = mask[0] ? MIN_PIXEL_VALUE : img->data[pixelNeighbours[0]].gray;
+                erodedImg->data[pixelNeighbours[1]].gray = mask[1] ? MIN_PIXEL_VALUE : img->data[pixelNeighbours[1]].gray;
+                erodedImg->data[pixelNeighbours[2]].gray = mask[2] ? MIN_PIXEL_VALUE : img->data[pixelNeighbours[2]].gray;
+                erodedImg->data[pixelNeighbours[3]].gray = mask[3] ? MIN_PIXEL_VALUE : img->data[pixelNeighbours[3]].gray;
+                erodedImg->data[pixelNeighbours[4]].gray = mask[4] ? MIN_PIXEL_VALUE : img->data[pixelNeighbours[4]].gray;
+                erodedImg->data[pixelNeighbours[5]].gray = mask[5] ? MIN_PIXEL_VALUE : img->data[pixelNeighbours[5]].gray;
+                erodedImg->data[pixelNeighbours[6]].gray = mask[6] ? MIN_PIXEL_VALUE : img->data[pixelNeighbours[6]].gray;
+                erodedImg->data[pixelNeighbours[7]].gray = mask[7] ? MIN_PIXEL_VALUE : img->data[pixelNeighbours[7]].gray;
             }
     }
 

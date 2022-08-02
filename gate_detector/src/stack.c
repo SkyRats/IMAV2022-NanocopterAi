@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+
 #include "stack.h"
-#define DEBUG_ON
 
 Stack* createStack()
 {
@@ -37,10 +37,10 @@ uint16_t pop(Stack * s)
 {
     if(!isStackEmpty(s))
         return s->item[--(s->top)];
-#ifdef DEBUG_ON
+    #ifdef DEBUG_ON
     else
         printf("Popping of Stack failed.\n");
-#endif
+    #endif
 
     return (uint16_t) -1; /* (unsigned) -1 == 2^16 - 1 (max value) */
 }
@@ -54,10 +54,10 @@ uint16_t topOfStack(Stack * s)
 {
     if(!isStackEmpty(s))
         return s->item[(s->top) - 1];
-#ifdef DEBUG_ON
+    #ifdef DEBUG_ON
     else
         printf("Access to the top of the Stack failed.\n");
-#endif
+    #endif
 
     return (uint16_t) -1; /* (unsigned) -1 == 2^16 - 1 (max value) */
 }

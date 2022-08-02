@@ -1,8 +1,14 @@
 #ifndef ___HISTOGRAM_H__
 #define ___HISTOGRAM_H__
-#define PEAK_SPACE 50
+
 #include <stdint.h>
+
+#include "config.h"
 #include "imageIO.h"
+
+#ifndef PEAK_SPACE
+#define PEAK_SPACE 50
+#endif
 
 void findValley(uint16_t *restrict , uint8_t , uint8_t , uint8_t *restrict );
 void peaksBoundsPeakTechnique(uint16_t*,uint8_t,uint8_t,uint8_t *restrict,uint8_t *restrict);
