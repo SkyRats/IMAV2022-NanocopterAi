@@ -4,14 +4,19 @@
 #include "stack.h"
 #include "imageIO.h"
 #include "regionGrowing.h"
+#include "queue.h"
 
-uint8_t edgeSegmentation(PGMImage * img)
+#define MIN_PIXEL_AMOUNT 3000
+
+PQueue* edgeSegmentation(PGMImage * img)
 {
     const uint8_t imageWidth = img->x, imageHeight = img->y;
+    const uint16_t imageSize = imageWidth * imageHeight;
 
     uint8_t y, pixel, label = 1;
-    uint16_t line, pixelIndex;
+    uint16_t line, pixelIndex, pixelCount;
     Stack* pixelStack = createStack();
+    PQueue* labelPQueue = createPQueue();
 
     for(y = 1; y < imageHeight - 1; ++y)
     {
@@ -24,8 +29,15 @@ uint8_t edgeSegmentation(PGMImage * img)
             {
                 labelAndCheckNeighbour(img, label, pixelIndex, pixelStack);
 
+                pixelCount = 1;
                 while(!isStackEmpty(pixelStack))
+                {
                     labelAndCheckNeighbour(img, label, pop(pixelStack), pixelStack);
+                    pixelCount++;
+                }
+
+                if(pixelCount >= MIN_PIXEL_AMOUNT)
+                    pEnqueue(labelPQueue, (PQueueNode){label, imageSize - pixelCount, NULL});
 
                 label++;
             }
@@ -34,7 +46,7 @@ uint8_t edgeSegmentation(PGMImage * img)
 
     destroyStack(pixelStack);
 
-    return label - 1; /* amount of regions found */
+    return labelPQueue; /* valid regions found */
 }
 
 

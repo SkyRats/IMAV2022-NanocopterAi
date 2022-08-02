@@ -1,6 +1,8 @@
 #ifndef __PPM_READER_H__
 #define __PPM_READER_H__
-#define CREATOR "SKYRATS"
+#include <stdint.h>
+
+#define CREATOR "POLI_USP SKYRATS"
 #define MAXIMUM_VALUE 255
 
 typedef struct {
@@ -11,13 +13,22 @@ typedef struct {
      unsigned char gray;
 } PGMPixel;
 
+struct PGMPoint
+{
+    uint8_t x;
+    uint8_t y;
+    uint8_t grayShade;
+}__attribute__((packed));
+
+typedef struct PGMPoint Point;
+
 typedef struct {
      int x, y;
      PPMPixel *data;
 } PPMImage;
 
 typedef struct {
-     int x, y; //largura, altura
+     int x, y; //width, height
      PGMPixel *data;
 } PGMImage;
 

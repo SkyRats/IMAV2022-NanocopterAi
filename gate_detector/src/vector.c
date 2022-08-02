@@ -44,7 +44,7 @@ void vector_add(Vector *v, uint16_t item)
 {
     if (v->capacity == v->total)
         vector_resize(v, v->capacity * 2);
-    v->items[v->total++] = item;
+    v->items[(v->total)++] = item;
 }
 
 void vector_set(Vector *v, uint16_t index, uint16_t item)
@@ -72,7 +72,7 @@ void vector_delete(Vector *v, uint16_t index)
         v->items[i + 1] = 0;
     }
 
-    v->total--;
+    (v->total)--;
 
     if (v->total > 0 && v->total == v->capacity / 4)
         vector_resize(v, v->capacity / 2);

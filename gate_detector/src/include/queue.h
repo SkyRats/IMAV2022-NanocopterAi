@@ -13,6 +13,25 @@ struct Queue
 
 typedef struct Queue Queue;
 
+struct PQueueNode
+{
+    uint16_t pQueueItem;
+    uint16_t priority;
+    struct PQueueNode* nextNode;
+}__attribute__((packed));
+
+typedef struct PQueueNode PQueueNode;
+
+
+struct PQueue
+{
+    PQueueNode *pQueueItem;
+    PQueueNode *tail;
+    uint16_t size;
+}__attribute__((packed));
+
+typedef struct PQueue PQueue;
+
 Queue * createQueue(uint16_t size);
 void destroyQueue(Queue*);
 bool queueIsEmpty(Queue*);
@@ -21,5 +40,11 @@ uint16_t queuePeek(Queue*);
 void enqueue(Queue*, uint16_t);
 uint16_t dequeue(Queue*);
 
+PQueue * createPQueue();
+void destroyPQueue(PQueue*);
+bool pQueueIsEmpty(PQueue*);
+PQueueNode pQueuePeek(PQueue*);
+void pEnqueue(PQueue*, PQueueNode);
+PQueueNode pDequeue(PQueue*);
 
 #endif

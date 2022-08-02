@@ -8,6 +8,9 @@
 #include "filter.h"
 #include "histogram.h"
 #include "regionGrowing.h"
+#include "queue.h"
+#include "findGate.h"
+#define DEBUG_ON
 
 int main(int argc, char** argv)
 {
@@ -61,10 +64,27 @@ int main(int argc, char** argv)
 
     adaptiveHistogramTechnique(erodedImg);
 
-    printf("found %u regions.\n", edgeSegmentation(erodedImg));
+    PQueue * labels = edgeSegmentation(erodedImg);
+    #ifdef DEBUG_ON
+    printf("\nfound %u valid region%s\n", labels->size,labels->size>1?"s.":".");
+    #endif
+
+    while(!pQueueIsEmpty(labels))
+    {
+        PQueueNode label = pDequeue(labels);
+        #ifdef DEBUG_ON
+        printf("\tamount of pixels: %-5u label: %-5u priority: %-5u\n", erodedImg->x * erodedImg->y - label.priority, label.pQueueItem, label.priority);
+        #endif
+
+        Point squareCenter = findGate(erodedImg, label.pQueueItem);
+        #ifdef DEBUG_ON
+        printf("center of the gate at (%-3u, %-3u)\n", squareCenter.x, squareCenter.y);
+        #endif
+    }
 
     writePGM(argv[2], erodedImg);
     free(erodedImg);
+    destroyPQueue(labels);
     printf("Done.\n");
 
     return 0;

@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "queue.h"
+#define DEBUG_ON
 
 Queue * createQueue(uint16_t size)
 {
@@ -43,7 +44,7 @@ void increaseQueue(Queue * q)
     }
 
     #ifdef DEBUG_ON
-    printf("Queue's size was increased to %d\n", 2*q->max*sizeof(uint16_t));
+    printf("Queue's size was increased to %ld\n", 2*q->max*sizeof(uint16_t));
     #endif
     int i, k;
 
@@ -88,3 +89,99 @@ uint16_t dequeue(Queue * q)
 
 }
 
+PQueue * createPQueue()
+{
+    PQueue *pq = malloc(sizeof(PQueue));
+
+    if(pq == NULL)
+    {
+        #ifdef DEBUG_ON
+        printf("Allocation of memory failed on createPQueue.\n");
+        #endif
+        return NULL;
+    }
+
+    pq->pQueueItem = NULL;
+    pq->size = 0;
+    pq->tail = NULL;
+    return pq;
+}
+void destroyPQueue(PQueue* pq)
+{
+    PQueueNode* pqn = pq->pQueueItem, *pqnn;
+    free(pq);
+
+    while(pqn != NULL)
+    {
+        pqnn = pqn->nextNode;
+        free(pqn);
+        pqn = pqnn;
+    }
+}
+
+bool pQueueIsEmpty(PQueue* pq)
+{
+    return pq->size == 0;
+}
+
+PQueueNode pQueuePeek(PQueue* pq)
+{
+    return *(pq->pQueueItem);
+}
+
+void pEnqueue(PQueue* pq, PQueueNode pqi)
+{
+    PQueueNode* newNode = malloc(sizeof(PQueueNode));
+    if(newNode == NULL)
+    {
+        #ifdef DEBUG_ON
+        printf("Allocation of memory failed on pEnqueue\n");
+        #endif
+        return;
+    }
+
+    *(newNode) = pqi;
+
+    if(pq->size == 0 || pq->tail->priority < pqi.priority)
+    {
+
+        newNode->nextNode = NULL;
+
+        if(pq->size == 0)
+            pq->pQueueItem = newNode;
+        else
+            pq->tail->nextNode = newNode;
+
+        pq->tail = newNode;
+
+    }
+    else
+    {
+        PQueueNode** pqn = &(pq->pQueueItem);
+
+        while((*pqn)->priority < pqi.priority)
+            pqn = &((*pqn)->nextNode);
+
+        newNode->nextNode = *pqn;
+        *pqn = newNode;
+    }
+
+    pq->size += 1;
+}
+
+PQueueNode pDequeue(PQueue* pq)
+{
+    if(pq->size == 0)
+        return (PQueueNode){-1, -1, NULL};
+
+    PQueueNode* pqn = pq->pQueueItem;
+    pq->pQueueItem = pq->pQueueItem->nextNode;
+
+    PQueueNode pqi = *pqn;
+
+    free(pqn);
+
+    pq->size -= 1;
+
+    return pqi;
+}
