@@ -85,9 +85,10 @@ int main(int argc, char** argv)
         #endif
 
         Point squareCenter = findGate(erodedImg, label.pQueueItem);
-        #ifdef DEBUG_ON
-        printf("found square with center at (%-3u, %-3u)\n", squareCenter.x, squareCenter.y);
-        #endif
+        if(squareCenter.x != 0 && squareCenter.y != 0 && squareCenter.grayShade != 0)
+            printf("found square with center at (%-3u, %-3u)\n", squareCenter.x, squareCenter.y);
+        else
+            printf("found no squares.\n");
     }
 
     writePGM(argv[2], erodedImg);
