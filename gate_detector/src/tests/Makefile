@@ -2,6 +2,8 @@ CC=gcc
 RM=rm -r
 IMAGE_VIEWER=xdg-open
 
+MK_LIB=ar rcs
+
 SRC_DIR ?= ..
 BUILD_DIR ?= $(SRC_DIR)/../build
 INC_DIR ?= $(SRC_DIR)/../include
@@ -15,10 +17,11 @@ MORPHOLOGICAL_LIB = $(SRC_DIR)/morphological_operators
 OTHERS_LIB = $(SRC_DIR)/others
 SEGMENTATION_LIB = $(SRC_DIR)/segmentation
 
-CFLAGS=-g -Wall -I$(INC_DIR)/ -L$(BUILD_DIR)/
+CFLAGS=-g -Wall -I$(INC_DIR)/
 
-testGateFinder: $(BUILD_DIR)/testGateFinder.o
-	$(CC) $(CFLAGS) -o $(BUILD_DIR)/$@ $(BUILD_DIR)/*.o
+testGateFinder: $(BUILD_DIR)/testGateFinder.o $(BUILD_DIR)/imageIO.o $(BUILD_DIR)/convolution.o $(BUILD_DIR)/erosion.o $(BUILD_DIR)/filter.o $(BUILD_DIR)/histogram.o $(BUILD_DIR)/regionGrowing.o $(BUILD_DIR)/queue.o $(BUILD_DIR)/findGate.o $(BUILD_DIR)/threshold.o $(BUILD_DIR)/stack.o $(BUILD_DIR)/queue.o
+	$(MK_LIB) $(BUILD_DIR)/libTestGateFinder.a $^
+	$(CC) $(CFLAGS) $< -L$(BUILD_DIR) -lTestGateFinder -o $(BUILD_DIR)/$@
 
 $(BUILD_DIR)/testGateFinder.o: testGateFinder.c $(BUILD_DIR)/imageIO.o $(BUILD_DIR)/convolution.o $(BUILD_DIR)/erosion.o $(BUILD_DIR)/filter.o $(BUILD_DIR)/histogram.o $(BUILD_DIR)/regionGrowing.o $(BUILD_DIR)/queue.o $(BUILD_DIR)/findGate.o
 	$(CC) $(CFLAGS) -o $@ -c $<

@@ -91,7 +91,7 @@ uint16_t dequeue(Queue * q)
 
 PQueue * createPQueue()
 {
-    PQueue *pq = malloc(sizeof(PQueue));
+    PQueue *pq = calloc(1, sizeof(PQueue));
 
     if(pq == NULL)
     {
@@ -101,9 +101,6 @@ PQueue * createPQueue()
         return NULL;
     }
 
-    pq->pQueueItem = NULL;
-    pq->size = 0;
-    pq->tail = NULL;
     return pq;
 }
 void destroyPQueue(PQueue* pq)
@@ -140,6 +137,7 @@ void pEnqueue(PQueue* pq, PQueueNode pqi)
         return;
     }
 
+    /* copy the contents of the new item to the new node */
     *(newNode) = pqi;
 
     if(pq->size == 0 || pq->tail->priority < pqi.priority)
@@ -172,7 +170,12 @@ void pEnqueue(PQueue* pq, PQueueNode pqi)
 PQueueNode pDequeue(PQueue* pq)
 {
     if(pq->size == 0)
+    {
+        #ifdef DEBUG_ON
+        printf("Cannot dequeue empty priority queue. \n");
+        #endif
         return (PQueueNode){-1, -1, NULL};
+    }
 
     PQueueNode* pqn = pq->pQueueItem;
     pq->pQueueItem = pq->pQueueItem->nextNode;
