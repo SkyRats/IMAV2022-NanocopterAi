@@ -19,7 +19,7 @@
   */
 
 #define THRESHOLDING_SEGMENTATION_METHOD 2
-//#define DEBUG_ON
+#define DEBUG_ON
 
 /* if you wish to use the values defined
  * at each header
