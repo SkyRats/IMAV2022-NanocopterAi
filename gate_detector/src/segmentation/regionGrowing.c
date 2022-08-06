@@ -8,6 +8,14 @@
 #include "regionGrowing.h"
 #include "queue.h"
 
+PQueue * edgeAndGrayShadeSegmentation(PGMImage * img)
+{
+    const uint8_t imageWidth = img->x, imageHeight = img->y;
+    const uint16_t imageSize = imageWidth * imageHeight;
+
+
+}
+
 PQueue* edgeSegmentation(PGMImage * img)
 {
     const uint8_t imageWidth = img->x, imageHeight = img->y;
