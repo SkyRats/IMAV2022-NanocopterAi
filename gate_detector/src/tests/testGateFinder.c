@@ -76,7 +76,7 @@ int main(int argc, char** argv)
     #ifdef DEBUG_ON
     printf("\nfound %u valid region%s\n", labels->size,labels->size>1?"s.":".");
     #endif
-
+    Point squareCenter;
     while(!pQueueIsEmpty(labels))
     {
         PQueueNode label = pDequeue(labels);
@@ -84,11 +84,11 @@ int main(int argc, char** argv)
         printf("\tamount of pixels: %-5u label: %-5u priority: %-5u\n", erodedImg->x * erodedImg->y - label.priority, label.pQueueItem, label.priority);
         #endif
 
-        Point squareCenter = findGate(erodedImg, label.pQueueItem);
-        if(squareCenter.x != 0 && squareCenter.y != 0 && squareCenter.grayShade != 0)
-            printf("found square with center at (%-3u, %-3u)\n", squareCenter.x, squareCenter.y);
-        else
+        squareCenter = findGate(erodedImg, label.pQueueItem);
+        if(squareCenter.x == 0 && squareCenter.y == 0 && squareCenter.grayShade == 0)
             printf("found no squares.\n");
+        else
+            printf("found square with center at (%-3u, %-3u)\n", squareCenter.x, squareCenter.y);
     }
 
     writePGM(argv[2], erodedImg);

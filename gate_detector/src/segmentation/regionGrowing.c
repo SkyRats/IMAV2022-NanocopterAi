@@ -47,6 +47,10 @@ PQueue* edgeSegmentation(PGMImage * img)
                 if(pixelCount >= MIN_PIXEL_AMOUNT)
                     pEnqueue(labelPQueue, (PQueueNode){label, imageSize - pixelCount, NULL});
 
+
+                #ifdef DEBUG_ON
+                printf("label %-3u has %-5u pixels.%c", label, pixelCount,label%3==0?'\n':'\t');
+                #endif
                 label++;
             }
         }
@@ -68,7 +72,7 @@ void labelAndCheckNeighbour(PGMImage * img, uint8_t label, uint16_t pixelIndex, 
 
     img->data[pixelIndex].gray = label;
 
-    if( pixelIndex <= imageWidth || pixelIndex >= imageSize - imageWidth || pixelIndex % imageWidth == 0 || pixelIndex % (imageSize - 1) == 0)
+    if( pixelIndex <= imageWidth || pixelIndex >= imageSize - imageWidth || pixelIndex % imageWidth == 0 || (pixelIndex +1) % (imageWidth) == 0)
         return;
 
     pixelNeighbours[0] = pixelIndex - imageWidth - 1;
