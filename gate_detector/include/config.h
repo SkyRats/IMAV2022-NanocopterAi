@@ -9,7 +9,7 @@
 #define MIN_PIXEL_VALUE 0
 /* for a region to be considered valid */
 #define MIN_PIXEL_AMOUNT 2500
-/* tolerance for gate finding, in pixels */
+/* tolerance of square side max size difference for gate finding, in pixels */
 #define TOL 10
 
 /**
@@ -17,11 +17,19 @@
   * 1: Histogram Valley Technique
   * else: Adaptive Technique
   */
-
 #define THRESHOLDING_SEGMENTATION_METHOD 2
+
+/**
+  * 0: Only input image edges will be taken into account
+  * else: Edges and gray shades of the input image will be considered
+  */
+#define SEGMENTATION_METHOD 1
+
+
 #define DEBUG_ON
 
-/* if you wish to use the values defined
+/*
+ * if you wish to use the values defined
  * at each header
  */
 //#undef CREATOR

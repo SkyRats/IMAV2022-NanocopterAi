@@ -140,13 +140,17 @@ void histogramPeakTechnique(PGMImage* img)
     calculateHistogram(img, histogram);
     smoothHistogram(histogram);
     findPeaks(histogram, &firstPeak, &secondPeak);
+
     #ifdef DEBUG_ON
     printf("first peak: %u; second peak: %u\n", firstPeak, secondPeak);
     #endif
+
     peaksBoundsPeakTechnique(histogram, firstPeak, secondPeak, &upperBound, &lowerBound);
+
     #ifdef DEBUG_ON
     printf("upper bound: %u; lower bound: %u\n", upperBound, lowerBound);
     #endif
+
     rangeThresholdImage(img, lowerBound, upperBound);
     free(histogram);
 }
@@ -161,13 +165,17 @@ void histogramValleyTechnique(PGMImage* img)
     calculateHistogram(img, histogram);
     smoothHistogram(histogram);
     findPeaks(histogram, &firstPeak, &secondPeak);
+
     #ifdef DEBUG_ON
     printf("first peak: %u; second peak: %u\n", firstPeak, secondPeak);
     #endif
+
     peaksBoundsValleyTechnique(histogram, firstPeak, secondPeak, &upperBound, &lowerBound);
+
     #ifdef DEBUG_ON
     printf("upper bound: %u; lower bound: %u\n", upperBound, lowerBound);
     #endif
+
     rangeThresholdImage(img, lowerBound, upperBound);
     free(histogram);
 }
@@ -183,21 +191,28 @@ void adaptiveHistogramTechnique(PGMImage* img)
     calculateHistogram(img, histogram);
     smoothHistogram(histogram);
     findPeaks(histogram, &firstPeak, &secondPeak);
+
     #ifdef DEBUG_ON
     printf("first peak: %u; second peak: %u\n", firstPeak, secondPeak);
     #endif
+
     peaksBoundsPeakTechnique(histogram, firstPeak, secondPeak, &upperBound, &lowerBound);
     #ifdef DEBUG_ON
     printf("1st iteration: upper bound: %u; lower bound: %u\n", upperBound, lowerBound);
     #endif
+
     thresholdAndFindMeans(img, upperBound, lowerBound, &object, &background);
+
     #ifdef DEBUG_ON
     printf("object mean: %u; background mean: %u\n", object, background);
     #endif
+
     peaksBoundsPeakTechnique(histogram, object - MIN_PIXEL_VALUE, background - MIN_PIXEL_VALUE, &upperBound, &lowerBound);
+
     #ifdef DEBUG_ON
     printf("2nd iteration: upper bound: %u; lower bound: %u\n", upperBound, lowerBound);
     #endif
+
     rangeThresholdImage(img, lowerBound, upperBound);
     free(histogram);
 }
