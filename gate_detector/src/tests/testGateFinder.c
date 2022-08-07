@@ -14,6 +14,13 @@
 #include "queue.h"
 #include "findGate.h"
 
+#define NULL_CHECK(val)                                  \
+    if (val == NULL)                                     \
+    {                                                    \
+        printf("Allocation of memory failed. Exiting."); \
+        exit(-1);                               \
+    }
+
 int main(int argc, char** argv)
 {
     /* mask pixel order
@@ -32,22 +39,15 @@ int main(int argc, char** argv)
 
     PGMImage *image;
     image = readPGM(argv[1]);
-    if(image == NULL)
-    {
-        printf("File does not exist.\n");
-        exit(-1);
-    }
+    NULL_CHECK(image);
 
     PGMImage *filteredImg = lowPixelFilter(image);
 
     #if SEGMENTATION_METHOD == 0
     free(image);
     #endif
-    if(filteredImg == NULL || filteredImg->data == NULL)
-    {
-        printf("Allocation of memory failed. Exiting.\n");
-        exit(-1);
-    }
+    NULL_CHECK(filteredImg);
+    NULL_CHECK(filteredImg->data);
 
     /* the following convolution mask detects horizontal and vertical edges simultaneously
        with certain accuraccy. Another option would be to convolute the image twice: one
@@ -55,11 +55,8 @@ int main(int argc, char** argv)
        -- then, sum both images into one. This will be left as an exercise for the reader :) */
     PGMImage *convolutedImg =  convolution3by3(filteredImg, quickMask);
     free(filteredImg);
-    if(convolutedImg == NULL || convolutedImg->data == NULL)
-    {
-        printf("Allocation of memory failed.");
-        exit(-1);
-    }
+    NULL_CHECK(convolutedImg);
+    NULL_CHECK(convolutedImg->data);
 
 
     #if THRESHOLDING_SEGMENTATION_METHOD == 0
@@ -79,29 +76,20 @@ int main(int argc, char** argv)
 
     /* we will moderately erode the image twice */
     PGMImage * halfEroded = maskErosion(convolutedImg, erosionMask);
-    if(halfEroded == NULL || halfEroded->data == NULL)
-    {
-        printf("Allocation of memory failed.");
-        exit(-1);
-    }
+    NULL_CHECK(halfEroded);
+    NULL_CHECK(halfEroded->data);
 
     PGMImage * erodedImg = maskErosion(halfEroded, erosionMask);
+    NULL_CHECK(erodedImg);
     free(halfEroded);
     free(convolutedImg);
-    if(erodedImg == NULL || erodedImg->data == NULL)
-    {
-        printf("Allocation of memory failed.");
-        exit(-1);
-    }
+    NULL_CHECK(erodedImg->data);
 
     /* then we apply a strong dilation */
     PGMImage * dilatedImg = maskDilation(erodedImg, dilationMask);
-    //free(erodedImg);
-    if(dilatedImg == NULL || dilatedImg->data == NULL)
-    {
-        printf("Allocation of memory failed.");
-        exit(-1);
-    }
+    NULL_CHECK(dilatedImg);
+    free(erodedImg);
+    NULL_CHECK(dilatedImg->data);
 
     /* finally, we segment the image and proceed to look for square regions (potential gates) */
     #if SEGMENTATION_METHOD == 0
@@ -111,14 +99,12 @@ int main(int argc, char** argv)
     #else
 
     PGMImage * outputImg = malloc(sizeof(PGMImage));
+    NULL_CHECK(outputImg);
     outputImg->x = image->x;
     outputImg->y = image->y;
+    /* using calloc here is crucial */
     outputImg->data = calloc(image->x * image->y, sizeof(PGMPixel));
-    if(outputImg == NULL || outputImg->data == NULL)
-    {
-        printf("Allocation of memory failed. Exiting.");
-        exit(-1);
-    }
+    NULL_CHECK(outputImg->data);
 
     PQueue * labels = edgeAndGrayShadeSegmentation(image, dilatedImg, outputImg);
 

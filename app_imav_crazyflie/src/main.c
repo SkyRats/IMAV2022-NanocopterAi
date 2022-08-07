@@ -30,7 +30,7 @@ static void setVelocitySetpoint(setpoint_t *setpoint, float vx, float vy, float 
 // States
 typedef enum
 {
-    WAITING_FOR_FIRST_MSG, // HOVER, TAKEOFF
+    WAITING_FOR_FIRST_MSG, // IDLE, HOVER, TAKEOFF
     EXPLORING, // GO_FORWARD, TURN_BACK_TO_ARENA, CHANGE_HEADING
     SEARCHING_FOR_GATE, // FIND_GATE
 } ControllerState;
@@ -84,7 +84,7 @@ void appMain()
 
         // initialize state machine
         if(reinit)
-            explorerState =  explorerInit(crazyfliePosition, maxForwardSpeed, TAKEOFF);
+            explorerState = explorerInit(crazyfliePosition, maxForwardSpeed, TAKEOFF);
 
         // Check if decks are properly mounted
         uint8_t positioningInit = paramGetUint(idPositioningDeck);
