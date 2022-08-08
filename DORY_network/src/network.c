@@ -21,21 +21,21 @@
 #include "network.h"
 #include "pulp.h"
 #include "dory.h"
-#include "layerConvBNRelu4.h"
-#include "layerConvBNRelu8.h"
-#include "layerConvBNRelu11.h"
-#include "layerAddRelu13.h"
-#include "layerAddRelu9.h"
-#include "layerConvBNRelu12.h"
-#include "layerConvBNRelu7.h"
 #include "layerAddRelu5.h"
-#include "layerConvBNRelu6.h"
-#include "layerMaxPool1.h"
-#include "layerConvBNRelu3.h"
-#include "layerConvBNRelu10.h"
-#include "layerConvBNRelu0.h"
-#include "layerMatMul14_last.h"
 #include "layerConvBNRelu2.h"
+#include "layerConvBNRelu0.h"
+#include "layerConvBNRelu8.h"
+#include "layerMatMul14_last.h"
+#include "layerMaxPool1.h"
+#include "layerConvBNRelu7.h"
+#include "layerAddRelu9.h"
+#include "layerConvBNRelu10.h"
+#include "layerConvBNRelu4.h"
+#include "layerConvBNRelu6.h"
+#include "layerAddRelu13.h"
+#include "layerConvBNRelu12.h"
+#include "layerConvBNRelu3.h"
+#include "layerConvBNRelu11.h"
 #include "pmsis.h"
 #include "bsp/fs.h"
 #include "bsp/fs/readfs.h"
@@ -71,18 +71,18 @@ static int branch_input[15] = {0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0};
 static int branch_output[15] = {0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0};
 static int branch_change[15] = {0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0};
 static int branch_last[15] = {0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0};
-static int check_weights[15] = {141300, 0, 1320125, 1250733, 178869, 0, 2604054, 4184190, 353331, 0, 5365422, 7989690, 922581, 0, 1236178};
+static int check_weights[15] = {94915, 0, 758823, 997238, 127587, 0, 1839651, 3146632, 326742, 0, 4414310, 4424328, 402890, 0, 713125};
 static int check_weights_dimension[15] = {1312, 0, 9728, 9728, 1536, 0, 19456, 37888, 3072, 0, 75776, 149504, 10240, 0, 12544};
 static int cumulative_weights_dimension[15] = {0, 1312, 1312, 11040, 20768, 22304, 22304, 41760, 79648, 82720, 82720, 158496, 308000, 318240, 318240};
-static int check_activations[15] = {1613972, 5422428, 1568757, 120988, 177792, 193034, 370826, 71028, 46692, 91579, 138271, 15945, 2027, 20, 2047};
+static int check_activations[15] = {1613972, 2692058, 930278, 100955, 138918, 135058, 273976, 27961, 42600, 16824, 59424, 10413, 1121, 0, 1121};
 static int check_activations_dimension[15] = {40000, 320000, 80000, 20000, 20000, 20000, 20000, 10816, 10816, 10816, 10816, 6272, 6272, 6272, 6272};
 static int check_activations_dimension_L3_in[15] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 static int check_activations_dimension_L3_out[15] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 static int out_mult_vector[15] = {1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0};
-static int out_shift_vector[15] = {21, 0, 24, 24, 23, 5, 24, 24, 23, 5, 19, 19, 22, 5, 0};
+static int out_shift_vector[15] = {22, 0, 22, 23, 23, 5, 21, 23, 23, 5, 20, 22, 22, 5, 0};
 static int inmul1_vector[15] = {0, 0, 0, 0, 0, 32.0, 0, 0, 0, 32.0, 0, 0, 0, 32.0, 0};
 static int inmul2_vector[15] = {0, 0, 0, 0, 0, 32.0, 0, 0, 0, 32.0, 0, 0, 0, 32.0, 0};
-static int check_activations_out[15] = {5422428, 1568757, 120988, 177792, 193034, 370826, 71028, 46692, 91579, 138271, 15945, 2027, 20, 2047, 11466};
+static int check_activations_out[15] = {2692058, 930278, 100955, 138918, 135058, 273976, 27961, 42600, 16824, 59424, 10413, 1121, 0, 1121, 7869};
 static int check_activations_out_dimension[15] = {320000, 80000, 20000, 20000, 20000, 20000, 10816, 10816, 10816, 10816, 6272, 6272, 6272, 6272, 8};
 static int layer_with_weights[15] = {1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1};
 
