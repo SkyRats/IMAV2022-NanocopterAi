@@ -95,6 +95,7 @@ static struct pi_device ram;
 static struct pi_device camera_dev;
 
 static uint8_t * imageBuffer;
+static pi_task_t task;
 static int32_t * dronetOutput;
 static volatile uint8_t asyncImgTransfFlag = 0;
 
@@ -143,12 +144,7 @@ static void check_layer_weight(char *weight, int check_sum_true, int dim) {
 
 static void handle_transfer_end(void *arg)
 {
-    pi_cl_ram_req_t buff_req;
-
-    asyncImgTransfFlag = 1;
     pi_camera_control(&camera_dev, PI_CAMERA_CMD_STOP, 0);
-    pi_cl_ram_write(&ram, activations_input, imageBuffer, 40000, &buff_req);
-    pi_cl_ram_read_wait(&buff_req);
 }
 
 static int8_t open_camera()
@@ -342,6 +338,10 @@ int32_t * network_run_FabricController()
   pi_freq_set(PI_FREQ_DOMAIN_CL, 100000000);
   pi_time_wait_us(10000);
 
+    /* synchronous write of image k - 1 to ram */
+    pi_ram_write(&ram, activations_input, imageBuffer, 40000, &buff_req);
+    /* *************************************** */
+
   struct pi_device cluster_dev = {0};
   struct pi_cluster_conf conf;
   struct pi_cluster_task cluster_task = {0};
@@ -355,6 +355,12 @@ int32_t * network_run_FabricController()
   pi_open_from_conf(&cluster_dev, &conf);
   if (pi_cluster_open(&cluster_dev))
     return NULL;
+
+    /* Asynchronous request for image k */
+    pi_camera_capture_async(&camera_dev, imageBuffer, 40000, pi_task_callback(&task, handle_transfer_end, NULL));
+    pi_camera_control(&camera_dev, PI_CAMERA_CMD_AEG_INIT, 0);
+    /* ************************************** */
+
   // Then offload an entry point, this will get executed on the cluster controller
   pi_cluster_send_task_to_cl(&cluster_dev, &cluster_task);
   // closing of the cluster
@@ -451,6 +457,7 @@ void network_run(unsigned int L3_weights_size)
 /*
   - input allocation and copy
 */
+
     dory_L2_alloc(&L2_buffer_allocation,
       &L2_buffer_allocation_end,
       &L2_input,
@@ -459,13 +466,6 @@ void network_run(unsigned int L3_weights_size)
       );
     pi_cl_ram_read(&ram, activations_input, L2_input, 40000, &buff_req1);
     pi_cl_ram_read_wait(&buff_req1);
-
-    /* Asynchronous request for another image */
-    asyncImgTransfFlag = 0;
-    pi_task_t task;
-    pi_camera_capture_async(&camera_dev, imageBuffer, 40000, pi_task_callback(&task, handle_transfer_end, NULL));
-    pi_camera_control(&camera_dev, PI_CAMERA_CMD_AEG_INIT, 0);
-    /* ************************************** */
 
 /*
   - first layer weights allocation and copy
