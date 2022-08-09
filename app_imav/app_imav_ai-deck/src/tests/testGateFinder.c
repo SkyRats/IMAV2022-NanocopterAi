@@ -26,15 +26,6 @@ int main(int argc, char** argv)
     /* mask pixel order
        upper-left, left, bottom-left, bottom, (center pixel if mask is 9-bit wide), bottom-right, right, upper-right and upper pixel */
     int8_t const quickMask[9] = { -1, 0, -1, 0, 4, 0, -1, 0, -1 };
-    const int8_t sobel_mask_y[9] =
-   { 1, 2, 1,
-    0, 0, 0,
-   -1, -2, -1 };
-    const int8_t sobel_mask_x[9] =
-   {-1, 0, 1,
-   -2, 0, 2,
-   -1, 0, 1 };
-
 
     bool const erosionMask[8] = {false, true, false, true, true, false, true, false };
 
@@ -62,43 +53,36 @@ int main(int argc, char** argv)
        with certain accuraccy. Another option would be to convolute the image twice: one
        with a vertical-edge detector mask and another with a horizontal-edge detector mask
        -- then, sum both images into one. This will be left as an exercise for the reader :) */
-    
-    PGMImage *sobelImg = sobel_convolution(filteredImg,sobel_mask_x, sobel_mask_y);
+    PGMImage *convolutedImg =  convolution3by3(filteredImg, quickMask);
     free(filteredImg);
-    NULL_CHECK(sobelImg);
-    NULL_CHECK(sobelImg->data);
-
-
-    
-
-   
-    
+    NULL_CHECK(convolutedImg);
+    NULL_CHECK(convolutedImg->data);
 
 
     #if THRESHOLDING_SEGMENTATION_METHOD == 0
 
-    histogramPeakTechnique(sobelImg);
+    histogramPeakTechnique(convolutedImg);
 
     #elif THRESHOLDING_SEGMENTATION_METHOD == 1
 
-    histogramValleyTechnique(sobelImg);
+    histogramValleyTechnique(convolutedImg);
 
     #else
 
-    adaptiveHistogramTechnique(sobelImg);
+    adaptiveHistogramTechnique(convolutedImg);
 
     #endif
 
 
     /* we will moderately erode the image twice */
-    PGMImage * halfEroded = maskErosion(sobelImg, erosionMask);
+    PGMImage * halfEroded = maskErosion(convolutedImg, erosionMask);
     NULL_CHECK(halfEroded);
     NULL_CHECK(halfEroded->data);
 
     PGMImage * erodedImg = maskErosion(halfEroded, erosionMask);
     NULL_CHECK(erodedImg);
     free(halfEroded);
-    free(sobelImg);
+    //free(convolutedImg);
     NULL_CHECK(erodedImg->data);
 
     /* then we apply a strong dilation */
@@ -154,7 +138,7 @@ int main(int argc, char** argv)
     #if SEGMENTATION_METHOD == 0
     writePGM(argv[2], dilatedImg);
     #else
-    writePGM(argv[2], outputImg);
+    writePGM(argv[2], convolutedImg);
     free(outputImg);
     #endif
 
