@@ -7,6 +7,7 @@
 #include "config.h"
 #include "imageIO.h"
 #include "convolution.h"
+//#include "sobel_convolution.h"
 #include "morphological.h"
 #include "filter.h"
 #include "histogram.h"
@@ -26,6 +27,23 @@ int main(int argc, char** argv)
     /* mask pixel order
        upper-left, left, bottom-left, bottom, (center pixel if mask is 9-bit wide), bottom-right, right, upper-right and upper pixel */
     int8_t const quickMask[9] = { -1, 0, -1, 0, 4, 0, -1, 0, -1 };
+    const int8_t sobel_mask_y[9] =
+   { 1, 2, 1,
+    0, 0, 0,
+   -1, -2, -1 };
+    const int8_t sobel_mask_x[9] =
+   {-1, 0, 1,
+   -2, 0, 2,
+   -1, 0, 1 };
+
+   //const int8_t sobel_mask_y[9] =
+   //{ 2, 4, 2,
+   // 0, 0, 0,
+   //-2, -4, -2 };
+   // const int8_t sobel_mask_x[9] =
+   //{-2, 0, 2,
+   //-4, 0, 4,
+   //-2, 0, 2 };
 
     bool const erosionMask[8] = {false, true, false, true, true, false, true, false };
 
@@ -53,36 +71,52 @@ int main(int argc, char** argv)
        with certain accuraccy. Another option would be to convolute the image twice: one
        with a vertical-edge detector mask and another with a horizontal-edge detector mask
        -- then, sum both images into one. This will be left as an exercise for the reader :) */
-    PGMImage *convolutedImg =  convolution3by3(filteredImg, quickMask);
+    
+    PGMImage *sobelImg = sobel_convolution(filteredImg,sobel_mask_x, sobel_mask_y);
     free(filteredImg);
-    NULL_CHECK(convolutedImg);
-    NULL_CHECK(convolutedImg->data);
+    NULL_CHECK(sobelImg);
+    NULL_CHECK(sobelImg->data);
 
+
+    
+
+   
+    
+    //PGMImage *convolutedImg = convolution3by3(filteredImg,quickMask);
+    //free(filteredImg);
+    //NULL_CHECK(convolutedImg);
+    //NULL_CHECK(convolutedImg->data);
+    //writePGM(argv[2], convolutedImg);
+    //free(convolutedImg);
+    
+    //printf("Done.\n");
+
+    //return 0;
 
     #if THRESHOLDING_SEGMENTATION_METHOD == 0
 
-    histogramPeakTechnique(convolutedImg);
+    histogramPeakTechnique(sobelImg);
 
     #elif THRESHOLDING_SEGMENTATION_METHOD == 1
 
-    histogramValleyTechnique(convolutedImg);
+    histogramValleyTechnique(sobelImg);
 
     #else
 
-    adaptiveHistogramTechnique(convolutedImg);
+    adaptiveHistogramTechnique(sobelImg);
 
     #endif
 
 
     /* we will moderately erode the image twice */
-    PGMImage * halfEroded = maskErosion(convolutedImg, erosionMask);
+    PGMImage * halfEroded = maskErosion(sobelImg, erosionMask);
     NULL_CHECK(halfEroded);
     NULL_CHECK(halfEroded->data);
 
     PGMImage * erodedImg = maskErosion(halfEroded, erosionMask);
     NULL_CHECK(erodedImg);
     free(halfEroded);
-    free(convolutedImg);
+    free(sobelImg);
     NULL_CHECK(erodedImg->data);
 
     /* then we apply a strong dilation */

@@ -17,6 +17,8 @@
 #endif
 
 PGMImage* convolution3by3(PGMImage const *img, const int8_t mask[9]);
+PGMImage* sobel_convolution(PGMImage const *img, const int8_t x_filter[9], const int8_t y_filter[9]);
+
 
 #endif
 

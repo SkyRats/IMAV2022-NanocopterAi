@@ -109,10 +109,44 @@ PGMImage* convolution3by3(PGMImage const *img, const int8_t mask[9])
 
                 /* value of the pixel itself*/
                 convolutedPixel += img->data[idx].gray * mask[4];
-                convolutedImg->data[idx].gray = MIN_PIXEL_VALUE <= convolutedPixel && convolutedPixel <= MAX_PIXEL_VALUE ? convolutedPixel : convolutedPixel < MIN_PIXEL_VALUE ? -convolutedPixel : MAX_PIXEL_VALUE;
+                if(convolutedPixel<0){
+                    convolutedPixel = -convolutedPixel;
+                }
+                convolutedImg->data[idx].gray = convolutedPixel;
+                //convolutedImg->data[idx].gray = MIN_PIXEL_VALUE <= convolutedPixel && convolutedPixel <= MAX_PIXEL_VALUE ? convolutedPixel : convolutedPixel < MIN_PIXEL_VALUE ? -convolutedPixel : MAX_PIXEL_VALUE;
             }
         }
     }
 
     return convolutedImg;
+}
+
+
+PGMImage* sobel_convolution(PGMImage const *img, const int8_t x_filter[9], const int8_t y_filter[9]){
+    const uint8_t imageWidth = img->x, imageHeight = img->y;
+    const uint16_t imageSize = imageWidth * imageHeight;
+
+    PGMImage* gradient_x = convolution3by3(img, x_filter); 
+    PGMImage* gradient_y = convolution3by3(img, y_filter); 
+
+    PGMImage* sobelImg = (PGMImage *)malloc(sizeof(PGMImage));
+    sobelImg->x = imageWidth;
+    sobelImg->y = imageHeight;
+    sobelImg->data = (PGMPixel*)malloc(imageSize * sizeof(PGMPixel));
+
+
+    for(uint16_t i=0; i<imageHeight*imageWidth; i++){
+        if(gradient_x->data[i].gray > gradient_y->data[i].gray){
+            sobelImg->data[i].gray = gradient_x->data[i].gray;
+        }
+        else{
+            sobelImg->data[i].gray = gradient_x->data[i].gray;
+        }
+    }
+    free(gradient_x->data);
+    free(gradient_y->data);
+    free(gradient_x);
+    free(gradient_y);
+    return sobelImg;
+
 }
