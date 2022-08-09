@@ -35,6 +35,15 @@ int main(int argc, char** argv)
    -2, 0, 2,
    -1, 0, 1 };
 
+    const int8_t prewitt_mask_y[9] =
+   { 1, 1, 1,
+    0, 0, 0,
+   -1, -1, -1 };
+    const int8_t prewitt_mask_x[9] =
+   {-1, 0, 1,
+   -1, 0, 1,
+   -1, 0, 1 };
+
 
     bool const erosionMask[8] = {false, true, false, true, true, false, true, false };
 
@@ -62,17 +71,17 @@ int main(int argc, char** argv)
        with certain accuraccy. Another option would be to convolute the image twice: one
        with a vertical-edge detector mask and another with a horizontal-edge detector mask
        -- then, sum both images into one. This will be left as an exercise for the reader :) */
-    
-    PGMImage *sobelImg = sobel_convolution(filteredImg,sobel_mask_x, sobel_mask_y);
+
+    PGMImage *sobelImg = sobel_convolution(filteredImg,sobel_mask_y, sobel_mask_y);
     free(filteredImg);
     NULL_CHECK(sobelImg);
     NULL_CHECK(sobelImg->data);
 
 
-    
 
-   
-    
+
+
+
 
 
     #if THRESHOLDING_SEGMENTATION_METHOD == 0
