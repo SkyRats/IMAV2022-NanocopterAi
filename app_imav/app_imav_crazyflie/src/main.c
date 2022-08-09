@@ -35,7 +35,7 @@ typedef enum
     SEARCHING_FOR_GATE, // FIND_GATE
 } ControllerState;
 
-uint32_t aideckRxBuffer[BUFFERSIZE/4]; /* 8 bytes of data == 2 32-bit integers */
+int32_t aideckRxBuffer[BUFFERSIZE/4]; /* 8 bytes of data == 2 32-bit integers */
 volatile uint8_t dma_flag = 0;
 uint32_t quantizedProbOfColl = 0;
 uint32_t quantizedSteering = 0;
@@ -177,6 +177,7 @@ static void setVelocitySetpoint(setpoint_t *setpoint, float vx, float vy, float 
 void __attribute__((used)) DMA1_Stream1_IRQHandler(void)
 {
     DMA_ClearFlag(DMA1_Stream1, UART3_RX_DMA_ALL_FLAGS);
+    //ControllerState =
     dma_flag = 1;
 }
 
