@@ -72,7 +72,7 @@ int main(int argc, char** argv)
        with a vertical-edge detector mask and another with a horizontal-edge detector mask
        -- then, sum both images into one. This will be left as an exercise for the reader :) */
 
-    PGMImage *sobelImg = sobel_convolution(filteredImg,sobel_mask_y, sobel_mask_y);
+    PGMImage *sobelImg = sobel_convolution(filteredImg,prewitt_mask_x, prewitt_mask_y);
     free(filteredImg);
     NULL_CHECK(sobelImg);
     NULL_CHECK(sobelImg->data);
