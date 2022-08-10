@@ -15,6 +15,9 @@
 
 #include <math.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <stdint.h>
+#include <stdbool.h>
 
 #include <webots/robot.h>
 #include <webots/motor.h>
@@ -26,17 +29,37 @@
 #include <webots/distance_sensor.h>
 
 #include "../../../controllers/pid_controller.h"
-
+#include "../../../controllers/gateFinder/imageIO.h"
+#include "../../../controllers/gateFinder/GateFinder.h"
+#include "../../../controllers/gateFinder/config.h"
 #define PI 3.142857
 
 int currentState = 0; //0 - Goes forward, 1- Backs up, 2 - arena scan/rotate, 3- align to object, 4- Avoid obstacle
 double oldYaw = 0;
 
+
+PGMImage *getImage(WbDeviceTag camera){ // Trnsforms webots image file into PGMImage struct
+  PGMImage *img;
+  img = (PGMImage *)malloc(sizeof(PGMImage));
+  const unsigned char *rawImage = wb_camera_get_image(camera);
+  img->x = wb_camera_get_width(camera);
+  img->y = wb_camera_get_height(camera);
+  img->data = (PGMPixel*)malloc((img->x)*(img->y) * sizeof(PGMPixel));
+  for (int j = 0; j < img->y; j++){
+    int line = j*img->x;
+    for (int i = 0; i<=img->x; i++){
+      int gray = wb_camera_image_get_gray(rawImage, img->x, i, j);
+      img->data[i + line].gray = gray;
+    }
+  }
+  return img;
+}
+
 int main(int argc, char **argv) {
   wb_robot_init();
 
   int timestep = (int)wb_robot_get_basic_time_step();
-  
+
 
 //Rotates to the desired angle (in radians)
 float rotate(double actualYaw, double desiredYaw) {
@@ -123,8 +146,9 @@ float rotate(double actualYaw, double desiredYaw) {
 
   // Initialize struct for motor power
   MotorPower_t motorPower;
-
+  
   printf("Take off!\n");
+  
 
   while (wb_robot_step(timestep) != -1) {
 
@@ -177,11 +201,11 @@ float rotate(double actualYaw, double desiredYaw) {
           oldYaw = actualYaw;
           currentState = 2;
         }
-        
         break;
       case 2: // Rotating, Scanning for gates
         yawDesired = rotate(actualYaw, oldYaw - PI/2 );
-        //Gatefinder algorithm goes here
+        PGMImage *image = getImage(camera);
+        GateFinder(image);
         break;
       case 3: // Gate Alignment
         break;
@@ -244,7 +268,7 @@ float rotate(double actualYaw, double desiredYaw) {
     pastXGlobal = xGlobal;
     pastYGlobal = yGlobal;
 
-
+    
   };
 
   wb_robot_cleanup();
