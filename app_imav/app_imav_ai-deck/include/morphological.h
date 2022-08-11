@@ -7,10 +7,8 @@
 #include "config.h"
 #include "imageIO.h"
 
-PGMImage* maskErosion(PGMImage *img, bool const mask[8]);
-PGMImage* maskDilation(PGMImage *img, bool const mask[8]);
-void pi_cl_maskErosion(void * args);
-void pi_cl_maskDilation(void * args);
+void cl_maskErosion(void * args);
+void cl_maskDilation(void * args);
 
 #endif
 

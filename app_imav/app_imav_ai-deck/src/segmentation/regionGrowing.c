@@ -1,3 +1,4 @@
+#include "pmsis.h"
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
@@ -16,15 +17,17 @@ PQueue * edgeAndGrayShadeSegmentation(PGMImage * img, PGMImage * thresholdedEdge
     uint8_t y, averageGrayShade, label = 1;
     uint16_t line, pixelIndex, pixelCount;
     uint32_t sum;
+    printf("antes da stack e queue");
     Stack* pixelStack = createStack();
     PQueue* labelPQueue = createPQueue();
+    printf("depois da stack e queue");
 
     for(y = 1; y < imageHeight - 1; ++y)
     {
         line = y * imageWidth;
         for(pixelIndex = line + 1; pixelIndex < line + imageWidth - 1; ++pixelIndex)
         {
-            if(thresholdedEdgeDetectorOutput->data[pixelIndex].gray != MAX_PIXEL_VALUE && outputImg->data[pixelIndex].gray == 0)
+            if(thresholdedEdgeDetectorOutput->data[pixelIndex] != MAX_PIXEL_VALUE && outputImg->data[pixelIndex] == 0)
             {
                 sum = 0;
                 pixelCount = 0;
@@ -40,10 +43,10 @@ PQueue * edgeAndGrayShadeSegmentation(PGMImage * img, PGMImage * thresholdedEdge
                 }
                 else
                     for(uint16_t i = 0; i < imageSize; ++i)
-                        if(outputImg->data[i].gray == label)
+                        if(outputImg->data[i] == label)
                         {
-                            outputImg->data[i].gray = 0;
-                            thresholdedEdgeDetectorOutput->data[i].gray = MAX_PIXEL_VALUE;
+                            outputImg->data[i] = 0;
+                            thresholdedEdgeDetectorOutput->data[i] = MAX_PIXEL_VALUE;
                         }
             }
 
@@ -58,13 +61,13 @@ PQueue * edgeAndGrayShadeSegmentation(PGMImage * img, PGMImage * thresholdedEdge
 void edgesAndGrayShadesLabelAndCheckNeighbour(PGMImage * img, PGMImage * thresholdedEdgeDetectorOutput, PGMImage * outputImg, uint8_t label, uint16_t pixelIndex, Stack * pixelStack, uint16_t * pixelCount, uint32_t * sum, uint8_t * averageGrayShade)
 {
 
-    if(outputImg->data[pixelIndex].gray == label)
+    if(outputImg->data[pixelIndex] == label)
         return;
     else
     {
-        outputImg->data[pixelIndex].gray = label;
+        outputImg->data[pixelIndex] = label;
         *pixelCount += 1;
-        *sum += img->data[pixelIndex].gray;
+        *sum += img->data[pixelIndex];
         *averageGrayShade = (*sum)/(*pixelCount);
     }
 
@@ -90,12 +93,12 @@ void edgesAndGrayShadesLabelAndCheckNeighbour(PGMImage * img, PGMImage * thresho
     for(uint8_t i = 0; i < 8; ++i)
     {
 
-        neighbourPixel = img->data[pixelNeighbours[i]].gray;
+        neighbourPixel = img->data[pixelNeighbours[i]];
 
         diff = *averageGrayShade - neighbourPixel;
 
-        if(thresholdedEdgeDetectorOutput->data[pixelNeighbours[i]].gray != MAX_PIXEL_VALUE
-                && outputImg->data[pixelNeighbours[i]].gray == 0
+        if(thresholdedEdgeDetectorOutput->data[pixelNeighbours[i]] != MAX_PIXEL_VALUE
+                && outputImg->data[pixelNeighbours[i]] == 0
                 && -MAX_GRAYSHADE_DIFF <= diff && diff <= MAX_GRAYSHADE_DIFF)
             push(pixelStack, pixelNeighbours[i]);
     }
@@ -117,7 +120,7 @@ PQueue* edgeSegmentation(PGMImage * img)
         line = y * imageWidth;
         for(pixelIndex = line + 1; pixelIndex < line + imageWidth - 1; ++pixelIndex)
         {
-            pixel = img->data[pixelIndex].gray;
+            pixel = img->data[pixelIndex];
 
             if(pixel == MIN_PIXEL_VALUE)
             {
@@ -147,11 +150,11 @@ PQueue* edgeSegmentation(PGMImage * img)
 
 void edgesLabelAndCheckNeighbour(PGMImage * img, uint8_t label, uint16_t pixelIndex, Stack * pixelStack, uint16_t * pixelCount)
 {
-    if(img->data[pixelIndex].gray == label)
+    if(img->data[pixelIndex] == label)
         return;
     else
     {
-        img->data[pixelIndex].gray = label;
+        img->data[pixelIndex] = label;
         *pixelCount += 1;
     }
 
@@ -177,7 +180,7 @@ void edgesLabelAndCheckNeighbour(PGMImage * img, uint8_t label, uint16_t pixelIn
     for(uint8_t i = 0; i < 8; ++i)
     {
 
-        pixel = img->data[pixelNeighbours[i]].gray;
+        pixel = img->data[pixelNeighbours[i]];
 
         if(pixel == MIN_PIXEL_VALUE)
             push(pixelStack, pixelNeighbours[i]);

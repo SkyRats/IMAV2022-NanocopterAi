@@ -6,7 +6,6 @@
 #include "config.h"
 #include "imageIO.h"
 
-PGMImage * lowPixelFilter(PGMImage const * img);
-void pi_cl_lowPixelFilter(void * args);
+void cl_lowPixelFilter(void * args);
 
 #endif

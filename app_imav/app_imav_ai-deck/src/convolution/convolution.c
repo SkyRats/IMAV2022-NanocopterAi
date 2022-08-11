@@ -1,3 +1,6 @@
+/* PMSIS includes. */
+#include "pmsis.h"
+
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -55,69 +58,8 @@ const uint8_t sobel_mask_7[9] =
     -2, -1, 0 };
 */
 
-PGMImage* convolution3by3(PGMImage const *img, const int8_t mask[9])
-{
-    const uint8_t imageWidth = img->x, imageHeight = img->y;
-    const uint16_t imageSize = imageWidth * imageHeight;
 
-    uint8_t x, y;
-    int32_t convolutedPixel;
-
-    uint16_t idx, line;
-    uint16_t idxr[8];
-
-    PGMImage* convolutedImg = (PGMImage *)malloc(sizeof(PGMImage));
-
-    if(convolutedImg == NULL)
-        return NULL;
-
-    convolutedImg->x = imageWidth;
-    convolutedImg->y = imageHeight;
-    convolutedImg->data = (PGMPixel*)malloc(imageSize * sizeof(PGMPixel));
-
-    if(convolutedImg->data == NULL)
-        return NULL;
-
-    for(y = 0; y < imageHeight; ++y)
-    {
-        line = y * imageWidth;
-        for(x = 0, idx = line; x < imageWidth; ++x, ++idx)
-        {
-            if(x == 0 || y == 0 || x == imageWidth -1 || y == imageHeight -1)
-                convolutedImg->data[idx].gray = MIN_PIXEL_VALUE;
-            else
-            {
-                /* finding position of each pixel around idx*/
-                idxr[0] = idx - imageWidth - 1;
-                idxr[1] = idx - 1;
-                idxr[2] = idx + imageWidth - 1;
-                idxr[3] = idx + imageWidth;
-                idxr[4] = idx + imageWidth + 1;
-                idxr[5] = idx + 1;
-                idxr[6] = idx - imageWidth + 1;
-                idxr[7] = idx - imageWidth;
-
-                /* applying mask */
-                convolutedPixel  = img->data[idxr[0]].gray * mask[0];
-                convolutedPixel += img->data[idxr[1]].gray * mask[1];
-                convolutedPixel += img->data[idxr[2]].gray * mask[2];
-                convolutedPixel += img->data[idxr[3]].gray * mask[3];
-                convolutedPixel += img->data[idxr[4]].gray * mask[5];
-                convolutedPixel += img->data[idxr[5]].gray * mask[6];
-                convolutedPixel += img->data[idxr[6]].gray * mask[7];
-                convolutedPixel += img->data[idxr[7]].gray * mask[8];
-
-                /* value of the pixel itself*/
-                convolutedPixel += img->data[idx].gray * mask[4];
-                convolutedImg->data[idx].gray = MIN_PIXEL_VALUE <= convolutedPixel && convolutedPixel <= MAX_PIXEL_VALUE ? convolutedPixel : convolutedPixel < MIN_PIXEL_VALUE ? -convolutedPixel : MAX_PIXEL_VALUE;
-            }
-        }
-    }
-
-    return convolutedImg;
-}
-
-void pi_cl_convolution3by3(void * args)
+void cl_convolution3by3(void * args)
 {
     const int8_t mask[9] = { -1, 0, -1, 0, 4, 0, -1, 0, -1 };
     uint8_t coreId = pi_core_id();
@@ -128,8 +70,8 @@ void pi_cl_convolution3by3(void * args)
 
     const uint8_t imageWidth = img->x, imageHeight = img->y;
 
-    uint16_t idx, line;
-    uint16_t idxr[8];
+    uint16_t pixelIndex, line;
+    uint16_t pixelNeighbours[8];
 
     /* loop variables */
     uint8_t x, y;
@@ -144,36 +86,116 @@ void pi_cl_convolution3by3(void * args)
     for(y = beginning; y < end; ++y)
     {
         line = y * imageWidth;
-        for(x = 0, idx = line; x < imageWidth; ++x, ++idx)
+        for(x = 0, pixelIndex = line; x < imageWidth; ++x, ++pixelIndex)
         {
             if(x == 0 || y == 0 || x == imageWidth -1 || y == imageHeight -1)
-                convolutedImg->data[idx].gray = MIN_PIXEL_VALUE;
+                convolutedImg->data[pixelIndex] = MIN_PIXEL_VALUE;
             else
             {
-                /* finding position of each pixel around idx*/
-                idxr[0] = idx - imageWidth - 1;
-                idxr[1] = idx - 1;
-                idxr[2] = idx + imageWidth - 1;
-                idxr[3] = idx + imageWidth;
-                idxr[4] = idx + imageWidth + 1;
-                idxr[5] = idx + 1;
-                idxr[6] = idx - imageWidth + 1;
-                idxr[7] = idx - imageWidth;
+                /* finding position of each pixel around pixelIndex*/
+                pixelNeighbours[0] = pixelIndex - imageWidth - 1;
+                pixelNeighbours[1] = pixelIndex - 1;
+                pixelNeighbours[2] = pixelIndex + imageWidth - 1;
+                pixelNeighbours[3] = pixelIndex + imageWidth;
+                pixelNeighbours[4] = pixelIndex + imageWidth + 1;
+                pixelNeighbours[5] = pixelIndex + 1;
+                pixelNeighbours[6] = pixelIndex - imageWidth + 1;
+                pixelNeighbours[7] = pixelIndex - imageWidth;
 
                 /* applying mask */
-                convolutedPixel  = img->data[idxr[0]].gray * mask[0];
-                convolutedPixel += img->data[idxr[1]].gray * mask[1];
-                convolutedPixel += img->data[idxr[2]].gray * mask[2];
-                convolutedPixel += img->data[idxr[3]].gray * mask[3];
-                convolutedPixel += img->data[idxr[4]].gray * mask[5];
-                convolutedPixel += img->data[idxr[5]].gray * mask[6];
-                convolutedPixel += img->data[idxr[6]].gray * mask[7];
-                convolutedPixel += img->data[idxr[7]].gray * mask[8];
+                convolutedPixel  = img->data[pixelNeighbours[0]] * mask[0];
+                convolutedPixel += img->data[pixelNeighbours[1]] * mask[1];
+                convolutedPixel += img->data[pixelNeighbours[2]] * mask[2];
+                convolutedPixel += img->data[pixelNeighbours[3]] * mask[3];
+                convolutedPixel += img->data[pixelNeighbours[4]] * mask[5];
+                convolutedPixel += img->data[pixelNeighbours[5]] * mask[6];
+                convolutedPixel += img->data[pixelNeighbours[6]] * mask[7];
+                convolutedPixel += img->data[pixelNeighbours[7]] * mask[8];
 
                 /* value of the pixel itself*/
-                convolutedPixel += img->data[idx].gray * mask[4];
-                convolutedImg->data[idx].gray = MIN_PIXEL_VALUE <= convolutedPixel && convolutedPixel <= MAX_PIXEL_VALUE ? convolutedPixel : convolutedPixel < MIN_PIXEL_VALUE ? -convolutedPixel : MAX_PIXEL_VALUE;
+                convolutedPixel += img->data[pixelIndex] * mask[4];
+                convolutedPixel = convolutedPixel > 0 ? convolutedPixel : -convolutedPixel;
+                convolutedImg->data[pixelIndex] = convolutedPixel <= MAX_PIXEL_VALUE ? convolutedPixel : MAX_PIXEL_VALUE;
             }
         }
     }
+    pi_cl_team_barrier(0);
+}
+
+void cl_sobelOperator(void * args)
+{
+    uint8_t coreId = pi_core_id();
+    clusterCallArgs * realArgs = (clusterCallArgs *)args;
+    PGMImage * img = realArgs->inputImage;
+    PGMImage * sobelImg = realArgs->outputImage;
+    uint8_t nOfCores = realArgs->numOfCores;
+
+    const uint8_t imageWidth = img->x, imageHeight = img->y;
+
+    /* loop variables */
+    int16_t xGradient;
+    int16_t yGradient;
+    uint16_t maxGradient, minGradient, sqrtApprox;
+    uint8_t linesPerCore = (imageHeight + nOfCores - 1)/nOfCores; /* rounded up */
+    uint8_t beginning = coreId*linesPerCore;
+    uint8_t end = beginning + linesPerCore;
+    uint8_t x, y;
+
+    uint16_t pixelIndex, line;
+    uint16_t pixelNeighbours[8];
+
+    if(end > imageHeight)
+        end = imageHeight;
+
+    for(y = beginning, line = beginning * imageWidth ; y < end ; ++y, line += imageWidth)
+        for(x = 0, pixelIndex = line ; x < imageWidth ; ++x, ++pixelIndex)
+            if(x == 0 || y == 0 || x == imageWidth -1 || y == imageHeight -1)
+                sobelImg->data[pixelIndex] = MIN_PIXEL_VALUE;
+            else
+            {
+                /* finding position of each pixel around pixelIndex*/
+                pixelNeighbours[0] = pixelIndex - imageWidth - 1; /* upper-left */
+                pixelNeighbours[1] = pixelIndex - 1;              /* left */
+                pixelNeighbours[2] = pixelIndex + imageWidth - 1; /* bottom-left */
+                pixelNeighbours[3] = pixelIndex + imageWidth;     /* bottom */
+                pixelNeighbours[4] = pixelIndex + imageWidth + 1; /* bottom-right */
+                pixelNeighbours[5] = pixelIndex + 1;              /* right */
+                pixelNeighbours[6] = pixelIndex - imageWidth + 1; /* upper-right */
+                pixelNeighbours[7] = pixelIndex - imageWidth;     /* upper */
+
+                /* derivating on x */
+                xGradient  = img->data[pixelNeighbours[0]];
+                xGradient += (img->data[pixelNeighbours[1]] << 1); /* one left shift == multiplication by 2 */
+                xGradient += img->data[pixelNeighbours[2]];
+                xGradient -= img->data[pixelNeighbours[4]];
+                xGradient -= (img->data[pixelNeighbours[5]] << 1);
+                xGradient -= img->data[pixelNeighbours[6]];
+
+                /* derivating on y */
+                yGradient  = img->data[pixelNeighbours[0]];
+                yGradient -= img->data[pixelNeighbours[2]];
+                yGradient -= (img->data[pixelNeighbours[3]] << 1);
+                yGradient -= img->data[pixelNeighbours[4]];
+                yGradient += img->data[pixelNeighbours[6]];
+                yGradient += (img->data[pixelNeighbours[7]] << 1);
+
+                /* SRA algorithm -- Square-Root Approximation */
+                /** sqrt(xGradient ^2 + yGradient ^2)
+                  * approx eq to
+                  * max( 0.875 * max(xGradient, yGradient) + 0.5 * min(xGradient, yGradient), max(xGradient, yGradient))
+                  */
+
+                xGradient = xGradient > 0 ? xGradient : -xGradient;
+                yGradient = yGradient > 0 ? yGradient : -yGradient;
+
+                maxGradient = xGradient > yGradient ? xGradient : yGradient;
+                minGradient = xGradient > yGradient ? yGradient : xGradient;
+
+                sqrtApprox = maxGradient - (maxGradient >> 3) + (minGradient >> 1);
+                sqrtApprox = sqrtApprox > maxGradient ? sqrtApprox : maxGradient;
+
+                sobelImg->data[pixelIndex] = sqrtApprox <= MAX_PIXEL_VALUE ? sqrtApprox : MAX_PIXEL_VALUE;
+
+            }
+    pi_cl_team_barrier(0);
 }

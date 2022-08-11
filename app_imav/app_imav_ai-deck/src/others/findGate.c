@@ -1,10 +1,11 @@
+#include "pmsis.h"
 #include <stdlib.h>
 #include <stdio.h>
 
 #include "imageIO.h"
 #include "findGate.h"
 
-typedef enum
+typedef enum __attribute__((packed))
 {
     BEGIN,
     FIND_FIRST,
@@ -12,7 +13,7 @@ typedef enum
     END
 } gateFinderStates;
 
-Point findGate(PGMImage* img, uint8_t grayShade)
+Point findGate(PGMImage* img, uint8_t Shade)
 {
     uint8_t imageWidth = img->x, imageHeight = img->y;
     uint16_t imageSize = imageWidth * imageHeight;
@@ -37,7 +38,7 @@ Point findGate(PGMImage* img, uint8_t grayShade)
 
             case FIND_FIRST:
                 firstPixelIndex = line;
-                while(firstPixelIndex < imageSize && img->data[firstPixelIndex].gray != grayShade)
+                while(firstPixelIndex < imageSize && img->data[firstPixelIndex] !=Shade)
                     firstPixelIndex++;
 
                 if(firstPixelIndex == imageSize)
@@ -54,7 +55,7 @@ Point findGate(PGMImage* img, uint8_t grayShade)
 
             case FIND_SECOND:
                 secondPixelIndex = line + imageWidth - 1;
-                while(secondPixelIndex != firstPixelIndex && img->data[secondPixelIndex].gray != grayShade)
+                while(secondPixelIndex != firstPixelIndex && img->data[secondPixelIndex] !=Shade)
                     secondPixelIndex--;
 
                 if(firstPixelIndex != secondPixelIndex)
@@ -104,7 +105,7 @@ Point findGate(PGMImage* img, uint8_t grayShade)
 
             case FIND_FIRST:
                 firstPixelIndex = column;
-                while(firstPixelIndex < imageSize && img->data[firstPixelIndex].gray != grayShade)
+                while(firstPixelIndex < imageSize && img->data[firstPixelIndex] !=Shade)
                     if(imageSize - firstPixelIndex <= imageWidth)
                     {
                         firstPixelIndex = firstPixelIndex % imageWidth + 1;
@@ -129,7 +130,7 @@ Point findGate(PGMImage* img, uint8_t grayShade)
 
             case FIND_SECOND:
                 secondPixelIndex = column + imageSize - imageWidth;
-                while(secondPixelIndex != firstPixelIndex && img->data[secondPixelIndex].gray != grayShade)
+                while(secondPixelIndex != firstPixelIndex && img->data[secondPixelIndex] !=Shade)
                         secondPixelIndex -= imageWidth;
 
                 if(firstPixelIndex != secondPixelIndex)
@@ -174,14 +175,14 @@ Point findGate(PGMImage* img, uint8_t grayShade)
         uint32_t sumH = 0, sumV = 0;
         uint16_t pixelIndex, counter = 0;
         for(pixelIndex = 0; pixelIndex < imageSize; ++pixelIndex)
-            if(img->data[pixelIndex].gray == grayShade)
+            if(img->data[pixelIndex] ==Shade)
             {
                 sumH += pixelIndex % imageWidth;
                 sumV += pixelIndex / imageWidth;
                 counter++;
             }
 
-        return (Point){sumH / counter, sumV / counter, img->data[pixelIndex].gray};
+        return (Point){sumH / counter, sumV / counter, img->data[pixelIndex]};
     }
 
     return (Point){0, 0, 0};

@@ -1,3 +1,4 @@
+#include "pmsis.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -6,29 +7,41 @@
 Stack* createStack()
 {
     Stack* s;
-    s = malloc(sizeof(Stack));
+    s = pmsis_l2_malloc(sizeof(Stack));
     s->max = STACK_INITIAL_SIZE;
     s->top = 0;
-    s->item = malloc(STACK_INITIAL_SIZE*sizeof(uint16_t));
+    s->item = pmsis_l2_malloc(STACK_INITIAL_SIZE*sizeof(uint16_t));
     return s;
 }
 
 void destroyStack(Stack * s)
 {
-    free(s->item);
-    free(s);
+    pmsis_l2_malloc_free(s->item, (s->max)*sizeof(uint16_t));
+    pmsis_l2_malloc_free(s, sizeof(Stack));
 }
 
-void reallocStack(Stack *s)
+Stack * reallocStack(Stack *s)
 {
-    s->item = realloc(s->item, (s->max + STACK_INITIAL_SIZE)*sizeof(uint16_t));
-    s->max += STACK_INITIAL_SIZE;
+    uint16_t previousSize = s->max;
+    Stack * newStack = pmsis_l2_malloc(sizeof(Stack));
+
+    newStack->item = pmsis_l2_malloc((previousSize + STACK_INITIAL_SIZE)*sizeof(uint16_t));
+    newStack->top = s->top;
+    newStack->max = previousSize + STACK_INITIAL_SIZE;
+
+    for(uint16_t i = 0; i < previousSize; ++i)
+        newStack->item[i] = s->item[i];
+
+    pmsis_l2_malloc_free(s->item, previousSize*sizeof(uint16_t));
+    pmsis_l2_malloc_free(s, sizeof(Stack));
+
+    return newStack;
 }
 
 void push(Stack * s, uint16_t i)
 {
     if(s->top == s->max)
-        reallocStack(s);
+        s = reallocStack(s);
 
     s->item[(s->top)++] = i;
 }

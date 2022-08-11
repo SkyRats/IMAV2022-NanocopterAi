@@ -22,7 +22,7 @@ struct Stack
 typedef struct Stack Stack;
 
 Stack * createStack();
-void reallocStack(Stack *);
+Stack * reallocStack(Stack *);
 uint16_t pop(Stack *);
 uint16_t topOfStack(Stack *);
 void destroyStack(Stack *);

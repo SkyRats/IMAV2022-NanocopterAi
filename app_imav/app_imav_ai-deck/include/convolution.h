@@ -16,8 +16,8 @@
 #define MIN_PIXEL_VALUE 0
 #endif
 
-PGMImage* convolution3by3(PGMImage const *img, const int8_t mask[9]);
-void pi_cl_convolution3by3(void * args);
+void cl_convolution3by3(void * args);
+void cl_sobelOperator(void * args);
 
 #endif
 

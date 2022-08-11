@@ -1,3 +1,7 @@
+#include "pmsis.h"
+/* PMSIS includes. */
+#include "pmsis.h"
+
 #include "threshold.h"
 #include <stdlib.h>
 
@@ -8,7 +12,7 @@ void thresholdImage(PGMImage * restrict img, uint8_t thresholdValue)
 
     if(img)
          for(i = 0; i < img->x * img->y ; ++i)
-              img->data[i].gray = img->data[i].gray >= thresholdValue ? MAX_PIXEL_VALUE : MIN_PIXEL_VALUE;
+              img->data[i] = img->data[i] >= thresholdValue ? MAX_PIXEL_VALUE : MIN_PIXEL_VALUE;
 }
 
 
@@ -20,8 +24,8 @@ void rangeThresholdImage(PGMImage *img, uint8_t lowerThresholdValue, uint8_t upp
     if(img)
         for(i = 0; i < img->x * img->y ; ++i)
         {
-            pixel = img->data[i].gray;
-            img->data[i].gray = (pixel >= lowerThresholdValue && pixel <= upperThresholdValue) ? MAX_PIXEL_VALUE : MIN_PIXEL_VALUE;
+            pixel = img->data[i];
+            img->data[i] = (pixel >= lowerThresholdValue && pixel <= upperThresholdValue) ? MAX_PIXEL_VALUE : MIN_PIXEL_VALUE;
         }
 }
 
@@ -33,16 +37,16 @@ void thresholdAndFindMeans(PGMImage* img, uint8_t upperBound, uint8_t lowerBound
 
     for(uint16_t i = 0; i < imageSize; ++i)
     {
-        pixel = img->data[i].gray;
+        pixel = img->data[i];
         if(pixel >= lowerBound && pixel <= upperBound)
         {
-            img->data[i].gray = MAX_PIXEL_VALUE;
+            img->data[i] = MAX_PIXEL_VALUE;
             counter++;
             object += pixel;
         }
         else
         {
-            img->data[i].gray = MIN_PIXEL_VALUE;
+            img->data[i] = MIN_PIXEL_VALUE;
             background += pixel;
         }
     }

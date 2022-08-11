@@ -1,3 +1,4 @@
+#include "pmsis.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdint.h>
@@ -101,7 +102,7 @@ void calculateHistogram(PGMImage const* img, uint16_t* histogram)
 
     for(i = 0; i < size; i++)
     {
-        pixel = img->data[i].gray;
+        pixel = img->data[i];
         index =  (pixel <= MAX_PIXEL_VALUE ? pixel : MAX_PIXEL_VALUE) - MIN_PIXEL_VALUE;
         histogram[index < 0 ? 0 : index] += 1;
     }
@@ -110,7 +111,8 @@ void calculateHistogram(PGMImage const* img, uint16_t* histogram)
 void smoothHistogram(uint16_t *restrict histogram)
 {
     uint8_t i = 1;
-    uint16_t *newHistogram = calloc((MAX_PIXEL_VALUE + 1) - MIN_PIXEL_VALUE, sizeof(uint16_t));
+    uint16_t *newHistogram = pmsis_l2_malloc(((MAX_PIXEL_VALUE + 1) - MIN_PIXEL_VALUE) * sizeof(uint16_t));
+    memset(newHistogram, 0, ((MAX_PIXEL_VALUE + 1) - MIN_PIXEL_VALUE) * sizeof(uint16_t));
 
     newHistogram[0] = (histogram[0] + histogram[1]) >> 1;/*divide by 2*/
     newHistogram[MAX_PIXEL_VALUE - MIN_PIXEL_VALUE] = (histogram[MAX_PIXEL_VALUE - MIN_PIXEL_VALUE] + histogram[MAX_PIXEL_VALUE - 1 - MIN_PIXEL_VALUE]) >> 1;
@@ -126,7 +128,7 @@ void smoothHistogram(uint16_t *restrict histogram)
 
     histogram[MAX_PIXEL_VALUE - MIN_PIXEL_VALUE] = newHistogram[MAX_PIXEL_VALUE - MIN_PIXEL_VALUE];
 
-    free(newHistogram);
+    pmsis_l2_malloc_free(newHistogram, ((MAX_PIXEL_VALUE + 1) -MIN_PIXEL_VALUE) * sizeof(uint16_t));
 }
 
 
@@ -135,7 +137,8 @@ void histogramPeakTechnique(PGMImage* img)
     uint16_t firstPeak = MAX_PIXEL_VALUE + 1, secondPeak = MAX_PIXEL_VALUE + 1;
     uint8_t upperBound, lowerBound;
 
-    uint16_t *histogram = calloc((MAX_PIXEL_VALUE + 2) - MIN_PIXEL_VALUE, sizeof(uint16_t));
+    uint16_t *histogram = pmsis_l2_malloc((MAX_PIXEL_VALUE + 2 -MIN_PIXEL_VALUE) * sizeof(uint16_t));
+    memset(histogram, 0, (MAX_PIXEL_VALUE + 2 -MIN_PIXEL_VALUE) * sizeof(uint16_t));
 
     calculateHistogram(img, histogram);
     smoothHistogram(histogram);
@@ -152,7 +155,7 @@ void histogramPeakTechnique(PGMImage* img)
     #endif
 
     rangeThresholdImage(img, lowerBound, upperBound);
-    free(histogram);
+    pmsis_l2_malloc_free(histogram, (MAX_PIXEL_VALUE + 2 -MIN_PIXEL_VALUE) * sizeof(uint16_t));
 }
 
 void histogramValleyTechnique(PGMImage* img)
@@ -160,7 +163,8 @@ void histogramValleyTechnique(PGMImage* img)
     uint16_t firstPeak = MAX_PIXEL_VALUE + 1, secondPeak = MAX_PIXEL_VALUE + 1;
     uint8_t upperBound, lowerBound;
 
-    uint16_t *histogram = calloc(MAX_PIXEL_VALUE + 2 - MIN_PIXEL_VALUE, sizeof(uint16_t));
+    uint16_t *histogram = pmsis_l2_malloc((MAX_PIXEL_VALUE + 2 -MIN_PIXEL_VALUE) * sizeof(uint16_t));
+    memset(histogram, 0, (MAX_PIXEL_VALUE + 2 -MIN_PIXEL_VALUE) * sizeof(uint16_t));
 
     calculateHistogram(img, histogram);
     smoothHistogram(histogram);
@@ -177,7 +181,7 @@ void histogramValleyTechnique(PGMImage* img)
     #endif
 
     rangeThresholdImage(img, lowerBound, upperBound);
-    free(histogram);
+    pmsis_l2_malloc_free(histogram, (MAX_PIXEL_VALUE + 2 -MIN_PIXEL_VALUE) * sizeof(uint16_t));
 }
 
 
@@ -186,7 +190,9 @@ void adaptiveHistogramTechnique(PGMImage* img)
     uint16_t firstPeak = MAX_PIXEL_VALUE + 1, secondPeak = MAX_PIXEL_VALUE + 1;
     uint8_t upperBound, lowerBound, object, background;
 
-    uint16_t *histogram = calloc(MAX_PIXEL_VALUE + 2 -MIN_PIXEL_VALUE, sizeof(uint16_t));
+    /* initializing memory with 0 because some shades may never appear on the image */
+    uint16_t *histogram = pmsis_l2_malloc((MAX_PIXEL_VALUE + 2 -MIN_PIXEL_VALUE) * sizeof(uint16_t));
+    memset(histogram, 0, (MAX_PIXEL_VALUE + 2 -MIN_PIXEL_VALUE) * sizeof(uint16_t));
 
     calculateHistogram(img, histogram);
     smoothHistogram(histogram);
@@ -214,5 +220,5 @@ void adaptiveHistogramTechnique(PGMImage* img)
     #endif
 
     rangeThresholdImage(img, lowerBound, upperBound);
-    free(histogram);
+    pmsis_l2_malloc_free(histogram, (MAX_PIXEL_VALUE + 2 -MIN_PIXEL_VALUE) * sizeof(uint16_t));
 }

@@ -15,12 +15,6 @@
 #define MIN_PIXEL_VALUE 0
 #endif
 
-struct Pixel {
-    uint8_t gray;
-}__attribute__((packed));
-
-typedef struct Pixel PGMPixel;
-
 struct PGMPoint
 {
     uint8_t x;
@@ -32,7 +26,7 @@ typedef struct PGMPoint Point;
 
 struct PGMImage {
      uint8_t x, y; //width, height
-     PGMPixel *data;
+     uint8_t *data;
 }__attribute__((packed));
 
 typedef struct PGMImage PGMImage;
