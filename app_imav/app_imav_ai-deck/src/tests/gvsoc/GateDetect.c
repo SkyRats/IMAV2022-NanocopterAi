@@ -17,11 +17,23 @@
 #include "morphological.h"
 #include "filter.h"
 #include "histogram.h"
-#include "regionGrowing.h"
+#include "stack.h"
 #include "queue.h"
 #include "findGate.h"
 
 #define STACK_SIZE      2048
+
+#ifndef MIN_PIXEL_AMOUNT_EDGES_AND_GRAY_SHADES
+#define MIN_PIXEL_AMOUNT_EDGES_AND_GRAY_SHADES 2000
+#endif
+
+#ifndef MAX_PIXEL_AMOUNT_EDGES_AND_GRAY_SHADES
+#define MAX_PIXEL_AMOUNT_EDGES_AND_GRAY_SHADES 40000
+#endif
+
+#ifndef MAX_GRAYSHADE_DIFF
+#define MAX_GRAYSHADE_DIFF 10
+#endif
 
 #define Max(a, b) (((a)>(b))?(a):(b))
 #define Min(a, b) (((a)<(b))?(a):(b))
@@ -47,12 +59,106 @@ typedef enum __attribute__((packed))
 unsigned int PI_L2 Performance[4];
 unsigned char index_perf = 0;
 
-unsigned int PI_L1 Elapsed[10];
+unsigned long int PI_L1 Elapsed[10];
+
+void __attribute__((noinline)) edgesAndGrayShadesLabelAndCheckNeighbour(PGMImage * img, PGMImage * thresholdedEdgeDetectorOutput, PGMImage * outputImg, uint8_t label, uint16_t pixelIndex, Stack * pixelStack, uint16_t * pixelCount, uint32_t * sum, uint8_t * averageGrayShade)
+{
+
+    if(outputImg->data[pixelIndex] == label)
+        return;
+    else
+    {
+        outputImg->data[pixelIndex] = label;
+        *pixelCount += 1;
+        *sum += img->data[pixelIndex];
+        *averageGrayShade = (*sum)/(*pixelCount);
+    }
+
+    const uint8_t imageWidth = 200, imageHeight = 200;
+    const uint16_t imageSize = imageWidth * imageHeight;
+
+    if(pixelIndex <= imageWidth || pixelIndex >= imageSize - imageWidth || pixelIndex % imageWidth == 0 || (pixelIndex + 1) % (imageWidth) == 0)
+        return;
+
+    uint8_t neighbourPixel;
+    uint16_t pixelNeighbours[8];
+    int16_t diff;
+
+    pixelNeighbours[0] = pixelIndex - imageWidth - 1; /* upper-left */
+    pixelNeighbours[1] = pixelIndex - 1;              /* left */
+    pixelNeighbours[2] = pixelIndex + imageWidth - 1; /* bottom-left */
+    pixelNeighbours[3] = pixelIndex + imageWidth;     /* bottom */
+    pixelNeighbours[4] = pixelIndex + imageWidth + 1; /* bottom-right */
+    pixelNeighbours[5] = pixelIndex + 1;              /* right */
+    pixelNeighbours[6] = pixelIndex - imageWidth + 1; /* upper-right */
+    pixelNeighbours[7] = pixelIndex - imageWidth;     /* upper */
+
+    for(uint8_t i = 0; i < 8; ++i)
+    {
+
+        neighbourPixel = img->data[pixelNeighbours[i]];
+
+        diff = *averageGrayShade - neighbourPixel;
+
+        if(thresholdedEdgeDetectorOutput->data[pixelNeighbours[i]] != MAX_PIXEL_VALUE
+                && outputImg->data[pixelNeighbours[i]] == 0
+                && -MAX_GRAYSHADE_DIFF <= diff && diff <= MAX_GRAYSHADE_DIFF)
+            push(pixelStack, pixelNeighbours[i]);
+    }
+
+}
+
+PQueue * __attribute__((noinline)) edgeAndGrayShadeSegmentation(PGMImage * img, PGMImage * thresholdedEdgeDetectorOutput, PGMImage * outputImg)
+{
+    const uint8_t imageWidth = 200, imageHeight = 200;
+    const uint16_t imageSize = imageWidth * imageHeight;
+
+    uint8_t y, averageGrayShade, label = 1;
+    uint16_t line, pixelIndex, pixelCount;
+    uint32_t sum;
+    Stack* pixelStack = createStack();
+    PQueue* labelPQueue = createPQueue();
+
+    for(y = 1; y < imageHeight - 1; ++y)
+    {
+        line = y * imageWidth;
+        for(pixelIndex = line + 1; pixelIndex < line + imageWidth - 1; ++pixelIndex)
+        {
+            if(thresholdedEdgeDetectorOutput->data[pixelIndex] != MAX_PIXEL_VALUE && outputImg->data[pixelIndex] == 0)
+            {
+                sum = 0;
+                pixelCount = 0;
+                edgesAndGrayShadesLabelAndCheckNeighbour(img, thresholdedEdgeDetectorOutput, outputImg, label, pixelIndex, pixelStack, &pixelCount, &sum, &averageGrayShade);
+
+                while(!isStackEmpty(pixelStack))
+                    edgesAndGrayShadesLabelAndCheckNeighbour(img, thresholdedEdgeDetectorOutput, outputImg, label, pop(pixelStack), pixelStack, &pixelCount, &sum, &averageGrayShade);
+
+                if(MIN_PIXEL_AMOUNT_EDGES_AND_GRAY_SHADES <= pixelCount && pixelCount <= MAX_PIXEL_AMOUNT_EDGES_AND_GRAY_SHADES)
+                {
+                    pEnqueue(labelPQueue, (PQueueNode){label, imageSize - pixelCount, NULL});
+                    label++;
+                }
+                else
+                    for(uint16_t i = 0; i < imageSize; ++i)
+                        if(outputImg->data[i] == label)
+                        {
+                            outputImg->data[i] = 0;
+                            thresholdedEdgeDetectorOutput->data[i] = MAX_PIXEL_VALUE;
+                        }
+            }
+
+        }
+    }
+
+    destroyStack(pixelStack);
+
+    return labelPQueue;
+}
 
 void masterFindGate(PGMImage * originalImage, PGMImage * outputImage)
 {
     static int FullReport = 1;
-    unsigned int Time, TimeIndex = 0;
+    unsigned long int Time, TimeIndex = 0;
     pi_cl_dma_cmd_t dmaCopyStatus;
     imageProcessingState state = FILTERING;
     uint8_t erosionCount = 1;
@@ -75,7 +181,7 @@ void masterFindGate(PGMImage * originalImage, PGMImage * outputImage)
     NULL_CHECK(inputImage->data);
 
     /* copy of first input from L2 to L1 */
-    pi_cl_dma_cmd((uint32_t) originalImage->data, (uint32_t) inputImage->data, 40000, PI_CL_DMA_DIR_EXT2LOC, &dmaCopyStatus);
+    pi_cl_dma_cmd((uint32_t) originalImage->data, (uint32_t) inputImage->data, 40000*sizeof(uint8_t), PI_CL_DMA_DIR_EXT2LOC, &dmaCopyStatus);
 
     /* initializing cluster argument structure */
     clusterCallArgs * clusterArgs = pmsis_l1_malloc(sizeof(clusterCallArgs));
@@ -120,9 +226,10 @@ void masterFindGate(PGMImage * originalImage, PGMImage * outputImage)
 
             case SEGMENTING:
                 /* setting every pixel in the output image to 0 */
-                memset(clusterArgs->outputImage->data, 0, 40000);
+                //memset(clusterArgs->outputImage->data, 0, 40000*sizeof(uint8_t));
+                for(uint16_t i = 0 ; i < 40000 ; ++i)
+                    clusterArgs->outputImage->data[i] = 0;
 
-                printf("travei aqui.\n");
                 labels = edgeAndGrayShadeSegmentation(originalImage, clusterArgs->inputImage, clusterArgs->outputImage);
                 state = END;
                 break;
@@ -134,7 +241,7 @@ void masterFindGate(PGMImage * originalImage, PGMImage * outputImage)
 
         if(state != THRESHOLDING)
         {
-            pi_cl_dma_cmd((uint32_t) clusterArgs->outputImage->data, (uint32_t) clusterArgs->inputImage->data, 40000, PI_CL_DMA_DIR_EXT2LOC, &dmaCopyStatus);
+            pi_cl_dma_cmd((uint32_t) clusterArgs->outputImage->data, (uint32_t) clusterArgs->inputImage->data, 40000*sizeof(uint8_t), PI_CL_DMA_DIR_EXT2LOC, &dmaCopyStatus);
 
             /* wait for transfer to end */
             pi_cl_dma_cmd_wait(&dmaCopyStatus);
@@ -143,45 +250,47 @@ void masterFindGate(PGMImage * originalImage, PGMImage * outputImage)
         Time = pi_perf_read(PI_PERF_ACTIVE_CYCLES);
     }
 
-    //Point squareCenter;
-    //PQueueNode label;
-    //while(!pQueueIsEmpty(labels))
-    //{
-        //label = pDequeue(labels);
-        //printf("\tamount of pixels: %-5u label: %-5u priority: %-5u\n", 40000 - label.priority, label.pQueueItem, label.priority);
-//
-        //Time = pi_perf_read(PI_PERF_ACTIVE_CYCLES);
-        //squareCenter = findGate(clusterArgs->inputImage, label.pQueueItem);
-        //Elapsed[TimeIndex] = pi_perf_read(PI_PERF_ACTIVE_CYCLES)-Time;
-//
-        //if(squareCenter.x == 0 && squareCenter.y == 0 && squareCenter.grayShade == 0)
-            //printf("\tregion is not a square.\n\n");
-        //else
-            //printf("\tregion is approximately a square with center at (%-3u, %-3u)\n\n", squareCenter.x, squareCenter.y);
-    //}
+    Point squareCenter;
+    PQueueNode label;
+    while(!pQueueIsEmpty(labels))
+    {
+        label = pDequeue(labels);
+        printf("\tamount of pixels: %-5u label: %-5u priority: %-5u\n", 40000 - label.priority, label.pQueueItem, label.priority);
+
+        Time = pi_perf_read(PI_PERF_ACTIVE_CYCLES);
+        squareCenter = findGate(clusterArgs->inputImage, label.pQueueItem);
+        Elapsed[TimeIndex] = pi_perf_read(PI_PERF_ACTIVE_CYCLES)-Time;
+
+        if(squareCenter.x == 0 && squareCenter.y == 0 && squareCenter.grayShade == 0)
+          printf("\tregion is not a square.\n\n");
+        else
+            printf("\tregion is approximately a square with center at (%-3u, %-3u)\n\n", squareCenter.x, squareCenter.y);
+    }
 
     /* stop measuring performance */
     pi_perf_stop();
     Time = pi_perf_read(PI_PERF_ACTIVE_CYCLES)-Time;
 
     if (FullReport) {
-        printf("low-pixel filter                : %10d Cycles\n", Elapsed[0]);
-        printf("sobel edge detector : %10d Cycles\n", Elapsed[1]);
-        printf("adaptive thresholding                     : %10d Cycles\n", Elapsed[2]);
-        printf("first erosion                     : %10d Cycles\n", Elapsed[3]);
-        printf("second erosion                  : %10d Cycles\n", Elapsed[4]);
-        printf("dilation                  : %10d Cycles\n", Elapsed[5]);
-        printf("edge-and-gray-shade segmentation                  : %10d Cycles\n", Elapsed[6]);
-        printf("last findGate                  : %10d Cycles\n", Elapsed[7]);
-        printf("Total                                 : %10d Cycles\n", Elapsed[0]+ Elapsed[1]+ Elapsed[2]+ Elapsed[3]+ Elapsed[4] + Elapsed[5] + Elapsed[6] + Elapsed[7]);
+        printf("\n\nlow-pixel filter                    : %10lu Cycles\n", Elapsed[0]);
+        printf("sobel edge detector                 : %10lu Cycles\n", Elapsed[1]);
+        printf("adaptive thresholding               : %10lu Cycles\n", Elapsed[2]);
+        printf("first erosion                       : %10lu Cycles\n", Elapsed[3]);
+        printf("second erosion                      : %10lu Cycles\n", Elapsed[4]);
+        printf("dilation                            : %10lu Cycles\n", Elapsed[5]);
+        printf("edge-and-gray-shade segmentation    : %10lu Cycles\n", Elapsed[6]);
+        printf("last findGate                       : %10lu Cycles\n", Elapsed[7]);
+        printf("Total                               : %10lu Cycles\n", Elapsed[0]+ Elapsed[1]+ Elapsed[2]+ Elapsed[3]+ Elapsed[4] + Elapsed[5] + Elapsed[6] + Elapsed[7]);
     }
-    printf("Total with Master                     : %10d Cycles\n", Time);
+    printf("Total with Master                   : %10lu Cycles\n", Time);
 }
 
 void cluster_main(void * args)
 {
     printf("cluster master start\n");
-    PGMImage ** realArgs = (PGMImage **)args;
+    PGMImage * realArgs[2];
+    realArgs[0] = *((PGMImage **)args);
+    realArgs[1] = *((PGMImage **)args + 1);
 
     // Configure performance counters for counting the cycles
     pi_perf_conf(1 << PI_PERF_ACTIVE_CYCLES);
@@ -189,7 +298,8 @@ void cluster_main(void * args)
     printf("Square Gate Detector running on %d cores, Source %s image[W=%d, H=%d]\n", gap_ncore(), "Mono", 200, 200);
 
     // Start Square Gate Detector on core 0, which will dispatch the algorithm to the other cores.
-    masterFindGate(*realArgs, *(realArgs + 1));
+    printf("originalImage: %p, outputImage: %p\n", *realArgs, *(realArgs + 1));
+    masterFindGate(realArgs[0], realArgs[1]);
 
     // Stop the performance measurement clock.
     pi_perf_stop();
@@ -200,12 +310,16 @@ void gateDetectorDemo(void)
     printf("Start of application\n");
 
 	char *Imagefile = "frame_1_cropped.pgm";
-    uint8_t *originalImageData;
+    PGMImage * originalImage = pmsis_l2_malloc(sizeof(PGMImage));
+    NULL_CHECK(originalImage);
+    printf("originalImage: %p\n", originalImage);
+    originalImage->x = 200;
+    originalImage->y = 200;
 	char imageName[64];
 	sprintf(imageName, "../../../%s", Imagefile);
-	originalImageData = (uint8_t *) pmsis_l2_malloc(40000*sizeof(uint8_t));
+	originalImage->data = (uint8_t *) pmsis_l2_malloc(40000*sizeof(uint8_t));
 
-    if (ReadImageFromFile(imageName, 200,200, 1, originalImageData, 40000*sizeof(uint8_t), 0, 0))
+    if (ReadImageFromFile(imageName, 200,200, 1, originalImage->data, 40000*sizeof(uint8_t), 0, 0))
     {
         printf("Failed to load image %s\n", imageName);
         pmsis_exit(-1);
@@ -219,12 +333,6 @@ void gateDetectorDemo(void)
        and proceed to check for gates */
 
     /* Allocating space for input and output images */
-
-    PGMImage * originalImage = pmsis_l2_malloc(sizeof(PGMImage));
-    NULL_CHECK(originalImage);
-    originalImage->x = 200;
-    originalImage->y = 200;
-    originalImage->data = originalImageData;
 
     PGMImage * outputImage = pmsis_l2_malloc(sizeof(PGMImage));
     NULL_CHECK(outputImage);

@@ -110,8 +110,11 @@ void calculateHistogram(PGMImage const* img, uint16_t* histogram)
 
 void smoothHistogram(uint16_t *restrict histogram)
 {
+    pi_cl_alloc_req_t alloc_req;
+    pi_cl_free_req_t free_req;
     uint8_t i = 1;
-    uint16_t *newHistogram = pmsis_l2_malloc(((MAX_PIXEL_VALUE + 1) - MIN_PIXEL_VALUE) * sizeof(uint16_t));
+    pi_cl_l2_malloc(((MAX_PIXEL_VALUE + 1) - MIN_PIXEL_VALUE) * sizeof(uint16_t), &alloc_req);
+    uint16_t *newHistogram = pi_cl_l2_malloc_wait(&alloc_req);
     memset(newHistogram, 0, ((MAX_PIXEL_VALUE + 1) - MIN_PIXEL_VALUE) * sizeof(uint16_t));
 
     newHistogram[0] = (histogram[0] + histogram[1]) >> 1;/*divide by 2*/
@@ -128,16 +131,21 @@ void smoothHistogram(uint16_t *restrict histogram)
 
     histogram[MAX_PIXEL_VALUE - MIN_PIXEL_VALUE] = newHistogram[MAX_PIXEL_VALUE - MIN_PIXEL_VALUE];
 
-    pmsis_l2_malloc_free(newHistogram, ((MAX_PIXEL_VALUE + 1) -MIN_PIXEL_VALUE) * sizeof(uint16_t));
+    pi_cl_l2_free(newHistogram, ((MAX_PIXEL_VALUE + 1) -MIN_PIXEL_VALUE) * sizeof(uint16_t), &free_req);
+    pi_cl_l2_free_wait(&free_req);
 }
 
 
 void histogramPeakTechnique(PGMImage* img)
 {
+    pi_cl_alloc_req_t alloc_req;
+    pi_cl_free_req_t free_req;
     uint16_t firstPeak = MAX_PIXEL_VALUE + 1, secondPeak = MAX_PIXEL_VALUE + 1;
     uint8_t upperBound, lowerBound;
 
-    uint16_t *histogram = pmsis_l2_malloc((MAX_PIXEL_VALUE + 2 -MIN_PIXEL_VALUE) * sizeof(uint16_t));
+    /* initializing memory with 0 because some shades may never appear on the image */
+    pi_cl_l2_malloc((MAX_PIXEL_VALUE + 2 -MIN_PIXEL_VALUE) * sizeof(uint16_t), &alloc_req);
+    uint16_t *histogram = pi_cl_l2_malloc_wait(&alloc_req);
     memset(histogram, 0, (MAX_PIXEL_VALUE + 2 -MIN_PIXEL_VALUE) * sizeof(uint16_t));
 
     calculateHistogram(img, histogram);
@@ -155,15 +163,20 @@ void histogramPeakTechnique(PGMImage* img)
     #endif
 
     rangeThresholdImage(img, lowerBound, upperBound);
-    pmsis_l2_malloc_free(histogram, (MAX_PIXEL_VALUE + 2 -MIN_PIXEL_VALUE) * sizeof(uint16_t));
+    pi_cl_l2_free(histogram, (MAX_PIXEL_VALUE + 2 -MIN_PIXEL_VALUE) * sizeof(uint16_t), &free_req);
+    pi_cl_l2_free_wait(&free_req);
 }
 
 void histogramValleyTechnique(PGMImage* img)
 {
+    pi_cl_alloc_req_t alloc_req;
+    pi_cl_free_req_t free_req;
     uint16_t firstPeak = MAX_PIXEL_VALUE + 1, secondPeak = MAX_PIXEL_VALUE + 1;
     uint8_t upperBound, lowerBound;
 
-    uint16_t *histogram = pmsis_l2_malloc((MAX_PIXEL_VALUE + 2 -MIN_PIXEL_VALUE) * sizeof(uint16_t));
+    /* initializing memory with 0 because some shades may never appear on the image */
+    pi_cl_l2_malloc((MAX_PIXEL_VALUE + 2 -MIN_PIXEL_VALUE) * sizeof(uint16_t), &alloc_req);
+    uint16_t *histogram = pi_cl_l2_malloc_wait(&alloc_req);
     memset(histogram, 0, (MAX_PIXEL_VALUE + 2 -MIN_PIXEL_VALUE) * sizeof(uint16_t));
 
     calculateHistogram(img, histogram);
@@ -181,17 +194,21 @@ void histogramValleyTechnique(PGMImage* img)
     #endif
 
     rangeThresholdImage(img, lowerBound, upperBound);
-    pmsis_l2_malloc_free(histogram, (MAX_PIXEL_VALUE + 2 -MIN_PIXEL_VALUE) * sizeof(uint16_t));
+    pi_cl_l2_free(histogram, (MAX_PIXEL_VALUE + 2 -MIN_PIXEL_VALUE) * sizeof(uint16_t), &free_req);
+    pi_cl_l2_free_wait(&free_req);
 }
 
 
-void adaptiveHistogramTechnique(PGMImage* img)
+void __attribute__((noinline)) adaptiveHistogramTechnique(PGMImage* img)
 {
     uint16_t firstPeak = MAX_PIXEL_VALUE + 1, secondPeak = MAX_PIXEL_VALUE + 1;
     uint8_t upperBound, lowerBound, object, background;
+    pi_cl_alloc_req_t alloc_req;
+    pi_cl_free_req_t free_req;
 
     /* initializing memory with 0 because some shades may never appear on the image */
-    uint16_t *histogram = pmsis_l2_malloc((MAX_PIXEL_VALUE + 2 -MIN_PIXEL_VALUE) * sizeof(uint16_t));
+    pi_cl_l2_malloc((MAX_PIXEL_VALUE + 2 -MIN_PIXEL_VALUE) * sizeof(uint16_t), &alloc_req);
+    uint16_t *histogram = pi_cl_l2_malloc_wait(&alloc_req);
     memset(histogram, 0, (MAX_PIXEL_VALUE + 2 -MIN_PIXEL_VALUE) * sizeof(uint16_t));
 
     calculateHistogram(img, histogram);
@@ -220,5 +237,6 @@ void adaptiveHistogramTechnique(PGMImage* img)
     #endif
 
     rangeThresholdImage(img, lowerBound, upperBound);
-    pmsis_l2_malloc_free(histogram, (MAX_PIXEL_VALUE + 2 -MIN_PIXEL_VALUE) * sizeof(uint16_t));
+    pi_cl_l2_free(histogram, (MAX_PIXEL_VALUE + 2 -MIN_PIXEL_VALUE) * sizeof(uint16_t), &free_req);
+    pi_cl_l2_free_wait(&free_req);
 }

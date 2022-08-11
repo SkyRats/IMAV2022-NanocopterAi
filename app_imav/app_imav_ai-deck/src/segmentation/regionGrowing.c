@@ -11,7 +11,7 @@
 
 PQueue * edgeAndGrayShadeSegmentation(PGMImage * img, PGMImage * thresholdedEdgeDetectorOutput, PGMImage * outputImg)
 {
-    const uint8_t imageWidth = img->x, imageHeight = img->y;
+    const uint8_t imageWidth = 200, imageHeight = 200;
     const uint16_t imageSize = imageWidth * imageHeight;
 
     uint8_t y, averageGrayShade, label = 1;
@@ -71,7 +71,7 @@ void edgesAndGrayShadesLabelAndCheckNeighbour(PGMImage * img, PGMImage * thresho
         *averageGrayShade = (*sum)/(*pixelCount);
     }
 
-    const uint8_t imageWidth = img->x, imageHeight = img->y;
+    const uint8_t imageWidth = 200, imageHeight = 200;
     const uint16_t imageSize = imageWidth * imageHeight;
 
     if(pixelIndex <= imageWidth || pixelIndex >= imageSize - imageWidth || pixelIndex % imageWidth == 0 || (pixelIndex + 1) % (imageWidth) == 0)
@@ -107,7 +107,7 @@ void edgesAndGrayShadesLabelAndCheckNeighbour(PGMImage * img, PGMImage * thresho
 
 PQueue* edgeSegmentation(PGMImage * img)
 {
-    const uint8_t imageWidth = img->x, imageHeight = img->y;
+    const uint8_t imageWidth = 200, imageHeight = 200;
     const uint16_t imageSize = imageWidth * imageHeight;
 
     uint8_t y, pixel, label = 1;
