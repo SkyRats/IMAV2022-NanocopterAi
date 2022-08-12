@@ -8,8 +8,7 @@
 #define MAX_PIXEL_VALUE 255
 #define MIN_PIXEL_VALUE 0
 
-/* for a region to be considered valid (potential square) */
-#define MIN_PIXEL_AMOUNT 2500
+
 /* tolerance of square side max size difference for gate finding, in pixels */
 #define TOL 10
 
@@ -26,6 +25,11 @@
   */
 #define SEGMENTATION_METHOD 1
 
+/* for a region to be considered valid (potential square) */
+#define MIN_PIXEL_AMOUNT_EDGES_ONLY 3000
+#define MIN_PIXEL_AMOUNT_EDGES_AND_GRAY_SHADES 2000
+#define MAX_PIXEL_AMOUNT_EDGES_AND_GRAY_SHADES 40000
+#define MAX_GRAYSHADE_DIFF 10
 
 #define DEBUG_ON
 

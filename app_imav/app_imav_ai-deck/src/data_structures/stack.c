@@ -61,18 +61,13 @@ void push(Stack * s, uint16_t i)
         s->item = newItemList;
     }
 
-    s->item[(s->top)] = i;
-    s->top += 1;
+    s->item[(s->top)++] = i;
 }
 
 uint16_t pop(Stack * s)
 {
     if(!isStackEmpty(s))
-    {
-        uint16_t item = s->item[(s->top)];
-        s->top -= 1;
-        return item;
-    }
+        return s->item[--(s->top)];
     #ifdef DEBUG_ON
     else
         printf("Popping of Stack failed.\n");
