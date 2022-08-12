@@ -3,8 +3,8 @@ WorldInfo {
 }
 Viewpoint {
   fieldOfView 0.9
-  orientation -0.08682501984150341 -0.15451154938171707 0.9841684800059304 5.1303149627185665
-  position -0.5956458238879379 1.308709204273547 0.41986050484354015
+  orientation -0.14871316500517648 -0.5457420099172974 0.8246514737545624 5.5777359931312525
+  position -1.1970080792842812 0.8046915594705398 0.7056789504003936
   follow "Crazyflie"
   followType "Mounted Shot"
   followSmoothness 0.1
@@ -57,10 +57,15 @@ Robot {
     }
     Camera {
       translation 0.03 0 0.01
-      fieldOfView 0.87
+      fieldOfView 1.1
       width 200
       height 200
-      ambientOcclusionRadius 2
+      near 0.1
+      antiAliasing TRUE
+      ambientOcclusionRadius 30
+      bloomThreshold 500
+      motionBlur 1
+      noise 0.05
     }
     Solid {
       translation 0 0 -0.015
@@ -505,7 +510,7 @@ DEF Cyberzoo Transform {
               boundingObject USE SHAPE
             }
             Solid {
-              translation 360.77 26.42 0
+              translation 303.95 -48.15 0
               rotation 0 0 1 1.5708
               children [
                 DEF SHAPE Group {
@@ -20162,7 +20167,7 @@ DEF Objects Group {
       }
     }
     Solid {
-      translation 4.94 1.81456e-05 -2.21368e-13
+      translation 4.94 -6.86 5.40936e-07
       rotation -3.94248e-08 3.94247e-08 1 1.5708
       scale 0.0254 0.0254 0.0254
       children [
@@ -20326,7 +20331,7 @@ DEF Objects Group {
       name "Curtain - Striped"
     }
     Solid {
-      translation 1.12 4 -3.15384e-07
+      translation 1.12 6.89 -5.43255e-07
       rotation -1 0 0 7.88495e-08
       scale 0.0254 0.0254 0.0254
       children [
@@ -21839,8 +21844,8 @@ DEF Objects Group {
       name "Panel - Metal 1"
     }
     Solid {
-      translation 4.40012 0.900141 -7.10716e-08
-      rotation -0.02761878697395516 1.5824392536629253e-08 0.9996185285428073 2.85387e-06
+      translation -1.21572 1.47289 -1.16216e-07
+      rotation 1.63243e-08 3.94102e-08 1 -2.3561953071795863
       scale 0.0254 0.0254 0.0254
       children [
         Solid {

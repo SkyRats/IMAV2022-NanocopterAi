@@ -33,12 +33,16 @@
 #include "../../../controllers/gateFinder/GateFinder.h"
 #include "../../../controllers/gateFinder/config.h"
 #define PI 3.142857
+#define PI_OVER_2 1.570796
+#define PI_OVER_4 0.785398
 
-int currentState = 0; //0 - Goes forward, 1- Backs up, 2 - arena scan/rotate, 3- align to object, 4- Avoid obstacle
+int currentState = 0; //Controls what action the drone is currently doing
 double oldYaw = 0;
+int edges;
+int rotationDir = 1; 
 
 
-PGMImage *getImage(WbDeviceTag camera){ // Trnsforms webots image file into PGMImage struct
+PGMImage *getImage(WbDeviceTag camera){ // Transforms webots image file into PGMImage struct
   PGMImage *img;
   img = (PGMImage *)malloc(sizeof(PGMImage));
   const unsigned char *rawImage = wb_camera_get_image(camera);
@@ -54,6 +58,178 @@ PGMImage *getImage(WbDeviceTag camera){ // Trnsforms webots image file into PGMI
   }
   return img;
 }
+//Defines what edge the drone is at
+int edgeFinder(double xGlobal, double yGlobal){
+  if (xGlobal >= 2.5){
+    if (yGlobal >= 2.5){
+     return 0; 
+    }
+    else if (yGlobal <= -2.5){
+      return 1;
+    }
+    else{
+      return 5;
+    }
+  }
+  else if( xGlobal <= -2.5){
+    if (yGlobal >= 2.5){
+      return 3;
+    }
+    else if(yGlobal <= -2.5){
+      return 2;
+    }
+    else{
+      return 7;
+    }
+  }
+  else{
+    if(yGlobal >= 2.5){
+      return 4;
+    }
+    else if(yGlobal <= -2.5){
+      return 6;
+    }
+  }
+  return -1;
+}
+//Rotates to the desired angle (in radians)
+float rotate(double actualYaw, double desiredYaw) {
+ 
+  
+  if (desiredYaw > PI){
+    desiredYaw = (desiredYaw - 2*PI );
+  }
+  else if(desiredYaw <= -PI){
+    desiredYaw = (desiredYaw + 2*PI);
+  }
+  
+  actualYaw *= 10;
+  desiredYaw *= 10;
+  //printf("%lf, %lf \n", actualYaw, desiredYaw);
+  if (round(actualYaw) != round(desiredYaw)){
+    return rotationDir*0.5;
+  }
+  return 0;   
+}
+
+//Rotates until facing inwards
+float lookInward(int edges, double actualYaw){
+  switch(edges){
+    case 0: //Corner of the first quadrant (+,+)
+      if (actualYaw >= PI_OVER_4 && actualYaw < PI){
+        rotationDir = 1;
+        return 0.5;
+      }
+      else if(actualYaw < PI_OVER_4 && actualYaw > -PI_OVER_2){
+        rotationDir = -1;
+        return -0.5;
+      }
+      else { // No longer looking outwards
+        currentState = 3;
+        return 0;
+      }
+      break;
+    case 1: //Corner of the second quadrant (+,-)
+      if (actualYaw >= -PI_OVER_4 && actualYaw < PI_OVER_2){
+        rotationDir = 1;
+        return 0.5;
+      }
+      else if (actualYaw < -PI_OVER_4 && actualYaw > -PI){
+        rotationDir = -1;
+        return -0.5;
+      }
+      else {// No longer looking outwards
+        currentState = 3;
+        return 0;
+      }
+       break;
+    case 2://Corner of the third Quadrant (-,-)
+      if (actualYaw >= -3*PI_OVER_4 && actualYaw < 0){
+        rotationDir = 1;
+        return 0.5;
+      }
+      else if ((actualYaw < -3*PI_OVER_4 && actualYaw > -PI) || (actualYaw <= PI && actualYaw > PI_OVER_2)){
+        rotationDir = -1;
+        return -0.5;
+      }
+      else {//No longer looking outwards
+        currentState = 3;
+        return 0;
+      }
+      break;
+    case 3://Corner of the fourth quadrant (-,+)
+      if ((actualYaw >= 3*PI_OVER_4 && actualYaw <= PI) || (actualYaw > -PI && actualYaw < -PI_OVER_2)){
+        rotationDir = 1;
+        return 0.5;
+      }
+      else if (actualYaw < 3*PI_OVER_4 && actualYaw > 0){
+        rotationDir = -1;
+        return -0.5;
+      }
+      else{//No longer looking outwards
+        currentState = 3;
+        return 0;
+      }
+      break;
+    case 4: //Reaches first edge (y reached the upper limit, but not x)
+      if (actualYaw >= PI_OVER_2 && actualYaw < PI){
+        rotationDir = 1;
+        return 0.5;
+      }
+      else if (actualYaw < PI_OVER_2 && actualYaw > 0){
+        rotationDir = -1;
+        return -0.5;
+      }
+      else{
+        currentState = 3;
+        return 0;
+      }
+      break;
+    case 5://Reaches second edge (x reached the upper limit, but not y)
+      if (actualYaw >= 0 && actualYaw < PI_OVER_2){
+        rotationDir = 1;
+        return 0.5;
+      }
+      else if (actualYaw < 0 && actualYaw > -PI_OVER_2){
+        rotationDir = -1;
+        return -0.5;
+      }
+      else{
+        currentState = 3;
+        return 0;
+      }
+      break;
+    case 6://Reaches third edge (y reached the lower limit, but not x)
+      if (actualYaw >= -PI_OVER_2  && actualYaw < 0){
+        rotationDir = 1;
+        return 0.5;
+      }
+      else if(actualYaw < -PI_OVER_2 && actualYaw > -PI){
+        rotationDir = -1;
+        return -0.5;
+      }
+      else{
+        currentState = 3;
+        return 0;
+      }
+      break;
+    case 7://Reaches fourth edge (x reached the lower limit, but not y)
+      if (actualYaw > -PI && actualYaw < -PI_OVER_2){
+        rotationDir = 1;
+        return 0.5;
+      }
+      else if(actualYaw <= PI && actualYaw > PI_OVER_2){
+        rotationDir = -1;
+        return -0.5;
+      }
+      else{
+         currentState = 3;
+         return 0;
+      }
+      break;
+  }
+  return 0;
+}
 
 int main(int argc, char **argv) {
   wb_robot_init();
@@ -61,28 +237,7 @@ int main(int argc, char **argv) {
   int timestep = (int)wb_robot_get_basic_time_step();
 
 
-//Rotates to the desired angle (in radians)
-float rotate(double actualYaw, double desiredYaw) {
-  printf("%lf \n", actualYaw);
-  if (desiredYaw > PI){
-    desiredYaw = PI - desiredYaw;
-  }
-  else if(desiredYaw < -PI){
-    desiredYaw = -(desiredYaw +PI);
-  }
-  actualYaw *= 10;
-  desiredYaw *= 10;
-  if (round(actualYaw)  < round(desiredYaw)) {
-    return 0.5;
-  }
-  else if (round(actualYaw) > round(desiredYaw)){
-    return -0.5;
-  }
-  else{
-    currentState = 0;
-    return 0;
-  } 
-}
+
 
   // Initialize motors
   WbDeviceTag m1_motor = wb_robot_get_device("m1_motor");
@@ -148,7 +303,7 @@ float rotate(double actualYaw, double desiredYaw) {
   MotorPower_t motorPower;
   
   printf("Take off!\n");
-  
+
 
   while (wb_robot_step(timestep) != -1) {
 
@@ -185,16 +340,18 @@ float rotate(double actualYaw, double desiredYaw) {
     double sidewaysDesired = 0;
     double yawDesired = 0;
     
+    
     switch(currentState){
       case 0:// Going toward something
-        if (xGlobal >= 2.5 || xGlobal <= -2.5 || yGlobal >= 2.5 || yGlobal <= -2.5){
+        if (xGlobal >= 3.5|| xGlobal <= -3.5 || yGlobal >= 3.5 || yGlobal <= -3.5){
+          edges = edgeFinder(xGlobal, yGlobal);
           currentState = 1;
-          break;
         }
-        forwardDesired = 1;
-        break;
+          forwardDesired = 1;
+          break;
+                       
       case 1:// Reached the borders, backing up
-        if (xGlobal >= 2.5 || xGlobal <= -2.5 || yGlobal >= 2.5 || yGlobal <= -2.5){
+        if (xGlobal >= 3.5|| xGlobal <= -3.5 || yGlobal >= 3.5 || yGlobal <= -3.5){
           forwardDesired = -1;
         }
         else{
@@ -202,12 +359,34 @@ float rotate(double actualYaw, double desiredYaw) {
           currentState = 2;
         }
         break;
-      case 2: // Rotating, Scanning for gates
-        yawDesired = rotate(actualYaw, oldYaw - PI/2 );
-        PGMImage *image = getImage(camera);
-        GateFinder(image);
+      case 2: // Rotates to look inwards
+        //printf("%d\n", edges);
+        yawDesired = lookInward(edges, actualYaw);
+        oldYaw = actualYaw;
         break;
-      case 3: // Gate Alignment
+      case 3: // Gate scanner
+        
+        if (edges <= 3){
+          
+          yawDesired = rotate(actualYaw, oldYaw + rotationDir*PI_OVER_2);
+        }
+        else{
+        
+          yawDesired = rotate(actualYaw, oldYaw + rotationDir*PI);
+        }
+        
+        PGMImage *image = getImage(camera);
+        Point gateCenter = GateFinder(image);
+        
+        if(!(gateCenter.x == 0 && gateCenter.y == 0 && gateCenter.grayShade == 0)){
+          printf("%d, %d, %d\n", gateCenter.x, gateCenter.y, gateCenter.grayShade);
+          //oldYaw = actualYaw;
+          //currentState = 0;
+        }
+        if (yawDesired == 0){
+          oldYaw = actualYaw;
+          currentState = 0;
+        }
         break;
       case 4: // Avoiding detected obstacles
         break;

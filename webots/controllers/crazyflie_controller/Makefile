@@ -35,7 +35,7 @@
 ###
 ### ---- C Sources ----
 ### if your program uses several C source files:
-C_SOURCES = crazyflie_controller.c ../../../controllers/pid_controller.c ../../../controllers/gateFinder/imageIO.c ../../../controllers/gateFinder/GateFinder.c  ../../../controllers/gateFinder/convolution.c ../../../controllers/gateFinder/erosion.c ../../../controllers/gateFinder/filter.c ../../../controllers/gateFinder/findGate.c ../../../controllers/gateFinder/histogram.c ../../../controllers/gateFinder/queue.c ../../../controllers/gateFinder/regionGrowing.c ../../../controllers/gateFinder/stack.c ../../../controllers/gateFinder/vector.c ../../../controllers/gateFinder/threshold.c
+C_SOURCES = crazyflie_controller.c ../../../controllers/pid_controller.c ../../../controllers/gateFinder/imageIO.c ../../../controllers/gateFinder/GateFinder.c  ../../../controllers/gateFinder/convolution.c  ../../../controllers/gateFinder/morphological_operators.c  ../../../controllers/gateFinder/filter.c ../../../controllers/gateFinder/findGate.c ../../../controllers/gateFinder/histogram.c ../../../controllers/gateFinder/queue.c ../../../controllers/gateFinder/regionGrowing.c ../../../controllers/gateFinder/stack.c ../../../controllers/gateFinder/vector.c ../../../controllers/gateFinder/threshold.c
 ###
 ### ---- C++ Sources ----
 ### if your program uses several C++ source files:
