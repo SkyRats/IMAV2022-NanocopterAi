@@ -17,7 +17,7 @@
 #endif
 
 void cl_convolution3by3(void * args);
-void cl_sobelOperator(void * args);
+void __attribute__((noinline)) cl_sobelOperator(void * args);
 
 #endif
 

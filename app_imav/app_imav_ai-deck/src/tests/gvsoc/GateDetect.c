@@ -61,6 +61,90 @@ unsigned char index_perf = 0;
 
 unsigned long int PI_L1 Elapsed[10];
 
+void edgesLabelAndCheckNeighbour(PGMImage * img, uint8_t label, uint16_t pixelIndex, Stack * pixelStack, uint16_t * pixelCount)
+{
+    if(img->data[pixelIndex] == label)
+        return;
+    else
+    {
+        img->data[pixelIndex] = label;
+        *pixelCount += 1;
+    }
+
+    const uint8_t imageWidth = img->x, imageHeight = img->y;
+    const uint16_t imageSize = imageWidth * imageHeight;
+
+    uint8_t pixel;
+    uint16_t pixelNeighbours[8];
+
+
+    if( pixelIndex <= imageWidth || pixelIndex >= imageSize - imageWidth || pixelIndex % imageWidth == 0 || (pixelIndex + 1) % (imageWidth) == 0)
+        return;
+
+    pixelNeighbours[0] = pixelIndex - imageWidth - 1; /* upper-left */
+    pixelNeighbours[1] = pixelIndex - 1;              /* left */
+    pixelNeighbours[2] = pixelIndex + imageWidth - 1; /* bottom-left */
+    pixelNeighbours[3] = pixelIndex + imageWidth;     /* bottom */
+    pixelNeighbours[4] = pixelIndex + imageWidth + 1; /* bottom-right */
+    pixelNeighbours[5] = pixelIndex + 1;              /* right */
+    pixelNeighbours[6] = pixelIndex - imageWidth + 1; /* upper-right */
+    pixelNeighbours[7] = pixelIndex - imageWidth;     /* upper */
+
+    for(uint8_t i = 0; i < 8; ++i)
+    {
+
+        pixel = img->data[pixelNeighbours[i]];
+
+        if(pixel == MAX_PIXEL_VALUE)
+            push(pixelStack, pixelNeighbours[i]);
+    }
+
+}
+
+PQueue* edgeSegmentation(PGMImage * img)
+{
+    const uint8_t imageWidth = 200, imageHeight = 200;
+    const uint16_t imageSize = imageWidth * imageHeight;
+
+    uint8_t y, pixel, label = 1;
+    uint16_t line, pixelIndex, pixelCount;
+    Stack* pixelStack = createStack();
+    PQueue* labelPQueue = createPQueue();
+
+    for(y = 1; y < imageHeight - 1; ++y)
+    {
+        line = y * imageWidth;
+        for(pixelIndex = line + 1; pixelIndex < line + imageWidth - 1; ++pixelIndex)
+        {
+            pixel = img->data[pixelIndex];
+
+            if(pixel == MAX_PIXEL_VALUE)
+            {
+                pixelCount = 0;
+                edgesLabelAndCheckNeighbour(img, label, pixelIndex, pixelStack, &pixelCount);
+
+                while(!isStackEmpty(pixelStack))
+                    edgesLabelAndCheckNeighbour(img, label, pop(pixelStack), pixelStack, &pixelCount);
+
+                if(pixelCount >= MIN_PIXEL_AMOUNT_EDGES_ONLY)
+                    pEnqueue(labelPQueue, (PQueueNode){label, imageSize - pixelCount, NULL});
+
+
+                #ifdef DEBUG_ON
+                printf("label %-3u has %-5u pixels.%c", label, pixelCount,label%3==0?'\n':'\t');
+                #endif
+                label++;
+            }
+        }
+    }
+
+    destroyStack(pixelStack);
+
+    return labelPQueue; /* valid regions found */
+}
+
+
+
 void __attribute__((noinline)) edgesAndGrayShadesLabelAndCheckNeighbour(PGMImage * img, PGMImage * thresholdedEdgeDetectorOutput, PGMImage * outputImg, uint8_t label, uint16_t pixelIndex, Stack * pixelStack, uint16_t * pixelCount, uint32_t * sum, uint8_t * averageGrayShade)
 {
 
@@ -163,10 +247,11 @@ void masterFindGate(PGMImage * originalImage, PGMImage * outputImage)
     imageProcessingState state = FILTERING;
     uint8_t erosionCount = 1;
     PQueue * labels;
+    bool copy = false;
 
     if (FullReport)
     {
-        printf("Entering masterFindGate, W=%d, H=%d, %d iterations\n", 200, 200, sizeof(imageProcessingState)/4 - 1);
+        printf("Entering masterFindGate, W=%d, H=%d, %d iterations\n", 200, 200, sizeof(imageProcessingState));
     }
     pi_perf_reset();
     pi_perf_start();
@@ -198,39 +283,63 @@ void masterFindGate(PGMImage * originalImage, PGMImage * outputImage)
         switch(state)
         {
             case FILTERING:
-                pi_cl_team_fork(clusterArgs->numOfCores, (void *)cl_lowPixelFilter, (void *)clusterArgs);
+                pi_cl_team_fork(clusterArgs->numOfCores, (void *)cl_vectorial_gaussianFilter, (void *)clusterArgs);
+                copy = true;
                 state = EDGE_DETECTING;
                 break;
 
             case EDGE_DETECTING:
                 pi_cl_team_fork(clusterArgs->numOfCores, (void *)cl_sobelOperator, (void *)clusterArgs);
+                copy = true;
                 state = THRESHOLDING;
                 break;
 
             case THRESHOLDING:
                 adaptiveHistogramTechnique(clusterArgs->inputImage);
+
+                copy = false;
                 state = ERODING;
                 break;
 
             case ERODING:
                 pi_cl_team_fork(clusterArgs->numOfCores, (void *)cl_maskErosion, (void *)clusterArgs);
+                #if SEGMENTATION_METHOD == 0
+
+                state = DILATING;
+                #else
+
                 if(erosionCount++ == 2)
                     state = DILATING;
 
+                #endif
+
+                copy = true;
                 break;
 
             case DILATING:
                 pi_cl_team_fork(clusterArgs->numOfCores, (void *)cl_maskDilation, (void *)clusterArgs);
+                copy = true;
                 state = SEGMENTING;
                 break;
 
             case SEGMENTING:
+                #if SEGMENTATION_METHOD == 0
+
+                labels = edgeSegmentation(clusterArgs->inputImage);
+
+                copy = false;
+
+                #else
+
                 /* setting every pixel in the output image to 0 */
-                //memset(clusterArgs->outputImage->data, 0, 40000*sizeof(uint8_t));
-                for(uint16_t i = 0 ; i < 40000 ; ++i)
-                    clusterArgs->outputImage->data[i] = 0;
+                memset(clusterArgs->outputImage->data, 0, 40000*sizeof(uint8_t));
 
                 labels = edgeAndGrayShadeSegmentation(originalImage, clusterArgs->inputImage, clusterArgs->outputImage);
+
+                copy = true;
+
+                #endif
+
                 state = END;
                 break;
 
@@ -239,7 +348,7 @@ void masterFindGate(PGMImage * originalImage, PGMImage * outputImage)
                 break;
         }
 
-        if(state != THRESHOLDING)
+        if(copy)
         {
             pi_cl_dma_cmd((uint32_t) clusterArgs->outputImage->data, (uint32_t) clusterArgs->inputImage->data, 40000*sizeof(uint8_t), PI_CL_DMA_DIR_EXT2LOC, &dmaCopyStatus);
 
@@ -249,6 +358,7 @@ void masterFindGate(PGMImage * originalImage, PGMImage * outputImage)
         Elapsed[TimeIndex++] = pi_perf_read(PI_PERF_ACTIVE_CYCLES)-Time;
         Time = pi_perf_read(PI_PERF_ACTIVE_CYCLES);
     }
+
 
     Point squareCenter;
     PQueueNode label;
@@ -272,17 +382,34 @@ void masterFindGate(PGMImage * originalImage, PGMImage * outputImage)
     Time = pi_perf_read(PI_PERF_ACTIVE_CYCLES)-Time;
 
     if (FullReport) {
-        printf("\n\nlow-pixel filter                    : %10lu Cycles\n", Elapsed[0]);
+        printf("\n\ngaussian filter                     : %10lu Cycles\n", Elapsed[0]);
         printf("sobel edge detector                 : %10lu Cycles\n", Elapsed[1]);
         printf("adaptive thresholding               : %10lu Cycles\n", Elapsed[2]);
+        #if SEGMENTATION_METHOD == 0
+        printf("erosion                             : %10lu Cycles\n", Elapsed[3]);
+        printf("dilation                            : %10lu Cycles\n", Elapsed[4]);
+        printf("edge segmentation                   : %10lu Cycles\n", Elapsed[5]);
+        printf("last findGate                       : %10lu Cycles\n", Elapsed[6]);
+        printf("Total                               : %10lu Cycles\n", Elapsed[0]+ Elapsed[1]+ Elapsed[2]+ Elapsed[3]+ Elapsed[4] + Elapsed[5] + Elapsed[6]);
+        #else
         printf("first erosion                       : %10lu Cycles\n", Elapsed[3]);
         printf("second erosion                      : %10lu Cycles\n", Elapsed[4]);
         printf("dilation                            : %10lu Cycles\n", Elapsed[5]);
         printf("edge-and-gray-shade segmentation    : %10lu Cycles\n", Elapsed[6]);
         printf("last findGate                       : %10lu Cycles\n", Elapsed[7]);
         printf("Total                               : %10lu Cycles\n", Elapsed[0]+ Elapsed[1]+ Elapsed[2]+ Elapsed[3]+ Elapsed[4] + Elapsed[5] + Elapsed[6] + Elapsed[7]);
+        #endif
     }
     printf("Total with Master                   : %10lu Cycles\n", Time);
+
+    #if SEGMENTATION_METHOD == 0
+    /* copying output from L1 to L2 */
+    pi_cl_dma_cmd((uint32_t) outputImage->data, (uint32_t) clusterArgs->inputImage->data, 40000*sizeof(uint8_t), PI_CL_DMA_DIR_LOC2EXT, &dmaCopyStatus);
+
+    /* wait for transfer to end */
+    pi_cl_dma_cmd_wait(&dmaCopyStatus);
+    #endif
+
 }
 
 void cluster_main(void * args)
@@ -309,7 +436,7 @@ void gateDetectorDemo(void)
 {
     printf("Start of application\n");
 
-	char *Imagefile = "frame_1_cropped.pgm";
+	char *Imagefile = "images/gate_1.pgm";
     PGMImage * originalImage = pmsis_l2_malloc(sizeof(PGMImage));
     NULL_CHECK(originalImage);
     printf("originalImage: %p\n", originalImage);
@@ -370,7 +497,7 @@ void gateDetectorDemo(void)
         pi_cluster_send_task_to_cl(&cluster_dev, task);
 
     char imgName[50];
-    sprintf(imgName, "../../../img_OUT.ppm");
+    sprintf(imgName, "../../../img_OUT.pgm");
     printf("imgName: %s\n", imgName);
     WriteImageToFile(imgName, 200, 200, 1, outputImage->data, sizeof(uint8_t));
 

@@ -23,7 +23,7 @@ MORPHOLOGICAL_LIB = $(SRC_DIR)/morphological_operators
 OTHERS_LIB = $(SRC_DIR)/others
 SEGMENTATION_LIB = $(SRC_DIR)/segmentation
 
-APP = cannyEdge
+APP = gateDetector
 APP_SRCS = GateDetect.c $(GAP_LIB_PATH)/img_io/ImgIO.c $(FILTERS_LIB)/filter.c $(CONVOLUTION_LIB)/convolution.c $(SEGMENTATION_LIB)/threshold.c $(MORPHOLOGICAL_LIB)/morphological_operators.c  $(DATA_STRUCT_LIB)/queue.c $(DATA_STRUCT_LIB)/stack.c $(OTHERS_LIB)/findGate.c $(OTHERS_LIB)/histogram.c
 APP_INC  = $(GAP_LIB_PATH)/include
 APP_CFLAGS += -O3 -g -DFROM_FILE

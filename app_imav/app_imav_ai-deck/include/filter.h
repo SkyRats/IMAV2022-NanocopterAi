@@ -7,5 +7,6 @@
 #include "imageIO.h"
 
 void cl_lowPixelFilter(void * args);
+void __attribute__((noinline)) cl_vectorial_gaussianFilter(void * args);
 
 #endif

@@ -10,7 +10,7 @@
 
 
 /* tolerance of square side max size difference for gate finding, in pixels */
-#define TOL 10
+#define TOL 15
 
 /**
   * 0: Histogram Peak Technique
@@ -20,13 +20,13 @@
 #define THRESHOLDING_SEGMENTATION_METHOD 2
 
 /**
-  * 0: Only input image edges will be taken into account
+  * 0: Only input image's edges will be taken into account
   * else: Edges and gray shades of the input image will be considered
   */
-#define SEGMENTATION_METHOD 1
+#define SEGMENTATION_METHOD 0
 
 /* for a region to be considered valid (potential square) */
-#define MIN_PIXEL_AMOUNT_EDGES_ONLY 3000
+#define MIN_PIXEL_AMOUNT_EDGES_ONLY 1200
 #define MIN_PIXEL_AMOUNT_EDGES_AND_GRAY_SHADES 2000
 #define MAX_PIXEL_AMOUNT_EDGES_AND_GRAY_SHADES 40000
 #define MAX_GRAYSHADE_DIFF 10

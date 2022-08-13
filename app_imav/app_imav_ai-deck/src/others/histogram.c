@@ -47,7 +47,7 @@ void peaksBoundsValleyTechnique(uint16_t *restrict histogram, uint8_t firstPeak,
 
 void peaksBoundsPeakTechnique(uint16_t *restrict histogram, uint8_t firstPeak, uint8_t secondPeak, uint8_t *restrict upperBound,uint8_t *restrict lowerBound)
 {
-    uint8_t i, midPoint = (firstPeak - secondPeak > 0) ? ((firstPeak + secondPeak)>>1) : ((secondPeak + firstPeak)>>1);
+    uint8_t i, midPoint = ((secondPeak + firstPeak)>>1);
     uint32_t sum1 = 0, sum2 = 0;
 
     for(i = 0; i < midPoint; ++i)

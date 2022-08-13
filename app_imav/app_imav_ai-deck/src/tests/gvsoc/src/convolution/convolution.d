@@ -221,7 +221,14 @@
  /home/ipontes3olavy/gap_riscv_toolchain_ubuntu/gap_sdk/install/GAP8_V2/include/hal/utils.h \
  /home/ipontes3olavy/gap_riscv_toolchain_ubuntu/gap_sdk/install/GAP8_V2/include/pmsis/cluster/cluster_sync/cl_synchronisation.h \
  ../../../include/convolution.h ../../../include/config.h \
- ../../../include/imageIO.h
+ ../../../include/imageIO.h \
+ /home/ipontes3olavy/gap_riscv_toolchain_ubuntu/gap_sdk/install/GAP8_V2/include/Gap8.h \
+ /home/ipontes3olavy/gap_riscv_toolchain_ubuntu/gap_sdk/install/GAP8_V2/include/pulp.h \
+ /home/ipontes3olavy/gap_riscv_toolchain_ubuntu/gap_sdk/install/GAP8_V2/include/rt.h \
+ /home/ipontes3olavy/gap_riscv_toolchain_ubuntu/gap_sdk/install/GAP8_V2/include/rt/rt_api.h \
+ /home/ipontes3olavy/gap_riscv_toolchain_ubuntu/gap_sdk/install/GAP8_V2/include/bench/bench.h \
+ /home/ipontes3olavy/gap_riscv_toolchain_ubuntu/gap_sdk/install/GAP8_V2/include/pulp.h \
+ /home/ipontes3olavy/gap_riscv_toolchain_ubuntu/gap_sdk/install/GAP8_V2/include/rt/rt_compat.h
 
 /home/ipontes3olavy/gap_riscv_toolchain_ubuntu/gap_sdk/install/GAP8_V2/include/rt/chips/gap_rev1/config.h:
 
@@ -668,3 +675,17 @@
 ../../../include/config.h:
 
 ../../../include/imageIO.h:
+
+/home/ipontes3olavy/gap_riscv_toolchain_ubuntu/gap_sdk/install/GAP8_V2/include/Gap8.h:
+
+/home/ipontes3olavy/gap_riscv_toolchain_ubuntu/gap_sdk/install/GAP8_V2/include/pulp.h:
+
+/home/ipontes3olavy/gap_riscv_toolchain_ubuntu/gap_sdk/install/GAP8_V2/include/rt.h:
+
+/home/ipontes3olavy/gap_riscv_toolchain_ubuntu/gap_sdk/install/GAP8_V2/include/rt/rt_api.h:
+
+/home/ipontes3olavy/gap_riscv_toolchain_ubuntu/gap_sdk/install/GAP8_V2/include/bench/bench.h:
+
+/home/ipontes3olavy/gap_riscv_toolchain_ubuntu/gap_sdk/install/GAP8_V2/include/pulp.h:
+
+/home/ipontes3olavy/gap_riscv_toolchain_ubuntu/gap_sdk/install/GAP8_V2/include/rt/rt_compat.h:

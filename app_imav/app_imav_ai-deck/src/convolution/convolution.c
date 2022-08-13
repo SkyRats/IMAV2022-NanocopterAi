@@ -7,6 +7,13 @@
 
 #include "convolution.h"
 
+/* Autotiler includes. */
+#include "Gap8.h"
+
+#define ABS(x) (x>0?x:(-x))
+#define MAX(x,y) (x>y?x:y)
+#define MIN(x,y) (x>y?y:x)
+
 /* masks for sobel operator */
 /*
 
@@ -78,16 +85,11 @@ void cl_convolution3by3(void * args)
     int32_t convolutedPixel;
     uint8_t linesPerCore = (imageHeight + nOfCores - 1)/nOfCores; /* rounded up */
     uint8_t beginning = coreId*linesPerCore;
-    uint8_t end = beginning + linesPerCore;
+    uint8_t end = MIN(beginning + linesPerCore, imageHeight);
 
-    if(end > imageHeight)
-        end = imageHeight;
 
-    for(y = beginning; y < end; ++y)
-    {
-        line = y * imageWidth;
+    for(y = beginning, line = beginning * imageWidth; y < end; ++y, line += imageWidth)
         for(x = 0, pixelIndex = line; x < imageWidth; ++x, ++pixelIndex)
-        {
             if(x == 0 || y == 0 || x == imageWidth -1 || y == imageHeight -1)
                 convolutedImg->data[pixelIndex] = MIN_PIXEL_VALUE;
             else
@@ -117,17 +119,14 @@ void cl_convolution3by3(void * args)
                 convolutedPixel = convolutedPixel > 0 ? convolutedPixel : -convolutedPixel;
                 convolutedImg->data[pixelIndex] = convolutedPixel <= MAX_PIXEL_VALUE ? convolutedPixel : MAX_PIXEL_VALUE;
             }
-        }
-    }
-    pi_cl_team_barrier(0);
 }
 
-void cl_sobelOperator(void * args)
+void __attribute__((noinline)) cl_sobelOperator(void * args)
 {
     uint8_t coreId = pi_core_id();
-    clusterCallArgs * realArgs = (clusterCallArgs *)args;
-    PGMImage * img = realArgs->inputImage;
-    PGMImage * sobelImg = realArgs->outputImage;
+    clusterCallArgs * restrict realArgs = (clusterCallArgs *)args;
+    PGMImage * restrict img = realArgs->inputImage;
+    PGMImage * restrict sobelImg = realArgs->outputImage;
     uint8_t nOfCores = realArgs->numOfCores;
 
     const uint8_t imageWidth = img->x, imageHeight = img->y;
@@ -185,17 +184,16 @@ void cl_sobelOperator(void * args)
                   * max( 0.875 * max(xGradient, yGradient) + 0.5 * min(xGradient, yGradient), max(xGradient, yGradient))
                   */
 
-                xGradient = xGradient > 0 ? xGradient : -xGradient;
-                yGradient = yGradient > 0 ? yGradient : -yGradient;
+                xGradient = ABS(xGradient);
+                yGradient = ABS(yGradient);
 
-                maxGradient = xGradient > yGradient ? xGradient : yGradient;
-                minGradient = xGradient > yGradient ? yGradient : xGradient;
+                maxGradient = MAX(xGradient, yGradient);
+                minGradient = MIN(xGradient, yGradient);
 
                 sqrtApprox = maxGradient - (maxGradient >> 3) + (minGradient >> 1);
-                sqrtApprox = sqrtApprox > maxGradient ? sqrtApprox : maxGradient;
+                sqrtApprox = MAX(sqrtApprox, maxGradient);
 
-                sobelImg->data[pixelIndex] = sqrtApprox <= MAX_PIXEL_VALUE ? sqrtApprox : MAX_PIXEL_VALUE;
+                sobelImg->data[pixelIndex] = MIN(sqrtApprox, MAX_PIXEL_VALUE);
 
             }
-    pi_cl_team_barrier(0);
 }

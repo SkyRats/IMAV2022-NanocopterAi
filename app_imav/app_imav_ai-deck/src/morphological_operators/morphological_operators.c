@@ -8,13 +8,23 @@
 #include "imageIO.h"
 #include "morphological.h"
 
+#define ABS(x) (x>0?x:(-x))
+#define MAX(x,y) (x>y?x:y)
+#define MIN(x,y) (x>y?y:x)
+
+
 void cl_maskErosion(void * args)
 {
-    const bool mask[8] = {false, true, false, true, true, false, true, false };
+    #if SEGMENTATION_METHOD == 0
+    const bool mask[8] = {true, true, true, true, true, true, true, true };
+    #else
+    const bool mask[8] = {false, true, false, true, false, true, false, true };
+    #endif
+
     uint8_t coreId = pi_core_id();
-    clusterCallArgs * realArgs = (clusterCallArgs *)args;
-    PGMImage * img = realArgs->inputImage;
-    PGMImage * erodedImg = realArgs->outputImage;
+    clusterCallArgs * restrict realArgs = (clusterCallArgs *)args;
+    PGMImage * restrict img = realArgs->inputImage;
+    PGMImage * restrict erodedImg = realArgs->outputImage;
     uint8_t nOfCores = realArgs->numOfCores;
 
     const uint16_t imageWidth = img->x, imageHeight = img->y;
@@ -24,14 +34,10 @@ void cl_maskErosion(void * args)
     uint8_t i, j;
     uint8_t linesPerCore = (imageHeight + nOfCores - 1)/nOfCores; /* rounded up */
     uint8_t beginning = coreId*linesPerCore;
-    uint8_t end = beginning + linesPerCore;
+    uint8_t end = MIN(beginning + linesPerCore, imageHeight);
 
-    if(end > imageHeight)
-        end = imageHeight;
 
-    for(j = beginning; j < end; ++j)
-    {
-        line = j * imageWidth;
+    for(j = beginning, line = beginning * imageWidth; j < end; ++j, line += imageWidth)
         for(i = 0, pixel = line; i < imageWidth; ++i, ++pixel)
             if(i == 0 || j == 0 || i == imageWidth -1 || j == imageHeight -1)
                 erodedImg->data[pixel] = MIN_PIXEL_VALUE;
@@ -58,8 +64,6 @@ void cl_maskErosion(void * args)
                 erodedImg->data[pixelNeighbours[6]] = mask[6] ? MIN_PIXEL_VALUE : img->data[pixelNeighbours[6]];
                 erodedImg->data[pixelNeighbours[7]] = mask[7] ? MIN_PIXEL_VALUE : img->data[pixelNeighbours[7]];
             }
-    }
-    pi_cl_team_barrier(0);
 }
 
 void cl_maskDilation(void * args)
@@ -78,10 +82,8 @@ void cl_maskDilation(void * args)
     uint8_t i, j;
     uint8_t linesPerCore = (imageHeight + nOfCores - 1)/nOfCores; /* rounded up */
     uint8_t beginning = coreId*linesPerCore;
-    uint8_t end = beginning + linesPerCore;
+    uint8_t end = MIN(beginning + linesPerCore, imageHeight);
 
-    if(end > imageHeight)
-        end = imageHeight;
 
     for(j = beginning; j < end; ++j)
     {
@@ -113,5 +115,4 @@ void cl_maskDilation(void * args)
                 dilatedImg->data[pixelNeighbours[7]] = mask[7] ? MAX_PIXEL_VALUE : img->data[pixelNeighbours[7]];
             }
     }
-    pi_cl_team_barrier(0);
 }
