@@ -289,7 +289,11 @@ void masterFindGate(PGMImage * originalImage, PGMImage * outputImage)
                 break;
 
             case EDGE_DETECTING:
+                #if EDGE_DETECTION_METHOD == 0
                 pi_cl_team_fork(clusterArgs->numOfCores, (void *)cl_sobelOperator, (void *)clusterArgs);
+                #else
+                pi_cl_team_fork(clusterArgs->numOfCores, (void *)cl_cannyOperator, (void *)clusterArgs);
+                #endif
                 copy = true;
                 state = THRESHOLDING;
                 break;
@@ -298,7 +302,11 @@ void masterFindGate(PGMImage * originalImage, PGMImage * outputImage)
                 adaptiveHistogramTechnique(clusterArgs->inputImage);
 
                 copy = false;
+                #if EDGE_DETECTION_METHOD == 0
                 state = ERODING;
+                #else
+                state = DILATING;
+                #endif
                 break;
 
             case ERODING:
@@ -383,8 +391,13 @@ void masterFindGate(PGMImage * originalImage, PGMImage * outputImage)
 
     if (FullReport) {
         printf("\n\ngaussian filter                     : %10lu Cycles\n", Elapsed[0]);
+        #if EDGE_DETECTION_METHOD == 0
         printf("sobel edge detector                 : %10lu Cycles\n", Elapsed[1]);
+        #else
+        printf("canny edge detector                 : %10lu Cycles\n", Elapsed[1]);
+        #endif
         printf("adaptive thresholding               : %10lu Cycles\n", Elapsed[2]);
+        #if EDGE_DETECTION_METHOD ==0
         #if SEGMENTATION_METHOD == 0
         printf("erosion                             : %10lu Cycles\n", Elapsed[3]);
         printf("dilation                            : %10lu Cycles\n", Elapsed[4]);
@@ -398,6 +411,12 @@ void masterFindGate(PGMImage * originalImage, PGMImage * outputImage)
         printf("edge-and-gray-shade segmentation    : %10lu Cycles\n", Elapsed[6]);
         printf("last findGate                       : %10lu Cycles\n", Elapsed[7]);
         printf("Total                               : %10lu Cycles\n", Elapsed[0]+ Elapsed[1]+ Elapsed[2]+ Elapsed[3]+ Elapsed[4] + Elapsed[5] + Elapsed[6] + Elapsed[7]);
+        #endif
+        #else
+        printf("dilation                            : %10lu Cycles\n", Elapsed[3]);
+        printf("edge segmentation                   : %10lu Cycles\n", Elapsed[4]);
+        printf("last findGate                       : %10lu Cycles\n", Elapsed[5]);
+        printf("Total                               : %10lu Cycles\n", Elapsed[0]+ Elapsed[1]+ Elapsed[2]+ Elapsed[3]+ Elapsed[4]+ Elapsed[5]);
         #endif
     }
     printf("Total with Master                   : %10lu Cycles\n", Time);
