@@ -103,7 +103,7 @@ void edgesLabelAndCheckNeighbour(PGMImage * img, uint8_t label, uint16_t pixelIn
 
 PQueue* edgeSegmentation(PGMImage * img)
 {
-    const uint8_t imageWidth = 200, imageHeight = 200;
+    const uint8_t imageWidth = img->x, imageHeight = img->y;
     const uint16_t imageSize = imageWidth * imageHeight;
 
     uint8_t y, pixel, label = 1;
@@ -194,7 +194,7 @@ void __attribute__((noinline)) edgesAndGrayShadesLabelAndCheckNeighbour(PGMImage
 
 PQueue * __attribute__((noinline)) edgeAndGrayShadeSegmentation(PGMImage * img, PGMImage * thresholdedEdgeDetectorOutput, PGMImage * outputImg)
 {
-    const uint8_t imageWidth = 200, imageHeight = 200;
+    const uint8_t imageWidth = img->x, imageHeight = img->y;
     const uint16_t imageSize = imageWidth * imageHeight;
 
     uint8_t y, averageGrayShade, label = 1;

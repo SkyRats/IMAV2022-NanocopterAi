@@ -174,7 +174,6 @@ void __attribute__((noinline)) cl_cannyOperator(void * args)
     /* vector that will store the angle of each edge */
     pi_cl_l2_malloc((linesPerCore * imageWidth)*sizeof(uint8_t), &alloc_req);
     angle_t * edgeDirection = pi_cl_l2_malloc_wait(&alloc_req);
-    /* REMEMBER TO FREE THIS SHIT OVER HERE */
 
     for(y = beginning, line = firstLine ; y < end ; ++y, line += imageWidth)
         for(x = 0, pixelIndex = line ; x < imageWidth ; ++x, ++pixelIndex)
@@ -196,12 +195,12 @@ void __attribute__((noinline)) cl_cannyOperator(void * args)
                 pixelNeighbours[7] = pixelIndex - imageWidth;     /* upper */
 
                 /* derivating on x */
-                xGradient  = img->data[pixelNeighbours[0]];
-                xGradient += (img->data[pixelNeighbours[1]] << 1); /* one left shift == multiplication by 2 */
-                xGradient += img->data[pixelNeighbours[2]];
-                xGradient -= img->data[pixelNeighbours[4]];
-                xGradient -= (img->data[pixelNeighbours[5]] << 1);
-                xGradient -= img->data[pixelNeighbours[6]];
+                xGradient  = -img->data[pixelNeighbours[0]];
+                xGradient -= (img->data[pixelNeighbours[1]] << 1); /* one left shift == multiplication by 2 */
+                xGradient -= img->data[pixelNeighbours[2]];
+                xGradient += img->data[pixelNeighbours[4]];
+                xGradient += (img->data[pixelNeighbours[5]] << 1);
+                xGradient += img->data[pixelNeighbours[6]];
 
                 /* derivating on y */
                 yGradient  = img->data[pixelNeighbours[0]];
