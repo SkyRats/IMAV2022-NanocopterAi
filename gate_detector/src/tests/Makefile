@@ -26,36 +26,26 @@ testGateFinder: $(BUILD_DIR)/testGateFinder.o $(BUILD_DIR)/imageIO.o $(BUILD_DIR
 $(BUILD_DIR)/testGateFinder.o: testGateFinder.c $(BUILD_DIR)/imageIO.o $(BUILD_DIR)/convolution.o $(BUILD_DIR)/morphological_operators.o $(BUILD_DIR)/filter.o $(BUILD_DIR)/histogram.o $(BUILD_DIR)/regionGrowing.o $(BUILD_DIR)/queue.o $(BUILD_DIR)/findGate.o
 	$(CC) $(CFLAGS) -o $@ -c $<
 
-$(BUILD_DIR)/imageIO.o: $(COMMON_LIB)/imageIO.c
+$(BUILD_DIR)/%.o: $(COMMON_LIB)/%.c
 	$(CC) $(CFLAGS) -o $@ -c $<
 
-$(BUILD_DIR)/convolution.o: $(CONVOLUTION_LIB)/convolution.c
+$(BUILD_DIR)/%.o: $(CONVOLUTION_LIB)/%.c
 	$(CC) $(CFLAGS) -o $@ -c $<
 
-$(BUILD_DIR)/morphological_operators.o: $(MORPHOLOGICAL_LIB)/morphological_operators.c
+$(BUILD_DIR)/%.o: $(DATA_STRUCT_LIB)/%.c
 	$(CC) $(CFLAGS) -o $@ -c $<
 
-$(BUILD_DIR)/filter.o: $(FILTERS_LIB)/filter.c
+$(BUILD_DIR)/%.o: $(FILTERS_LIB)/%.c
 	$(CC) $(CFLAGS) -o $@ -c $<
 
-$(BUILD_DIR)/histogram.o: $(OTHERS_LIB)/histogram.c $(BUILD_DIR)/threshold.o
+$(BUILD_DIR)/%.o: $(MORPHOLOGICAL_LIB)/%.c
 	$(CC) $(CFLAGS) -o $@ -c $<
 
-$(BUILD_DIR)/threshold.o: $(SEGMENTATION_LIB)/threshold.c
+$(BUILD_DIR)/%.o: $(OTHERS_LIB)/%.c
 	$(CC) $(CFLAGS) -o $@ -c $<
 
-$(BUILD_DIR)/regionGrowing.o: $(SEGMENTATION_LIB)/regionGrowing.c $(BUILD_DIR)/stack.o $(BUILD_DIR)/queue.o
+$(BUILD_DIR)/%.o: $(SEGMENTATION_LIB)/%.c
 	$(CC) $(CFLAGS) -o $@ -c $<
-
-$(BUILD_DIR)/stack.o: $(DATA_STRUCT_LIB)/stack.c
-	$(CC) $(CFLAGS) -o $@ -c $<
-
-$(BUILD_DIR)/queue.o: $(DATA_STRUCT_LIB)/queue.c
-	$(CC) $(CFLAGS) -o $@ -c $<
-
-$(BUILD_DIR)/findGate.o: $(OTHERS_LIB)/findGate.c
-	$(CC) $(CFLAGS) -o $@ -c $<
-
 
 run:
 	./$(BUILD_DIR)/$(EXECUTABLE) $(INPUT_IMAGE) $(OUTPUT_IMAGE)
