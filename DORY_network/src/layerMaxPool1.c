@@ -40,37 +40,37 @@
 // padding_left                   0
 // padding_right                  0
 // stride                         2
-// x_h                            100
+// x_h                            16
 // x_w                            100
 // x_data_size_byte               8
-// x_tile_size_nif                31
-// x_tile_size_h                  22
-// x_tile_size_w                  22
-// x_tile_size_byte               15004
-// x_tile_size_nif_byte           31
+// x_tile_size_nif                32
+// x_tile_size_h                  6
+// x_tile_size_w                  78
+// x_tile_size_byte               14976
+// x_tile_size_nif_byte           32
 // x_stride_w_byte                3200
 // x_stride_c_byte                32
-// y_h                            50
+// y_h                            8
 // y_w                            50
 // y_data_size_byte               8
 // act_dim_bit                    0
-// y_tile_size_nof                31
-// y_tile_size_h                  11
-// y_tile_size_w                  11
-// y_tile_size_byte               3751
+// y_tile_size_nof                32
+// y_tile_size_h                  3
+// y_tile_size_w                  39
+// y_tile_size_byte               3744
 // y_stride_w_byte                1600
 // y_stride_c_byte                32
-// y_tile_size_nof_byte           31
-// tile_dim_h                     5
-// tile_dim_w                     5
-// tile_dim_nof                   2
-// tile_dim_nif                   2
+// y_tile_size_nof_byte           32
+// tile_dim_h                     3
+// tile_dim_w                     2
+// tile_dim_nof                   1
+// tile_dim_nif                   1
 // fs1                            2
 // fs2                            2
 // W_data_size_byte               0
-// W_tile_size_nof                31
+// W_tile_size_nof                32
 // b_size_byte                    0
-// W_tile_size_nif                31
+// W_tile_size_nif                32
 // W_tile_size_byte               0
 // W_stride_nof_byte              0
 // W_stride_hw_byte               0
@@ -81,15 +81,15 @@
 // k_size_byte                    0
 // lambda_size_byte               0
 // l1_x_offset                    0
-// l1_y_offset                    30012
-// x_tile_size_nif_last           1
-// x_tile_size_nif_byte_last      1
-// x_tile_size_h_last             12
-// x_tile_size_w_last             12
-// y_tile_size_nof_last           1
-// y_tile_size_h_last             6
-// y_tile_size_w_last             6
-// y_length_nof_byte_last         1
+// l1_y_offset                    29956
+// x_tile_size_nif_last           32
+// x_tile_size_nif_byte_last      32
+// x_tile_size_h_last             4
+// x_tile_size_w_last             22
+// y_tile_size_nof_last           32
+// y_tile_size_h_last             2
+// y_tile_size_w_last             11
+// y_length_nof_byte_last         32
 
 
 #include "layerMaxPool1.h"
@@ -140,18 +140,18 @@ void layerMaxPool1(
   int exec_db_x;
   int exec_db_W;
  char *im2col;
-  im2col = l1_buffer + 37550;
+  im2col = l1_buffer + 37480;
   dma_evt = mchan_alloc();
   // copy first tiles
   //l2_x has input activations
   dory_dma_memcpy_3d_custom_out(
   l2_x, // ext
   (l1_buffer + 0) + 0, // loc
-  15004, // size: dimension of the buffer
+  14976, // size: dimension of the buffer
   3200, // stride_1: stride for the 3d copy: if we have to copy on n_features axis, this is the stride to change from first 2D space to the next ones.
   32, // stride_0: stride to be passed to 2d_copy: the dimension w of the in image
-  22,// length_2: how many 2_d copies we need -> the dimension of the tile in n_features direction
-  31, // length_0: legnth of the 1_d copy, the length of tile in w direction
+  6,// length_2: how many 2_d copies we need -> the dimension of the tile in n_features direction
+  32, // length_0: legnth of the 1_d copy, the length of tile in w direction
   1, // dir
   &dma_evt // copy
   );
@@ -168,20 +168,20 @@ void layerMaxPool1(
   int flag_first_ch_out;
 
   // last-tile flags
-  int last_nof_load = (2 == 1) ? 1 : 0;
-  int last_nif_load = (2 == 1) ? 1 : 0;
-  int last_h_load = (5 == 1) ? 1 : 0;
-  int last_w_load = (5 == 1) ? 1 : 0;
+  int last_nof_load = (1 == 1) ? 1 : 0;
+  int last_nif_load = (1 == 1) ? 1 : 0;
+  int last_h_load = (3 == 1) ? 1 : 0;
+  int last_w_load = (2 == 1) ? 1 : 0;
   int iter;
   // tile loop nest
-  for(iter=0; iter<2*5*5; iter++) {
+  for(iter=0; iter<1*3*2; iter++) {
     // loop nest is nof,h,w,(nif=0)
     _i_w_load += 1;
-    if(_i_w_load==5) 
+    if(_i_w_load==2) 
     {
       _i_w_load = 0;
       _i_h_load += 1;
-      if(_i_h_load==5) 
+      if(_i_h_load==3) 
       {
         _i_h_load = 0;
         _i_nif_load += 1;
@@ -198,26 +198,26 @@ void layerMaxPool1(
     last_nif_exec = last_nif_load;
     last_h_exec = last_h_load;
     last_w_exec = last_w_load;
-    last_nof_load = (_i_nof_load+1 == 2) ? 1 : 0;
-    last_nif_load = (_i_nof_load+1 == 2) ? 1 : 0;
-    last_h_load = (_i_h_load+1 == 5) ? 1 : 0;
-    last_w_load = (_i_w_load+1 == 5) ? 1 : 0;
+    last_nof_load = (_i_nof_load+1 == 1) ? 1 : 0;
+    last_nif_load = (_i_nof_load+1 == 1) ? 1 : 0;
+    last_h_load = (_i_h_load+1 == 3) ? 1 : 0;
+    last_w_load = (_i_w_load+1 == 2) ? 1 : 0;
 
     // compute double buffering offsets and update db state
-    db_x = !db_state_x ? 15004 : 0;
-    db_y = !db_state_y ? 3751 : 0;
-    exec_db_x = db_state_x ? 15004 : 0;
+    db_x = !db_state_x ? 14976 : 0;
+    db_y = !db_state_y ? 3744 : 0;
+    exec_db_x = db_state_x ? 14976 : 0;
     db_state_x = ! db_state_x;
 
     //switch all double buffering offset and y only after that all n_input_features have been analyzed: we need to pass all n_in to produce a single filter_out
     db_state_y = ! db_state_y;
-    if(iter<2*5*5-1) 
+    if(iter<1*3*2-1) 
     {
-      x_tile_size_nif = (last_nif_load) ? 1 : 31;
-      x_tile_size_h   = (last_h_load)   ? 12 : 22;
-      x_tile_size_w   = (last_w_load)   ? 12 : 22;
+      x_tile_size_nif = (last_nif_load) ? 32 : 32;
+      x_tile_size_h   = (last_h_load)   ? 4 : 6;
+      x_tile_size_w   = (last_w_load)   ? 22 : 78;
       x_tile_size_byte = x_tile_size_nif*x_tile_size_h*x_tile_size_w*8/8;
-      x_length_nif_byte = (last_nif_load)   ? 1 : 31;
+      x_length_nif_byte = (last_nif_load)   ? 32 : 32;
       // additionally overlap by padding for the first tile after a border one
       //this because in the first tile we use less pixels from x_buffer, since we have the ones of padding
       pad_offset_h=0, pad_offset_w=0;
@@ -227,7 +227,7 @@ void layerMaxPool1(
         pad_offset_w = 0;
 
       dory_dma_memcpy_3d_custom_out(
-        dory_get_tile_3d(l2_x, _i_h_load, _i_w_load, _i_nif_load, 22, 22, 31, 100, 32,  0, 0,0, pad_offset_h, pad_offset_w, 0, 8), // extern
+        dory_get_tile_3d(l2_x, _i_h_load, _i_w_load, _i_nif_load, 6, 78, 32, 100, 32,  0, 0,0, pad_offset_h, pad_offset_w, 0, 8), // extern
         (l1_buffer + 0) + db_x, // loc
         x_tile_size_byte, // size: dimension of the buffer
         3200, // stride_1: stride for the 3d copy: if we have to copy on n_features axis, this is the stride to change from first 2D space to the next ones.
@@ -237,21 +237,21 @@ void layerMaxPool1(
         1, // dir
         &dma_evt // copy
         );
-      y_tile_size_h   = (last_h_load)   ? 6 : 11;
-      y_tile_size_w   = (last_w_load)   ? 6 : 11;
+      y_tile_size_h   = (last_h_load)   ? 2 : 3;
+      y_tile_size_w   = (last_w_load)   ? 11 : 39;
     }
     x = (char *) (l1_buffer + 0 + exec_db_x);
-    y = (char *) (l1_buffer + 30012 + db_y);
+    y = (char *) (l1_buffer + 29956 + db_y);
    
-    x_tile_size_nif_exec = (last_nif_exec) ? 1 : 31;
-    x_tile_size_h_exec   = (last_h_exec)   ? 12 : 22;
-    x_tile_size_w_exec   = (last_w_exec)   ? 12 : 22;
+    x_tile_size_nif_exec = (last_nif_exec) ? 32 : 32;
+    x_tile_size_h_exec   = (last_h_exec)   ? 4 : 6;
+    x_tile_size_w_exec   = (last_w_exec)   ? 22 : 78;
   
-    y_tile_size_nof = (last_nof_exec) ? 1 : 31;
-    y_tile_size_h   = (last_h_exec)   ? 6 : 11;
-    y_tile_size_w   = (last_w_exec)   ? 6 : 11;
+    y_tile_size_nof = (last_nof_exec) ? 32 : 32;
+    y_tile_size_h   = (last_h_exec)   ? 2 : 3;
+    y_tile_size_w   = (last_w_exec)   ? 11 : 39;
     y_tile_size_byte = y_tile_size_nof*y_tile_size_h*y_tile_size_w*8/8;
-    y_length_nof_byte = (last_nof_exec)   ? 1 : 31;
+    y_length_nof_byte = (last_nof_exec)   ? 32 : 32;
     p_r = 0;
     p_l = 0;
     p_t = 0;
@@ -260,9 +260,9 @@ void layerMaxPool1(
       p_t = 0;
     if (_i_w_exec == 0)
       p_l = 0;
-    if (_i_h_exec == 5-1)
+    if (_i_h_exec == 3-1)
       p_b = 0;
-    if (_i_w_exec == 5-1)
+    if (_i_w_exec == 2-1)
       p_r = 0;
     pi_cl_team_barrier(0);
   
@@ -291,8 +291,8 @@ void layerMaxPool1(
     mchan_barrier(dma_evt);
     // transfering of output to L2
     dory_dma_memcpy_3d_custom_out(
-      dory_get_tile_3d(l2_y, _i_h_exec, _i_w_exec, _i_nof_exec, 11, 11, 31, 50, 32, 0, 0, 0, 0, 0, 0, 8), // ext
-      (l1_buffer + 30012) + db_y, // loc
+      dory_get_tile_3d(l2_y, _i_h_exec, _i_w_exec, _i_nof_exec, 3, 39, 32, 50, 32, 0, 0, 0, 0, 0, 0, 8), // ext
+      (l1_buffer + 29956) + db_y, // loc
       y_tile_size_byte, // size
       1600, // stride_1
       32, // stride_0

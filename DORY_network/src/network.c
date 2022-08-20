@@ -48,6 +48,7 @@
 #include "bsp/camera/himax.h"
 
 #define FLASH_BUFF_SIZE 128
+#define IMAGE_BUFF_SIZE 128
 #define VERBOSE 1
 
 
@@ -62,8 +63,8 @@ static int bypass_L3_input;
 static int L3_output;
 static int bypass_L3_output;
 static int activations_input;
-static int L3_layers[15] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-static int L3_input_layers[15] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+static int L3_layers[15] = {0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+static int L3_input_layers[15] = {0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 static int L3_output_layers[15] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 static int L3_weights_layers[15] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 static int allocate_layer[15] = {1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1};
@@ -75,21 +76,21 @@ static int check_weights[15] = {94915, 0, 758823, 997238, 127587, 0, 1839651, 31
 static int check_weights_dimension[15] = {1312, 0, 9728, 9728, 1536, 0, 19456, 37888, 3072, 0, 75776, 149504, 10240, 0, 12544};
 static int cumulative_weights_dimension[15] = {0, 1312, 1312, 11040, 20768, 22304, 22304, 41760, 79648, 82720, 82720, 158496, 308000, 318240, 318240};
 static int check_activations[15] = {1613972, 2692058, 930278, 100955, 138918, 135058, 273976, 27961, 42600, 16824, 59424, 10413, 1121, 0, 1121};
-static int check_activations_dimension[15] = {40000, 320000, 80000, 20000, 20000, 20000, 20000, 10816, 10816, 10816, 10816, 6272, 6272, 6272, 6272};
-static int check_activations_dimension_L3_in[15] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-static int check_activations_dimension_L3_out[15] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+static int check_activations_dimension[15] = {40000, 320000, 48952, 20000, 20000, 20000, 20000, 10816, 10816, 10816, 10816, 6272, 6272, 6272, 6272};
+static int check_activations_dimension_L3_in[15] = {0, 320000, 80000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+static int check_activations_dimension_L3_out[15] = {0, 80000, 20000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 static int out_mult_vector[15] = {1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0};
 static int out_shift_vector[15] = {22, 0, 22, 23, 23, 5, 21, 23, 23, 5, 20, 22, 22, 5, 0};
 static int inmul1_vector[15] = {0, 0, 0, 0, 0, 32.0, 0, 0, 0, 32.0, 0, 0, 0, 32.0, 0};
 static int inmul2_vector[15] = {0, 0, 0, 0, 0, 32.0, 0, 0, 0, 32.0, 0, 0, 0, 32.0, 0};
 static int check_activations_out[15] = {2692058, 930278, 100955, 138918, 135058, 273976, 27961, 42600, 16824, 59424, 10413, 1121, 0, 1121, 7869};
-static int check_activations_out_dimension[15] = {320000, 80000, 20000, 20000, 20000, 20000, 10816, 10816, 10816, 10816, 6272, 6272, 6272, 6272, 8};
+static int check_activations_out_dimension[15] = {320000, 48952, 20000, 20000, 20000, 20000, 10816, 10816, 10816, 10816, 6272, 6272, 6272, 6272, 8};
 static int layer_with_weights[15] = {1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1};
 
 static uint8_t flashBuffer[FLASH_BUFF_SIZE];
 
 static struct pi_hyperflash_conf flash_conf;
-static struct pi_himax_conf camera_conf;
+static volatile struct pi_himax_conf camera_conf;
 static struct pi_hyper_conf ram_conf;
 static struct pi_device ram;
 static struct pi_device camera_dev;
@@ -149,6 +150,7 @@ static void handle_transfer_end(void *arg)
 
 static int8_t open_camera()
 {
+    printf("initiating camera conf\n");
     pi_himax_conf_init(&camera_conf);
 
     camera_conf.format = PI_CAMERA_QVGA; /* 320 x 240 */
@@ -158,6 +160,7 @@ static int8_t open_camera()
     camera_conf.roi.x = 60; /* 320 / 2 - 100 */
     camera_conf.roi.y = 40; /* 240 - 200 */
 
+    printf("opening from conf\n");
     pi_open_from_conf(&camera_dev, &camera_conf);
     if(pi_camera_open(&camera_dev))
     {
@@ -168,6 +171,7 @@ static int8_t open_camera()
     /* rotate image -- image is upside down by default */
     uint8_t set_value = 3;
     uint8_t reg_value;
+    printf("setting registers\n");
     pi_camera_reg_set(&camera_dev, IMG_ORIENTATION, &set_value);
     pi_camera_reg_get(&camera_dev, IMG_ORIENTATION, &reg_value);
     if(set_value != reg_value)
@@ -255,6 +259,7 @@ uint8_t * network_setup()
       printf("Layer %-3d: Checksum = %-12d, FLASH %-12d, Check FAILED\n", layer_number, check_weights[layer_number], sum_weights);
     layer_number +=1;
   }
+  printf("opening filesystem\n");
   file = pi_fs_open(&fs, "inputs.hex", 0);
   if (file == NULL)
   {
@@ -279,38 +284,48 @@ uint8_t * network_setup()
         return NULL;
     }
 
+    printf("opening camera\n");
     if(open_camera())
     {
         printf("Failed to open camera.\n");
         return NULL;
     }
-    pi_camera_control(&camera_dev, PI_CAMERA_CMD_AEG_INIT, 0);
+    printf("initiating camera\n");
+    /* TODO: TEST AEG INIT*/
+    pi_camera_control(&camera_dev, PI_CAMERA_CMD_START, 0);
     pi_camera_capture(&camera_dev, imageBuffer, 40000);
     pi_camera_control(&camera_dev, PI_CAMERA_CMD_STOP, 0);
 
-    pi_fs_file_t * fileCopy = file;
-    int size = pi_fs_write(fileCopy, imageBuffer, 40000);
-    if(size < 40000)
-    {
-        printf("failed to write image to filesystem.\n");
-        return NULL;
-    }
+    printf("copying image from L2 to ram\n");
+    activations_input = L3_weights+rdDone;
+    pi_ram_write(&ram, activations_input, imageBuffer, 40000);
+
+    //printf("copying image to filesystem\n");
+    //pi_fs_file_t * fileCopy = file;
+    //for(uint16_t wrDone = 0; wrDone < 40000;)
+    //{
+      //int writeSize = pi_ram_write(&ram, activations_input+wrDone, imageBuffer+wrDone, IMAGE_BUFF_SIZE);
+      //printf("writeSize: %d\n", writeSize);
+      //wrDone += writeSize;
+    //}
 
     /* remember: imageBuffer and file values can change */
   /* *************************** */
 
-  activations_input = L3_weights+rdDone;
-  rdDone = 0;
-  int flashBuffSize = FLASH_BUFF_SIZE * sizeof(char);
-  // loop on chunk in file
-  while(rdDone < (40000 / sizeof(char)))
-  {
-    // read from HyperFlash
-    int size = pi_fs_read(file, flashBuffer, flashBuffSize);
-    // write to HyperRam
-    pi_ram_write(&ram, activations_input+rdDone, flashBuffer, (uint32_t) size);
-    rdDone += size / sizeof(char);
-  }
+  //printf("copying image from filesystem to ram\n");
+  //activations_input = L3_weights+rdDone;
+  //rdDone = 0;
+  //int flashBuffSize = FLASH_BUFF_SIZE * sizeof(char);
+  //// loop on chunk in file
+  //while(rdDone < (40000 / sizeof(char)))
+  //{
+    //// read from HyperFlash
+    //int size = pi_fs_read(file, flashBuffer, flashBuffSize);
+    //// write to HyperRam
+    //pi_ram_write(&ram, activations_input+rdDone, flashBuffer, (uint32_t) size);
+    //rdDone += size / sizeof(char);
+  //}
+
   return imageBuffer;
 }
 
@@ -339,7 +354,7 @@ int32_t * network_run_FabricController()
   pi_time_wait_us(10000);
 
     /* synchronous write of image k - 1 to ram */
-    pi_ram_write(&ram, activations_input, imageBuffer, 40000, &buff_req);
+    pi_ram_write(&ram, activations_input, imageBuffer, 40000);
     /* *************************************** */
 
   struct pi_device cluster_dev = {0};
@@ -358,7 +373,7 @@ int32_t * network_run_FabricController()
 
     /* Asynchronous request for image k */
     pi_camera_capture_async(&camera_dev, imageBuffer, 40000, pi_task_callback(&task, handle_transfer_end, NULL));
-    pi_camera_control(&camera_dev, PI_CAMERA_CMD_AEG_INIT, 0);
+    pi_camera_control(&camera_dev, PI_CAMERA_CMD_START, 0);
     /* ************************************** */
 
   // Then offload an entry point, this will get executed on the cluster controller
@@ -431,10 +446,10 @@ void network_run(unsigned int L3_weights_size)
   pi_cl_free_req_t free_req = {0};
   if (pi_core_id()==0)
   {
-    pi_cl_l2_malloc((uint32_t) 420000, &alloc_req);
+    pi_cl_l2_malloc((uint32_t) 379992, &alloc_req);
     L2_buffer_allocation = pi_cl_l2_malloc_wait(&alloc_req);
     L2_buffer_tofree_copy = L2_buffer_allocation;
-    L2_buffer_allocation_end = L2_buffer_allocation + 420000;
+    L2_buffer_allocation_end = L2_buffer_allocation + 379992;
     l1_buffer = pmsis_l1_malloc((uint32_t) 38000);
 #ifdef VERBOSE
     printf("\nL2 Buffer alloc initial\t@ 0x%08x:\t%s\n", (unsigned int)L2_buffer_allocation, L2_buffer_allocation?"Ok":"Failed");
@@ -590,10 +605,10 @@ void network_run(unsigned int L3_weights_size)
         layerConvBNRelu0(args);
         break;
       case 1:
-        layerMaxPool1(args);
+        layerMaxPool1L3(args);
         break;
       case 2:
-        layerConvBNRelu2(args);
+        layerConvBNRelu2L3(args);
         break;
       case 3:
         layerConvBNRelu3(args);
@@ -845,7 +860,7 @@ void network_run(unsigned int L3_weights_size)
 
   if (pi_core_id()==0)
   {
-    pi_cl_l2_free(L2_buffer_tofree_copy, (uint32_t) 420000, &free_req);
+    pi_cl_l2_free(L2_buffer_tofree_copy, (uint32_t) 379992, &free_req);
     pi_cl_l2_free_wait(&free_req);
     pmsis_l1_malloc_free(l1_buffer, (uint32_t) 38000 );
   }

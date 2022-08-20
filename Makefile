@@ -2,7 +2,7 @@
 # Alessio Burrello <alessio.burrello@unibo.it>
 #
 # Copyright (C) 2019-2020 University of Bologna
-# 
+#
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -18,11 +18,13 @@
 APP = main
 APP_SRCS = DORY_network/src/layerMatMul14_last.c
 
+APP_SRCS+=DORY_network/src/layerConvBNRelu2_p_b.c
 APP_SRCS+=DORY_network/src/layerConvBNRelu12.c
 APP_SRCS+=DORY_network/src/pulp_nn_pointwise_Ho_parallel.c
 APP_SRCS+=DORY_network/src/pulp_nn_conv_Co_parallel.c
 APP_SRCS+=DORY_network/src/layerConvBNRelu7.c
 APP_SRCS+=DORY_network/src/network.c
+APP_SRCS+=DORY_network/src/layerConvBNRelu2_p_t.c
 APP_SRCS+=DORY_network/src/pulp_nn_pointwise_Co_parallel.c
 APP_SRCS+=DORY_network/src/pulp_nn_pointwise_HoWo_parallel.c
 APP_SRCS+=DORY_network/src/pulp_nn_conv_Ho_parallel.c
@@ -35,6 +37,7 @@ APP_SRCS+=DORY_network/src/layerConvBNRelu4.c
 APP_SRCS+=DORY_network/src/layerConvBNRelu2.c
 APP_SRCS+=DORY_network/src/layerConvBNRelu0.c
 APP_SRCS+=DORY_network/src/pulp_nn_add.c
+APP_SRCS+=DORY_network/src/layerMaxPool1L3.c
 APP_SRCS+=DORY_network/src/mem_controller.c
 APP_SRCS+=DORY_network/src/pulp_nn_utils.c
 APP_SRCS+=DORY_network/src/pulp_nn_depthwise_3x3_s1.c
@@ -49,6 +52,7 @@ APP_SRCS+=DORY_network/src/layerConvBNRelu11.c
 APP_SRCS+=DORY_network/src/pulp_nn_maxpool.c
 APP_SRCS+=DORY_network/src/layerConvBNRelu6.c
 APP_SRCS+=DORY_network/src/pulp_nn_depthwise_generic.c
+APP_SRCS+=DORY_network/src/layerConvBNRelu2L3.c
 APP_SRCS+=DORY_network/src/test_template.c
 APP_SRCS+=DORY_network/src/pulp_nn_linear_out_32.c
 APP_SRCS+=DORY_network/src/layerAddRelu13.c

@@ -18,10 +18,10 @@
  * limitations under the License. 
  */
 
-#include "layerConvBNRelu2.h"
+#include "layerConvBNRelu2_p_t.h"
 #define VERBOSE_PRINT(...) printf(__VA_ARGS__)
 
-void layerConvBNRelu2(
+void layerConvBNRelu2_p_t(
   void *args
 ) {
   //////////////////////////////////////////////////////////////////////////
@@ -236,7 +236,7 @@ void layerConvBNRelu2(
     p_t = 0;
     p_b = 0;
     if (_i_h_exec == 0)
-      p_t = 0;
+      p_t = 1;
     if (_i_w_exec == 0)
       p_l = 1;
     if (_i_h_exec == 1-1)
