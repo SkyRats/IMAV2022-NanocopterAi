@@ -44,7 +44,7 @@ void test_uart_dronet(void)
     }
   	network_setup();
 
-    for (uint8_t i=0; i<150; i++)
+    while(1)
     {
         to_send = network_run_FabricController();
         pi_uart_write(&uart, to_send, 8);

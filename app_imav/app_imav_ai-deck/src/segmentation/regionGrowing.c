@@ -107,7 +107,7 @@ void edgesAndGrayShadesLabelAndCheckNeighbour(PGMImage * img, PGMImage * thresho
 
 PQueue* edgeSegmentation(PGMImage * img)
 {
-    const uint8_t imageWidth = 200, imageHeight = 200;
+    const uint8_t imageWidth = img->x, imageHeight = img->y;
     const uint16_t imageSize = imageWidth * imageHeight;
 
     uint8_t y, pixel, label = 1;
@@ -122,7 +122,7 @@ PQueue* edgeSegmentation(PGMImage * img)
         {
             pixel = img->data[pixelIndex];
 
-            if(pixel == MIN_PIXEL_VALUE)
+            if(pixel == MAX_PIXEL_VALUE)
             {
                 pixelCount = 0;
                 edgesLabelAndCheckNeighbour(img, label, pixelIndex, pixelStack, &pixelCount);
@@ -179,10 +179,9 @@ void edgesLabelAndCheckNeighbour(PGMImage * img, uint8_t label, uint16_t pixelIn
 
     for(uint8_t i = 0; i < 8; ++i)
     {
-
         pixel = img->data[pixelNeighbours[i]];
 
-        if(pixel == MIN_PIXEL_VALUE)
+        if(pixel == MAX_PIXEL_VALUE)
             push(pixelStack, pixelNeighbours[i]);
     }
 

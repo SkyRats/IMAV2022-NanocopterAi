@@ -145,20 +145,20 @@ void __attribute__((noinline)) cl_sobelOperator(void * args)
 
 void __attribute__((noinline)) cl_cannyOperator(void * args)
 {
-    uint8_t coreId = pi_core_id();
+    const uint8_t coreId = pi_core_id();
     clusterCallArgs * restrict realArgs = (clusterCallArgs *)args;
     PGMImage * restrict img = realArgs->inputImage;
     PGMImage * restrict cannyImg = realArgs->outputImage;
-    uint8_t nOfCores = realArgs->numOfCores;
+    const uint8_t nOfCores = realArgs->numOfCores;
 
     const uint8_t imageWidth = img->x, imageHeight = img->y;
 
     /* loop variables */
     uint16_t maxGradient, minGradient, sqrtApprox;
-    uint8_t linesPerCore = (imageHeight + nOfCores - 1)/nOfCores; /* rounded up */
-    uint8_t beginning = coreId*linesPerCore;
-    uint16_t firstLine = beginning * imageWidth;
-    uint8_t end = MIN(beginning + linesPerCore, imageHeight);
+    const uint8_t linesPerCore = (imageHeight + nOfCores - 1)/nOfCores; /* rounded up */
+    const uint8_t beginning = coreId*linesPerCore;
+    const uint16_t firstLine = beginning * imageWidth;
+    const uint8_t end = MIN(beginning + linesPerCore, imageHeight);
     uint8_t x, y, pixel;
 
     uint16_t pixelIndex, line;
@@ -172,9 +172,12 @@ void __attribute__((noinline)) cl_cannyOperator(void * args)
     pi_cl_alloc_req_t alloc_req;
     pi_cl_free_req_t free_req;
     /* vector that will store the angle of each edge */
-    pi_cl_l2_malloc((linesPerCore * imageWidth)*sizeof(uint8_t), &alloc_req);
+    pi_cl_l2_malloc((linesPerCore * imageWidth)*sizeof(angle_t), &alloc_req);
     angle_t * edgeDirection = pi_cl_l2_malloc_wait(&alloc_req);
 
+    /** Section 1:
+      * Edge detection
+    **/
     for(y = beginning, line = firstLine ; y < end ; ++y, line += imageWidth)
         for(x = 0, pixelIndex = line ; x < imageWidth ; ++x, ++pixelIndex)
             if(x == 0 || y == 0 || x == imageWidth -1 || y == imageHeight -1)
@@ -246,6 +249,8 @@ void __attribute__((noinline)) cl_cannyOperator(void * args)
                 }
             }
 
+    pi_cl_team_barrier(0);
+
     if(coreId == 0)
     {
         pi_cl_dma_cmd_t dmaCopyStatus;
@@ -258,6 +263,9 @@ void __attribute__((noinline)) cl_cannyOperator(void * args)
 
     pi_cl_team_barrier(0);
 
+    /** Section 2:
+      * Gradient magnitude thresholding
+    **/
     for(y = beginning, line = firstLine ; y < end ; ++y, line += imageWidth)
         for(x = 0, pixelIndex = line ; x < imageWidth ; ++x, ++pixelIndex)
             if(x == 0 || y == 0 || x == imageWidth -1 || y == imageHeight -1)
@@ -305,5 +313,8 @@ void __attribute__((noinline)) cl_cannyOperator(void * args)
                         /* never reached */
                         break;
                 }
-    pi_cl_l2_free(edgeDirection, (linesPerCore * imageWidth)*sizeof(uint8_t), &free_req);
+
+
+    pi_cl_l2_free(edgeDirection, (linesPerCore * imageWidth)*sizeof(angle_t), &free_req);
+    pi_cl_l2_free_wait(&free_req);
 }
