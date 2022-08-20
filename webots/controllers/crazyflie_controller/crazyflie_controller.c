@@ -40,7 +40,7 @@ int currentState = 0; //Controls what action the drone is currently doing
 double oldYaw = 0;
 int edges;
 int rotationDir = 1; 
-
+Point oldGate = (Point){0,0,0};
 
 PGMImage *getImage(WbDeviceTag camera){ // Transforms webots image file into PGMImage struct
   PGMImage *img;
@@ -340,6 +340,8 @@ int main(int argc, char **argv) {
     double sidewaysDesired = 0;
     double yawDesired = 0;
     
+    PGMImage *image = getImage(camera);
+    Point gateCenter;
     
     switch(currentState){
       case 0:// Going toward something
@@ -375,20 +377,23 @@ int main(int argc, char **argv) {
           yawDesired = rotate(actualYaw, oldYaw + rotationDir*PI);
         }
         
-        PGMImage *image = getImage(camera);
-        Point gateCenter = GateFinder(image);
+        gateCenter = GateFinder(image);
         
         if(!(gateCenter.x == 0 && gateCenter.y == 0 && gateCenter.grayShade == 0)){
           printf("%d, %d, %d\n", gateCenter.x, gateCenter.y, gateCenter.grayShade);
-          //oldYaw = actualYaw;
-          //currentState = 0;
+          if (gateCenter.x > 70 && gateCenter.x < 130){
+            oldYaw = actualYaw;
+            currentState = 0;
+          }
         }
         if (yawDesired == 0){
           oldYaw = actualYaw;
           currentState = 0;
         }
+        
+        
         break;
-      case 4: // Avoiding detected obstacles
+      case 4: // Avoiding obstacles
         break;
     }
     // Control altitude

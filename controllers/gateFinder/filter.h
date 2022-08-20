@@ -6,6 +6,8 @@
 #include "config.h"
 #include "imageIO.h"
 
+
+PGMImage* cl_vectorial_gaussianFilter(PGMImage* img);
 PGMImage * lowPixelFilter(PGMImage const * img);
 
 #endif

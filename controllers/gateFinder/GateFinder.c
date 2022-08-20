@@ -50,24 +50,32 @@ Point GateFinder(PGMImage *image)
     bool const dilationMask[8] = {true, true, true, true, true, true, true, true };
 
     NULL_CHECK(image);
-
-    PGMImage *filteredImg = lowPixelFilter(image);
-
+    /*
+    //PGMImage *filteredImg = lowPixelFilter(image);
+    //PGMImage *filteredImg = cl_vectorial_gaussianFilter(image);
+    
+    writePGM("results.pgm", filteredImg);
     #if SEGMENTATION_METHOD == 0
     free(image);
     #endif
     NULL_CHECK(filteredImg);
     NULL_CHECK(filteredImg->data);
-
+    */
     /* the following convolution mask detects horizontal and vertical edges simultaneously
        with certain accuraccy. Another option would be to convolute the image twice: one
        with a vertical-edge detector mask and another with a horizontal-edge detector mask
        -- then, sum both images into one. This will be left as an exercise for the reader :) */
 
-    PGMImage *sobelImg = sobel_convolution(filteredImg,prewitt_mask_x, prewitt_mask_y);
-    free(filteredImg);
-    NULL_CHECK(sobelImg);
-    NULL_CHECK(sobelImg->data);
+    #if EDGE_DETECTION_METHOD == 0
+    PGMImage *edgeImg = sobel_convolution(image,prewitt_mask_x, prewitt_mask_y);
+    #else
+    PGMImage *edgeImg = cl_cannyOperator(image);
+    #endif
+    #if SEGMENTATION_METHOD == 0
+    free(image);
+    #endif
+    NULL_CHECK(edgeImg);
+    NULL_CHECK(edgeImg->data);
 
 
 
@@ -78,28 +86,28 @@ Point GateFinder(PGMImage *image)
 
     #if THRESHOLDING_SEGMENTATION_METHOD == 0
 
-    histogramPeakTechnique(sobelImg);
+    histogramPeakTechnique(edgeImg);
 
     #elif THRESHOLDING_SEGMENTATION_METHOD == 1
 
-    histogramValleyTechnique(sobelImg);
+    histogramValleyTechnique(edgeImg);
 
     #else
 
-    adaptiveHistogramTechnique(sobelImg);
+    adaptiveHistogramTechnique(edgeImg);
 
     #endif
 
 
     /* we will moderately erode the image twice */
-    PGMImage * halfEroded = maskErosion(sobelImg, erosionMask);
+    PGMImage * halfEroded = maskErosion(edgeImg, erosionMask);
     NULL_CHECK(halfEroded);
     NULL_CHECK(halfEroded->data);
 
     PGMImage * erodedImg = maskErosion(halfEroded, erosionMask);
     NULL_CHECK(erodedImg);
     free(halfEroded);
-    free(sobelImg);
+    free(edgeImg);
     NULL_CHECK(erodedImg->data);
 
     /* then we apply a strong dilation */
@@ -149,7 +157,7 @@ Point GateFinder(PGMImage *image)
         squareCenter = findGate(outputImg, label.pQueueItem);
         #endif
 
-        if(!(squareCenter.x == 0 && squareCenter.y == 0 && squareCenter.grayShade == 0)){
+        if((squareCenter.x >= 30 && squareCenter.x <= 170 && squareCenter.y >= 50 && squareCenter.y <= 150)){
             //printf("%d, %d \n", squareCenter.x, squareCenter.y);
             return squareCenter;
 

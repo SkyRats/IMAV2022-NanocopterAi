@@ -3,8 +3,8 @@ WorldInfo {
 }
 Viewpoint {
   fieldOfView 0.9
-  orientation -0.14871316500517648 -0.5457420099172974 0.8246514737545624 5.5777359931312525
-  position -1.1970080792842812 0.8046915594705398 0.7056789504003936
+  orientation 0.15086500327339245 0.11950658976090901 -0.9813041963586201 1.8910429703041085
+  position 0.3306688185689755 1.1670868973202535 0.5788062622050985
   follow "Crazyflie"
   followType "Mounted Shot"
   followSmoothness 0.1
@@ -57,15 +57,12 @@ Robot {
     }
     Camera {
       translation 0.03 0 0.01
-      fieldOfView 1.1
+      fieldOfView 1.2
       width 200
       height 200
-      near 0.1
       antiAliasing TRUE
-      ambientOcclusionRadius 30
       bloomThreshold 500
       motionBlur 1
-      noise 0.05
     }
     Solid {
       translation 0 0 -0.015
@@ -510,8 +507,8 @@ DEF Cyberzoo Transform {
               boundingObject USE SHAPE
             }
             Solid {
-              translation 303.95 -48.15 0
-              rotation 0 0 1 1.5708
+              translation 108.895 229.725 2.53
+              rotation 0 0 -1 0.261798
               children [
                 DEF SHAPE Group {
                   children [
@@ -21844,8 +21841,8 @@ DEF Objects Group {
       name "Panel - Metal 1"
     }
     Solid {
-      translation -1.21572 1.47289 -1.16216e-07
-      rotation 1.63243e-08 3.94102e-08 1 -2.3561953071795863
+      translation -1.42537 -2.88379 2.26089e-07
+      rotation -5.12166e-08 3.92999e-08 1 1.309
       scale 0.0254 0.0254 0.0254
       children [
         Solid {

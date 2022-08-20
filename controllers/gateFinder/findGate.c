@@ -14,6 +14,7 @@ typedef enum
 
 Point findGate(PGMImage* img, uint8_t grayShade)
 {
+    
     uint8_t imageWidth = img->x, imageHeight = img->y;
     uint16_t imageSize = imageWidth * imageHeight;
 
@@ -169,7 +170,7 @@ Point findGate(PGMImage* img, uint8_t grayShade)
     #endif
 
     diff = distanceH - distanceV;
-    if(-TOL <= diff && diff <= TOL)
+    if((distanceH <= 170 && distanceV <= 170) && -TOL <= diff && diff <= TOL)
     {
         uint32_t sumH = 0, sumV = 0;
         uint16_t pixelIndex, counter = 0;

@@ -8,12 +8,18 @@
 #define MAX_PIXEL_VALUE 255
 #define MIN_PIXEL_VALUE 0
 
-/* for a region to be considered valid (potential square) for the segmentation methods */
-#define MIN_PIXEL_AMOUNT 2500
-#define MIN_PIXEL_AMOUNT_EDGES_AND_GRAY_SHADES 1000
-#define MAX_PIXEL_AMOUNT_EDGES_AND_GRAY_SHADES 40000
+/* minimum intensity of edge for the canny algorithm to consider it as such */
+/* TODO: test different values */
+#define MIN_EDGE_INTENSITY_CANNY 100
+
 /* tolerance of square side max size difference for gate finding, in pixels */
-#define TOL 10
+#define TOL 15
+
+/**
+  * 0: Sobel operator only
+  * else: Canny edge detector
+  */
+#define EDGE_DETECTION_METHOD 0
 
 /**
   * 0: Histogram Peak Technique
@@ -23,13 +29,19 @@
 #define THRESHOLDING_SEGMENTATION_METHOD 2
 
 /**
-  * 0: Only input image edges will be taken into account
+  * 0: Only input image's edges will be taken into account
   * else: Edges and gray shades of the input image will be considered
   */
-#define SEGMENTATION_METHOD 1
+#define SEGMENTATION_METHOD 0
 
+/* for a region to be considered valid (potential square) */
+#define MIN_PIXEL_AMOUNT_EDGES_ONLY 1000
+#define MAX_PIXEL_AMOUNT_EDGES_ONLY 1000
+#define MIN_PIXEL_AMOUNT_EDGES_AND_GRAY_SHADES 2000
+#define MAX_PIXEL_AMOUNT_EDGES_AND_GRAY_SHADES 40000
+#define MAX_GRAYSHADE_DIFF 10
 
-//#define DEBUG_ON 
+//#define DEBUG_ON
 
 /*
  * if you wish to use the values defined
