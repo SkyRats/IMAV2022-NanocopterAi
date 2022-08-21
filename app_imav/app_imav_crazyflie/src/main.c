@@ -17,6 +17,7 @@
 #include "debug.h"
 #include "uart_dma_setup.h"
 #include "log.h"
+#include "param.h"
 
 #define DEBUG_MODULE "EXPLORER"
 #define BUFFERSIZE 8
@@ -134,6 +135,9 @@ void appMain()
 #endif
 
 #ifdef TEST_COM
+int32_t quantizedProbOfColl;
+int32_t quantizedSteering;
+
 void appMain()
 {
 	DEBUG_PRINT("Explorer started!\n");
@@ -146,11 +150,15 @@ void appMain()
 		if (dma_flag == 1)
 		{
 			dma_flag = 0;  // clear the flag
-            int32_t quantizedProbOfColl = aideckRxBuffer[0]; /* load pulp-nn results */
-            int32_t quantizedSteering = aideckRxBuffer[1];
+            quantizedProbOfColl = aideckRxBuffer[0]; /* load pulp-nn results */
+            quantizedSteering = aideckRxBuffer[1];
             #ifdef DEBUG_ON
-			DEBUG_PRINT("Quantized probability of colision: %lu\n", quantizedProbOfColl);
-			DEBUG_PRINT("Quantized steering angle prediction: %lu\n", quantizedSteering);
+			DEBUG_PRINT("Quantized output 1  (int32): %ld\n", quantizedProbOfColl);
+			DEBUG_PRINT("Quantized output 2  (int32): %ld\n", quantizedSteering);
+			DEBUG_PRINT("Quantized output 1 (uint32): %lu\n", (uint32_t)quantizedProbOfColl);
+			DEBUG_PRINT("Quantized output 2 (uint32): %lu\n\n", (uint32_t)quantizedSteering);
+			//DEBUG_PRINT("Dequantized probability of colision: %d\n", (uint32_t)quantizedProbOfColl/((uint32_t)-1));
+			//DEBUG_PRINT("Dequantized steering angle prediction: %d\n", quantizedSteering);
             #endif
 
 
@@ -183,18 +191,24 @@ void __attribute__((used)) DMA1_Stream1_IRQHandler(void)
     dma_flag = 1;
 }
 
-//PARAM_GROUP_START(explorer_params)
-//PARAM_ADD(PARAM_FLOAT, maxSpeed, &maxForwardSpeed)
+PARAM_GROUP_START(explorer_params)
+#ifndef TEST_COM
+PARAM_ADD(PARAM_FLOAT, maxSpeed, &maxForwardSpeed)
 ////PARAM_ADD(PARAM_FLOAT, arena limits, &arenaLimits)
-//PARAM_ADD(PARAM_FLOAT, reinitialize, &reinit)
-//PARAM_GROUP_STOP(explorer_params)
+PARAM_ADD(PARAM_FLOAT, reinitialize, &reinit)
+#endif
+PARAM_GROUP_STOP(explorer_params)
 
-//LOG_GROUP_START(log_received_data)
-//LOG_ADD(LOG_UINT32, quant_collision, &quantizedProbOfColl)
-//LOG_ADD(LOG_UINT32, quant_steer, &quantizedSteering)
-//LOG_ADD(LOG_FLOAT, cmdVelX, &cmdVelX)
-//LOG_ADD(LOG_FLOAT, cmdVelY, &cmdVelY)
-//LOG_ADD(LOG_FLOAT, cmdAngWRad, &cmdAngWRad)
-//LOG_ADD(LOG_UINT8, explorerState, &explorerState)
-//LOG_ADD(LOG_UINT8, controllerState, &controllerState)
-//LOG_GROUP_STOP(log_received_data)
+LOG_GROUP_START(log_received_data)
+LOG_ADD(LOG_UINT32, quant_collision_UINT32, &quantizedProbOfColl)
+LOG_ADD(LOG_UINT32, quant_steer_UINT32, &quantizedSteering)
+LOG_ADD(LOG_INT32, quant_collision_INT32, &quantizedProbOfColl)
+LOG_ADD(LOG_INT32, quant_steer_INT32, &quantizedSteering)
+#ifndef TEST_COM
+LOG_ADD(LOG_FLOAT, cmdVelX, &cmdVelX)
+LOG_ADD(LOG_FLOAT, cmdVelY, &cmdVelY)
+LOG_ADD(LOG_FLOAT, cmdAngWRad, &cmdAngWRad)
+LOG_ADD(LOG_UINT8, explorerState, &explorerState)
+LOG_ADD(LOG_UINT8, controllerState, &controllerState)
+#endif
+LOG_GROUP_STOP(log_received_data)
