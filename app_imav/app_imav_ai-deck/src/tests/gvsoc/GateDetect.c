@@ -5,7 +5,7 @@
 #include "pmsis.h"
 
 /* Autotiler includes. */
-#include "Gap.h"
+#include "Gap8.h"
 
 /* Gap_lib includes. */
 #include "gaplib/ImgIO.h"
@@ -74,13 +74,15 @@ void clusterMain(void * args)
     NULL_CHECK(clusterArgs);
     clusterArgs->inputImage = inputImage;
     clusterArgs->outputImage = outputImage;
-    clusterArgs->numOfCores = gap_ncore();
+    clusterArgs->numOfCores = gap8_ncore();
+    printf("Entering state machine\n");
 
     while(state != END)
     {
         switch(state)
         {
             case FILTERING:
+                printf("Filtering\n");
                 cl_vectorial_gaussianFilter((void *)clusterArgs);
                 copy = true;
                 state = EDGE_DETECTING;
@@ -90,6 +92,7 @@ void clusterMain(void * args)
                 #if EDGE_DETECTION_METHOD == 0
                 cl_sobelOperator((void *)clusterArgs);
                 #else
+                printf("Edge detecting\n");
                 cl_cannyOperator((void *)clusterArgs);
                 #endif
                 copy = true;
@@ -97,6 +100,7 @@ void clusterMain(void * args)
                 break;
 
             case THRESHOLDING:
+                printf("Thresholding\n");
                 if(pi_core_id() == 0)
                     adaptiveHistogramTechnique(clusterArgs->inputImage);
 
@@ -109,6 +113,7 @@ void clusterMain(void * args)
                 break;
 
             case ERODING:
+                printf("Eroding\n");
                 cl_maskErosion((void *)clusterArgs);
                 #if SEGMENTATION_METHOD == 0
 
@@ -124,12 +129,14 @@ void clusterMain(void * args)
                 break;
 
             case DILATING:
+                printf("Dilating\n");
                 cl_maskDilation((void *)clusterArgs);
                 copy = true;
                 state = SEGMENTING;
                 break;
 
             case SEGMENTING:
+                printf("Segmenting\n");
                 #if SEGMENTATION_METHOD == 0
 
                 if(pi_core_id() == 0)
@@ -204,7 +211,7 @@ void masterFindGate(void * args)
     printf("cluster master start\n");
 
 
-    printf("Square Gate Detector running on %d cores, Source %s image[W=%d, H=%d]\n", gap_ncore(), "Mono", 200, 200);
+    printf("Square Gate Detector running on %d cores, Source %s image[W=%d, H=%d]\n", gap8_ncore(), "Mono", 200, 200);
 
     /* initial allocation and copy of image to L1 memory */
     PGMImage * inputImage = pmsis_l1_malloc(sizeof(PGMImage));
@@ -227,7 +234,7 @@ void masterFindGate(void * args)
     forkArgs[2] = inputImage;
 
     // Start Square Gate Detector on core 0, which will dispatch the algorithm to the other cores.
-    pi_cl_team_fork(gap_ncore(),(void *)clusterMain, forkArgs);
+    pi_cl_team_fork(gap8_ncore(),(void *)clusterMain, forkArgs);
 
     pmsis_l1_malloc_free(inputImage->data, 40000*sizeof(uint8_t));
     pmsis_l1_malloc_free(inputImage, sizeof(PGMImage));
@@ -238,7 +245,7 @@ void gateDetectorDemo(void)
 {
     printf("Start of application\n");
 
-	char *Imagefile = "images/gate_1.pgm";
+	char *Imagefile = "frame_1_cropped.pgm";
     PGMImage * originalImage = pmsis_l2_malloc(sizeof(PGMImage));
     NULL_CHECK(originalImage);
     printf("originalImage: %p\n", originalImage);
@@ -291,7 +298,7 @@ void gateDetectorDemo(void)
     struct pi_cluster_task *task = pmsis_l2_malloc(sizeof(struct pi_cluster_task));
     NULL_CHECK(task);
     memset(task, 0, sizeof(struct pi_cluster_task));
-    task->entry = clusterMain;
+    task->entry = masterFindGate;
     task->arg = (void *)args;
     task->stack_size = (uint32_t) STACK_SIZE;
 
@@ -308,9 +315,9 @@ void gateDetectorDemo(void)
     pmsis_exit(0);
 }
 
-//int main(int argc, char *argv[])
-//{
-    //printf("\n\n\t *** Gate Detector ***\n\n");
-    //return pmsis_kickoff((void *) gateDetectorDemo);
-//}
+int main(int argc, char *argv[])
+{
+  printf("\n\n\t *** Gate Detector ***\n\n");
+  return pmsis_kickoff((void *) gateDetectorDemo);
+}
 

@@ -10,7 +10,6 @@
 
 Point findGate(PGMImage* img, uint8_t grayShade);
 void clusterMain(void * args);
-void masterFindGate(void * args);
 
 #endif /* __FIND_GATE_H__ */
 
