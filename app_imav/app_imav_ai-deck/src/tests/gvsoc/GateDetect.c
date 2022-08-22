@@ -82,7 +82,6 @@ void clusterMain(void * args)
         switch(state)
         {
             case FILTERING:
-                printf("Filtering\n");
                 cl_vectorial_gaussianFilter((void *)clusterArgs);
                 copy = true;
                 state = EDGE_DETECTING;
@@ -92,7 +91,6 @@ void clusterMain(void * args)
                 #if EDGE_DETECTION_METHOD == 0
                 cl_sobelOperator((void *)clusterArgs);
                 #else
-                printf("Edge detecting\n");
                 cl_cannyOperator((void *)clusterArgs);
                 #endif
                 copy = true;
@@ -100,7 +98,6 @@ void clusterMain(void * args)
                 break;
 
             case THRESHOLDING:
-                printf("Thresholding\n");
                 if(pi_core_id() == 0)
                     adaptiveHistogramTechnique(clusterArgs->inputImage);
 
@@ -113,7 +110,6 @@ void clusterMain(void * args)
                 break;
 
             case ERODING:
-                printf("Eroding\n");
                 cl_maskErosion((void *)clusterArgs);
                 #if SEGMENTATION_METHOD == 0
 
@@ -129,14 +125,12 @@ void clusterMain(void * args)
                 break;
 
             case DILATING:
-                printf("Dilating\n");
                 cl_maskDilation((void *)clusterArgs);
                 copy = true;
                 state = SEGMENTING;
                 break;
 
             case SEGMENTING:
-                printf("Segmenting\n");
                 #if SEGMENTATION_METHOD == 0
 
                 if(pi_core_id() == 0)
@@ -315,9 +309,8 @@ void gateDetectorDemo(void)
     pmsis_exit(0);
 }
 
-int main(int argc, char *argv[])
-{
-  printf("\n\n\t *** Gate Detector ***\n\n");
-  return pmsis_kickoff((void *) gateDetectorDemo);
-}
-
+//int main(int argc, char *argv[])
+//{
+  //printf("\n\n\t *** Gate Detector ***\n\n");
+  //return pmsis_kickoff((void *) gateDetectorDemo);
+//}
