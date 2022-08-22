@@ -47,8 +47,8 @@ CFLAGS = -Wno-unused-variable
 ###
 ### ---- Linked libraries ----
 ### if your program needs additional libraries:
-### INCLUDE = -I"/my_library_path/include"
-### LIBRARIES = -L"/path/to/my/library" -lmy_library -lmy_other_library
+INCLUDE = -I"/usr/include/python3.8"
+LIBRARIES = -lpython3.8
 ###
 ### ---- Linking options ----
 ### if special linking flags are needed:

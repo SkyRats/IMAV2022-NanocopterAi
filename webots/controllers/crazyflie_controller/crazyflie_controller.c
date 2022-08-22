@@ -13,6 +13,8 @@
  * Controls the crazyflie motors in webots
  */
 
+#define PY_SSIZE_T_CLEAN
+#include <Python.h>
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -57,6 +59,38 @@ PGMImage *getImage(WbDeviceTag camera){ // Transforms webots image file into PGM
     }
   }
   return img;
+}
+
+double obsDetector(WbDeviceTag camera){//Calls python script for running the obstacle detection AI
+  const unsigned char *uRawImage = wb_camera_get_image(camera);
+  char *rawImage = malloc(sizeof(uRawImage));
+  
+  for (size_t i = 0; i < sizeof(uRawImage); i++) {
+        rawImage[i] = uRawImage[i];
+  }
+  
+  Py_Initialize();
+  
+  
+  PyObject *sys = PyImport_ImportModule("sys");                                                                                                                                                                     
+  PyObject *path = PyObject_GetAttrString(sys, "path");                                                                                                                                                     
+  PyList_Insert(path, 0, PyUnicode_FromString("."));
+  
+  PyObject *pModule = PyImport_ImportModule("ObsDetector");
+  
+  
+  if (pModule != NULL){
+    PyObject *pFunc = PyObject_GetAttrString(pModule, "obsDetector");
+    if(pFunc && PyCallable_Check(pFunc)){
+      PyObject *pValue = PyObject_CallFunction(pFunc,"y", uRawImage);
+      PyErr_Print();
+      double prediction = PyFloat_AsDouble(pValue);
+      printf("%lf\n", prediction);
+      return prediction;
+    }
+  }
+  return 0;
+ 
 }
 //Defines what edge the drone is at
 int edgeFinder(double xGlobal, double yGlobal){
@@ -304,6 +338,7 @@ int main(int argc, char **argv) {
   
   printf("Take off!\n");
 
+ 
 
   while (wb_robot_step(timestep) != -1) {
 
@@ -343,6 +378,8 @@ int main(int argc, char **argv) {
     PGMImage *image = getImage(camera);
     Point gateCenter;
     
+    obsDetector(camera);
+
     switch(currentState){
       case 0:// Going toward something
         if (xGlobal >= 3.5|| xGlobal <= -3.5 || yGlobal >= 3.5 || yGlobal <= -3.5){
@@ -363,6 +400,7 @@ int main(int argc, char **argv) {
         break;
       case 2: // Rotates to look inwards
         //printf("%d\n", edges);
+        
         yawDesired = lookInward(edges, actualYaw);
         oldYaw = actualYaw;
         break;
