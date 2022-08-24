@@ -41,15 +41,17 @@
 int currentState = 0; //Controls what action the drone is currently doing
 double oldYaw = 0;
 int edges;
-int rotationDir = 1; 
+int rotationDir = 1;
+double oldVelPred = 0;
+double oldSteerPred = 0;
+int collCounter = 0;
 Point oldGate = (Point){0,0,0};
 
-PGMImage *getImage(WbDeviceTag camera){ // Transforms webots image file into PGMImage struct
+PGMImage *getImage(const unsigned char *rawImage){ // Transforms webots image file into PGMImage struct
   PGMImage *img;
   img = (PGMImage *)malloc(sizeof(PGMImage));
-  const unsigned char *rawImage = wb_camera_get_image(camera);
-  img->x = wb_camera_get_width(camera);
-  img->y = wb_camera_get_height(camera);
+  img->x = 200;
+  img->y = 200;
   img->data = (PGMPixel*)malloc((img->x)*(img->y) * sizeof(PGMPixel));
   for (int j = 0; j < img->y; j++){
     int line = j*img->x;
@@ -61,35 +63,19 @@ PGMImage *getImage(WbDeviceTag camera){ // Transforms webots image file into PGM
   return img;
 }
 
-double obsDetector(WbDeviceTag camera){//Calls python script for running the obstacle detection AI
-  const unsigned char *uRawImage = wb_camera_get_image(camera);
-  char *rawImage = malloc(sizeof(uRawImage));
-  
-  for (size_t i = 0; i < sizeof(uRawImage); i++) {
-        rawImage[i] = uRawImage[i];
-  }
-  
-  Py_Initialize();
-  
-  
-  PyObject *sys = PyImport_ImportModule("sys");                                                                                                                                                                     
-  PyObject *path = PyObject_GetAttrString(sys, "path");                                                                                                                                                     
-  PyList_Insert(path, 0, PyUnicode_FromString("."));
-  
-  PyObject *pModule = PyImport_ImportModule("ObsDetector");
-  
-  
+double * obsDetector(const unsigned char *uRawImage, PyObject *pModule){//Calls python script for running the obstacle detection AI
+  static double prediction[2]; 
   if (pModule != NULL){
     PyObject *pFunc = PyObject_GetAttrString(pModule, "obsDetector");
     if(pFunc && PyCallable_Check(pFunc)){
       PyObject *pValue = PyObject_CallFunction(pFunc,"y", uRawImage);
       PyErr_Print();
-      double prediction = PyFloat_AsDouble(pValue);
-      printf("%lf\n", prediction);
+      prediction[0] = PyFloat_AsDouble(PyList_GetItem(pValue, 0));
+      prediction[1] = PyFloat_AsDouble(PyList_GetItem(pValue, 1));
       return prediction;
     }
   }
-  return 0;
+  return NULL;
  
 }
 //Defines what edge the drone is at
@@ -265,14 +251,28 @@ float lookInward(int edges, double actualYaw){
   return 0;
 }
 
+double steerFilter(double newSteer, double oldSteer){//Applies low pass filter to steer prediction 
+  return 0.5*newSteer + 0.5*oldSteer; 
+}
+
+double collFilter(double newColl, double oldColl){//Applies low pass filter to collision prediction
+  return 0.3*(1- newColl) + 0.7*oldColl;
+}
+
 int main(int argc, char **argv) {
   wb_robot_init();
 
   int timestep = (int)wb_robot_get_basic_time_step();
 
 
-
-
+  Py_Initialize();
+  
+  
+  PyObject *sys = PyImport_ImportModule("sys");                                                                                                                                                                     
+  PyObject *path = PyObject_GetAttrString(sys, "path");                                                                                                                                                     
+  PyList_Insert(path, 0, PyUnicode_FromString("."));
+  PyObject *pModule = PyImport_ImportModule("ObsDetector");
+  
   // Initialize motors
   WbDeviceTag m1_motor = wb_robot_get_device("m1_motor");
   wb_motor_set_position(m1_motor, INFINITY);
@@ -375,18 +375,34 @@ int main(int argc, char **argv) {
     double sidewaysDesired = 0;
     double yawDesired = 0;
     
-    PGMImage *image = getImage(camera);
+    const unsigned char *rawImage = wb_camera_get_image(camera);
+    PGMImage *image = getImage(rawImage);
     Point gateCenter;
     
-    obsDetector(camera);
-
+    double * prediction = obsDetector(rawImage, pModule);
+    oldVelPred = collFilter(prediction[0], oldVelPred);
+    oldSteerPred = steerFilter(prediction[1], oldSteerPred);
+    
     switch(currentState){
       case 0:// Going toward something
         if (xGlobal >= 3.5|| xGlobal <= -3.5 || yGlobal >= 3.5 || yGlobal <= -3.5){
           edges = edgeFinder(xGlobal, yGlobal);
           currentState = 1;
         }
-          forwardDesired = 1;
+          if(oldVelPred > 0.3 && oldVelPred <= 1){
+            forwardDesired = 1;
+            collCounter = 0;
+          }
+          else{
+            //printf("%lf, %lf\n", oldVelPred, oldSteerPred);
+            forwardDesired = 0.5;
+            collCounter +=1;
+            if (collCounter >= 15){
+              rotationDir = (oldSteerPred > 0)? 1 : -1;
+              oldYaw = actualYaw;
+              currentState = 4;
+            }
+          }
           break;
                        
       case 1:// Reached the borders, backing up
@@ -419,7 +435,7 @@ int main(int argc, char **argv) {
         
         if(!(gateCenter.x == 0 && gateCenter.y == 0 && gateCenter.grayShade == 0)){
           printf("%d, %d, %d\n", gateCenter.x, gateCenter.y, gateCenter.grayShade);
-          if (gateCenter.x > 70 && gateCenter.x < 130){
+          if (gateCenter.x > 80 && gateCenter.x < 120){
             oldYaw = actualYaw;
             currentState = 0;
           }
@@ -432,6 +448,13 @@ int main(int argc, char **argv) {
         
         break;
       case 4: // Avoiding obstacles
+        printf("%lf, %lf\n", oldVelPred, oldSteerPred);
+        yawDesired = rotate(actualYaw, oldYaw + rotationDir*PI_OVER_2);
+        if (yawDesired == 0){
+          oldYaw = actualYaw;
+          edges = 8;
+          currentState = 3;
+        }
         break;
     }
     // Control altitude

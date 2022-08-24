@@ -21,4 +21,5 @@ def obsDetector(rawImage):
     Tensor = transform(imP) #Transforms image into Tensor
     Tensor = Tensor.unsqueeze(0)
     Result = model.forward(Tensor)
-    return Result[1][0].item()
+    
+    return [Result[1][0].item(), Result[0][0].item()]
