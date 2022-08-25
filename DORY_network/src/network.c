@@ -29,7 +29,9 @@
 #include "layerConvBNRelu12.h"
 #include "layerAddRelu13.h"
 #include "layerConvBNRelu0.h"
-#include "layerConvBNRelu8.h" #include "layerConvBNRelu10.h" #include "layerMaxPool1.h"
+#include "layerConvBNRelu8.h"
+#include "layerConvBNRelu10.h"
+#include "layerMaxPool1.h"
 #include "layerConvBNRelu3.h"
 #include "layerAddRelu9.h"
 #include "layerConvBNRelu11.h"
@@ -176,7 +178,7 @@ static int8_t open_camera()
         printf("failed to rotate image.\n");
         return -1;
     }
-
+    pi_camera_control(&camera_dev, PI_CAMERA_CMD_AEG_INIT, 0);
     return 0;
 }
 
@@ -306,12 +308,17 @@ char * network_run_FabricController()
 {
   int arg[1];
   arg[0] = (unsigned int) L3_weights_size;
-  PMU_set_voltage(1000, 0);
-  pi_time_wait_us(10000);
-  pi_freq_set(PI_FREQ_DOMAIN_FC, 100000000);
-  pi_time_wait_us(10000);
-  pi_freq_set(PI_FREQ_DOMAIN_CL, 100000000);
-  pi_time_wait_us(10000);
+  if(firstTime)
+  {
+      PMU_set_voltage(1000, 0);
+      pi_time_wait_us(10000);
+      pi_freq_set(PI_FREQ_DOMAIN_FC, 100000000);
+      pi_time_wait_us(10000);
+      pi_freq_set(PI_FREQ_DOMAIN_CL, 100000000);
+      pi_time_wait_us(10000);
+  }
+  else
+      firstTime = 1;
 
   struct pi_device cluster_dev = {0};
   struct pi_cluster_conf conf;
@@ -826,7 +833,6 @@ void network_run(unsigned int L3_weights_size)
     pi_cl_l2_free(L2_buffer_tofree_copy, (uint32_t) 420000, &free_req);
     pi_cl_l2_free_wait(&free_req);
     pmsis_l1_malloc_free(l1_buffer, (uint32_t) 38000 );
-    firstTime = 1;
   }
 /* ---------------------------------- */
 /* --------- SECTION 3 END ---------- */

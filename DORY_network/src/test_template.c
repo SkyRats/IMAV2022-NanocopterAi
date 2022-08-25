@@ -48,7 +48,7 @@ void test_uart_dronet(void)
     {
         network_run_FabricController();
         pi_uart_write(&uart, to_send, 8);
-        pi_time_wait_us(500000);
+        //pi_time_wait_us(500000);
     }
 
     pi_uart_close(&uart);
