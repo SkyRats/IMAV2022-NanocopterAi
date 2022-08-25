@@ -16,6 +16,8 @@
 
 #define DEBUG_MODULE "TEST"
 #include "debug.h"
+#define ABS(a) ((a>0.0f?a:-a))
+
 
 static void setHoverSetpoint(setpoint_t *setpoint, float vx, float vy, float z, float yawrate)
 {
@@ -37,17 +39,28 @@ static void setHoverSetpoint(setpoint_t *setpoint, float vx, float vy, float z, 
 
 
 void appMain() {
+  logVarId_t idZEstimate = logGetVarId("stateEstimate", "z");
   DEBUG_PRINT("Waiting for activation ...\n");
   static setpoint_t setpoint;
   vTaskDelay(M2T(2000));
   memset(&setpoint, 0, sizeof(setpoint_t));
   commanderSetSetpoint(&setpoint, 3);
+  bool reached_height = false;
   
   while (1)
   {
     vTaskDelay(M2T(10));
-    setHoverSetpoint(&setpoint, 0, 0, 0.3, 0);
-    commanderSetSetpoint(&setpoint, 3);
+    float zEstimate = logGetFloat(idZEstimate);
+    if(ABS(zEstimate - 0.3) > TOL && !reached_height){
+         setHoverSetpoint(&setpoint, 0, 0, 0.3, 0);
+         commanderSetSetpoint(&setpoint, 3);
+    }
+    else{
+      reached_height = true;
+      setHoverSetpoint(&setpoint, 0, 0, 0.0, 0);
+      commanderSetSetpoint(&setpoint, 3);
+    }
+   
     DEBUG_PRINT("Voou?\n");
   }
 }
