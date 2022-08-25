@@ -18,6 +18,6 @@
  */
 #include <stdint.h>
 int32_t * network_setup();
-char * network_run_FabricController();
+struct pi_device * network_run_FabricController();
 void cluster_main(void *arg);
 void pulp_parallel(void *arg);

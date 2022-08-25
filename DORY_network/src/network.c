@@ -304,7 +304,7 @@ char* volatile L2_input;
 char* volatile L2_buffer_allocation;
 int volatile L2_buffer_allocation_end;
 
-char * network_run_FabricController()
+struct pi_device * network_run_FabricController()
 {
   int arg[1];
   arg[0] = (unsigned int) L3_weights_size;
@@ -352,7 +352,7 @@ char * network_run_FabricController()
   printf("initiating camera\n");
   /* TODO: TEST AEG INIT*/
   pi_camera_control(&camera_dev, PI_CAMERA_CMD_START, 0);
-  pi_camera_capture(&camera_dev, (void *)L2_input , 40000);
+  pi_camera_capture(&camera_dev, L2_input , 40000);
   pi_camera_control(&camera_dev, PI_CAMERA_CMD_STOP, 0);
 
   // Then offload an entry point, this will get executed on the cluster controller
@@ -360,7 +360,7 @@ char * network_run_FabricController()
 
   // closing of the cluster
   pi_cluster_close(&cluster_dev);
-  return L2_input;
+  return camera_dev;
 }
 
 
