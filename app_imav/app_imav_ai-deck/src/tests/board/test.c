@@ -20,8 +20,8 @@
 #define CAM_WIDTH    200
 #define CAM_HEIGHT   200
 #else
-#define CAM_WIDTH    320
-#define CAM_HEIGHT   240
+#define CAM_WIDTH    200
+#define CAM_HEIGHT   200
 #endif
 
 #define Max(a, b) (((a)>(b))?(a):(b))
@@ -69,7 +69,7 @@ static void cam_handler(void *arg)
   // Activate the Cluster
   struct pi_device cluster_dev;
   struct pi_cluster_conf cl_conf;
-  cl_conf.id = 0;
+  //cl_conf.id = 0;
   pi_open_from_conf(&cluster_dev, (void *) &cl_conf);
   if (pi_cluster_open(&cluster_dev))
   {
@@ -109,8 +109,8 @@ static int open_pi_camera_himax(struct pi_device *device)
   cam_conf.roi.h = 200;
   cam_conf.roi.slice_en = 1;
   cam_conf.roi.w = 200;
-  cam_conf.roi.x = 60; /* 320 / 2 - 100 */
-  cam_conf.roi.y = 40; /* 240 - 200 */
+  cam_conf.roi.x = 0; /* 320 / 2 - 100 */
+  cam_conf.roi.y = 0; /* 240 - 200 */
 
   pi_open_from_conf(device, &cam_conf);
   if (pi_camera_open(device))
@@ -171,10 +171,10 @@ static int open_wifi(struct pi_device *device)
 
   pi_nina_w10_conf_init(&nina_conf);
 
-  nina_conf.ssid = "";
-  nina_conf.passwd = "";
-  nina_conf.ip_addr = "0.0.0.0";
-  nina_conf.port = 5555;
+  nina_conf.ssid = "skyrats";
+  nina_conf.passwd = "pontestresolavy123";
+  nina_conf.ip_addr = "192.168.4.1";
+  nina_conf.port = 5000;
   pi_open_from_conf(device, &nina_conf);
   if (pi_transport_open(device))
     return -1;

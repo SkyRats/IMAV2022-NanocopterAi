@@ -38,7 +38,7 @@ APP_SRCS += $(OTHERS_LIB)/findGate.c
 APP_SRCS += $(OTHERS_LIB)/histogram.c
 
 APP_INC  = $(GAP_LIB_PATH)/include
-APP_CFLAGS += -O3 -g
+APP_CFLAGS += -O3 -g -DUSE_STREAMER
 
 APP_CFLAGS += -mno-memcpy -fno-tree-loop-distribute-patterns
 APP_CFLAGS += -I$(TILER_EMU_INC) -I$(TILER_INC) -I$(GATE_FINDER_INC)

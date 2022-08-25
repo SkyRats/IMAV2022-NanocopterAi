@@ -1,24 +1,24 @@
    text	   data	    bss	    dec	    hex	filename
- 0xb2e0	 0x21c0	  0x34c	  55276	   d7ec	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector
+ 0xb300	 0x21c0	  0x34c	  55308	   d80c	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:00000388 00000001 D __rt_hyper_pending_emu_do_memcpy	/gap_sdk/rtos/pulp/pulp-os/drivers/hyper/hyperram-v1.c:53
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1b000c08 00000001 D camera_isAwaked	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/camera/himax.c:150
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00534c 00000002 T __camera_conf_init	/gap_sdk/rtos/pmsis/pmsis_bsp/camera/camera.c:43
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0058d2 00000002 T __nina_w10_close	/gap_sdk/rtos/pmsis/pmsis_bsp/transport/nina_w10/nina_w10.c:316
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00726c 00000002 T __rt_fll_deinit	/gap_sdk/rtos/pulp/pulp-os/kernel/gap/pmu_driver.c:876
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00726e 00000002 T __rt_flls_constructor	/gap_sdk/rtos/pulp/pulp-os/kernel/gap/pmu_driver.c:880
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005fbc 00000002 W illegal_insn_handler_c	/gap_sdk/rtos/pulp/pulp-os/kernel/irq.c:89
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00668c 00000002 T pi_task_push_delayed_us	/gap_sdk/rtos/pulp/pulp-os/kernel/events.c:273
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006a3a 00000002 T pi_time_wait_us	/gap_sdk/rtos/pulp/pulp-os/kernel/time.c:131
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00bce8 00000003 d ToHWDCDC_Pos	/gap_sdk/rtos/pulp/pulp-os/kernel/gap/pmu_driver.c:192
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00bcec 00000004 D PMURetentionState
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00bcf8 00000004 d RetPMUStateToPMUState	/gap_sdk/rtos/pulp/pulp-os/kernel/gap/pmu_driver.c:185
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c340 00000004 b __bsp_init_pads_done	/gap_sdk/rtos/pmsis/pmsis_bsp/bsp/ai_deck.c:28
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0058ce 00000004 T __nina_w10_connect	/gap_sdk/rtos/pmsis/pmsis_bsp/transport/nina_w10/nina_w10.c:309
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0058d4 00000004 T __nina_w10_receive_async	/gap_sdk/rtos/pmsis/pmsis_bsp/transport/nina_w10/nina_w10.c:354
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c34c 00000004 b __pi_hyper_cluster_reqs_first	/gap_sdk/rtos/pulp/pulp-os/drivers/hyper/hyperram-v1.c:62
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c378 00000004 B __rt_alloc_fc_tcdm
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c370 00000004 B __rt_alloc_l1
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c374 00000004 B __rt_alloc_l2
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00534e 00000002 T __camera_conf_init	/gap_sdk/rtos/pmsis/pmsis_bsp/camera/camera.c:43
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0058d4 00000002 T __nina_w10_close	/gap_sdk/rtos/pmsis/pmsis_bsp/transport/nina_w10/nina_w10.c:316
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00726e 00000002 T __rt_fll_deinit	/gap_sdk/rtos/pulp/pulp-os/kernel/gap/pmu_driver.c:876
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c007270 00000002 T __rt_flls_constructor	/gap_sdk/rtos/pulp/pulp-os/kernel/gap/pmu_driver.c:880
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005fbe 00000002 W illegal_insn_handler_c	/gap_sdk/rtos/pulp/pulp-os/kernel/irq.c:89
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00668e 00000002 T pi_task_push_delayed_us	/gap_sdk/rtos/pulp/pulp-os/kernel/events.c:273
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006a3c 00000002 T pi_time_wait_us	/gap_sdk/rtos/pulp/pulp-os/kernel/time.c:131
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00bd08 00000003 d ToHWDCDC_Pos	/gap_sdk/rtos/pulp/pulp-os/kernel/gap/pmu_driver.c:192
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00bd0c 00000004 D PMURetentionState
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00bd18 00000004 d RetPMUStateToPMUState	/gap_sdk/rtos/pulp/pulp-os/kernel/gap/pmu_driver.c:185
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c360 00000004 b __bsp_init_pads_done	/gap_sdk/rtos/pmsis/pmsis_bsp/bsp/ai_deck.c:28
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0058d0 00000004 T __nina_w10_connect	/gap_sdk/rtos/pmsis/pmsis_bsp/transport/nina_w10/nina_w10.c:309
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0058d6 00000004 T __nina_w10_receive_async	/gap_sdk/rtos/pmsis/pmsis_bsp/transport/nina_w10/nina_w10.c:354
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c36c 00000004 b __pi_hyper_cluster_reqs_first	/gap_sdk/rtos/pulp/pulp-os/drivers/hyper/hyperram-v1.c:62
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c398 00000004 B __rt_alloc_fc_tcdm
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c390 00000004 B __rt_alloc_l1
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c394 00000004 B __rt_alloc_l2
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:00000014 00000004 d __rt_bridge_eeprom_handle	/gap_sdk/rtos/pulp/pulp-os/kernel/bridge.c:25
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:00000010 00000004 d __rt_bridge_flash_cs	/gap_sdk/rtos/pulp/pulp-os/kernel/bridge.c:29
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:00000004 00000004 d __rt_bridge_flash_handle	/gap_sdk/rtos/pulp/pulp-os/kernel/bridge.c:26
@@ -26,17 +26,17 @@
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:00000008 00000004 d __rt_bridge_flash_type	/gap_sdk/rtos/pulp/pulp-os/kernel/bridge.c:27
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1000001c 00000004 D __rt_cluster_fc_task_lock	/gap_sdk/rtos/pulp/pulp-os/kernel/cluster.c:59
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:00000018 00000004 D __rt_cluster_nb_active_pe
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c38c 00000004 B __rt_cluster_tasks	/gap_sdk/rtos/pulp/pulp-os/kernel/cluster.c:41
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c3ac 00000004 B __rt_cluster_tasks	/gap_sdk/rtos/pulp/pulp-os/kernel/cluster.c:41
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1b000bec 00000004 D __rt_debug_config
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1b000be8 00000004 D __rt_debug_config_trace
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:00000014 00000004 D __rt_dma_first_pending
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:00000010 00000004 D __rt_dma_last_pending
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c348 00000004 b __rt_fc_cluster_device	/gap_sdk/rtos/pulp/pulp-os/kernel/pulpos_emu.c:25
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00b540 00000004 V __rt_fc_stack_size	/gap_sdk/rtos/pulp/pulp-os/kernel/conf.c:36
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c368 00000004 b __rt_fc_cluster_device	/gap_sdk/rtos/pulp/pulp-os/kernel/pulpos_emu.c:25
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00b560 00000004 V __rt_fc_stack_size	/gap_sdk/rtos/pulp/pulp-os/kernel/conf.c:36
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:00000018 00000004 D __rt_first_free
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:00000374 00000004 D __rt_hyper_current_task	/gap_sdk/rtos/pulp/pulp-os/drivers/hyper/hyperram-v1.c:27
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:00000370 00000004 D __rt_hyper_end_task	/gap_sdk/rtos/pulp/pulp-os/drivers/hyper/hyperram-v1.c:25
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c350 00000004 b __rt_hyper_open_count	/gap_sdk/rtos/pulp/pulp-os/drivers/hyper/hyperram-v1.c:65
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c370 00000004 b __rt_hyper_open_count	/gap_sdk/rtos/pulp/pulp-os/drivers/hyper/hyperram-v1.c:65
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:00000364 00000004 D __rt_hyper_pending_addr	/gap_sdk/rtos/pulp/pulp-os/drivers/hyper/hyperram-v1.c:33
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:0000035c 00000004 D __rt_hyper_pending_base	/gap_sdk/rtos/pulp/pulp-os/drivers/hyper/hyperram-v1.c:31
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:00000380 00000004 D __rt_hyper_pending_emu_addr	/gap_sdk/rtos/pulp/pulp-os/drivers/hyper/hyperram-v1.c:48
@@ -53,363 +53,363 @@
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:00000390 00000004 D __rt_hyper_pending_tasks	/gap_sdk/rtos/pulp/pulp-os/drivers/hyper/hyperram-v1.c:39
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:00000394 00000004 D __rt_hyper_pending_tasks_last	/gap_sdk/rtos/pulp/pulp-os/drivers/hyper/hyperram-v1.c:40
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:00000358 00000004 D __rt_hyper_udma_handle
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c354 00000004 b __rt_i2s_first	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/i2s/i2s-v1.c:40
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c360 00000004 b __rt_io_event_current	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:40
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c364 00000004 b __rt_io_pending_flush	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:50
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00b544 00000004 V __rt_iodev
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00b548 00000004 V __rt_iodev_uart_baudrate
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c33c 00000004 V __rt_iodev_uart_channel
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00b54c 00000004 V __rt_platform
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c368 00000004 b __rt_putc_host_buffer_index	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:48
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c374 00000004 b __rt_i2s_first	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/i2s/i2s-v1.c:40
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c380 00000004 b __rt_io_event_current	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:40
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c384 00000004 b __rt_io_pending_flush	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:50
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00b564 00000004 V __rt_iodev
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00b568 00000004 V __rt_iodev_uart_baudrate
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c35c 00000004 V __rt_iodev_uart_channel
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00b56c 00000004 V __rt_platform
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c388 00000004 b __rt_putc_host_buffer_index	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:48
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:000003dc 00000004 D __rt_rtc_init_done	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/dolphin/rtc.c:26
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c388 00000004 B __rt_wakeup_use_fast	/gap_sdk/rtos/pulp/pulp-os/kernel/gap/pmu_driver.c:173
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c3a8 00000004 B __rt_wakeup_use_fast	/gap_sdk/rtos/pulp/pulp-os/kernel/gap/pmu_driver.c:173
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:000003e0 00000004 D __rtc_handler	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/dolphin/rtc.c:25
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c36c 00000004 b _rt_io_uart	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:38
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00b550 00000004 d connection.13465
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00a9e4 00000004 t ctor_list	/gap_sdk/rtos/pulp/pulp-os/kernel/init.c:29
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00aa30 00000004 t dtor_list	/gap_sdk/rtos/pulp/pulp-os/kernel/init.c:30
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c37c 00000004 B first_delayed
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c328 00000004 b imgBuff0	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/test.c:46
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c32c 00000004 b imgBuff0_gateDetection	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/test.c:54
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c330 00000004 b led_val	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/test.c:202
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00b558 00000004 d originalImage	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/test.c:41
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005f6c 00000004 T pi_open_from_conf	/gap_sdk/rtos/pulp/pulp-os/kernel/init.c:325
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c38c 00000004 b _rt_io_uart	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:38
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00b570 00000004 d connection.13465
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00a9e8 00000004 t ctor_list	/gap_sdk/rtos/pulp/pulp-os/kernel/init.c:29
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00aa34 00000004 t dtor_list	/gap_sdk/rtos/pulp/pulp-os/kernel/init.c:30
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c39c 00000004 B first_delayed
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c348 00000004 b imgBuff0	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/test.c:46
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c34c 00000004 b imgBuff0_gateDetection	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/test.c:54
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c350 00000004 b led_val	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/test.c:202
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00b578 00000004 d originalImage	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/test.c:41
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005f6e 00000004 T pi_open_from_conf	/gap_sdk/rtos/pulp/pulp-os/kernel/init.c:325
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:000003a4 00000004 D pwmEventsStatus	/gap_sdk/rtos/pulp/pulp-os/drivers/pwm/pwm.c:9
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c334 00000004 b stream1_done	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/test.c:52
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c338 00000004 b streamer1	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/test.c:49
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00b554 00000004 d task	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/test.c:44
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c344 00000004 b timer_count	/gap_sdk/rtos/pulp/pulp-os/kernel/time.c:23
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c007270 00000006 T __rt_fll_set_freq	/gap_sdk/rtos/pulp/pulp-os/kernel/gap/pmu_driver.c:884
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00693c 00000006 T pi_cl_l1_malloc	/gap_sdk/rtos/pulp/pulp-os/kernel/alloc.c:582
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c007466 00000006 T pi_cluster_conf_init	/gap_sdk/rtos/pulp/pulp-os/kernel/cluster.c:337
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c008e52 00000006 T pi_gpio_conf_init	/gap_sdk/rtos/pulp/pulp-os/drivers/gpio/gpio-v2.c:89
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005d46 00000006 T semihost_exit	/gap_sdk/rtos/pmsis/pmsis_bsp/fs/host_fs/semihost.c:47
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005d40 00000006 T semihost_write0	/gap_sdk/rtos/pmsis/pmsis_bsp/fs/host_fs/semihost.c:6
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00bcd0 00000007 d SystemStateToSCUFastSeq	/gap_sdk/rtos/pulp/pulp-os/kernel/gap/pmu_driver.c:176
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00bcf0 00000008 D FllsFrequency
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c380 00000008 B __rt_freq_domains
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c354 00000004 b stream1_done	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/test.c:52
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c358 00000004 b streamer1	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/test.c:49
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00b574 00000004 d task	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/test.c:44
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c364 00000004 b timer_count	/gap_sdk/rtos/pulp/pulp-os/kernel/time.c:23
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c007272 00000006 T __rt_fll_set_freq	/gap_sdk/rtos/pulp/pulp-os/kernel/gap/pmu_driver.c:884
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00693e 00000006 T pi_cl_l1_malloc	/gap_sdk/rtos/pulp/pulp-os/kernel/alloc.c:582
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c007468 00000006 T pi_cluster_conf_init	/gap_sdk/rtos/pulp/pulp-os/kernel/cluster.c:337
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c008e54 00000006 T pi_gpio_conf_init	/gap_sdk/rtos/pulp/pulp-os/drivers/gpio/gpio-v2.c:89
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005d48 00000006 T semihost_exit	/gap_sdk/rtos/pmsis/pmsis_bsp/fs/host_fs/semihost.c:47
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005d42 00000006 T semihost_write0	/gap_sdk/rtos/pmsis/pmsis_bsp/fs/host_fs/semihost.c:6
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00bcf0 00000007 d SystemStateToSCUFastSeq	/gap_sdk/rtos/pulp/pulp-os/kernel/gap/pmu_driver.c:176
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00bd10 00000008 D FllsFrequency
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c3a0 00000008 B __rt_freq_domains
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:000002b0 00000008 D __rt_socevents_status
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c358 00000008 b __rt_spim_open_count	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/spim/spim-v2.c:26
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c378 00000008 b __rt_spim_open_count	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/spim/spim-v2.c:26
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c000636 00000008 T jpeg_encoder_process_status
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00692a 00000008 T pi_cl_l2_malloc	/gap_sdk/rtos/pulp/pulp-os/kernel/alloc.c:572
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005448 0000000a T __himax_capture_async	/gap_sdk/rtos/pmsis/pmsis_bsp/camera/himax/himax.c:475
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0091ec 0000000a T __rt_himax_init	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/camera/himax.c:400
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00988e 0000000a T abort	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:739
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005dae 0000000a T bsp_nina_w10_conf_init	/gap_sdk/rtos/pmsis/pmsis_bsp/bsp/ai_deck.c:120
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00692c 00000008 T pi_cl_l2_malloc	/gap_sdk/rtos/pulp/pulp-os/kernel/alloc.c:572
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00544a 0000000a T __himax_capture_async	/gap_sdk/rtos/pmsis/pmsis_bsp/camera/himax/himax.c:475
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0091ee 0000000a T __rt_himax_init	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/camera/himax.c:400
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c009890 0000000a T abort	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:739
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005db0 0000000a T bsp_nina_w10_conf_init	/gap_sdk/rtos/pmsis/pmsis_bsp/bsp/ai_deck.c:120
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00062c 0000000a T gray_to_y
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006932 0000000a T pi_cl_l2_free	/gap_sdk/rtos/pulp/pulp-os/kernel/alloc.c:577
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0078e0 0000000a T pi_cpi_conf_init	/gap_sdk/rtos/pulp/pulp-os/drivers/cpi/cpi-v1.c:29
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006934 0000000a T pi_cl_l2_free	/gap_sdk/rtos/pulp/pulp-os/kernel/alloc.c:577
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0078e2 0000000a T pi_cpi_conf_init	/gap_sdk/rtos/pulp/pulp-os/drivers/cpi/cpi-v1.c:29
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:00000004 0000000c D __rt_cluster_pool
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00905e 0000000c T __rt_padframe_init	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/pads/pads-v1.c:58
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0090d6 0000000c T __rt_udma_channel_reg_data	/gap_sdk/rtos/pulp/pulp-os/drivers/udma/udma-v2.c:100
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c090 0000000c b camera	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/test.c:47
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c09c 0000000c b gpio_device	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/test.c:203
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005340 0000000c T pi_camera_open	/gap_sdk/rtos/pmsis/pmsis_bsp/camera/camera.c:24
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006942 0000000c T pi_cl_l1_free	/gap_sdk/rtos/pulp/pulp-os/kernel/alloc.c:587
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005d26 0000000c T pi_nina_w10_conf_init	/gap_sdk/rtos/pmsis/pmsis_bsp/transport/nina_w10/nina_w10.c:371
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005836 0000000c T pi_transport_open	/gap_sdk/rtos/pmsis/pmsis_bsp/transport/transport.c:24
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c1a8 0000000c b wifi	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/test.c:48
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005d32 0000000e t __internal_semihost	/gap_sdk/rtos/pmsis/pmsis_bsp/fs/host_fs/semihost.h:75
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00922c 0000000e t __rt_io_end_of_flush	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:366
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005da0 0000000e T bsp_himax_open
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c004cb4 0000000e T isStackEmpty
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c009060 0000000c T __rt_padframe_init	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/pads/pads-v1.c:58
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0090d8 0000000c T __rt_udma_channel_reg_data	/gap_sdk/rtos/pulp/pulp-os/drivers/udma/udma-v2.c:100
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c0b0 0000000c b camera	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/test.c:47
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c0bc 0000000c b gpio_device	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/test.c:203
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005342 0000000c T pi_camera_open	/gap_sdk/rtos/pmsis/pmsis_bsp/camera/camera.c:24
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006944 0000000c T pi_cl_l1_free	/gap_sdk/rtos/pulp/pulp-os/kernel/alloc.c:587
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005d28 0000000c T pi_nina_w10_conf_init	/gap_sdk/rtos/pmsis/pmsis_bsp/transport/nina_w10/nina_w10.c:371
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005838 0000000c T pi_transport_open	/gap_sdk/rtos/pmsis/pmsis_bsp/transport/transport.c:24
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c1c8 0000000c b wifi	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/test.c:48
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005d34 0000000e t __internal_semihost	/gap_sdk/rtos/pmsis/pmsis_bsp/fs/host_fs/semihost.h:75
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00922e 0000000e t __rt_io_end_of_flush	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:366
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005da2 0000000e T bsp_himax_open
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c004cb6 0000000e T isStackEmpty
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0008d8 0000000e T jpeg_encoder_conf_init	/gap_sdk/libs/gap_lib/jpeg/jpeg_encoder.c:471
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00082a 0000000e T jpeg_encoder_process_async	/gap_sdk/libs/gap_lib/jpeg/jpeg_encoder.c:414
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0008c8 0000000e T jpeg_encoder_stop	/gap_sdk/libs/gap_lib/jpeg/jpeg_encoder.c:459
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c004874 0000000e T pQueueIsEmpty	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/../../../src/data_structures/queue.c:48
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c002ef4 0000000e t pi_cl_team_barrier	/gap_sdk/install/GAP8_V2/include/rt/rt_pe.h:185
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0039cc 0000000e t pi_cl_team_barrier	/gap_sdk/install/GAP8_V2/include/rt/rt_pe.h:185
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c008fa2 0000000e T pi_gpio_pin_notif_get	/gap_sdk/rtos/pulp/pulp-os/drivers/gpio/gpio-v2.c:230
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00694e 0000000e T pi_l2_malloc	/gap_sdk/rtos/pulp/pulp-os/kernel/alloc.c:595
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00bcd8 00000010 D PMUState
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c004876 0000000e T pQueueIsEmpty	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/../../../src/data_structures/queue.c:48
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c002ef6 0000000e t pi_cl_team_barrier	/gap_sdk/install/GAP8_V2/include/rt/rt_pe.h:185
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0039ce 0000000e t pi_cl_team_barrier	/gap_sdk/install/GAP8_V2/include/rt/rt_pe.h:185
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c008fa4 0000000e T pi_gpio_pin_notif_get	/gap_sdk/rtos/pulp/pulp-os/drivers/gpio/gpio-v2.c:230
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006950 0000000e T pi_l2_malloc	/gap_sdk/rtos/pulp/pulp-os/kernel/alloc.c:595
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00bcf8 00000010 D PMUState
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1b000c0c 00000010 d __rt_io_fc_lock	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:35
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00b438 00000010 V __rt_padframe_default	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/pads/pads-v1.c:28
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00b448 00000010 V __rt_padframe_hyper	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/pads/pads-v1.c:30
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00b458 00000010 V __rt_padframe_hyper_gpio	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/pads/pads-v1.c:32
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c318 00000010 b __rt_uart	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/uart/uart.c:43
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c009604 00000010 T memset	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:150
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00695c 00000010 T pi_l2_free	/gap_sdk/rtos/pulp/pulp-os/kernel/alloc.c:600
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00a658 00000010 T rt_uart_conf_init
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00725a 00000012 T __rt_fll_init	/gap_sdk/rtos/pulp/pulp-os/kernel/gap/pmu_driver.c:871
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0091f6 00000012 T __rt_i2c_init	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/i2c/i2c-v2.c:236
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c009208 00000012 T __rt_rtc_init	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/dolphin/rtc.c:414
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00921a 00000012 T __rt_spim_init	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/spim/spim-v2.c:446
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005842 00000012 T pi_transport_connect	/gap_sdk/rtos/pmsis/pmsis_bsp/transport/transport.c:34
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0079d2 00000014 t __rt_cpi_init	/gap_sdk/rtos/pulp/pulp-os/drivers/cpi/cpi-v1.c:115
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006678 00000014 T __rt_event_sched_init	/gap_sdk/rtos/pulp/pulp-os/kernel/events.c:264
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00b458 00000010 V __rt_padframe_default	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/pads/pads-v1.c:28
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00b468 00000010 V __rt_padframe_hyper	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/pads/pads-v1.c:30
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00b478 00000010 V __rt_padframe_hyper_gpio	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/pads/pads-v1.c:32
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c338 00000010 b __rt_uart	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/uart/uart.c:43
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c009606 00000010 T memset	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:150
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00695e 00000010 T pi_l2_free	/gap_sdk/rtos/pulp/pulp-os/kernel/alloc.c:600
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00a65a 00000010 T rt_uart_conf_init
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00725c 00000012 T __rt_fll_init	/gap_sdk/rtos/pulp/pulp-os/kernel/gap/pmu_driver.c:871
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0091f8 00000012 T __rt_i2c_init	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/i2c/i2c-v2.c:236
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00920a 00000012 T __rt_rtc_init	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/dolphin/rtc.c:414
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00921c 00000012 T __rt_spim_init	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/spim/spim-v2.c:446
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005844 00000012 T pi_transport_connect	/gap_sdk/rtos/pmsis/pmsis_bsp/transport/transport.c:34
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0079d4 00000014 t __rt_cpi_init	/gap_sdk/rtos/pulp/pulp-os/drivers/cpi/cpi-v1.c:115
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00667a 00000014 T __rt_event_sched_init	/gap_sdk/rtos/pulp/pulp-os/kernel/events.c:264
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:0000001c 00000014 D __rt_sched
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0009c8 00000014 T jpeg_encoder_footer	/gap_sdk/libs/gap_lib/jpeg/jpeg_encoder.c:565
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00b424 00000014 d nina_w10_api	/gap_sdk/rtos/pmsis/pmsis_bsp/transport/nina_w10/nina_w10.c:361
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c007d2e 00000014 T pi_i2c_conf_init	/gap_sdk/rtos/pulp/pulp-os/drivers/i2c/i2c-v2.c:300
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00b444 00000014 d nina_w10_api	/gap_sdk/rtos/pmsis/pmsis_bsp/transport/nina_w10/nina_w10.c:361
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c007d30 00000014 T pi_i2c_conf_init	/gap_sdk/rtos/pulp/pulp-os/drivers/i2c/i2c-v2.c:300
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0000a0 00000016 T frame_streamer_conf_init	/gap_sdk/tools/gap_tools/frame_streamer/frame_streamer.c:56
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0095ee 00000016 T strlen	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:124
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0053d4 00000018 T __himax_reg_set	/gap_sdk/rtos/pmsis/pmsis_bsp/camera/himax/himax.c:484
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0058b6 00000018 t __nina_w10_append_string	/gap_sdk/rtos/pmsis/pmsis_bsp/transport/nina_w10/nina_w10.c:112
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00b468 00000018 V __rt_padframe_profiles
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00696c 00000018 t __rt_time_poweroff	/gap_sdk/rtos/pulp/pulp-os/kernel/time.c:28
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006984 00000018 t __rt_time_poweron	/gap_sdk/rtos/pulp/pulp-os/kernel/time.c:37
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0090be 00000018 T __rt_udma_channel_init	/gap_sdk/rtos/pulp/pulp-os/drivers/udma/udma-v2.c:89
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0064e6 00000018 T __rt_wait_event_prepare_blocking	/gap_sdk/rtos/pulp/pulp-os/kernel/events.c:42
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005d88 00000018 T bsp_himax_conf_init	/gap_sdk/rtos/pmsis/pmsis_bsp/bsp/ai_deck.c:105
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0095f0 00000016 T strlen	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:124
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0053d6 00000018 T __himax_reg_set	/gap_sdk/rtos/pmsis/pmsis_bsp/camera/himax/himax.c:484
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0058b8 00000018 t __nina_w10_append_string	/gap_sdk/rtos/pmsis/pmsis_bsp/transport/nina_w10/nina_w10.c:112
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00b488 00000018 V __rt_padframe_profiles
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00696e 00000018 t __rt_time_poweroff	/gap_sdk/rtos/pulp/pulp-os/kernel/time.c:28
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006986 00000018 t __rt_time_poweron	/gap_sdk/rtos/pulp/pulp-os/kernel/time.c:37
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0090c0 00000018 T __rt_udma_channel_init	/gap_sdk/rtos/pulp/pulp-os/drivers/udma/udma-v2.c:89
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0064e8 00000018 T __rt_wait_event_prepare_blocking	/gap_sdk/rtos/pulp/pulp-os/kernel/events.c:42
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005d8a 00000018 T bsp_himax_conf_init	/gap_sdk/rtos/pmsis/pmsis_bsp/bsp/ai_deck.c:105
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1b000bf0 00000018 d cbsys_first	/gap_sdk/rtos/pulp/pulp-os/kernel/utils.c:30
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c008f8a 00000018 T pi_gpio_pin_notif_clear	/gap_sdk/rtos/pulp/pulp-os/drivers/gpio/gpio-v2.c:221
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006660 00000018 T rt_event_wait	/gap_sdk/rtos/pulp/pulp-os/kernel/events.c:257
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0097d6 0000001a T fputc_locked
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c002eda 0000001a T main	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/test.c:303
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006572 0000001a T rt_event_get	/gap_sdk/rtos/pulp/pulp-os/kernel/events.c:105
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00964a 0000001a T strchr	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:278
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006240 0000001c t __rt_event_enqueue	/gap_sdk/install/GAP8_V2/include/rt/rt_event.h:397
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00b408 0000001c d himax_api	/gap_sdk/rtos/pmsis/pmsis_bsp/camera/himax/himax.c:502
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00b338 0000001c D std_dc_luminance_huff	/gap_sdk/libs/gap_lib/jpeg/jpeg_encoder.c:31
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0063bc 0000001e T __rt_bridge_clear_notif	/gap_sdk/rtos/pulp/pulp-os/kernel/bridge.c:838
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00637e 0000001e T __rt_bridge_set_available	/gap_sdk/rtos/pulp/pulp-os/kernel/bridge.c:725
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0078c2 0000001e T pi_pad_init	/gap_sdk/rtos/pulp/pulp-os/drivers/pads/pads-v1.c:31
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00534e 00000020 t __himax_reg_write	/gap_sdk/rtos/pmsis/pmsis_bsp/camera/himax/himax.c:163
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00625c 00000020 t __rt_bridge_check_bridge_req.part.5	/gap_sdk/rtos/pulp/pulp-os/kernel/bridge.c:638
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00639c 00000020 T __rt_bridge_send_notif	/gap_sdk/rtos/pulp/pulp-os/kernel/bridge.c:821
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c1e0 00000020 b __rt_cpi	/gap_sdk/rtos/pulp/pulp-os/drivers/cpi/cpi-v1.c:23
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00bfcc 00000020 d __rt_i2c	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/i2c/i2c-v2.c:28
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0099c8 00000020 t _rlrshift	/gap_sdk/rtos/pulp/pulp-os/libs/io/prf.c:122
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c070 00000020 b buffer_inv	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/test.c:55
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c008f8c 00000018 T pi_gpio_pin_notif_clear	/gap_sdk/rtos/pulp/pulp-os/drivers/gpio/gpio-v2.c:221
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006662 00000018 T rt_event_wait	/gap_sdk/rtos/pulp/pulp-os/kernel/events.c:257
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0097d8 0000001a T fputc_locked
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c002edc 0000001a T main	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/test.c:303
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006574 0000001a T rt_event_get	/gap_sdk/rtos/pulp/pulp-os/kernel/events.c:105
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00964c 0000001a T strchr	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:278
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006242 0000001c t __rt_event_enqueue	/gap_sdk/install/GAP8_V2/include/rt/rt_event.h:397
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00b428 0000001c d himax_api	/gap_sdk/rtos/pmsis/pmsis_bsp/camera/himax/himax.c:502
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00b358 0000001c D std_dc_luminance_huff	/gap_sdk/libs/gap_lib/jpeg/jpeg_encoder.c:31
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0063be 0000001e T __rt_bridge_clear_notif	/gap_sdk/rtos/pulp/pulp-os/kernel/bridge.c:838
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006380 0000001e T __rt_bridge_set_available	/gap_sdk/rtos/pulp/pulp-os/kernel/bridge.c:725
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0078c4 0000001e T pi_pad_init	/gap_sdk/rtos/pulp/pulp-os/drivers/pads/pads-v1.c:31
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005350 00000020 t __himax_reg_write	/gap_sdk/rtos/pmsis/pmsis_bsp/camera/himax/himax.c:163
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00625e 00000020 t __rt_bridge_check_bridge_req.part.5	/gap_sdk/rtos/pulp/pulp-os/kernel/bridge.c:638
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00639e 00000020 T __rt_bridge_send_notif	/gap_sdk/rtos/pulp/pulp-os/kernel/bridge.c:821
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c200 00000020 b __rt_cpi	/gap_sdk/rtos/pulp/pulp-os/drivers/cpi/cpi-v1.c:23
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00bfec 00000020 d __rt_i2c	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/i2c/i2c-v2.c:28
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0099ca 00000020 t _rlrshift	/gap_sdk/rtos/pulp/pulp-os/libs/io/prf.c:122
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c090 00000020 b buffer_inv	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/test.c:55
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c000886 00000020 T jpeg_encoder_open	/gap_sdk/libs/gap_lib/jpeg/jpeg_encoder.c:435
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c009326 00000020 t rt_event_execute.isra.4.constprop.12	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:795
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00668e 00000020 T rt_user_alloc_init	/gap_sdk/rtos/pulp/pulp-os/kernel/alloc.c:193
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005452 00000022 t __himax_standby
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00a560 00000022 t __rt_uart_setfreq_after	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/uart/uart.c:135
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00614a 00000022 T __rt_utils_init	/gap_sdk/rtos/pulp/pulp-os/kernel/utils.c:84
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c009328 00000020 t rt_event_execute.isra.4.constprop.12	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:795
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006690 00000020 T rt_user_alloc_init	/gap_sdk/rtos/pulp/pulp-os/kernel/alloc.c:193
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005454 00000022 t __himax_standby
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00a562 00000022 t __rt_uart_setfreq_after	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/uart/uart.c:135
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00614c 00000022 T __rt_utils_init	/gap_sdk/rtos/pulp/pulp-os/kernel/utils.c:84
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0008a6 00000022 T jpeg_encoder_start	/gap_sdk/libs/gap_lib/jpeg/jpeg_encoder.c:448
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c008868 00000022 t pos_spim_send_handle_misaligned	/gap_sdk/rtos/pulp/pulp-os/drivers/spi/spim-v2.c:1007
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00658c 00000022 T rt_event_get_blocking	/gap_sdk/rtos/pulp/pulp-os/kernel/events.c:127
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005474 00000024 t __himax_close	/gap_sdk/rtos/pmsis/pmsis_bsp/camera/himax/himax.c:423
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006806 00000024 T __rt_alloc_init_l1	/gap_sdk/rtos/pulp/pulp-os/kernel/alloc.c:445
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00a53c 00000024 t __rt_uart_setup.isra.5	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/uart/uart.c:222
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c007bf2 00000024 T pi_i2c_read	/gap_sdk/rtos/pulp/pulp-os/drivers/i2c/i2c-v2.c:230
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c007b12 00000024 T pi_i2c_write	/gap_sdk/rtos/pulp/pulp-os/drivers/i2c/i2c-v2.c:182
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0065ae 00000024 T rt_event_push	/gap_sdk/rtos/pulp/pulp-os/kernel/events.c:139
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006a16 00000024 T rt_time_wait_us	/gap_sdk/rtos/pulp/pulp-os/kernel/time.c:124
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00886a 00000022 t pos_spim_send_handle_misaligned	/gap_sdk/rtos/pulp/pulp-os/drivers/spi/spim-v2.c:1007
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00658e 00000022 T rt_event_get_blocking	/gap_sdk/rtos/pulp/pulp-os/kernel/events.c:127
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005476 00000024 t __himax_close	/gap_sdk/rtos/pmsis/pmsis_bsp/camera/himax/himax.c:423
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006808 00000024 T __rt_alloc_init_l1	/gap_sdk/rtos/pulp/pulp-os/kernel/alloc.c:445
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00a53e 00000024 t __rt_uart_setup.isra.5	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/uart/uart.c:222
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c007bf4 00000024 T pi_i2c_read	/gap_sdk/rtos/pulp/pulp-os/drivers/i2c/i2c-v2.c:230
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c007b14 00000024 T pi_i2c_write	/gap_sdk/rtos/pulp/pulp-os/drivers/i2c/i2c-v2.c:182
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0065b0 00000024 T rt_event_push	/gap_sdk/rtos/pulp/pulp-os/kernel/events.c:139
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006a18 00000024 T rt_time_wait_us	/gap_sdk/rtos/pulp/pulp-os/kernel/time.c:124
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c001bb8 00000026 T __jpeg_encoder_stop_cl	/gap_sdk/libs/gap_lib/jpeg/cluster.c:799
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00a516 00000026 T __rt_uart_cluster_req_done	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/uart/uart.c:253
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005db8 00000026 t cluster_start	/gap_sdk/rtos/pulp/pulp-os/kernel/init.c:198
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c008d4c 00000026 T pi_spi_conf_init	/gap_sdk/rtos/pulp/pulp-os/drivers/spi/spim-v2.c:1361
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006e56 00000026 t soc_eu_fcEventMask_setEvent	/gap_sdk/install/GAP8_V2/include/hal/soc_eu/soc_eu_v1.h:60
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0079e6 00000026 t soc_eu_fcEventMask_setEvent	/gap_sdk/install/GAP8_V2/include/hal/soc_eu/soc_eu_v1.h:60
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c007e44 00000026 t soc_eu_fcEventMask_setEvent	/gap_sdk/install/GAP8_V2/include/hal/soc_eu/soc_eu_v1.h:60
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00a632 00000026 t soc_eu_fcEventMask_setEvent	/gap_sdk/install/GAP8_V2/include/hal/soc_eu/soc_eu_v1.h:60
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005f44 00000028 T __rt_deinit	/gap_sdk/rtos/pulp/pulp-os/kernel/init.c:163
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0064be 00000028 T __rt_event_init	/gap_sdk/rtos/pulp/pulp-os/kernel/events.c:32
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c390 00000028 B __rt_fc_cluster_data
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0095c6 00000028 t __rt_io_stop	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:769
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00a518 00000026 T __rt_uart_cluster_req_done	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/uart/uart.c:253
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005dba 00000026 t cluster_start	/gap_sdk/rtos/pulp/pulp-os/kernel/init.c:198
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c008d4e 00000026 T pi_spi_conf_init	/gap_sdk/rtos/pulp/pulp-os/drivers/spi/spim-v2.c:1361
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006e58 00000026 t soc_eu_fcEventMask_setEvent	/gap_sdk/install/GAP8_V2/include/hal/soc_eu/soc_eu_v1.h:60
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0079e8 00000026 t soc_eu_fcEventMask_setEvent	/gap_sdk/install/GAP8_V2/include/hal/soc_eu/soc_eu_v1.h:60
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c007e46 00000026 t soc_eu_fcEventMask_setEvent	/gap_sdk/install/GAP8_V2/include/hal/soc_eu/soc_eu_v1.h:60
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00a634 00000026 t soc_eu_fcEventMask_setEvent	/gap_sdk/install/GAP8_V2/include/hal/soc_eu/soc_eu_v1.h:60
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005f46 00000028 T __rt_deinit	/gap_sdk/rtos/pulp/pulp-os/kernel/init.c:163
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0064c0 00000028 T __rt_event_init	/gap_sdk/rtos/pulp/pulp-os/kernel/events.c:32
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c3b0 00000028 B __rt_fc_cluster_data
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0095c8 00000028 t __rt_io_stop	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:769
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:000002b8 00000028 D __rt_udma_extra_callback
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:000002e0 00000028 D __rt_udma_extra_callback_arg
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0097f0 00000028 T _prf_locked	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:626
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c009036 00000028 T rt_padframe_set	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/pads/pads-v1.c:77
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0053aa 0000002a t __himax_set_qqvga	/gap_sdk/rtos/pmsis/pmsis_bsp/camera/himax/himax.c:214
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005948 0000002a t __nina_w10_setup_resume	/gap_sdk/rtos/pmsis/pmsis_bsp/transport/nina_w10/nina_w10.c:135
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00682a 0000002a T __rt_alloc_init_l1_for_fc	/gap_sdk/rtos/pulp/pulp-os/kernel/alloc.c:452
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c009144 0000002a t __rt_i2s_setfreq_after	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/i2s/i2s-v1.c:235
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006636 0000002a T __rt_wait_event	/gap_sdk/rtos/pulp/pulp-os/kernel/events.c:247
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006e2a 0000002c t SetFllMultDivFactors
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00916e 0000002c t __rt_i2s_setfreq_before	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/i2s/i2s-v1.c:219
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c1b4 0000002c b __rt_pulpos_emu_global_cluster_task	/gap_sdk/rtos/pulp/pulp-os/kernel/pulpos_emu.c:26
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00a5c4 0000002c t __rt_uart_setfreq_before	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/uart/uart.c:102
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0057d8 0000002c T pi_himax_conf_init	/gap_sdk/rtos/pmsis/pmsis_bsp/camera/himax/himax.c:512
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c007d9a 0000002c t pos_spim_enqueue_to_pending_7	/gap_sdk/rtos/pulp/pulp-os/drivers/spi/spim-v2.c:323
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00990a 0000002c T printf	/gap_sdk/rtos/pulp/pulp-os/libs/io/fprintf.c:41
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0097aa 0000002c T puts	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:576
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0097f2 00000028 T _prf_locked	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:626
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c009038 00000028 T rt_padframe_set	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/pads/pads-v1.c:77
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0053ac 0000002a t __himax_set_qqvga	/gap_sdk/rtos/pmsis/pmsis_bsp/camera/himax/himax.c:214
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00594a 0000002a t __nina_w10_setup_resume	/gap_sdk/rtos/pmsis/pmsis_bsp/transport/nina_w10/nina_w10.c:135
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00682c 0000002a T __rt_alloc_init_l1_for_fc	/gap_sdk/rtos/pulp/pulp-os/kernel/alloc.c:452
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c009146 0000002a t __rt_i2s_setfreq_after	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/i2s/i2s-v1.c:235
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006638 0000002a T __rt_wait_event	/gap_sdk/rtos/pulp/pulp-os/kernel/events.c:247
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006e2c 0000002c t SetFllMultDivFactors
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c009170 0000002c t __rt_i2s_setfreq_before	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/i2s/i2s-v1.c:219
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c1d4 0000002c b __rt_pulpos_emu_global_cluster_task	/gap_sdk/rtos/pulp/pulp-os/kernel/pulpos_emu.c:26
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00a5c6 0000002c t __rt_uart_setfreq_before	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/uart/uart.c:102
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0057da 0000002c T pi_himax_conf_init	/gap_sdk/rtos/pmsis/pmsis_bsp/camera/himax/himax.c:512
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c007d9c 0000002c t pos_spim_enqueue_to_pending_7	/gap_sdk/rtos/pulp/pulp-os/drivers/spi/spim-v2.c:323
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00990c 0000002c T printf	/gap_sdk/rtos/pulp/pulp-os/libs/io/fprintf.c:41
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0097ac 0000002c T puts	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:576
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c000600 0000002c T rgb_to_yuv	/gap_sdk/libs/gap_lib/jpeg/jpeg_encoder.c:288
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0090e2 0000002e t __rt_hyper_init	/gap_sdk/rtos/pulp/pulp-os/drivers/hyper/hyperram-v1.c:995
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005888 0000002e T pi_transport_send	/gap_sdk/rtos/pmsis/pmsis_bsp/transport/transport.c:64
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006742 0000002e T rt_alloc
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0067a4 0000002e T rt_free
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00611a 00000030 T __rt_cbsys_exec	/gap_sdk/rtos/pulp/pulp-os/kernel/utils.c:71
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00bf9c 00000030 d pos_spim_l2	/gap_sdk/rtos/pulp/pulp-os/drivers/spi/spim-v2.c:33
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00616c 00000032 T __rt_fc_lock	/gap_sdk/rtos/pulp/pulp-os/kernel/utils.c:92
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c007544 00000032 T pi_cluster_close	/gap_sdk/rtos/pulp/pulp-os/kernel/cluster.c:370
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c008ebc 00000032 T pi_gpio_pin_write	/gap_sdk/rtos/pulp/pulp-os/drivers/gpio/gpio-v2.c:158
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005804 00000032 t pi_task_wait_on.isra.3	/gap_sdk/rtos/pmsis/pmsis_bsp/include/bsp/transport.h:77
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c007a0c 00000032 t pi_task_wait_on.isra.3	/gap_sdk/install/GAP8_V2/include/hal/soc_eu/soc_eu_v1.h:55
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0068c4 00000032 T rt_alloc_cluster	/gap_sdk/rtos/pulp/pulp-os/kernel/alloc.c:545
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006770 00000034 T __rt_alloc_cluster_req	/gap_sdk/rtos/pulp/pulp-os/kernel/alloc.c:526
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00648a 00000034 T __rt_bridge_init	/gap_sdk/rtos/pulp/pulp-os/kernel/bridge.c:851
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00619e 00000034 T __rt_fc_unlock	/gap_sdk/rtos/pulp/pulp-os/kernel/utils.c:127
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0067d2 00000034 T __rt_free_cluster_req	/gap_sdk/rtos/pulp/pulp-os/kernel/alloc.c:535
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c009110 00000034 t __rt_i2s_resume	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/i2s/i2s-v1.c:186
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0093b6 00000034 t __rt_putc_host_cluster_req	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:451
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c009a2c 00000034 t _get_digit	/gap_sdk/rtos/pulp/pulp-os/libs/io/prf.c:167
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0090e4 0000002e t __rt_hyper_init	/gap_sdk/rtos/pulp/pulp-os/drivers/hyper/hyperram-v1.c:995
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00588a 0000002e T pi_transport_send	/gap_sdk/rtos/pmsis/pmsis_bsp/transport/transport.c:64
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006744 0000002e T rt_alloc
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0067a6 0000002e T rt_free
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00611c 00000030 T __rt_cbsys_exec	/gap_sdk/rtos/pulp/pulp-os/kernel/utils.c:71
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00bfbc 00000030 d pos_spim_l2	/gap_sdk/rtos/pulp/pulp-os/drivers/spi/spim-v2.c:33
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00616e 00000032 T __rt_fc_lock	/gap_sdk/rtos/pulp/pulp-os/kernel/utils.c:92
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c007546 00000032 T pi_cluster_close	/gap_sdk/rtos/pulp/pulp-os/kernel/cluster.c:370
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c008ebe 00000032 T pi_gpio_pin_write	/gap_sdk/rtos/pulp/pulp-os/drivers/gpio/gpio-v2.c:158
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005806 00000032 t pi_task_wait_on.isra.3	/gap_sdk/rtos/pmsis/pmsis_bsp/include/bsp/transport.h:77
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c007a0e 00000032 t pi_task_wait_on.isra.3	/gap_sdk/install/GAP8_V2/include/hal/soc_eu/soc_eu_v1.h:55
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0068c6 00000032 T rt_alloc_cluster	/gap_sdk/rtos/pulp/pulp-os/kernel/alloc.c:545
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006772 00000034 T __rt_alloc_cluster_req	/gap_sdk/rtos/pulp/pulp-os/kernel/alloc.c:526
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00648c 00000034 T __rt_bridge_init	/gap_sdk/rtos/pulp/pulp-os/kernel/bridge.c:851
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0061a0 00000034 T __rt_fc_unlock	/gap_sdk/rtos/pulp/pulp-os/kernel/utils.c:127
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0067d4 00000034 T __rt_free_cluster_req	/gap_sdk/rtos/pulp/pulp-os/kernel/alloc.c:535
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c009112 00000034 t __rt_i2s_resume	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/i2s/i2s-v1.c:186
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0093b8 00000034 t __rt_putc_host_cluster_req	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:451
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c009a2e 00000034 t _get_digit	/gap_sdk/rtos/pulp/pulp-os/libs/io/prf.c:167
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:000003a8 00000034 D dev_rtc	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/dolphin/rtc.c:24
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00788e 00000034 T pi_pad_set_function	/gap_sdk/rtos/pulp/pulp-os/drivers/pads/pads-v1.c:24
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005854 00000034 T pi_transport_send_header	/gap_sdk/rtos/pmsis/pmsis_bsp/transport/transport.c:53
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00888a 00000034 t pos_spim_send_handle_misaligned_2d	/gap_sdk/rtos/pulp/pulp-os/drivers/spi/spim-v2.c:1022
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0068f6 00000034 T rt_free_cluster	/gap_sdk/rtos/pulp/pulp-os/kernel/alloc.c:558
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00a744 00000034 T rt_uart_cluster_write	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/uart/uart.c:277
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00620a 00000036 T __rt_fc_cluster_unlock	/gap_sdk/rtos/pulp/pulp-os/kernel/utils.c:199
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c009614 00000036 T memcpy	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:159
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00799c 00000036 T pi_cpi_capture_async	/gap_sdk/rtos/pulp/pulp-os/drivers/cpi/cpi-v1.c:102
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c009000 00000036 T pi_gpio_pin_configure	/gap_sdk/rtos/pulp/pulp-os/drivers/gpio/gpio-v2.c:146
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c007890 00000034 T pi_pad_set_function	/gap_sdk/rtos/pulp/pulp-os/drivers/pads/pads-v1.c:24
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005856 00000034 T pi_transport_send_header	/gap_sdk/rtos/pmsis/pmsis_bsp/transport/transport.c:53
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00888c 00000034 t pos_spim_send_handle_misaligned_2d	/gap_sdk/rtos/pulp/pulp-os/drivers/spi/spim-v2.c:1022
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0068f8 00000034 T rt_free_cluster	/gap_sdk/rtos/pulp/pulp-os/kernel/alloc.c:558
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00a746 00000034 T rt_uart_cluster_write	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/uart/uart.c:277
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00620c 00000036 T __rt_fc_cluster_unlock	/gap_sdk/rtos/pulp/pulp-os/kernel/utils.c:199
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c009616 00000036 T memcpy	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:159
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00799e 00000036 T pi_cpi_capture_async	/gap_sdk/rtos/pulp/pulp-os/drivers/cpi/cpi-v1.c:102
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c009002 00000036 T pi_gpio_pin_configure	/gap_sdk/rtos/pulp/pulp-os/drivers/gpio/gpio-v2.c:146
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c001b06 00000038 T __jpeg_encoder_process_cl	/gap_sdk/libs/gap_lib/jpeg/cluster.c:742
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0061d2 00000038 T __rt_fc_cluster_lock	/gap_sdk/rtos/pulp/pulp-os/kernel/utils.c:189
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c008eee 00000038 T pi_gpio_pin_read	/gap_sdk/rtos/pulp/pulp-os/drivers/gpio/gpio-v2.c:171
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c007e0a 0000003a t __rt_spi_get_div.isra.1	/gap_sdk/rtos/pulp/pulp-os/drivers/spi/spim-v2.c:1318
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c004c7a 0000003a T pop	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/../../../src/data_structures/stack.c:67
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005d4c 0000003c t __bsp_init_pads
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00536e 0000003c t __himax_init_regs	/gap_sdk/rtos/pmsis/pmsis_bsp/camera/himax/himax.c:192
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0063da 0000003c T __rt_bridge_printf_flush
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0075e6 0000003c T __rt_cluster_new	/gap_sdk/rtos/pulp/pulp-os/kernel/cluster.c:445
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c007622 0000003c t __rt_cluster_pulpos_emu_init	/gap_sdk/rtos/pulp/pulp-os/kernel/pulpos_emu.c:29
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0096c2 0000003c T __rt_putc_uart	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:412
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0060dc 0000003e T __rt_cbsys_add	/gap_sdk/rtos/pulp/pulp-os/kernel/utils.c:57
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006dec 0000003e T __rt_freq_init	/gap_sdk/rtos/pulp/pulp-os/kernel/gap/freq.c:62
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00928a 00000042 t __rt_do_putc_host	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:430
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00a5f0 00000042 t __rt_uart_cluster_req	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/uart/uart.c:266
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00a582 00000042 t __rt_uart_wait_tx_done.isra.6	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/uart/uart.c:222
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0061d4 00000038 T __rt_fc_cluster_lock	/gap_sdk/rtos/pulp/pulp-os/kernel/utils.c:189
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c008ef0 00000038 T pi_gpio_pin_read	/gap_sdk/rtos/pulp/pulp-os/drivers/gpio/gpio-v2.c:171
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c007e0c 0000003a t __rt_spi_get_div.isra.1	/gap_sdk/rtos/pulp/pulp-os/drivers/spi/spim-v2.c:1318
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c004c7c 0000003a T pop	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/../../../src/data_structures/stack.c:67
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005d4e 0000003c t __bsp_init_pads
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005370 0000003c t __himax_init_regs	/gap_sdk/rtos/pmsis/pmsis_bsp/camera/himax/himax.c:192
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0063dc 0000003c T __rt_bridge_printf_flush
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0075e8 0000003c T __rt_cluster_new	/gap_sdk/rtos/pulp/pulp-os/kernel/cluster.c:445
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c007624 0000003c t __rt_cluster_pulpos_emu_init	/gap_sdk/rtos/pulp/pulp-os/kernel/pulpos_emu.c:29
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0096c4 0000003c T __rt_putc_uart	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:412
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0060de 0000003e T __rt_cbsys_add	/gap_sdk/rtos/pulp/pulp-os/kernel/utils.c:57
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006dee 0000003e T __rt_freq_init	/gap_sdk/rtos/pulp/pulp-os/kernel/gap/freq.c:62
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00928c 00000042 t __rt_do_putc_host	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:430
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00a5f2 00000042 t __rt_uart_cluster_req	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/uart/uart.c:266
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00a584 00000042 t __rt_uart_wait_tx_done.isra.6	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/uart/uart.c:222
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00033a 00000042 T frame_streamer_send	/gap_sdk/tools/gap_tools/frame_streamer/frame_streamer.c:245
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00715a 00000044 T InitFlls	/gap_sdk/rtos/pulp/pulp-os/kernel/gap/pmu_driver.c:858
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0099e8 00000044 t _ldiv5	/gap_sdk/rtos/pulp/pulp-os/libs/io/prf.c:143
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c007dc6 00000044 t pos_spim_apply_conf	/gap_sdk/rtos/pulp/pulp-os/drivers/spi/spim-v2.c:175
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00627c 00000046 t __rt_bridge_wait
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c008cba 00000046 T pos_spim_handle_copy_eot	/gap_sdk/rtos/pulp/pulp-os/drivers/spi/spim-v2.c:875
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c007954 00000048 T pi_cpi_close	/gap_sdk/rtos/pulp/pulp-os/drivers/cpi/cpi-v1.c:73
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0066ae 00000048 T rt_user_alloc	/gap_sdk/rtos/pulp/pulp-os/kernel/alloc.c:207
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006334 0000004a T __rt_bridge_check_connection
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00715c 00000044 T InitFlls	/gap_sdk/rtos/pulp/pulp-os/kernel/gap/pmu_driver.c:858
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0099ea 00000044 t _ldiv5	/gap_sdk/rtos/pulp/pulp-os/libs/io/prf.c:143
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c007dc8 00000044 t pos_spim_apply_conf	/gap_sdk/rtos/pulp/pulp-os/drivers/spi/spim-v2.c:175
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00627e 00000046 t __rt_bridge_wait
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c008cbc 00000046 T pos_spim_handle_copy_eot	/gap_sdk/rtos/pulp/pulp-os/drivers/spi/spim-v2.c:875
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c007956 00000048 T pi_cpi_close	/gap_sdk/rtos/pulp/pulp-os/drivers/cpi/cpi-v1.c:73
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0066b0 00000048 T rt_user_alloc	/gap_sdk/rtos/pulp/pulp-os/kernel/alloc.c:207
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006336 0000004a T __rt_bridge_check_connection
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c000838 0000004a T jpeg_encoder_process	/gap_sdk/libs/gap_lib/jpeg/jpeg_encoder.c:426
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c007844 0000004a T pi_cluster_send_task_to_cl	/gap_sdk/rtos/pulp/pulp-os/kernel/cluster_call.c:149
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006da2 0000004a T rt_freq_set_and_get	/gap_sdk/rtos/pulp/pulp-os/kernel/gap/freq.c:30
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c008d00 0000004c T pos_spim_receive_handle_temp_buffer	/gap_sdk/rtos/pulp/pulp-os/drivers/spi/spim-v2.c:1045
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c003f6a 0000004c T rangeThresholdImage	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/../../../src/segmentation/threshold.c:19
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005f70 0000004c T rt_irq_set_handler	/gap_sdk/rtos/pulp/pulp-os/kernel/irq.c:61
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0066f6 0000004c T rt_user_free	/gap_sdk/rtos/pulp/pulp-os/kernel/alloc.c:291
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00a6f6 0000004e T rt_uart_close	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/uart/uart.c:228
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005fbe 00000050 T __rt_handle_illegal_instr	/gap_sdk/rtos/pulp/pulp-os/kernel/irq.c:94
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00923a 00000050 t __rt_io_uart_wait_req	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:315
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c007846 0000004a T pi_cluster_send_task_to_cl	/gap_sdk/rtos/pulp/pulp-os/kernel/cluster_call.c:149
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006da4 0000004a T rt_freq_set_and_get	/gap_sdk/rtos/pulp/pulp-os/kernel/gap/freq.c:30
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c008d02 0000004c T pos_spim_receive_handle_temp_buffer	/gap_sdk/rtos/pulp/pulp-os/drivers/spi/spim-v2.c:1045
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c003f6c 0000004c T rangeThresholdImage	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/../../../src/segmentation/threshold.c:19
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005f72 0000004c T rt_irq_set_handler	/gap_sdk/rtos/pulp/pulp-os/kernel/irq.c:61
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0066f8 0000004c T rt_user_free	/gap_sdk/rtos/pulp/pulp-os/kernel/alloc.c:291
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00a6f8 0000004e T rt_uart_close	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/uart/uart.c:228
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005fc0 00000050 T __rt_handle_illegal_instr	/gap_sdk/rtos/pulp/pulp-os/kernel/irq.c:94
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00923c 00000050 t __rt_io_uart_wait_req	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:315
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:00000308 00000050 D __rt_udma_channels
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c008fb0 00000050 T pi_gpio_mask_configure	/gap_sdk/rtos/pulp/pulp-os/drivers/gpio/gpio-v2.c:279
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00919a 00000052 T __rt_i2s_init	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/i2s/i2s-v1.c:268
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00600e 00000052 T __rt_irq_init	/gap_sdk/rtos/pulp/pulp-os/kernel/irq.c:103
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00906a 00000054 T __rt_udma_copy_enqueue	/gap_sdk/rtos/pulp/pulp-os/drivers/udma/udma-v2.c:55
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006cee 00000056 T __rt_periph_wait_event	/gap_sdk/rtos/pulp/pulp-os/kernel/periph-v2.c:237
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c007d42 00000058 t __rt_i2c_init	/gap_sdk/rtos/pulp/pulp-os/drivers/i2c/i2c-v2.c:307
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c008a9e 00000058 t pos_spim_receive_handle_misaligned	/gap_sdk/rtos/pulp/pulp-os/drivers/spi/spim-v2.c:1207
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0092cc 0000005a t __rt_io_start	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:746
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c008d72 0000005a t __rt_spim_init	/gap_sdk/rtos/pulp/pulp-os/drivers/spi/spim-v2.c:1374
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0053ec 0000005c T __himax_reg_get	/gap_sdk/rtos/pmsis/pmsis_bsp/camera/himax/himax.c:493
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00a778 0000005c T __rt_uart_init	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/uart/uart.c:292
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0076ee 0000005c T rt_cluster_mount	/gap_sdk/rtos/pulp/pulp-os/kernel/pulpos_emu.c:68
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006d44 0000005e T __rt_periph_init	/gap_sdk/rtos/pulp/pulp-os/kernel/periph-v2.c:276
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c009664 0000005e T __rt_putc_debug_bridge	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:288
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c004816 0000005e T createPQueue	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/../../../src/data_structures/queue.c:7
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c008fb2 00000050 T pi_gpio_mask_configure	/gap_sdk/rtos/pulp/pulp-os/drivers/gpio/gpio-v2.c:279
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00919c 00000052 T __rt_i2s_init	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/i2s/i2s-v1.c:268
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006010 00000052 T __rt_irq_init	/gap_sdk/rtos/pulp/pulp-os/kernel/irq.c:103
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00906c 00000054 T __rt_udma_copy_enqueue	/gap_sdk/rtos/pulp/pulp-os/drivers/udma/udma-v2.c:55
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006cf0 00000056 T __rt_periph_wait_event	/gap_sdk/rtos/pulp/pulp-os/kernel/periph-v2.c:237
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c007d44 00000058 t __rt_i2c_init	/gap_sdk/rtos/pulp/pulp-os/drivers/i2c/i2c-v2.c:307
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c008aa0 00000058 t pos_spim_receive_handle_misaligned	/gap_sdk/rtos/pulp/pulp-os/drivers/spi/spim-v2.c:1207
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0092ce 0000005a t __rt_io_start	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:746
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c008d74 0000005a t __rt_spim_init	/gap_sdk/rtos/pulp/pulp-os/drivers/spi/spim-v2.c:1374
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0053ee 0000005c T __himax_reg_get	/gap_sdk/rtos/pmsis/pmsis_bsp/camera/himax/himax.c:493
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00a77a 0000005c T __rt_uart_init	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/uart/uart.c:292
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0076f0 0000005c T rt_cluster_mount	/gap_sdk/rtos/pulp/pulp-os/kernel/pulpos_emu.c:68
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006d46 0000005e T __rt_periph_init	/gap_sdk/rtos/pulp/pulp-os/kernel/periph-v2.c:276
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c009666 0000005e T __rt_putc_debug_bridge	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:288
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c004818 0000005e T createPQueue	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/../../../src/data_structures/queue.c:7
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c002a68 0000005e t led_handle	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/test.c:204
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c007276 00000062 t __rt_init_cluster_data	/gap_sdk/rtos/pulp/pulp-os/kernel/cluster.c:72
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0072d8 00000064 t __rt_cluster_init	/gap_sdk/rtos/pulp/pulp-os/kernel/cluster.c:382
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0065d2 00000064 T __rt_event_execute	/gap_sdk/rtos/pulp/pulp-os/kernel/events.c:189
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c008e58 00000064 T pi_gpio_open	/gap_sdk/rtos/pulp/pulp-os/drivers/gpio/gpio-v2.c:96
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c008f26 00000064 T pi_gpio_pin_notif_configure	/gap_sdk/rtos/pulp/pulp-os/drivers/gpio/gpio-v2.c:193
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c008c54 00000066 T __pi_handle_waiting_copy	/gap_sdk/rtos/pulp/pulp-os/drivers/spi/spim-v2.c:787
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0078ea 0000006a T pi_cpi_open	/gap_sdk/rtos/pulp/pulp-os/drivers/cpi/cpi-v1.c:37
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c008af6 0000006a t pos_spim_receive_handle_misaligned_2d	/gap_sdk/rtos/pulp/pulp-os/drivers/spi/spim-v2.c:1233
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005498 00000070 t __himax_reset	/gap_sdk/rtos/pmsis/pmsis_bsp/camera/himax/himax.c:203
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0058d8 00000070 t __nina_w10_get_response.constprop.6	/gap_sdk/rtos/pmsis/pmsis_bsp/transport/nina_w10/nina_w10.c:91
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006854 00000070 T __rt_allocs_init	/gap_sdk/rtos/pulp/pulp-os/kernel/alloc.c:465
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c007576 00000070 T __rt_cluster_push_fc_event	/gap_sdk/rtos/pulp/pulp-os/kernel/cluster.c:413
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c009346 00000070 t __rt_io_lock
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0093ea 00000070 t __rt_io_unlock
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0062c2 00000072 T __rt_bridge_handle_notif	/gap_sdk/rtos/pulp/pulp-os/kernel/bridge.c:644
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c009898 00000072 T __rt_io_init	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:800
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006416 00000074 T __rt_bridge_req_shutdown	/gap_sdk/rtos/pulp/pulp-os/kernel/bridge.c:774
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0064fe 00000074 T rt_event_alloc	/gap_sdk/rtos/pulp/pulp-os/kernel/events.c:52
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c007278 00000062 t __rt_init_cluster_data	/gap_sdk/rtos/pulp/pulp-os/kernel/cluster.c:72
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0072da 00000064 t __rt_cluster_init	/gap_sdk/rtos/pulp/pulp-os/kernel/cluster.c:382
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0065d4 00000064 T __rt_event_execute	/gap_sdk/rtos/pulp/pulp-os/kernel/events.c:189
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c008e5a 00000064 T pi_gpio_open	/gap_sdk/rtos/pulp/pulp-os/drivers/gpio/gpio-v2.c:96
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c008f28 00000064 T pi_gpio_pin_notif_configure	/gap_sdk/rtos/pulp/pulp-os/drivers/gpio/gpio-v2.c:193
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c008c56 00000066 T __pi_handle_waiting_copy	/gap_sdk/rtos/pulp/pulp-os/drivers/spi/spim-v2.c:787
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0078ec 0000006a T pi_cpi_open	/gap_sdk/rtos/pulp/pulp-os/drivers/cpi/cpi-v1.c:37
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c008af8 0000006a t pos_spim_receive_handle_misaligned_2d	/gap_sdk/rtos/pulp/pulp-os/drivers/spi/spim-v2.c:1233
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00549a 00000070 t __himax_reset	/gap_sdk/rtos/pmsis/pmsis_bsp/camera/himax/himax.c:203
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0058da 00000070 t __nina_w10_get_response.constprop.6	/gap_sdk/rtos/pmsis/pmsis_bsp/transport/nina_w10/nina_w10.c:91
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006856 00000070 T __rt_allocs_init	/gap_sdk/rtos/pulp/pulp-os/kernel/alloc.c:465
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c007578 00000070 T __rt_cluster_push_fc_event	/gap_sdk/rtos/pulp/pulp-os/kernel/cluster.c:413
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c009348 00000070 t __rt_io_lock
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0093ec 00000070 t __rt_io_unlock
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0062c4 00000072 T __rt_bridge_handle_notif	/gap_sdk/rtos/pulp/pulp-os/kernel/bridge.c:644
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00989a 00000072 T __rt_io_init	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:800
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006418 00000074 T __rt_bridge_req_shutdown	/gap_sdk/rtos/pulp/pulp-os/kernel/bridge.c:774
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006500 00000074 T rt_event_alloc	/gap_sdk/rtos/pulp/pulp-os/kernel/events.c:52
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c001b3e 00000076 T __jpeg_encoder_start_cl	/gap_sdk/libs/gap_lib/jpeg/cluster.c:767
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005972 00000076 t __nina_w10_send_command	/gap_sdk/rtos/pmsis/pmsis_bsp/transport/nina_w10/nina_w10.c:62
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c009818 00000076 T exit	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:690
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c008b60 00000076 T pi_spi_copy_async	/gap_sdk/rtos/pulp/pulp-os/drivers/spi/spim-v2.c:1271
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00699c 0000007a T rt_event_push_delayed	/gap_sdk/rtos/pulp/pulp-os/kernel/time.c:59
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005974 00000076 t __nina_w10_send_command	/gap_sdk/rtos/pmsis/pmsis_bsp/transport/nina_w10/nina_w10.c:62
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00981a 00000076 T exit	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:690
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c008b62 00000076 T pi_spi_copy_async	/gap_sdk/rtos/pulp/pulp-os/drivers/spi/spim-v2.c:1271
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00699e 0000007a T rt_event_push_delayed	/gap_sdk/rtos/pulp/pulp-os/kernel/time.c:59
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0029ee 0000007a t streamer_handler	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/test.c:90
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0059e8 0000007c T __nina_w10_send_async	/gap_sdk/rtos/pmsis/pmsis_bsp/transport/nina_w10/nina_w10.c:323
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006060 0000007c t __rt_fc_cluster_lock_req	/gap_sdk/rtos/pulp/pulp-os/kernel/utils.c:142
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c004a56 0000007c T destroyStack	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/../../../src/data_structures/stack.c:24
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c008bd6 0000007e T pi_spi_copy_2d_async	/gap_sdk/rtos/pulp/pulp-os/drivers/spi/spim-v2.c:1320
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c298 00000080 b __rt_io_event	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:39
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00bfec 00000080 d __rt_putc_host_buffer	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:47
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c0a8 00000080 b led_task	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/test.c:201
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c128 00000080 b task1	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/test.c:45
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0049d4 00000082 T createStack	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/../../../src/data_structures/stack.c:7
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c008dcc 00000086 T __pi_gpio_handler	/gap_sdk/rtos/pulp/pulp-os/drivers/gpio/gpio-v2.c:54
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005a64 00000088 t __nina_w10_send_packet_resume
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00bcfc 00000088 d __rt_i2c	/gap_sdk/rtos/pulp/pulp-os/drivers/i2c/i2c-v2.c:25
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006a3c 0000008c T __rt_time_init	/gap_sdk/rtos/pulp/pulp-os/kernel/time.c:136
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005c98 0000008e t __nina_w10_send_packet_end	/gap_sdk/rtos/pmsis/pmsis_bsp/transport/nina_w10/nina_w10.c:184
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00a668 0000008e T __rt_uart_open	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/uart/uart.c:151
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006e7c 00000090 T __rt_pmu_cluster_power_down	/gap_sdk/rtos/pulp/pulp-os/kernel/gap/pmu_driver.c:205
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00765e 00000090 T rt_cluster_call	/gap_sdk/rtos/pulp/pulp-os/kernel/pulpos_emu.c:40
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c009534 00000092 t __rt_io_uart_wait_pending	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:332
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c009936 00000092 t _to_x	/gap_sdk/rtos/pulp/pulp-os/libs/io/prf.c:44
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c003fb6 00000092 T thresholdAndFindMeans	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/../../../src/segmentation/threshold.c:32
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00493e 00000096 T pDequeue	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/../../../src/data_structures/queue.c:102
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c200 00000098 b __rt_gpio	/gap_sdk/rtos/pulp/pulp-os/drivers/gpio/gpio-v2.c:34
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006fec 000000a4 T InitOneFll	/gap_sdk/rtos/pulp/pulp-os/kernel/gap/pmu_driver.c:771
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c002ac6 000000a4 t cam_handler
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005732 000000a6 t __himax_control	/gap_sdk/rtos/pmsis/pmsis_bsp/camera/himax/himax.c:433
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0096fe 000000ac t tfp_putc.isra.9	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:795
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c004ef6 000000ae T findPeaks	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/../../../src/others/histogram.c:72
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0059ea 0000007c T __nina_w10_send_async	/gap_sdk/rtos/pmsis/pmsis_bsp/transport/nina_w10/nina_w10.c:323
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006062 0000007c t __rt_fc_cluster_lock_req	/gap_sdk/rtos/pulp/pulp-os/kernel/utils.c:142
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c004a58 0000007c T destroyStack	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/../../../src/data_structures/stack.c:24
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c008bd8 0000007e T pi_spi_copy_2d_async	/gap_sdk/rtos/pulp/pulp-os/drivers/spi/spim-v2.c:1320
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c2b8 00000080 b __rt_io_event	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:39
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c00c 00000080 d __rt_putc_host_buffer	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:47
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c0c8 00000080 b led_task	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/test.c:201
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c148 00000080 b task1	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/test.c:45
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0049d6 00000082 T createStack	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/../../../src/data_structures/stack.c:7
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c008dce 00000086 T __pi_gpio_handler	/gap_sdk/rtos/pulp/pulp-os/drivers/gpio/gpio-v2.c:54
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005a66 00000088 t __nina_w10_send_packet_resume
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00bd1c 00000088 d __rt_i2c	/gap_sdk/rtos/pulp/pulp-os/drivers/i2c/i2c-v2.c:25
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006a3e 0000008c T __rt_time_init	/gap_sdk/rtos/pulp/pulp-os/kernel/time.c:136
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005c9a 0000008e t __nina_w10_send_packet_end	/gap_sdk/rtos/pmsis/pmsis_bsp/transport/nina_w10/nina_w10.c:184
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00a66a 0000008e T __rt_uart_open	/gap_sdk/rtos/pulp/pulp-os/drivers_deprecated/uart/uart.c:151
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006e7e 00000090 T __rt_pmu_cluster_power_down	/gap_sdk/rtos/pulp/pulp-os/kernel/gap/pmu_driver.c:205
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c007660 00000090 T rt_cluster_call	/gap_sdk/rtos/pulp/pulp-os/kernel/pulpos_emu.c:40
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c009536 00000092 t __rt_io_uart_wait_pending	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:332
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c009938 00000092 t _to_x	/gap_sdk/rtos/pulp/pulp-os/libs/io/prf.c:44
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c003fb8 00000092 T thresholdAndFindMeans	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/../../../src/segmentation/threshold.c:32
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c004940 00000096 T pDequeue	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/../../../src/data_structures/queue.c:102
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00c220 00000098 b __rt_gpio	/gap_sdk/rtos/pulp/pulp-os/drivers/gpio/gpio-v2.c:34
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c002ac6 000000a2 t cam_handler
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006fee 000000a4 T InitOneFll	/gap_sdk/rtos/pulp/pulp-os/kernel/gap/pmu_driver.c:771
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005734 000000a6 t __himax_control	/gap_sdk/rtos/pmsis/pmsis_bsp/camera/himax/himax.c:433
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c009700 000000ac t tfp_putc.isra.9	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:795
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c004ef8 000000ae T findPeaks	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/../../../src/others/histogram.c:72
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c000cd0 000000b0 t __jpeg_encoder_init_constants	/gap_sdk/libs/gap_lib/jpeg/cluster.c:756
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00b354 000000b2 D std_ac_luminance_huff	/gap_sdk/libs/gap_lib/jpeg/jpeg_encoder.c:39
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00b374 000000b2 D std_ac_luminance_huff	/gap_sdk/libs/gap_lib/jpeg/jpeg_encoder.c:39
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c001682 000000ba T process_du_cluster
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00719e 000000bc T __rt_pmu_init	/gap_sdk/rtos/pulp/pulp-os/kernel/gap/pmu_driver.c:472
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c004882 000000bc T pEnqueue	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/../../../src/data_structures/queue.c:58
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c007b36 000000bc T pi_i2c_read_async	/gap_sdk/rtos/pulp/pulp-os/drivers/i2c/i2c-v2.c:190
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0071a0 000000bc T __rt_pmu_init	/gap_sdk/rtos/pulp/pulp-os/kernel/gap/pmu_driver.c:472
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c004884 000000bc T pEnqueue	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/../../../src/data_structures/queue.c:58
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c007b38 000000bc T pi_i2c_read_async	/gap_sdk/rtos/pulp/pulp-os/drivers/i2c/i2c-v2.c:190
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00037c 000000be t AppendBits	/gap_sdk/libs/gap_lib/jpeg/jpeg_encoder.c:120
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00b480 000000c0 D __hal_debug_struct
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c007090 000000ca T __rt_pmu_cluster_power_up
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00b4a0 000000c0 D __hal_debug_struct
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c007092 000000ca T __rt_pmu_cluster_power_up
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00026c 000000ce T frame_streamer_send_async	/gap_sdk/tools/gap_tools/frame_streamer/frame_streamer.c:201
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005660 000000d2 T __himax_reopen	/gap_sdk/rtos/pmsis/pmsis_bsp/camera/himax/himax.c:369
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c007a3e 000000d4 T pi_i2c_write_async	/gap_sdk/rtos/pulp/pulp-os/drivers/i2c/i2c-v2.c:114
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00746c 000000d8 T pi_cluster_open	/gap_sdk/rtos/pulp/pulp-os/kernel/cluster.c:343
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00945a 000000da t __rt_io_uart_flush.constprop.11	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:795
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006f0c 000000e0 T SetFllFrequency
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005662 000000d2 T __himax_reopen	/gap_sdk/rtos/pmsis/pmsis_bsp/camera/himax/himax.c:369
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c007a40 000000d4 T pi_i2c_write_async	/gap_sdk/rtos/pulp/pulp-os/drivers/i2c/i2c-v2.c:114
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00746e 000000d8 T pi_cluster_open	/gap_sdk/rtos/pulp/pulp-os/kernel/cluster.c:343
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00945c 000000da t __rt_io_uart_flush.constprop.11	/gap_sdk/rtos/pulp/pulp-os/libs/io/io.c:795
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006f0e 000000e0 T SetFllFrequency
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0008e6 000000e2 T jpeg_encoder_header	/gap_sdk/libs/gap_lib/jpeg/jpeg_encoder.c:479
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006ac8 000000f2 T __rt_timer_handler	/gap_sdk/rtos/pulp/pulp-os/kernel/time_irq.c:30
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00774a 000000fa T pi_cluster_send_task_to_cl_async	/gap_sdk/rtos/pulp/pulp-os/kernel/cluster_call.c:65
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00aa38 00000100 R __clz_tab
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c007c16 00000118 T pi_i2c_open	/gap_sdk/rtos/pulp/pulp-os/drivers/i2c/i2c-v2.c:238
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00afc4 0000011c r __himax_reg_init	/gap_sdk/rtos/pmsis/pmsis_bsp/camera/himax/himax.c:55
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00733c 0000012a t __rt_cluster_mount_step	/gap_sdk/rtos/pulp/pulp-os/kernel/cluster.c:221
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006bba 00000134 T rt_periph_copy	/gap_sdk/rtos/pulp/pulp-os/kernel/periph-v2.c:58
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0083fc 0000013e T pi_spi_receive_async	/gap_sdk/rtos/pulp/pulp-os/drivers/spi/spim-v2.c:584
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c004fa4 0000014c T smoothHistogram	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/../../../src/others/histogram.c:111
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005508 00000158 T __himax_open	/gap_sdk/rtos/pmsis/pmsis_bsp/camera/himax/himax.c:275
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006aca 000000f2 T __rt_timer_handler	/gap_sdk/rtos/pulp/pulp-os/kernel/time_irq.c:30
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00774c 000000fa T pi_cluster_send_task_to_cl_async	/gap_sdk/rtos/pulp/pulp-os/kernel/cluster_call.c:65
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00aa3c 00000100 R __clz_tab
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c007c18 00000118 T pi_i2c_open	/gap_sdk/rtos/pulp/pulp-os/drivers/i2c/i2c-v2.c:238
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00afe4 0000011c r __himax_reg_init	/gap_sdk/rtos/pmsis/pmsis_bsp/camera/himax/himax.c:55
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00733e 0000012a t __rt_cluster_mount_step	/gap_sdk/rtos/pulp/pulp-os/kernel/cluster.c:221
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c006bbc 00000134 T rt_periph_copy	/gap_sdk/rtos/pulp/pulp-os/kernel/periph-v2.c:58
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0083fe 0000013e T pi_spi_receive_async	/gap_sdk/rtos/pulp/pulp-os/drivers/spi/spim-v2.c:584
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c004fa6 0000014c T smoothHistogram	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/../../../src/others/histogram.c:111
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00550a 00000158 T __himax_open	/gap_sdk/rtos/pmsis/pmsis_bsp/camera/himax/himax.c:275
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0009dc 00000158 t exec_quantization	/gap_sdk/libs/gap_lib/jpeg/cluster.c:327
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0082a4 00000158 T pi_spi_send_async	/gap_sdk/rtos/pulp/pulp-os/drivers/spi/spim-v2.c:479
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005dde 00000166 T __rt_init	/gap_sdk/rtos/pulp/pulp-os/kernel/init.c:74
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c004690 00000186 T cl_maskDilation	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/../../../src/morphological_operators/morphological_operators.c:69
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00853a 00000192 T pi_spi_transfer_async	/gap_sdk/rtos/pulp/pulp-os/drivers/spi/spim-v2.c:684
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0044fc 00000194 T cl_maskErosion	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/../../../src/morphological_operators/morphological_operators.c:16
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0082a6 00000158 T pi_spi_send_async	/gap_sdk/rtos/pulp/pulp-os/drivers/spi/spim-v2.c:479
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005de0 00000166 T __rt_init	/gap_sdk/rtos/pulp/pulp-os/kernel/init.c:74
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c004692 00000186 T cl_maskDilation	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/../../../src/morphological_operators/morphological_operators.c:69
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00853c 00000192 T pi_spi_transfer_async	/gap_sdk/rtos/pulp/pulp-os/drivers/spi/spim-v2.c:684
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0044fe 00000194 T cl_maskErosion	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/../../../src/morphological_operators/morphological_operators.c:16
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c000b34 0000019c t check_fetch_block	/gap_sdk/libs/gap_lib/jpeg/cluster.c:536
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0086cc 0000019c T pos_spim_send_enqueue_transfer	/gap_sdk/rtos/pulp/pulp-os/drivers/spi/spim-v2.c:887
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c004ad2 000001a8 T push	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/../../../src/data_structures/stack.c:35
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005aec 000001ac T __nina_w10_open	/gap_sdk/rtos/pmsis/pmsis_bsp/transport/nina_w10/nina_w10.c:246
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c004048 000001b2 T edgesLabelAndCheckNeighbour
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0086ce 0000019c T pos_spim_send_enqueue_transfer	/gap_sdk/rtos/pulp/pulp-os/drivers/spi/spim-v2.c:887
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c004ad4 000001a8 T push	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/../../../src/data_structures/stack.c:35
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c005aee 000001ac T __nina_w10_open	/gap_sdk/rtos/pmsis/pmsis_bsp/transport/nina_w10/nina_w10.c:246
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00404a 000001b2 T edgesLabelAndCheckNeighbour
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0000b6 000001b6 T frame_streamer_open	/gap_sdk/tools/gap_tools/frame_streamer/frame_streamer.c:121
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00173c 000001c6 t __jpeg_encoder_process_pe_entry	/gap_sdk/libs/gap_lib/jpeg/cluster.c:565
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00043a 000001c6 T process_du	/gap_sdk/libs/gap_lib/jpeg/jpeg_encoder.c:183
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00362a 000001ce T masterFindGate	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/GateDetect.c:200
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0037f8 000001d4 T cl_vectorial_gaussianFilter	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/../../../src/filters/filter.c:17
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0088be 000001e0 T pos_spim_receive_enqueue_transfer	/gap_sdk/rtos/pulp/pulp-os/drivers/spi/spim-v2.c:1077
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00362c 000001ce T masterFindGate	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/GateDetect.c:200
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0037fa 000001d4 T cl_vectorial_gaussianFilter	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/../../../src/filters/filter.c:17
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0088c0 000001e0 T pos_spim_receive_enqueue_transfer	/gap_sdk/rtos/pulp/pulp-os/drivers/spi/spim-v2.c:1077
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c001bde 000001e8 T Dct8x8	/gap_sdk/libs/gap_lib/jpeg/dct.c:31
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00063e 000001ec T jpeg_encoder_process_fc	/gap_sdk/libs/gap_lib/jpeg/jpeg_encoder.c:315
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c007e6a 000001ec T pi_spi_open	/gap_sdk/rtos/pulp/pulp-os/drivers/spi/spim-v2.c:195
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c007e6c 000001ec T pi_spi_open	/gap_sdk/rtos/pulp/pulp-os/drivers/spi/spim-v2.c:195
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c001902 00000204 t __jpeg_encoder_process_cl_entry	/gap_sdk/libs/gap_lib/jpeg/cluster.c:644
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00bd84 00000218 d __rt_spim	/gap_sdk/rtos/pulp/pulp-os/drivers/spi/spim-v2.c:32
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c004cc2 00000234 T findGate	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/../../../src/others/findGate.c:16
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c008056 0000024e T __rt_spi_handle_repeat	/gap_sdk/rtos/pulp/pulp-os/drivers/spi/spim-v2.c:371
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0050f0 00000250 T adaptiveHistogramTechnique	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/../../../src/others/histogram.c:202
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00bda4 00000218 d __rt_spim	/gap_sdk/rtos/pulp/pulp-os/drivers/spi/spim-v2.c:32
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c004cc4 00000234 T findGate	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/../../../src/others/findGate.c:16
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c008058 0000024e T __rt_spi_handle_repeat	/gap_sdk/rtos/pulp/pulp-os/drivers/spi/spim-v2.c:371
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0050f2 00000250 T adaptiveHistogramTechnique	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/../../../src/others/histogram.c:202
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c000d80 00000262 t AppendBytes_cl	/gap_sdk/libs/gap_lib/jpeg/cluster.c:107
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:00000030 00000280 D periph_channels
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0041fa 00000302 T edgeSegmentation	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/../../../src/segmentation/regionGrowing.c:108
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0041fc 00000302 T edgeSegmentation	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/../../../src/segmentation/regionGrowing.c:108
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0026c0 0000032e T __umoddi3	/home/haugoug/src/riscv-gnu-toolchain/riscv-gcc/libgcc/libgcc2.c:1305
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c002384 0000033c T __udivdi3	/home/haugoug/src/riscv-gnu-toolchain/riscv-gcc/libgcc/libgcc2.c:1317
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c002b6a 00000370 T main_task	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/test.c:211
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0039da 00000590 T cl_cannyOperator	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/../../../src/convolution/convolution.c:146
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c002b68 00000374 T main_task	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/test.c:211
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0039dc 00000590 T cl_cannyOperator	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/../../../src/convolution/convolution.c:146
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c000fe2 000006a0 t exec_check_bitstream	/gap_sdk/libs/gap_lib/jpeg/cluster.c:493
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c002f02 00000728 T clusterMain	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/GateDetect.c:59
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00b55c 00000774 D JpegConstants
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c002f04 00000728 T clusterMain	/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/GateDetect.c:59
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c00b57c 00000774 D JpegConstants
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1b0003e8 00000800 D __rt_fc_stack	/gap_sdk/rtos/pulp/pulp-os/kernel/conf.c:38
-/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c009a60 00000ab6 T _prf	/gap_sdk/rtos/pulp/pulp-os/libs/io/prf.c:437
+/home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c009a62 00000ab6 T _prf	/gap_sdk/rtos/pulp/pulp-os/libs/io/prf.c:437
 /home/sky/IMAV2022-NanocopterAi/app_imav/app_imav_ai-deck/src/tests/board/BUILD/GAP8_V2/GCC_RISCV/gateDetector:1c0008d6 fffffffe T jpeg_encoder_close	/gap_sdk/libs/gap_lib/jpeg/jpeg_encoder.c:467

@@ -309,8 +309,8 @@ void gateDetectorDemo(void)
     pmsis_exit(0);
 }
 
-//int main(int argc, char *argv[])
-//{
-  //printf("\n\n\t *** Gate Detector ***\n\n");
-  //return pmsis_kickoff((void *) gateDetectorDemo);
-//}
+int main(int argc, char *argv[])
+{
+printf("\n\n\t *** Gate Detector ***\n\n");
+return pmsis_kickoff((void *) gateDetectorDemo);
+}

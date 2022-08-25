@@ -47,6 +47,12 @@ void layerConvBNRelu2(
   //////////////////////////
   unsigned int dma_evt;
   volatile int p_r, p_l, p_t, p_b;
+  volatile  unsigned short x_tile_size_nif;
+  volatile unsigned short  x_tile_size_h;
+  volatile unsigned short  x_tile_size_w;
+  volatile unsigned short  x_tile_size_byte;
+  volatile unsigned short  x_length_nif_byte;
+  volatile int pad_offset_h, pad_offset_w;
   volatile unsigned short  W_tile_size_nof;
   volatile unsigned short  W_tile_size_nif;
   volatile unsigned short  W_tile_size_byte;
@@ -84,7 +90,7 @@ void layerConvBNRelu2(
   int _i_nof_load=0, _i_nif_load=0, _i_h_load=0, _i_w_load=0;
   int _i_nof_exec=0, _i_nif_exec=0, _i_h_exec=0, _i_w_exec=0;
   volatile char *im2col;
-  im2col = l1_buffer + 31368;
+  im2col = l1_buffer + 31336;
   uint16_t out_mult = out_mult_in;
   uint16_t out_shift = out_shift_in;
   /////////////////////////////////////
@@ -97,14 +103,14 @@ void layerConvBNRelu2(
     copy_k.size = (uint16_t) 256;
     copy_k.id = 0;
     copy_k.ext = (uint32_t) l2_W+9216;
-    copy_k.loc = (uint32_t) l1_buffer + 30828;
+    copy_k.loc = (uint32_t) l1_buffer + 30284;
     pi_cl_dma_memcpy(&copy_k);   
     copy_lambda.dir = PI_CL_DMA_DIR_EXT2LOC;
     copy_lambda.merge = 0;
     copy_lambda.size = (uint16_t) 256;
     copy_lambda.id = 0;
     copy_lambda.ext = (uint32_t) l2_W+9472;
-    copy_lambda.loc = (uint32_t) l1_buffer + 31088;
+    copy_lambda.loc = (uint32_t) l1_buffer + 30800;
     pi_cl_dma_memcpy(&copy_lambda);                                                   
     pi_cl_dma_wait(&copy_k);                                                    
     pi_cl_dma_wait(&copy_lambda);
@@ -120,17 +126,17 @@ void layerConvBNRelu2(
   dory_dma_memcpy_3d_custom(
   l2_x, // ext
   (l1_buffer + 0) + 0, // loc
-  17600, // size: dimension of the buffer
+  4896, // size: dimension of the buffer
   1600, // stride_1: stride for the 3d copy: if we have to copy on n_features axis, this is the stride to change from first 2D space to the next ones.
   32, // stride_0: stride to be passed to 2d_copy: the dimension w of the in image
-  11,// length_2: how many 2_d copies we need -> the dimension of the tile in n_features direction
+  17,// length_2: how many 2_d copies we need -> the dimension of the tile in n_features direction
   32, // length_0: legnth of the 1_d copy, the length of tile in w direction
   1, // dir
   &dma_evt // copy
   );
   dory_dma_memcpy_3d_custom(
   l2_W, // ext
-  (l1_buffer + 21608) + 0, // loc offset caused by size of tile_x*2 (double_buffer) and tile_y*2 (double buffer)
+  (l1_buffer + 11848) + 0, // loc offset caused by size of tile_x*2 (double_buffer) and tile_y*2 (double buffer)
   9216, // size: dimension of matrix of weight * bytes_per_weight
   288, // stride_1: stride for the 3d copy: if we have to copy on n_features axis, this is the stride to change from first 2D space to the next ones.
   32, // stride_0: stride to be passed to 2d_copy: the dimension w of the in image
@@ -144,14 +150,14 @@ void layerConvBNRelu2(
 
 
   // tile loop nest
-  for(iter=0; iter<1*1*1*1; iter++) {
+  for(iter=0; iter<1*1*4*7; iter++) {
     // loop nest is nof,h,w,(nif=0)
     _i_w_load += 1;
-    if(_i_w_load==1) 
+    if(_i_w_load==7) 
     {
       _i_w_load = 0;
       _i_h_load += 1;
-      if(_i_h_load==1) 
+      if(_i_h_load==4) 
       {
         _i_h_load = 0;
         _i_nof_load += 1;
@@ -160,11 +166,11 @@ void layerConvBNRelu2(
     // check if last in any dimension
 
     // compute double buffering offsets and update db state
-    db_x = !db_state_x ? 17600 : 0;
+    db_x = !db_state_x ? 4896 : 0;
     db_W = !db_state_W ? 9216 : 0;
-    db_y = !db_state_y ? 4000 : 0;
+    db_y = !db_state_y ? 1024 : 0;
     db_act = !db_state_W ? 256 : 0;
-    exec_db_x = 0;
+    exec_db_x = db_state_x ? 4896 : 0;
     db_state_x = ! db_state_x;
     exec_db_W = db_state_W ? 9216 : 0;
     exec_db_act = db_state_W ? 256 : 0;
@@ -174,21 +180,44 @@ void layerConvBNRelu2(
 ///////// POSSIBLE BUG FIX!!!!! DB_STATE_Y NOT SWITCHED /////////////
 
     // double buffered reads
-    if(iter<1*1*1*1-1) 
+    if(iter<1*1*4*7-1) 
     {
-      y_tile_size_h   = (_i_h_load+1 == 1)   ? 5 : 5;
-      y_tile_size_w   = (_i_w_load+1 == 1)   ? 25 : 25;
+      x_tile_size_nif = (_i_nif_load+1 == 1) ? 32 : 32;
+      x_tile_size_h   = (_i_h_load+1 == 4)   ? 3 : 17;
+      x_tile_size_w   = (_i_w_load+1 == 7)   ? 3 : 9;
+      x_tile_size_byte = x_tile_size_nif*x_tile_size_h*x_tile_size_w*8/8;
+      x_length_nif_byte = (_i_nif_load+1 == 1)   ? 32 : 32;
+      // additionally overlap by padding for the first tile after a border one
+      //this because in the first tile we use less pixels from x_buffer, since we have the ones of padding
+      pad_offset_h=0, pad_offset_w=0;
+      if(_i_h_load > 0)
+        pad_offset_h = 1;
+      if(_i_w_load > 0)
+        pad_offset_w = 1;
+      y_tile_size_h   = (_i_h_load+1 == 4)   ? 1 : 8;
+      y_tile_size_w   = (_i_w_load+1 == 7)   ? 1 : 4;
       W_tile_size_nof = (_i_nof_load+1 == 1) ? 32 : 32;
       W_tile_size_nif = (_i_nif_load+1 == 1) ? 32 : 32;
       W_tile_size_byte = W_tile_size_nof*W_tile_size_nif*8*3*3/8;
       W_length_nif_byte = (_i_nif_load+1 == 1) ? 32 : 32;
     // transfer of next input tile in double buffering
+      dory_dma_memcpy_3d_custom(
+      dory_get_tile_3d(l2_x, _i_h_load, _i_w_load, _i_nif_load, 17, 9, 32, 50, 32,  1, 1,0, pad_offset_h, pad_offset_w, 0, 8), // extern
+      (l1_buffer + 0) + db_x, // loc
+      x_tile_size_byte, // size: dimension of the buffer
+      1600, // stride_1: stride for the 3d copy: if we have to copy on n_features axis, this is the stride to change from first 2D space to the next ones.
+      32, // stride_0: stride to be passed to 2d_copy: the dimension w of the in image
+      x_tile_size_h,// length_2: how many 2_d copies we need -> the dimension of the tile in n_features direction
+      x_length_nif_byte, // length_0: legnth of the 1_d copy, the length of tile in w direction
+      1, // dir
+      &dma_evt // copy
+      );
       // transfer of next weight tile if changed input or output channels
       if (_i_nif_load!=_i_nif_exec || _i_nof_load!=_i_nof_exec)
       {
         dory_dma_memcpy_3d_custom_weights(
         dory_get_tile_3d(l2_W, _i_nof_load, 0, _i_nif_load, 32, 3*3, 32, 3*3, 32, 0,0,0,0,0,0, 8), // ext
-        (l1_buffer + 21608) + db_W, // loc
+        (l1_buffer + 11848) + db_W, // loc
         W_tile_size_byte, // size: dimension of matrix of weight * bytes_per_weight
         288, // stride_1: stride for the 3d copy: if we have to copy on n_features axis, this is the stride to change from first 2D space to the next ones.
         32, // stride_0: stride to be passed to 2d_copy: the dimension w of the in image
@@ -204,31 +233,31 @@ void layerConvBNRelu2(
           copy_k.size = (uint16_t) W_tile_size_nof * 8;
           copy_k.id = 0;
           copy_k.ext = (uint32_t) l2_W+9216 + 256*_i_nof_load;
-          copy_k.loc = (uint32_t) l1_buffer + 30828 + db_act;
+          copy_k.loc = (uint32_t) l1_buffer + 30284 + db_act;
           pi_cl_dma_memcpy(&copy_k);   
           copy_lambda.dir = PI_CL_DMA_DIR_EXT2LOC;
           copy_lambda.merge = 0;
           copy_lambda.size = (uint16_t) W_tile_size_nof * 8;
           copy_lambda.id = 0;
           copy_lambda.ext = (uint32_t) l2_W+9472 + 256*_i_nof_load;
-          copy_lambda.loc = (uint32_t) l1_buffer + 31088 + db_act;
+          copy_lambda.loc = (uint32_t) l1_buffer + 30800 + db_act;
           pi_cl_dma_memcpy(&copy_lambda);      
         }
       }
     }
     // creation of the pointers to input, output, weights, lambda and k
     x = (char *) (l1_buffer + 0 + exec_db_x);
-    k = (int64_t *) (l1_buffer + 30828 + exec_db_act);
-    lambda = (int64_t *) (l1_buffer + 31088 + exec_db_act);
-    W = (char *) (l1_buffer + 21608 + exec_db_W);
-    y = (char *) (l1_buffer + 17604 + db_y);
+    k = (int64_t *) (l1_buffer + 30284 + exec_db_act);
+    lambda = (int64_t *) (l1_buffer + 30800 + exec_db_act);
+    W = (char *) (l1_buffer + 11848 + exec_db_W);
+    y = (char *) (l1_buffer + 9796 + db_y);
     // parameter passed to the kernel. Input and output sizes
     x_tile_size_nif_exec = (_i_nif_exec+1 == 1) ? 32 : 32;
-    x_tile_size_h_exec   = (_i_h_exec+1 == 1)   ? 11 : 11;
-    x_tile_size_w_exec   = (_i_w_exec+1 == 1)   ? 50 : 50;
+    x_tile_size_h_exec   = (_i_h_exec+1 == 4)   ? 3 : 17;
+    x_tile_size_w_exec   = (_i_w_exec+1 == 7)   ? 3 : 9;
     y_tile_size_nof = (_i_nof_exec+1 == 1) ? 32 : 32;
-    y_tile_size_h   = (_i_h_exec+1 == 1)   ? 5 : 5;
-    y_tile_size_w   = (_i_w_exec+1 == 1)   ? 25 : 25;
+    y_tile_size_h   = (_i_h_exec+1 == 4)   ? 1 : 8;
+    y_tile_size_w   = (_i_w_exec+1 == 7)   ? 1 : 4;
     y_tile_size_byte = y_tile_size_nof*y_tile_size_h*y_tile_size_w*8/8;
     y_length_nof_byte = (_i_nof_exec+1 == 1)   ? 32 : 32;
     p_r = 0;
@@ -236,16 +265,15 @@ void layerConvBNRelu2(
     p_t = 0;
     p_b = 0;
     if (_i_h_exec == 0)
-      p_t = 0;
+      p_t = 1;
     if (_i_w_exec == 0)
       p_l = 1;
-    if (_i_h_exec == 1-1)
-      p_b = 0;
-    if (_i_w_exec == 1-1)
+    if (_i_h_exec == 4-1)
+      p_b = 1;
+    if (_i_w_exec == 7-1)
       p_r = 1;
 
     pi_cl_team_barrier(0);
-    asm volatile("": : :"memory");
     pulp_nn_conv_Ho_parallel(
     x,
     x_tile_size_w_exec,
@@ -279,7 +307,7 @@ void layerConvBNRelu2(
       // wait for DMA write/read
       mchan_barrier(dma_evt);
 
-    if(iter<1*1*1*1-1) 
+    if(iter<1*1*4*7-1) 
     {
       if(pi_core_id()==0 && (_i_nif_load!=_i_nif_exec || _i_nof_load!=_i_nof_exec))
       {                                       
@@ -288,8 +316,8 @@ void layerConvBNRelu2(
       }
     }
         dory_dma_memcpy_3d_custom_out(
-        dory_get_tile_3d(l2_y, _i_h_exec, _i_w_exec, _i_nof_exec, 5, 25, 32, 25, 32, 0, 0, 0, 0, 0, 0, 8), // ext
-        (l1_buffer + 17604) + db_y, // loc
+        dory_get_tile_3d(l2_y, _i_h_exec, _i_w_exec, _i_nof_exec, 8, 4, 32, 25, 32, 0, 0, 0, 0, 0, 0, 8), // ext
+        (l1_buffer + 9796) + db_y, // loc
         y_tile_size_byte, // size
         800, // stride_1
         32, // stride_0

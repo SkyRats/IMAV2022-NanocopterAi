@@ -42,11 +42,11 @@ void test_uart_dronet(void)
         printf("Uart open failed !\n");
         pmsis_exit(-1);
     }
-  	network_setup();
+  	to_send = network_setup();
 
     while(1)
     {
-        to_send = network_run_FabricController();
+        network_run_FabricController();
         pi_uart_write(&uart, to_send, 8);
         pi_time_wait_us(500000);
     }

@@ -21,21 +21,19 @@
 #include "network.h"
 #include "pulp.h"
 #include "dory.h"
-#include "layerAddRelu5.h"
 #include "layerConvBNRelu2.h"
-#include "layerConvBNRelu0.h"
-#include "layerConvBNRelu8.h"
+#include "layerAddRelu5.h"
 #include "layerMatMul14_last.h"
-#include "layerMaxPool1.h"
-#include "layerConvBNRelu7.h"
-#include "layerAddRelu9.h"
-#include "layerConvBNRelu10.h"
 #include "layerConvBNRelu4.h"
-#include "layerConvBNRelu6.h"
-#include "layerAddRelu13.h"
+#include "layerConvBNRelu7.h"
 #include "layerConvBNRelu12.h"
+#include "layerAddRelu13.h"
+#include "layerConvBNRelu0.h"
+#include "layerConvBNRelu8.h" #include "layerConvBNRelu10.h" #include "layerMaxPool1.h"
 #include "layerConvBNRelu3.h"
+#include "layerAddRelu9.h"
 #include "layerConvBNRelu11.h"
+#include "layerConvBNRelu6.h"
 #include "pmsis.h"
 #include "bsp/fs.h"
 #include "bsp/fs/readfs.h"
@@ -63,8 +61,8 @@ static int bypass_L3_input;
 static int L3_output;
 static int bypass_L3_output;
 static int activations_input;
-static int L3_layers[15] = {0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-static int L3_input_layers[15] = {0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+static int L3_layers[15] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+static int L3_input_layers[15] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 static int L3_output_layers[15] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 static int L3_weights_layers[15] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 static int allocate_layer[15] = {1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1};
@@ -76,15 +74,15 @@ static int check_weights[15] = {94915, 0, 758823, 997238, 127587, 0, 1839651, 31
 static int check_weights_dimension[15] = {1312, 0, 9728, 9728, 1536, 0, 19456, 37888, 3072, 0, 75776, 149504, 10240, 0, 12544};
 static int cumulative_weights_dimension[15] = {0, 1312, 1312, 11040, 20768, 22304, 22304, 41760, 79648, 82720, 82720, 158496, 308000, 318240, 318240};
 static int check_activations[15] = {1613972, 2692058, 930278, 100955, 138918, 135058, 273976, 27961, 42600, 16824, 59424, 10413, 1121, 0, 1121};
-static int check_activations_dimension[15] = {40000, 320000, 48952, 20000, 20000, 20000, 20000, 10816, 10816, 10816, 10816, 6272, 6272, 6272, 6272};
-static int check_activations_dimension_L3_in[15] = {0, 320000, 80000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-static int check_activations_dimension_L3_out[15] = {0, 80000, 20000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+static int check_activations_dimension[15] = {40000, 320000, 80000, 20000, 20000, 20000, 20000, 10816, 10816, 10816, 10816, 6272, 6272, 6272, 6272};
+static int check_activations_dimension_L3_in[15] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+static int check_activations_dimension_L3_out[15] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 static int out_mult_vector[15] = {1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0};
 static int out_shift_vector[15] = {22, 0, 22, 23, 23, 5, 21, 23, 23, 5, 20, 22, 22, 5, 0};
 static int inmul1_vector[15] = {0, 0, 0, 0, 0, 32.0, 0, 0, 0, 32.0, 0, 0, 0, 32.0, 0};
 static int inmul2_vector[15] = {0, 0, 0, 0, 0, 32.0, 0, 0, 0, 32.0, 0, 0, 0, 32.0, 0};
 static int check_activations_out[15] = {2692058, 930278, 100955, 138918, 135058, 273976, 27961, 42600, 16824, 59424, 10413, 1121, 0, 1121, 7869};
-static int check_activations_out_dimension[15] = {320000, 48952, 20000, 20000, 20000, 20000, 10816, 10816, 10816, 10816, 6272, 6272, 6272, 6272, 8};
+static int check_activations_out_dimension[15] = {320000, 80000, 20000, 20000, 20000, 20000, 10816, 10816, 10816, 10816, 6272, 6272, 6272, 6272, 8};
 static int layer_with_weights[15] = {1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1};
 
 static uint8_t flashBuffer[FLASH_BUFF_SIZE];
@@ -93,12 +91,11 @@ static struct pi_hyperflash_conf flash_conf;
 static volatile struct pi_himax_conf camera_conf;
 static struct pi_hyper_conf ram_conf;
 static struct pi_device ram;
-static struct pi_device camera_dev;
+static volatile struct pi_device camera_dev;
 
-static uint8_t * imageBuffer;
 static pi_task_t task;
 static int32_t * dronetOutput;
-static volatile uint8_t asyncImgTransfFlag = 0;
+static volatile uint8_t firstTime = 1;
 
 #ifdef VERBOSE
 // check for input/output acitvation checksum
@@ -143,10 +140,10 @@ static void check_layer_weight(char *weight, int check_sum_true, int dim) {
 }
 #endif
 
-static void handle_transfer_end(void *arg)
-{
-    pi_camera_control(&camera_dev, PI_CAMERA_CMD_STOP, 0);
-}
+//static void handle_transfer_end(void *arg)
+//{
+    //pi_camera_control(&camera_dev, PI_CAMERA_CMD_STOP, 0);
+//}
 
 static int8_t open_camera()
 {
@@ -210,7 +207,7 @@ void open_filesystem(struct pi_device *flash, struct pi_device *fs)
 }
 
 /* Moves the weights and the biases from hyperflash to hyperram */
-uint8_t * network_setup()
+int32_t * network_setup()
 {
   pi_task_t task = {0};
   pi_task_block(&task);
@@ -266,22 +263,17 @@ uint8_t * network_setup()
     printf("file open failed\n");
     return NULL;
   }
-  /* configuring space for output */
-  dronetOutput = (int32_t *) pmsis_l2_malloc(2*sizeof(int32_t));
-    if(dronetOutput == NULL)
-    {
-        printf("allocation of memory for dronet output failed.\n");
-        return NULL;
-    }
+  activations_input = L3_weights+rdDone;
   /* **************************** */
 
   /* configuring camera and writing image to filesystem */
-    imageBuffer = (uint8_t *) pmsis_l2_malloc(40000*sizeof(uint8_t));
+    //imageBuffer = (uint8_t *) pmsis_l2_malloc(40000*sizeof(uint8_t));
+    dronetOutput = pmsis_l2_malloc(2*sizeof(int32_t));
 
-    if(imageBuffer == NULL)
+    if(dronetOutput == NULL)
     {
-        printf("allocation of memory for image failed.\n");
-        return NULL;
+      printf("allocation of memory for image failed.\n");
+      return NULL;
     }
 
     printf("opening camera\n");
@@ -290,43 +282,7 @@ uint8_t * network_setup()
         printf("Failed to open camera.\n");
         return NULL;
     }
-    printf("initiating camera\n");
-    /* TODO: TEST AEG INIT*/
-    pi_camera_control(&camera_dev, PI_CAMERA_CMD_START, 0);
-    pi_camera_capture(&camera_dev, imageBuffer, 40000);
-    pi_camera_control(&camera_dev, PI_CAMERA_CMD_STOP, 0);
-
-    printf("copying image from L2 to ram\n");
-    activations_input = L3_weights+rdDone;
-    pi_ram_write(&ram, activations_input, imageBuffer, 40000);
-
-    //printf("copying image to filesystem\n");
-    //pi_fs_file_t * fileCopy = file;
-    //for(uint16_t wrDone = 0; wrDone < 40000;)
-    //{
-      //int writeSize = pi_ram_write(&ram, activations_input+wrDone, imageBuffer+wrDone, IMAGE_BUFF_SIZE);
-      //printf("writeSize: %d\n", writeSize);
-      //wrDone += writeSize;
-    //}
-
-    /* remember: imageBuffer and file values can change */
-  /* *************************** */
-
-  //printf("copying image from filesystem to ram\n");
-  //activations_input = L3_weights+rdDone;
-  //rdDone = 0;
-  //int flashBuffSize = FLASH_BUFF_SIZE * sizeof(char);
-  //// loop on chunk in file
-  //while(rdDone < (40000 / sizeof(char)))
-  //{
-    //// read from HyperFlash
-    //int size = pi_fs_read(file, flashBuffer, flashBuffSize);
-    //// write to HyperRam
-    //pi_ram_write(&ram, activations_input+rdDone, flashBuffer, (uint32_t) size);
-    //rdDone += size / sizeof(char);
-  //}
-
-  return imageBuffer;
+    return dronetOutput;
 }
 
 // on cluster function execution
@@ -342,7 +298,11 @@ void pulp_parallel(void *arg)
   pi_cl_team_fork(NUM_CORES, (void *)cluster_main, arg);
 }
 
-int32_t * network_run_FabricController()
+char* volatile L2_input;
+char* volatile L2_buffer_allocation;
+int volatile L2_buffer_allocation_end;
+
+char * network_run_FabricController()
 {
   int arg[1];
   arg[0] = (unsigned int) L3_weights_size;
@@ -352,10 +312,6 @@ int32_t * network_run_FabricController()
   pi_time_wait_us(10000);
   pi_freq_set(PI_FREQ_DOMAIN_CL, 100000000);
   pi_time_wait_us(10000);
-
-    /* synchronous write of image k - 1 to ram */
-    pi_ram_write(&ram, activations_input, imageBuffer, 40000);
-    /* *************************************** */
 
   struct pi_device cluster_dev = {0};
   struct pi_cluster_conf conf;
@@ -371,27 +327,41 @@ int32_t * network_run_FabricController()
   if (pi_cluster_open(&cluster_dev))
     return NULL;
 
-    /* Asynchronous request for image k */
-    pi_camera_capture_async(&camera_dev, imageBuffer, 40000, pi_task_callback(&task, handle_transfer_end, NULL));
-    pi_camera_control(&camera_dev, PI_CAMERA_CMD_START, 0);
-    /* ************************************** */
 
   // Then offload an entry point, this will get executed on the cluster controller
   pi_cluster_send_task_to_cl(&cluster_dev, &cluster_task);
+
+/*
+  - input allocation and copy
+*/
+
+    dory_L2_alloc(&L2_buffer_allocation,
+      &L2_buffer_allocation_end,
+      &L2_input,
+      40000,
+      1 // begin is 1, end is 0
+      );
+
+  printf("initiating camera\n");
+  /* TODO: TEST AEG INIT*/
+  pi_camera_control(&camera_dev, PI_CAMERA_CMD_START, 0);
+  pi_camera_capture(&camera_dev, (void *)L2_input , 40000);
+  pi_camera_control(&camera_dev, PI_CAMERA_CMD_STOP, 0);
+
+  // Then offload an entry point, this will get executed on the cluster controller
+  pi_cluster_send_task_to_cl(&cluster_dev, &cluster_task);
+
   // closing of the cluster
   pi_cluster_close(&cluster_dev);
-  return dronetOutput;
+  return L2_input;
 }
 
 
 int memId;
 char* L2_output;
-char* L2_input;
 char* L2_weights_1;
 char* L2_weights_2;
-char* L2_buffer_allocation;
 char* L2_buffer_tofree_copy;
-int L2_buffer_allocation_end;
 char *l1_buffer;
 uint8_t * bypass_activations;
 uint8_t * activation_to_keep;
@@ -444,18 +414,23 @@ void network_run(unsigned int L3_weights_size)
   bypass_weights = d_buffering_weights_e ? L2_weights_2 : L2_weights_1;
   pi_cl_alloc_req_t alloc_req = {0};
   pi_cl_free_req_t free_req = {0};
-  if (pi_core_id()==0)
+  if (pi_core_id()==0 && firstTime)
   {
-    pi_cl_l2_malloc((uint32_t) 379992, &alloc_req);
+    pi_cl_l2_malloc((uint32_t) 420000, &alloc_req);
     L2_buffer_allocation = pi_cl_l2_malloc_wait(&alloc_req);
     L2_buffer_tofree_copy = L2_buffer_allocation;
-    L2_buffer_allocation_end = L2_buffer_allocation + 379992;
+    L2_buffer_allocation_end = L2_buffer_allocation + 420000;
     l1_buffer = pmsis_l1_malloc((uint32_t) 38000);
 #ifdef VERBOSE
     printf("\nL2 Buffer alloc initial\t@ 0x%08x:\t%s\n", (unsigned int)L2_buffer_allocation, L2_buffer_allocation?"Ok":"Failed");
     printf("L1 Buffer alloc initial\t@ 0x%08x:\t%s\n\n", (unsigned int)l1_buffer, l1_buffer?"Ok":"Failed");
 #endif
+
+    firstTime = 0;
+    return;
   }
+  else if(firstTime)
+      return;
 /* ---------------------------------- */
 /* --------- SECTION 0 END ---------- */
 /* ---------------------------------- */
@@ -469,18 +444,6 @@ void network_run(unsigned int L3_weights_size)
 /* ---------------------------------- */
   if(pi_core_id()==0)
   {
-/*
-  - input allocation and copy
-*/
-
-    dory_L2_alloc(&L2_buffer_allocation,
-      &L2_buffer_allocation_end,
-      &L2_input,
-      40000,
-      begin_end_n // begin is 1, end is 0
-      );
-    pi_cl_ram_read(&ram, activations_input, L2_input, 40000, &buff_req1);
-    pi_cl_ram_read_wait(&buff_req1);
 
 /*
   - first layer weights allocation and copy
@@ -605,10 +568,10 @@ void network_run(unsigned int L3_weights_size)
         layerConvBNRelu0(args);
         break;
       case 1:
-        layerMaxPool1L3(args);
+        layerMaxPool1(args);
         break;
       case 2:
-        layerConvBNRelu2L3(args);
+        layerConvBNRelu2(args);
         break;
       case 3:
         layerConvBNRelu3(args);
@@ -860,9 +823,10 @@ void network_run(unsigned int L3_weights_size)
 
   if (pi_core_id()==0)
   {
-    pi_cl_l2_free(L2_buffer_tofree_copy, (uint32_t) 379992, &free_req);
+    pi_cl_l2_free(L2_buffer_tofree_copy, (uint32_t) 420000, &free_req);
     pi_cl_l2_free_wait(&free_req);
     pmsis_l1_malloc_free(l1_buffer, (uint32_t) 38000 );
+    firstTime = 1;
   }
 /* ---------------------------------- */
 /* --------- SECTION 3 END ---------- */

@@ -218,6 +218,13 @@ void layerMatMul14_last(
       /* acquiring probability of collision and steer rate */
       dronetOutput[0] = *(((int32_t*)y));
       dronetOutput[1] = *(((int32_t*)y) + 1);
+      if(pi_core_id() == 0)
+      {
+          printf("Output 1: %d\n", dronetOutput[0]);
+          printf("Output 2: %d\n\n", dronetOutput[1]);
+          printf("Output 1: %u\n", (uint32_t)dronetOutput[0]);
+          printf("Output 2: %u\n\n", (uint32_t)dronetOutput[1]);
+      }
       /* ************************************************* */
 
         dory_dma_memcpy_3d_custom_out(

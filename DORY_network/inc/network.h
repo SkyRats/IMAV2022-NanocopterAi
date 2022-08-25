@@ -17,7 +17,7 @@
  * limitations under the License.
  */
 #include <stdint.h>
-uint8_t * network_setup();
-int32_t * network_run_FabricController();
+int32_t * network_setup();
+char * network_run_FabricController();
 void cluster_main(void *arg);
 void pulp_parallel(void *arg);
