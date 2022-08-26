@@ -17,6 +17,7 @@
 #define DEBUG_MODULE "TEST"
 #include "debug.h"
 #define ABS(a) ((a>0.0f?a:-a))
+#define TOL 0.1f
 
 
 static void setHoverSetpoint(setpoint_t *setpoint, float vx, float vy, float z, float yawrate)
@@ -51,9 +52,10 @@ void appMain() {
   {
     vTaskDelay(M2T(10));
     float zEstimate = logGetFloat(idZEstimate);
-    if(ABS(zEstimate - 0.3) > TOL && !reached_height){
-         setHoverSetpoint(&setpoint, 0, 0, 0.3, 0);
+    if(ABS(zEstimate - 1.0f) > TOL && !reached_height){
+         setHoverSetpoint(&setpoint, 0, 0, 1.0, 0);
          commanderSetSetpoint(&setpoint, 3);
+         vTaskDelay(M2T(50));
     }
     else{
       reached_height = true;
