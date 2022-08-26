@@ -1,1 +1,1 @@
-obj-y =+ testCrazyflie.o
+obj-y += testCrazyflie.o

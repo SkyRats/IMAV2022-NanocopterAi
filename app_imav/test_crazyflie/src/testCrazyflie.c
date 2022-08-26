@@ -16,7 +16,7 @@
 
 #define DEBUG_MODULE "TEST_CRAZYFLIE"
 #define AUTONOMOUS_TEST_FLIGHT
-#define TOL 0.1
+#define TOL 0.1f
 #define MAX(a,b) ((a>b)?a:b)
 #define MIN(a,b) ((a<b)?a:b)
 #define ABS(a) ((a>0.0f?a:-a))
@@ -47,15 +47,15 @@ void appMain()
     static setpoint_t setpoint;
     vTaskDelay(M2T(3000));
 
-    logVarId_t idXEstimate = logGetVarId("stateEstimate", "x");
-    logVarId_t idYEstimate = logGetVarId("stateEstimate", "y");
+    //logVarId_t idXEstimate = logGetVarId("stateEstimate", "x");
+    //logVarId_t idYEstimate = logGetVarId("stateEstimate", "y");
     logVarId_t idZEstimate = logGetVarId("stateEstimate", "z");
-    logVarId_t idStabilizerYaw = logGetVarId("stabilizer", "yaw");
+    //logVarId_t idStabilizerYaw = logGetVarId("stabilizer", "yaw");
 
     vTaskDelay(M2T(10));
     //Get position esimate
-    float xEstimate = logGetFloat(idXEstimate);
-    float yEstimate = logGetFloat(idYEstimate);
+    //float xEstimate = logGetFloat(idXEstimate);
+    //float yEstimate = logGetFloat(idYEstimate);
 
     // Get Height estimate
     float heightEstimate = logGetFloat(idZEstimate);
