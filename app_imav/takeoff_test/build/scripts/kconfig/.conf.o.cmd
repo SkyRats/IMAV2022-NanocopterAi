@@ -1,6 +1,6 @@
-cmd_scripts/kconfig/conf.o := gcc -Wp,-MD,scripts/kconfig/.conf.o.d -Iscripts/kconfig -Wall -Wmissing-prototypes -Wstrict-prototypes -O2 -fomit-frame-pointer -std=gnu89 -Wno-format-overflow -D_DEFAULT_SOURCE -D_XOPEN_SOURCE=600 -DCURSES_LOC="<ncurses.h>" -DNCURSES_WIDECHAR=1 -DLOCALE -c -o scripts/kconfig/conf.o /home/default/crazyflie-firmware/scripts/kconfig/conf.c
+cmd_scripts/kconfig/conf.o := gcc -Wp,-MD,scripts/kconfig/.conf.o.d -Iscripts/kconfig -Wall -Wmissing-prototypes -Wstrict-prototypes -O2 -fomit-frame-pointer -std=gnu89 -Wno-format-overflow -D_DEFAULT_SOURCE -D_XOPEN_SOURCE=600 -DCURSES_LOC="<ncurses.h>" -DNCURSES_WIDECHAR=1 -DLOCALE -c -o scripts/kconfig/conf.o /home/ipontes3olavy/crazyflie-firmware/scripts/kconfig/conf.c
 
-source_scripts/kconfig/conf.o := /home/default/crazyflie-firmware/scripts/kconfig/conf.c
+source_scripts/kconfig/conf.o := /home/ipontes3olavy/crazyflie-firmware/scripts/kconfig/conf.c
 
 deps_scripts/kconfig/conf.o := \
     $(wildcard include/config/.h) \
@@ -105,17 +105,17 @@ deps_scripts/kconfig/conf.o := \
   /usr/include/x86_64-linux-gnu/asm/errno.h \
   /usr/include/asm-generic/errno.h \
   /usr/include/asm-generic/errno-base.h \
-  /home/default/crazyflie-firmware/scripts/kconfig/lkc.h \
+  /home/ipontes3olavy/crazyflie-firmware/scripts/kconfig/lkc.h \
     $(wildcard include/config/prefix.h) \
     $(wildcard include/config/list.h) \
     $(wildcard include/config/y.h) \
-  /home/default/crazyflie-firmware/scripts/kconfig/expr.h \
+  /home/ipontes3olavy/crazyflie-firmware/scripts/kconfig/expr.h \
     $(wildcard include/config/config.h) \
   /usr/include/assert.h \
-  /home/default/crazyflie-firmware/scripts/kconfig/list.h \
+  /home/ipontes3olavy/crazyflie-firmware/scripts/kconfig/list.h \
   /usr/lib/gcc/x86_64-linux-gnu/9/include/stdbool.h \
   /usr/include/libintl.h \
-  /home/default/crazyflie-firmware/scripts/kconfig/lkc_proto.h \
+  /home/ipontes3olavy/crazyflie-firmware/scripts/kconfig/lkc_proto.h \
 
 scripts/kconfig/conf.o: $(deps_scripts/kconfig/conf.o)
 

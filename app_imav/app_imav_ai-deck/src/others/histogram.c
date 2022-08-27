@@ -69,7 +69,7 @@ void peaksBoundsPeakTechnique(uint16_t *restrict histogram, uint8_t firstPeak, u
     }
 }
 
-void findPeaks(uint16_t * restrict histogram, uint16_t  *restrict firstPeak, uint16_t  * restrict secondPeak)
+void findPeaks(uint16_t * histogram, uint16_t  *firstPeak, uint16_t  * secondPeak)
 {
     uint8_t i;
     int16_t diff;
@@ -89,7 +89,7 @@ void findPeaks(uint16_t * restrict histogram, uint16_t  *restrict firstPeak, uin
             *secondPeak = i - MIN_PIXEL_VALUE;
     }
 
-    diff = *firstPeak - i;
+    diff = *firstPeak - MAX_PIXEL_VALUE + MIN_PIXEL_VALUE;
     diff = diff > 0 ? diff : -diff;
     if(histogram[MAX_PIXEL_VALUE - MIN_PIXEL_VALUE] > histogram[*secondPeak] && diff > PEAK_SPACE)
         *secondPeak = MAX_PIXEL_VALUE - MIN_PIXEL_VALUE;
@@ -113,9 +113,9 @@ void smoothHistogram(uint16_t *restrict histogram)
     pi_cl_alloc_req_t alloc_req;
     pi_cl_free_req_t free_req;
     uint8_t i = 1;
-    pi_cl_l2_malloc(((MAX_PIXEL_VALUE + 1) - MIN_PIXEL_VALUE) * sizeof(uint16_t), &alloc_req);
+    pi_cl_l2_malloc(((MAX_PIXEL_VALUE + 2) - MIN_PIXEL_VALUE) * sizeof(uint16_t), &alloc_req);
     uint16_t *newHistogram = pi_cl_l2_malloc_wait(&alloc_req);
-    memset(newHistogram, 0, ((MAX_PIXEL_VALUE + 1) - MIN_PIXEL_VALUE) * sizeof(uint16_t));
+    memset(newHistogram, 0, ((MAX_PIXEL_VALUE + 2) - MIN_PIXEL_VALUE) * sizeof(uint16_t));
 
     newHistogram[0] = (histogram[0] + histogram[1]) >> 1;/*divide by 2*/
     newHistogram[MAX_PIXEL_VALUE - MIN_PIXEL_VALUE] = (histogram[MAX_PIXEL_VALUE - MIN_PIXEL_VALUE] + histogram[MAX_PIXEL_VALUE - 1 - MIN_PIXEL_VALUE]) >> 1;
@@ -214,6 +214,9 @@ void __attribute__((noinline)) adaptiveHistogramTechnique(PGMImage* img)
     calculateHistogram(img, histogram);
     smoothHistogram(histogram);
     findPeaks(histogram, &firstPeak, &secondPeak);
+
+    firstPeak = firstPeak > MAX_PIXEL_VALUE ? MAX_PIXEL_VALUE : firstPeak;
+    secondPeak = secondPeak > MAX_PIXEL_VALUE ? MAX_PIXEL_VALUE : secondPeak;
 
     #ifdef DEBUG_ON
     printf("first peak: %u; second peak: %u\n", firstPeak, secondPeak);

@@ -1,4 +1,4 @@
-cmd_scripts/kconfig/zconf.tab.o := gcc -Wp,-MD,scripts/kconfig/.zconf.tab.o.d -Iscripts/kconfig -Wall -Wmissing-prototypes -Wstrict-prototypes -O2 -fomit-frame-pointer -std=gnu89 -Wno-format-overflow -D_DEFAULT_SOURCE -D_XOPEN_SOURCE=600 -DCURSES_LOC="<ncurses.h>" -DNCURSES_WIDECHAR=1 -DLOCALE  -I/home/default/crazyflie-firmware/scripts/kconfig -Iscripts/kconfig -c -o scripts/kconfig/zconf.tab.o scripts/kconfig/zconf.tab.c
+cmd_scripts/kconfig/zconf.tab.o := gcc -Wp,-MD,scripts/kconfig/.zconf.tab.o.d -Iscripts/kconfig -Wall -Wmissing-prototypes -Wstrict-prototypes -O2 -fomit-frame-pointer -std=gnu89 -Wno-format-overflow -D_DEFAULT_SOURCE -D_XOPEN_SOURCE=600 -DCURSES_LOC="<ncurses.h>" -DNCURSES_WIDECHAR=1 -DLOCALE  -I/home/ipontes3olavy/crazyflie-firmware/scripts/kconfig -Iscripts/kconfig -c -o scripts/kconfig/zconf.tab.o scripts/kconfig/zconf.tab.c
 
 source_scripts/kconfig/zconf.tab.o := scripts/kconfig/zconf.tab.c
 
@@ -68,19 +68,19 @@ deps_scripts/kconfig/zconf.tab.o := \
   /usr/include/x86_64-linux-gnu/bits/strings_fortified.h \
   /usr/include/x86_64-linux-gnu/bits/string_fortified.h \
   /usr/lib/gcc/x86_64-linux-gnu/9/include/stdbool.h \
-  /home/default/crazyflie-firmware/scripts/kconfig/lkc.h \
+  /home/ipontes3olavy/crazyflie-firmware/scripts/kconfig/lkc.h \
     $(wildcard include/config/.h) \
     $(wildcard include/config/prefix.h) \
     $(wildcard include/config/list.h) \
     $(wildcard include/config/y.h) \
-  /home/default/crazyflie-firmware/scripts/kconfig/expr.h \
+  /home/ipontes3olavy/crazyflie-firmware/scripts/kconfig/expr.h \
     $(wildcard include/config/config.h) \
   /usr/include/assert.h \
-  /home/default/crazyflie-firmware/scripts/kconfig/list.h \
+  /home/ipontes3olavy/crazyflie-firmware/scripts/kconfig/list.h \
   /usr/include/libintl.h \
   /usr/include/locale.h \
   /usr/include/x86_64-linux-gnu/bits/locale.h \
-  /home/default/crazyflie-firmware/scripts/kconfig/lkc_proto.h \
+  /home/ipontes3olavy/crazyflie-firmware/scripts/kconfig/lkc_proto.h \
   scripts/kconfig/zconf.hash.c \
   scripts/kconfig/zconf.lex.c \
   /usr/include/errno.h \
@@ -106,9 +106,9 @@ deps_scripts/kconfig/zconf.tab.o := \
   /usr/include/x86_64-linux-gnu/bits/getopt_core.h \
   /usr/include/x86_64-linux-gnu/bits/unistd.h \
   /usr/include/x86_64-linux-gnu/bits/unistd_ext.h \
-  /home/default/crazyflie-firmware/scripts/kconfig/util.c \
-  /home/default/crazyflie-firmware/scripts/kconfig/lkc.h \
-  /home/default/crazyflie-firmware/scripts/kconfig/confdata.c \
+  /home/ipontes3olavy/crazyflie-firmware/scripts/kconfig/util.c \
+  /home/ipontes3olavy/crazyflie-firmware/scripts/kconfig/lkc.h \
+  /home/ipontes3olavy/crazyflie-firmware/scripts/kconfig/confdata.c \
     $(wildcard include/config/autoconfig.h) \
     $(wildcard include/config/overwriteconfig.h) \
     $(wildcard include/config/autoheader.h) \
@@ -124,12 +124,12 @@ deps_scripts/kconfig/zconf.tab.o := \
   /usr/include/x86_64-linux-gnu/bits/time.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h \
-  /home/default/crazyflie-firmware/scripts/kconfig/expr.c \
-  /home/default/crazyflie-firmware/scripts/kconfig/symbol.c \
+  /home/ipontes3olavy/crazyflie-firmware/scripts/kconfig/expr.c \
+  /home/ipontes3olavy/crazyflie-firmware/scripts/kconfig/symbol.c \
   /usr/include/regex.h \
   /usr/include/x86_64-linux-gnu/sys/utsname.h \
   /usr/include/x86_64-linux-gnu/bits/utsname.h \
-  /home/default/crazyflie-firmware/scripts/kconfig/menu.c \
+  /home/ipontes3olavy/crazyflie-firmware/scripts/kconfig/menu.c \
 
 scripts/kconfig/zconf.tab.o: $(deps_scripts/kconfig/zconf.tab.o)
 

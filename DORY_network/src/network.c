@@ -46,6 +46,7 @@
 #include "bsp/bsp.h"
 #include "bsp/camera.h"
 #include "bsp/camera/himax.h"
+#include "gaplib/ImgIO.h"
 
 #define FLASH_BUFF_SIZE 128
 #define IMAGE_BUFF_SIZE 128
@@ -98,6 +99,7 @@ static volatile struct pi_device camera_dev;
 static pi_task_t task;
 static int32_t * dronetOutput;
 static volatile uint8_t firstTime = 1;
+static volatile uint8_t firstTimeCluster = 1;
 
 #ifdef VERBOSE
 // check for input/output acitvation checksum
@@ -141,11 +143,6 @@ static void check_layer_weight(char *weight, int check_sum_true, int dim) {
     printf("Checksum weight/bias Layer :\tFailed [%u vs. %u]\n", checksum, check_sum_true);
 }
 #endif
-
-//static void handle_transfer_end(void *arg)
-//{
-    //pi_camera_control(&camera_dev, PI_CAMERA_CMD_STOP, 0);
-//}
 
 static int8_t open_camera()
 {
@@ -269,7 +266,6 @@ int32_t * network_setup()
   /* **************************** */
 
   /* configuring camera and writing image to filesystem */
-    //imageBuffer = (uint8_t *) pmsis_l2_malloc(40000*sizeof(uint8_t));
     dronetOutput = pmsis_l2_malloc(2*sizeof(int32_t));
 
     if(dronetOutput == NULL)
@@ -319,6 +315,7 @@ struct pi_device * network_run_FabricController()
   }
   else
       firstTime = 1;
+  firstTimeCluster = 1;
 
   struct pi_device cluster_dev = {0};
   struct pi_cluster_conf conf;
@@ -350,17 +347,18 @@ struct pi_device * network_run_FabricController()
       );
 
   printf("initiating camera\n");
-  /* TODO: TEST AEG INIT*/
   pi_camera_control(&camera_dev, PI_CAMERA_CMD_START, 0);
   pi_camera_capture(&camera_dev, L2_input , 40000);
   pi_camera_control(&camera_dev, PI_CAMERA_CMD_STOP, 0);
+  //WriteImageToFile("../../../img_gray.pgm", 200, 200, sizeof(uint8_t), L2_input, GRAY_SCALE_IO);
+
 
   // Then offload an entry point, this will get executed on the cluster controller
   pi_cluster_send_task_to_cl(&cluster_dev, &cluster_task);
 
   // closing of the cluster
   pi_cluster_close(&cluster_dev);
-  return camera_dev;
+  return &camera_dev;
 }
 
 
@@ -436,8 +434,11 @@ void network_run(unsigned int L3_weights_size)
     firstTime = 0;
     return;
   }
-  else if(firstTime)
+  else if(firstTimeCluster)
+  {
+      firstTimeCluster = 0;
       return;
+  }
 /* ---------------------------------- */
 /* --------- SECTION 0 END ---------- */
 /* ---------------------------------- */

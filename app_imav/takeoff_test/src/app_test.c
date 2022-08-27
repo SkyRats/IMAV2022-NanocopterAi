@@ -14,6 +14,7 @@
 #include "log.h"
 #include "param.h"
 
+#define TOL 0.1f
 #define DEBUG_MODULE "TEST"
 #include "debug.h"
 #define ABS(a) ((a>0.0f?a:-a))
@@ -46,21 +47,23 @@ void appMain() {
   memset(&setpoint, 0, sizeof(setpoint_t));
   commanderSetSetpoint(&setpoint, 3);
   bool reached_height = false;
-  
+
   while (1)
   {
     vTaskDelay(M2T(10));
     float zEstimate = logGetFloat(idZEstimate);
-    if(ABS(zEstimate - 0.3) > TOL && !reached_height){
-         setHoverSetpoint(&setpoint, 0, 0, 0.3, 0);
+    //DEBUG_PRINT("%f\n", (double)zEstimate);
+    if(ABS(zEstimate - 1.0f) > TOL && !reached_height)
+    {
+         setHoverSetpoint(&setpoint, 0, 0, 1.0, 0);
          commanderSetSetpoint(&setpoint, 3);
+         vTaskDelay(M2T(50));
     }
-    else{
+    else
+    {
       reached_height = true;
-      setHoverSetpoint(&setpoint, 0, 0, 0.0, 0);
+      memset(&setpoint, 0, sizeof(setpoint_t));
       commanderSetSetpoint(&setpoint, 3);
     }
-   
-    DEBUG_PRINT("Voou?\n");
   }
 }

@@ -16,7 +16,7 @@
 
 #define DEBUG_MODULE "TEST_CRAZYFLIE"
 #define AUTONOMOUS_TEST_FLIGHT
-#define TOL 0.1
+#define TOL 0.1f
 #define MAX(a,b) ((a>b)?a:b)
 #define MIN(a,b) ((a<b)?a:b)
 #define ABS(a) ((a>0.0f?a:-a))
@@ -44,26 +44,26 @@ static void setHoverSetpoint(setpoint_t *setpoint, float vx, float vy, float z, 
 #ifdef AUTONOMOUS_TEST_FLIGHT
 void appMain()
 {
-    static setpoint_t setpoint;
     vTaskDelay(M2T(3000));
+    static setpoint_t setpoint;
 
-    logVarId_t idXEstimate = logGetVarId("stateEstimate", "x");
-    logVarId_t idYEstimate = logGetVarId("stateEstimate", "y");
+    //logVarId_t idXEstimate = logGetVarId("stateEstimate", "x");
+    //logVarId_t idYEstimate = logGetVarId("stateEstimate", "y");
     logVarId_t idZEstimate = logGetVarId("stateEstimate", "z");
-    logVarId_t idStabilizerYaw = logGetVarId("stabilizer", "yaw");
+    //logVarId_t idStabilizerYaw = logGetVarId("stabilizer", "yaw");
 
     vTaskDelay(M2T(10));
     //Get position esimate
-    float xEstimate = logGetFloat(idXEstimate);
-    float yEstimate = logGetFloat(idYEstimate);
+    //float xEstimate = logGetFloat(idXEstimate);
+    //float yEstimate = logGetFloat(idYEstimate);
 
     // Get Height estimate
     float heightEstimate = logGetFloat(idZEstimate);
-    setHoverSetpoint(&setpoint, 0, 0, 0.3f, 0);
+    //setHoverSetpoint(&setpoint, 0, 0, 1.0f, 0);
 
-    while(ABS(heightEstimate - 0.3f) > TOL)
+    while(ABS(heightEstimate - 1.0f) > TOL)
     {
-        setHoverSetpoint(&setpoint, 0, 0, 0.3f, 0);
+        setHoverSetpoint(&setpoint, 0, 0, 1.0f, 0);
         commanderSetSetpoint(&setpoint, 3);
         heightEstimate = logGetFloat(idZEstimate);
     }
@@ -77,6 +77,12 @@ void appMain()
         heightEstimate = logGetFloat(idZEstimate);
     }
     vTaskDelay(M2T(5000));
+
+    while(1)
+    {
+        setHoverSetpoint(&setpoint, 0, 0, 0.0f, 0);
+        commanderSetSetpoint(&setpoint, 3);
+    }
 }
 #endif
 

@@ -186,11 +186,15 @@ void clusterMain(void * args)
         }
 
         #if SEGMENTATION_METHOD == 0
-        /* copying output from L1 to L2 */
-        pi_cl_dma_cmd((uint32_t) outputImage->data, (uint32_t) clusterArgs->inputImage->data, 40000*sizeof(uint8_t), PI_CL_DMA_DIR_LOC2EXT, &dmaCopyStatus);
+        ///* copying output from L1 to L2 */
+        //pi_cl_dma_cmd((uint32_t) outputImage->data, (uint32_t) clusterArgs->inputImage->data, 40000*sizeof(uint8_t), PI_CL_DMA_DIR_LOC2EXT, &dmaCopyStatus);
 
-        /* wait for transfer to end */
-        pi_cl_dma_cmd_wait(&dmaCopyStatus);
+        ///* wait for transfer to end */
+        //pi_cl_dma_cmd_wait(&dmaCopyStatus);
+
+        outputImage->data[0] = squareCenter.x;
+        outputImage->data[1] = squareCenter.y;
+
         #endif
 
         pmsis_l1_malloc_free(clusterArgs, sizeof(clusterCallArgs));

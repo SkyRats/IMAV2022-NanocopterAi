@@ -15,8 +15,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+GATE_FINDER_INC=app_imav/app_imav_ai-deck/include
+SRC_DIR=app_imav/app_imav_ai-deck/src
+
+COMMON_LIB = $(SRC_DIR)/common
+CONVOLUTION_LIB = $(SRC_DIR)/convolution
+DATA_STRUCT_LIB = $(SRC_DIR)/data_structures
+FILTERS_LIB = $(SRC_DIR)/filters
+MORPHOLOGICAL_LIB = $(SRC_DIR)/morphological_operators
+OTHERS_LIB = $(SRC_DIR)/others
+SEGMENTATION_LIB = $(SRC_DIR)/segmentation
+
+
 APP = main
 APP_SRCS = DORY_network/src/layerMatMul14_last.c
+APP_INC += $(GAP_LIB_PATH)/include
 
 APP_SRCS+=DORY_network/src/layerConvBNRelu12.c
 APP_SRCS+=DORY_network/src/pulp_nn_pointwise_Ho_parallel.c
@@ -49,9 +62,22 @@ APP_SRCS+=DORY_network/src/layerConvBNRelu11.c
 APP_SRCS+=DORY_network/src/pulp_nn_maxpool.c
 APP_SRCS+=DORY_network/src/layerConvBNRelu6.c
 APP_SRCS+=DORY_network/src/pulp_nn_depthwise_generic.c
-APP_SRCS+=DORY_network/src/test_template.c
+APP_SRCS+=DORY_network/src/test_template_3.c
+#APP_SRCS+=DORY_network/src/test_template_2.c
+#APP_SRCS+=DORY_network/src/test_template.c
 APP_SRCS+=DORY_network/src/pulp_nn_linear_out_32.c
 APP_SRCS+=DORY_network/src/layerAddRelu13.c
+APP_SRCS+=$(GAP_LIB_PATH)/img_io/ImgIO.c
+APP_SRCS += app_imav/app_imav_ai-deck/src/tests/board/GateDetect.c
+APP_SRCS += $(FILTERS_LIB)/filter.c
+APP_SRCS += $(CONVOLUTION_LIB)/convolution.c
+APP_SRCS += $(SEGMENTATION_LIB)/threshold.c
+APP_SRCS += $(MORPHOLOGICAL_LIB)/morphological_operators.c
+APP_SRCS += $(DATA_STRUCT_LIB)/queue.c
+APP_SRCS += $(DATA_STRUCT_LIB)/stack.c
+APP_SRCS += $(OTHERS_LIB)/findGate.c
+APP_SRCS += $(OTHERS_LIB)/histogram.c
+APP_SRCS += $(SEGMENTATION_LIB)/regionGrowing.c
 
 ifndef CORE
 CORE=1
@@ -59,8 +85,9 @@ else
 CORE= $(CORE)
 endif
 
-APP_CFLAGS += -DNUM_CORES=$(CORE) -DGAP_SDK=1 -IDORY_network/inc -O3 -w -fno-tree-loop-distribute-patterns -flto
-APP_LDFLAGS += -lm -flto
+APP_CFLAGS += -DNUM_CORES=$(CORE) -DGAP_SDK=1 -IDORY_network/inc -O3 -w -fno-tree-loop-distribute-patterns -flto -Wall -Werror -Wno-maybe-uninitialized -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function -Wundef -DFROM_FILE
+APP_CFLAGS += -I$(TILER_EMU_INC) -I$(TILER_INC) -I$(GATE_FINDER_INC)
+APP_LDFLAGS += -lm -flto -Wl,--gc-sections
 
 
 FLASH_FILES = DORY_network/ConvBNRelu0_weights.hex

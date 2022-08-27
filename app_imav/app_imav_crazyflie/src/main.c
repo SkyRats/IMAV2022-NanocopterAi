@@ -152,18 +152,12 @@ void appMain()
 			dma_flag = 0;  // clear the flag
             quantizedProbOfColl = aideckRxBuffer[1]; /* load pulp-nn results */
             quantizedSteering = aideckRxBuffer[0];
+            gateDetection = aideckRxBuffer[2];
+
             #ifdef DEBUG_ON
-			DEBUG_PRINT("Quantized output 1  (int32): %ld\n", quantizedSteering);
-			DEBUG_PRINT("Quantized output 2  (int32): %ld\n", quantizedProbOfColl);
-			DEBUG_PRINT("Quantized output 1 (uint32): %lu\n", (uint32_t)quantizedSteering);
-			DEBUG_PRINT("Quantized output 2 (uint32): %lu\n\n", (uint32_t)quantizedProbOfColl);
-
-			DEBUG_PRINT("Dequantized output 1? (double): %.4f\n", (double)(1.57079 * (quantizedSteering/2147483648.0));
-			DEBUG_PRINT("Dequantized output 2? (double): %.4f\n\n", (double)(((uint32_t)quantizedProbOfColl)/4294967295.0);
-			//DEBUG_PRINT("Dequantized probability of colision: %d\n", (uint32_t)quantizedProbOfColl/((uint32_t)-1));
-			//DEBUG_PRINT("Dequantized steering angle prediction: %d\n", quantizedSteering);
+			DEBUG_PRINT("Dequantized steer? (double): %.4f\n", (double)((quantizedSteering/2147483647.0));
+			DEBUG_PRINT("Dequantized collision probability? (double): %.4f\n\n", (double)(((uint32_t)quantizedProbOfColl)/4294967295.0));
             #endif
-
 
             // maybe remove this?
 			memset(aideckRxBuffer, 0, BUFFERSIZE);  // clear the dma buffer

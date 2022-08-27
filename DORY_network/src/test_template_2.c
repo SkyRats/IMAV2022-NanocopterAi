@@ -16,10 +16,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+#include <stdio.h>
+#include <stdint.h>
+
 #include "network.h"
 #include "pmsis.h"
 #include "stdio.h"
+#include "gateFinder.h"
+
+/* Autotiler includes. */
+#include "Gap8.h"
+
+/* Gap_lib includes. */
+#include "gaplib/ImgIO.h"
+
 #include "imageIO.h"
+#include "bsp/bsp.h"
+#include "bsp/camera.h"
+#include "bsp/camera/himax.h"
 
 #define STACK_SIZE      2048
 #define NULL_CHECK(val)                                  \
@@ -31,7 +45,44 @@
 
 /* Variables used. */
 int32_t * dronetOutput;
-int32_t toSend[3];
+int32_t toSend[4];
+static volatile struct pi_himax_conf camera_conf;
+static volatile struct pi_device camera_dev;
+
+static int8_t open_camera()
+{
+    printf("initiating camera conf\n");
+    pi_himax_conf_init(&camera_conf);
+
+    camera_conf.format = PI_CAMERA_QVGA; /* 320 x 240 */
+    camera_conf.roi.h = 200;
+    camera_conf.roi.slice_en = 1;
+    camera_conf.roi.w = 200;
+    camera_conf.roi.x = 60; /* 320 / 2 - 100 */
+    camera_conf.roi.y = 40; /* 240 - 200 */
+
+    printf("opening from conf\n");
+    pi_open_from_conf(&camera_dev, &camera_conf);
+    if(pi_camera_open(&camera_dev))
+    {
+        printf("failed to open camera.\n");
+        return -1;
+    }
+
+    /* rotate image -- image is upside down by default */
+    uint8_t set_value = 3;
+    uint8_t reg_value;
+    printf("setting registers\n");
+    pi_camera_reg_set(&camera_dev, IMG_ORIENTATION, &set_value);
+    pi_camera_reg_get(&camera_dev, IMG_ORIENTATION, &reg_value);
+    if(set_value != reg_value)
+    {
+        printf("failed to rotate image.\n");
+        return -1;
+    }
+    pi_camera_control(&camera_dev, PI_CAMERA_CMD_AEG_INIT, 0);
+    return 0;
+}
 
 void test_uart_dronet(void)
 {
@@ -40,7 +91,6 @@ void test_uart_dronet(void)
     uint32_t errors = 0;
     struct pi_device uart;
     struct pi_uart_conf conf;
-    static struct * pi_device camera_dev;
 
     /* Init & open uart. */
     pi_uart_conf_init(&conf);
@@ -53,32 +103,40 @@ void test_uart_dronet(void)
         printf("Uart open failed !\n");
         pmsis_exit(-1);
     }
-  	dronetOutput = network_setup();
+    printf("opening camera\n");
+    if(open_camera())
+    {
+        printf("Failed to open camera.\n");
+        return NULL;
+    }
+    //dronetOutput = network_setup();
 
     while(1)
     {
-      camera_dev = network_run_FabricController();
-      to_send[0] = dronetOutput[0];
-      to_send[1] = dronetOutput[1];
-
-      printf("Acquiring image\n");
+      //camera_dev = network_run_FabricController();
+      //toSend[0] = dronetOutput[0];
+      //toSend[1] = dronetOutput[1];
 
       PGMImage * originalImage = pmsis_l2_malloc(sizeof(PGMImage));
       NULL_CHECK(originalImage);
       printf("originalImage: %p\n", originalImage);
       originalImage->x = 200;
       originalImage->y = 200;
-      imageBuffer = pmsis_l2_malloc(40000*sizeof(uint8_t));
-      pi_camera_control(camera_dev, PI_CAMERA_CMD_START, 0);
-      pi_camera_capture(camera_dev, imageBuffer , 40000);
-      pi_camera_control(camera_dev, PI_CAMERA_CMD_STOP, 0);
+      originalImage->data = pmsis_l2_malloc(40000*sizeof(uint8_t));
+      NULL_CHECK(originalImage->data);
+
+      printf("Acquiring image\n");
+
+      pi_camera_control(&camera_dev, PI_CAMERA_CMD_START, 0);
+      pi_camera_capture(&camera_dev, originalImage->data , 40000);
+      pi_camera_control(&camera_dev, PI_CAMERA_CMD_STOP, 0);
 
       PGMImage * outputImage = pmsis_l2_malloc(sizeof(PGMImage));
       NULL_CHECK(outputImage);
-      outputImage->data = pmsis_l2_malloc(40000*sizeof(uint8_t));
-      NULL_CHECK(outputImage->data);
       outputImage->x = 200;
       outputImage->y = 200;
+      outputImage->data = pmsis_l2_malloc(40000*sizeof(uint8_t));
+      NULL_CHECK(outputImage->data);
 
       PGMImage * args[2];
       args[0] = originalImage;
@@ -106,8 +164,14 @@ void test_uart_dronet(void)
 
       /* Synchronous call to cluster, execution will start only on Master Core (core 0) */
       pi_cluster_send_task_to_cl(&cluster_dev, task);
+      toSend[2] = outputImage->data[0]; /* x position */
+      toSend[3] = outputImage->data[1]; /* y position */
 
-      pi_uart_write(&uart, to_send, 12);
+      printf("x = %d; y = %d\n", toSend[2], toSend[3]); 
+
+      pi_uart_write(&uart, toSend, 16);
+      memset(toSend, 0, 4*sizeof(int32_t));
+      pmsis_l2_malloc_free(task, sizeof(struct pi_cluster_task));
       pmsis_l2_malloc_free(originalImage->data, 40000*sizeof(uint8_t));
       pmsis_l2_malloc_free(originalImage, sizeof(PGMImage));
 

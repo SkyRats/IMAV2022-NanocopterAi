@@ -13,16 +13,16 @@ PQueue* newPQueue(int data, int priority){
 
     return temp;
 
-};
+}
 int peek(PQueue** head){
     return (*head)->data;
 
-};
+}
 void pop(PQueue** head){
     PQueue* temp = *head;
     (*head) = (*head)->next;
     free(temp);
-};
+}
 
 void push(PQueue** head, int d, int p){
     PQueue* start = (*head);
@@ -54,9 +54,9 @@ void push(PQueue** head, int d, int p){
         start->next = temp;
     }
 
-};
+}
 int isEmpty(PQueue** head){
 
     return (*head) == NULL;
 
-};
+}
