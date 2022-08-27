@@ -14,6 +14,8 @@
 #
 CRAZYFLIE_BASE := ../../../../crazyflie-firmware
 
+>>>>>>> ae2a2915c26148b7b9efed49688a24bf2f9aba3c
+
 #
 # We override the default OOT_CONFIG here, we could also name our config
 # to oot-config and that would be the default.
