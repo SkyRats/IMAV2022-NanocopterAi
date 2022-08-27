@@ -21,12 +21,12 @@
 #define PI_OVER_4 0.785398f
 
 
-static void setHoverSetpoint(setpoint_t *setpoint, float x, float y, float z, float yaw){
+static void setHoverSetpoint(setpoint_t *setpoint, float x, float y, float z, float yawrate){
   setpoint->mode.z = modeAbs;
   setpoint->position.z = z;
 
   setpoint->mode.yaw = modeVelocity;
-  setpoint->attitudeRate.yaw = yaw;
+  setpoint->attitudeRate.yaw = yawrate;
 
 
   setpoint->mode.x = modeAbs;
@@ -75,9 +75,6 @@ void appMain() {
   memset(&setpoint, 0, sizeof(setpoint_t));
   commanderSetSetpoint(&setpoint, 3);
   bool reached_height = false;
-<<<<<<< HEAD
-
-=======
   bool down_half = false;
   bool down_quarter = false;
   int counter = 0;
@@ -119,12 +116,11 @@ void appMain() {
       commanderSetSetpoint(&setpoint, 3);
       vTaskDelay(M2T(50));
       DEBUG_PRINT("Decolou?\n");
-      if(ABS(zEstimate - 1.0f) >= TOL){
+      if(ABS(zEstimate - 1.0f) <= TOL){
         reached_height = true;
       }
     }
     
->>>>>>> ae2a2915c26148b7b9efed49688a24bf2f9aba3c
   }
 //MOVING HORIZONTALLY  
   while (reached_height == true &&  counter <= 100){
