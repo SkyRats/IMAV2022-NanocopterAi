@@ -41,8 +41,8 @@ volatile uint8_t dma_flag = 0;
 
 static void setVelocitySetpoint(setpoint_t *setpoint, float vx, float vy, float z, float yawrate);
 #include "explorer.h"
-uint32_t quantizedProbOfColl = 0;
-uint32_t quantizedSteering = 0;
+uint32_t squareX = 0;
+uint32_t squareY = 0;
 
 float maxForwardSpeed = 0.5f;
 
@@ -104,12 +104,12 @@ void appMain()
 		{
 		    dma_flag  = 0;  // clear the flag
 
-            int32_t quantizedProbOfColl = aideckRxBuffer[0]; /* load pulp-dronet-v2 NEMO/DORY results */
-            int32_t quantizedSteering = aideckRxBuffer[1];
+            int32_t squareX = aideckRxBuffer[0]; /* load pulp-dronet-v2 NEMO/DORY results */
+            int32_t squareY = aideckRxBuffer[1];
 
             #ifdef DEBUG_ON
-			DEBUG_PRINT("Quantized probability of colision: %u\n", quantizedProbOfColl);
-			DEBUG_PRINT("Quantized steering angle prediction: %u\n", quantizedSteering);
+			DEBUG_PRINT("output 1: %u\n", squareX);
+			DEBUG_PRINT("output 2: %u\n", squareY);
             #endif
 
             switch(ControllerState)
@@ -135,12 +135,12 @@ void appMain()
 #endif
 
 #ifdef TEST_COM
-int32_t quantizedProbOfColl;
-int32_t quantizedSteering;
+int32_t squareX;
+int32_t squareY;
 
 void appMain()
 {
-	DEBUG_PRINT("Explorer started!\n");
+	DEBUG_PRINT("Gate detection started!\n");
     vTaskDelay(M2T(3000));
 	USART_DMA_Start(115200, (int8_t *)aideckRxBuffer, BUFFERSIZE);
 
@@ -150,17 +150,17 @@ void appMain()
 		if (dma_flag == 1)
 		{
 			dma_flag = 0;  // clear the flag
-            quantizedProbOfColl = aideckRxBuffer[1]; /* load pulp-nn results */
-            quantizedSteering = aideckRxBuffer[0];
-            gateDetection = aideckRxBuffer[2];
+            squareX = aideckRxBuffer[0];
+            squareY = aideckRxBuffer[1];
 
             #ifdef DEBUG_ON
-			DEBUG_PRINT("Dequantized steer? (double): %.4f\n", (double)((quantizedSteering/2147483647.0));
-			DEBUG_PRINT("Dequantized collision probability? (double): %.4f\n\n", (double)(((uint32_t)quantizedProbOfColl)/4294967295.0));
+			DEBUG_PRINT("output 1: %ld\n", squareX);
+			DEBUG_PRINT("output 2: %ld\n\n", squareY);
             #endif
 
             // maybe remove this?
-			memset(aideckRxBuffer, 0, BUFFERSIZE);  // clear the dma buffer
+            aideckRxBuffer[0] = aideckRxBuffer[1] = 0;
+            squareX = squareY = 0;
 		}
 	}
 }
@@ -187,25 +187,3 @@ void __attribute__((used)) DMA1_Stream1_IRQHandler(void)
     //ControllerState =
     dma_flag = 1;
 }
-
-//PARAM_GROUP_START(explorer_params)
-//#ifndef TEST_COM
-//PARAM_ADD(PARAM_FLOAT, maxSpeed, &maxForwardSpeed)
-//////PARAM_ADD(PARAM_FLOAT, arena limits, &arenaLimits)
-//PARAM_ADD(PARAM_FLOAT, reinitialize, &reinit)
-//#endif
-//PARAM_GROUP_STOP(explorer_params)
-//
-//LOG_GROUP_START(log_received_data)
-//LOG_ADD(LOG_UINT32, quant_collision_UINT32, &quantizedProbOfColl)
-//LOG_ADD(LOG_UINT32, quant_steer_UINT32, &quantizedSteering)
-//LOG_ADD(LOG_INT32, quant_collision_INT32, &quantizedProbOfColl)
-//LOG_ADD(LOG_INT32, quant_steer_INT32, &quantizedSteering)
-//#ifndef TEST_COM
-//LOG_ADD(LOG_FLOAT, cmdVelX, &cmdVelX)
-//LOG_ADD(LOG_FLOAT, cmdVelY, &cmdVelY)
-//LOG_ADD(LOG_FLOAT, cmdAngWRad, &cmdAngWRad)
-//LOG_ADD(LOG_UINT8, explorerState, &explorerState)
-//LOG_ADD(LOG_UINT8, controllerState, &controllerState)
-//#endif
-//LOG_GROUP_STOP(log_received_data)

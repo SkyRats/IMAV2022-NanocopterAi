@@ -61,11 +61,11 @@ void clusterMain(void * args)
     PGMImage * restrict originalImage = *((PGMImage **)args);
     PGMImage * restrict outputImage = *((PGMImage **)args + 1);
     PGMImage * restrict inputImage = *((PGMImage **)args + 2);
-    static int FullReport = 1;
-    unsigned long int Time, TimeIndex = 0;
     pi_cl_dma_cmd_t dmaCopyStatus;
     imageProcessingState state = FILTERING;
+    #if SEGMENTATION_METHOD != 0
     uint8_t erosionCount = 1;
+    #endif
     PQueue * labels;
     bool copy = false;
 
@@ -184,7 +184,12 @@ void clusterMain(void * args)
             label = pDequeue(labels);
 
             squareCenter = findGate(clusterArgs->inputImage, label.pQueueItem);
-	    done = (squareCenter.x == 0 && squareCenter.y == 0 && squareCenter.grayShade == 0)? false :true;
+            if(
+               squareCenter.x >= 50 && squareCenter.x <= 150 &&
+               squareCenter.y >= 50 && squareCenter.y <= 150 &&
+               squareCenter.grayShade == 1
+              )
+                done = true;
         }
 
         #if SEGMENTATION_METHOD == 0
@@ -194,8 +199,16 @@ void clusterMain(void * args)
         ///* wait for transfer to end */
         //pi_cl_dma_cmd_wait(&dmaCopyStatus);
 
-        outputImage->data[0] = squareCenter.x;
-        outputImage->data[1] = squareCenter.y;
+        if(done)
+        {
+            outputImage->data[0] = squareCenter.x;
+            outputImage->data[1] = squareCenter.y;
+        }
+        else
+        {
+            outputImage->data[0] = 0;
+            outputImage->data[1] = 0;
+        }
 
         #endif
 

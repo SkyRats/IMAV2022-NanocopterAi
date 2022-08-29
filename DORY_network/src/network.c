@@ -350,7 +350,7 @@ struct pi_device * network_run_FabricController()
   pi_camera_control(&camera_dev, PI_CAMERA_CMD_START, 0);
   pi_camera_capture(&camera_dev, L2_input , 40000);
   pi_camera_control(&camera_dev, PI_CAMERA_CMD_STOP, 0);
-  //WriteImageToFile("../../../img_gray.pgm", 200, 200, sizeof(uint8_t), L2_input, GRAY_SCALE_IO);
+  WriteImageToFile("../../../img_gray.pgm", 200, 200, sizeof(uint8_t), L2_input, GRAY_SCALE_IO);
 
 
   // Then offload an entry point, this will get executed on the cluster controller

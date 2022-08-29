@@ -45,44 +45,10 @@
 
 /* Variables used. */
 int32_t * dronetOutput;
-int32_t toSend[2];
-static volatile struct pi_himax_conf camera_conf;
+int32_t toSend[4];
 static volatile struct pi_device camera_dev;
 
-static int8_t open_camera()
-{
-    printf("initiating camera conf\n");
-    pi_himax_conf_init(&camera_conf);
-
-    camera_conf.format = PI_CAMERA_QVGA; /* 320 x 240 */
-    camera_conf.roi.h = 200;
-    camera_conf.roi.slice_en = 1;
-    camera_conf.roi.w = 200;
-    camera_conf.roi.x = 60; /* 320 / 2 - 100 */
-    camera_conf.roi.y = 40; /* 240 - 200 */
-
-    printf("opening from conf\n");
-    pi_open_from_conf(&camera_dev, &camera_conf);
-    if(pi_camera_open(&camera_dev))
-    {
-        printf("failed to open camera.\n");
-        return -1;
-    }
-
-    /* rotate image -- image is upside down by default */
-    uint8_t set_value = 3;
-    uint8_t reg_value;
-    printf("setting registers\n");
-    pi_camera_reg_set(&camera_dev, IMG_ORIENTATION, &set_value);
-    pi_camera_reg_get(&camera_dev, IMG_ORIENTATION, &reg_value);
-    if(set_value != reg_value)
-    {
-        printf("failed to rotate image.\n");
-        return -1;
-    }
-    pi_camera_control(&camera_dev, PI_CAMERA_CMD_AEG_INIT, 0);
-    return 0;
-}
+uint8_t * run_gateFinder(struct pi_device *);
 
 void test_uart_dronet(void)
 {
@@ -91,6 +57,7 @@ void test_uart_dronet(void)
     uint32_t errors = 0;
     struct pi_device uart;
     struct pi_uart_conf conf;
+    static struct pi_device * camera_dev;
 
     /* Init & open uart. */
     pi_uart_conf_init(&conf);
@@ -103,20 +70,28 @@ void test_uart_dronet(void)
         printf("Uart open failed !\n");
         pmsis_exit(-1);
     }
-    printf("opening camera\n");
-    if(open_camera())
-    {
-        printf("Failed to open camera.\n");
-        return NULL;
-    }
-    //dronetOutput = network_setup();
+    dronetOutput = network_setup();
 
     while(1)
     {
-      //camera_dev = network_run_FabricController();
-      //toSend[0] = dronetOutput[0];
-      //toSend[1] = dronetOutput[1];
+      struct pi_device * camera_dev = network_run_FabricController();
+      toSend[0] = dronetOutput[0];
+      toSend[1] = dronetOutput[1];
 
+      if(((uint32_t)dronetOutput[1])/4294967295.0f < 0.8f)
+          run_gateFinder(camera_dev);
+
+      pi_uart_write(&uart, toSend, 16);
+      memset(toSend, 0, 4*sizeof(uint32_t));
+    }
+
+    pi_uart_close(&uart);
+
+    pmsis_exit(errors);
+}
+
+uint8_t * run_gateFinder(struct pi_device * camera_dev)
+{
       PGMImage * originalImage = pmsis_l2_malloc(sizeof(PGMImage));
       NULL_CHECK(originalImage);
       printf("originalImage: %p\n", originalImage);
@@ -127,9 +102,9 @@ void test_uart_dronet(void)
 
       printf("Acquiring image\n");
 
-      pi_camera_control(&camera_dev, PI_CAMERA_CMD_START, 0);
-      pi_camera_capture(&camera_dev, originalImage->data , 40000);
-      pi_camera_control(&camera_dev, PI_CAMERA_CMD_STOP, 0);
+      pi_camera_control(camera_dev, PI_CAMERA_CMD_START, 0);
+      pi_camera_capture(camera_dev, originalImage->data , 40000);
+      pi_camera_control(camera_dev, PI_CAMERA_CMD_STOP, 0);
 
       PGMImage * outputImage = pmsis_l2_malloc(sizeof(PGMImage));
       NULL_CHECK(outputImage);
@@ -164,24 +139,15 @@ void test_uart_dronet(void)
 
       /* Synchronous call to cluster, execution will start only on Master Core (core 0) */
       pi_cluster_send_task_to_cl(&cluster_dev, task);
-      toSend[0] = outputImage->data[0]; /* x position */
-      toSend[1] = outputImage->data[1]; /* y position */
+      toSend[2] = outputImage->data[0]; /* x position */
+      toSend[3] = outputImage->data[1]; /* y position */
 
-      printf("x = %d; y = %d\n", toSend[0], toSend[1]);
-
-      pi_uart_write(&uart, toSend, 8);
-      memset(toSend, 0, 2*sizeof(int32_t));
       pmsis_l2_malloc_free(task, sizeof(struct pi_cluster_task));
       pmsis_l2_malloc_free(originalImage->data, 40000*sizeof(uint8_t));
       pmsis_l2_malloc_free(originalImage, sizeof(PGMImage));
 
       pmsis_l2_malloc_free(outputImage->data, 40000*sizeof(uint8_t));
       pmsis_l2_malloc_free(outputImage, sizeof(PGMImage));
-    }
-
-    pi_uart_close(&uart);
-
-    pmsis_exit(errors);
 }
 
 /* Program Entry. */

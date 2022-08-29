@@ -182,7 +182,7 @@ Point findGate(PGMImage* img, uint8_t Shade)
                 counter++;
             }
 
-        return (Point){sumH / counter, sumV / counter, img->data[pixelIndex]};
+        return (Point){sumH / counter, sumV / counter, 1};
     }
 
     return (Point){0, 0, 0};
