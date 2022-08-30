@@ -15,175 +15,231 @@
 #include "FreeRTOS.h"
 #include "task.h"
 #include "debug.h"
-#include "uart_dma_setup.h"
 #include "log.h"
 #include "param.h"
+#include "commander.h"
 
 #define DEBUG_MODULE "EXPLORER"
-#define BUFFERSIZE 8
+#define DESIRED_HEIGHT 1.0f
+#define FORWARD_VEL 0.1f
+#define ROTATION_VEL 15.0f
+#define TOL 0.1f
+#define ARENA_EDGES 0.5f
 
-#define TEST_COM
-#define DEBUG_ON
-
-
+#define ABS(a) ((a>0.0f?a:-a))
+uint8_t rotationDir = 1;
 // States
 typedef enum
 {
-    WAITING_FOR_FIRST_MSG, // IDLE, HOVER, TAKEOFF
-    EXPLORING, // GO_FORWARD, TURN_BACK_TO_ARENA, CHANGE_HEADING
-    SEARCHING_FOR_GATE, // FIND_GATE
+    TAKEOFF,
+    FORWARD,
+    LOOK_INWARDS,
+    FIND_GATE,
+    //AVOID_OBSTACLE,
+    LAND,
+    //IDLE
 } ControllerState;
 
-int32_t aideckRxBuffer[BUFFERSIZE/4]; /* 8 bytes of data == 2 32-bit integers */
-volatile uint8_t dma_flag = 0;
+float edgeFinder(float x, float y, float yaw){
+    if (x >= ARENA_EDGES){
+        if (y >= ARENA_EDGES){
+            rotationDir = yaw >= 45 ? 1: -1;
+            return yaw >= 45 ? 180: 270;
+        }
+        else if (y < -ARENA_EDGES){
+            rotationDir = yaw >= 315 ? 1: -1 ;
+            return yaw >= 315 ? 90: 180;
+        }
+        else{
+            rotationDir = (yaw >= 0 && yaw < 90)? 1 : -1;
+            return (yaw >= 0 && yaw < 90)? 90 : 270;
+        }
+    }
+    else if (x < -ARENA_EDGES){
+       if (y >= ARENA_EDGES){
+            rotationDir = yaw >= 120? 1 : -1;
+            return yaw >= 120 ? 270: 0;
+        }
+        else if (y < -ARENA_EDGES){
+            rotationDir = yaw >= 225? 1 : -1;
+            return yaw >= 225 ? 0: 90;
+        }
+        else{
+            rotationDir = yaw >= 180? 1 : -1;
+            return yaw >= 180? 270 : 90;
+        } 
+    }
+    else if (y >= ARENA_EDGES){
+        rotationDir = yaw >= 90? 1 : -1;
+        return yaw >= 90? 180 : 0;
+    }
+    else{
+        rotationDir = yaw >= 270? 1 : -1;
+        return yaw >= 270? 0: 180;
+    }
+}
+static void setPositionSetPoint(setpoint_t *setpoint, float x, float y, float z){//Absolute xyz, no rotation
+  setpoint->mode.yaw = modeVelocity;
+  setpoint->attitudeRate.yaw = 0;
+  setpoint->mode.z = modeAbs;
+  setpoint->position.z = z;
+  setpoint->mode.x = modeAbs;
+  setpoint->mode.y = modeAbs;
+  setpoint->position.x = x;
+  setpoint->position.y = y;
+  setpoint->velocity_body = false;// Velocity based on global coords... not that it matters much in this case
+}
 
-#ifndef TEST_COM
+static void setVelocitySetPoint(setpoint_t *setpoint, float x, float y, float z){//xy velocity, absolute z, no rotation
+  setpoint->mode.yaw = modeVelocity;
+  setpoint->attitude.yaw = 0;
+  setpoint->mode.z = modeAbs;
+  setpoint->position.z = z;
+  setpoint->mode.x = modeVelocity;
+  setpoint->mode.y = modeVelocity;
+  setpoint->velocity.x = x;
+  setpoint->velocity.y = y;
+  setpoint->velocity_body = true;// Velocity based on relative coords, since now it matters.
 
-static void setVelocitySetpoint(setpoint_t *setpoint, float vx, float vy, float z, float yawrate);
-#include "explorer.h"
-uint32_t squareX = 0;
-uint32_t squareY = 0;
+}
+static void setAttitudeSetpoint(setpoint_t *setpoint,float x, float y, float z, float yaw){//Absolute rotation
+  setpoint->mode.yaw = modeAbs;
+  setpoint->attitude.yaw = yaw;
+  setpoint->mode.z = modeAbs;
+  setpoint->position.z = z;
+  setpoint->mode.x = modeAbs;
+  setpoint->mode.y = modeAbs;
+  setpoint->position.x = x;
+  setpoint->position.y = y;
+  setpoint->velocity_body = true;
+}
+static void setAttitudeRateSetpoint(setpoint_t *setpoint,float x, float y, float z, float yawRate){//Velocity rotation
+  setpoint->mode.yaw = modeVelocity;
+  setpoint->attitudeRate.yaw = yawRate;
+  setpoint->mode.z = modeAbs;
+  setpoint->position.z = z;
+  setpoint->mode.x = modeAbs;
+  setpoint->mode.y = modeAbs;
+  setpoint->position.x = x;
+  setpoint->position.y = y;
+  setpoint->velocity_body = true;
+}
+void appMain(){
 
-float maxForwardSpeed = 0.5f;
+    //Initialize Sensors
+    paramVarId_t idPositioningDeck = paramGetVarId("deck", "bcFlow2");
+    uint8_t positioningInit = paramGetUint(idPositioningDeck);
 
-float cmdVelX = 0.0f;
-float cmdVelY = 0.0f;
-float cmdAngWRad = 0.0f;
-float cmdAngWDeg = 0.0f;
-
-bool reinit = false;
-
-ControllerState controllerState = WAITING_FOR_FIRST_MSG;
-ExplorerState explorerState;
-
-void appMain()
-{
-	DEBUG_PRINT("Explorer started!\n");
-	USART_DMA_Start(115200, (int8_t *)aideckRxBuffer, BUFFERSIZE);
-    vTaskDelay(M2T(3000));
-
-    // Getting the Logging IDs of the state estimates
+    //Initialize Estimators
+    logVarId_t idStabilizerYaw = logGetVarId("stabilizer", "yaw");
     logVarId_t idXEstimate = logGetVarId("stateEstimate", "x");
     logVarId_t idYEstimate = logGetVarId("stateEstimate", "y");
     logVarId_t idZEstimate = logGetVarId("stateEstimate", "z");
-    logVarId_t idStabilizerYaw = logGetVarId("stabilizer", "yaw");
 
-    // Initialize crazyflie position struct
-    CfPosition crazyfliePosition = {.x = logGetFloat(idXEstimate), .y = logGetFloat(idYEstimate)};
+    //Initialize Variables
+    static setpoint_t setpoint;
+    ControllerState currentState = TAKEOFF;
+    bool turnOff = false;// If set to true, the main loop closes, and the motors turn off.
+    bool down_half = false;
+    bool down_quarter = false;
+    float edgeRotation = 0;
+    
+    
+    memset(&setpoint, 0, sizeof(setpoint_t));
+    commanderSetSetpoint(&setpoint, 3);
 
-    // Getting Param IDs of the deck driver initialization
-    paramVarId_t idPositioningDeck = paramGetVarId("deck", "bcFlow2");
-    paramVarId_t idAIDeck = paramGetVarId("deck", "bcAI");
-
-    // initialize state machine
-    explorerState = explorerInit(crazyfliePosition, maxForwardSpeed, TAKEOFF);
-
-    // Intialize the setpoint structure
-    setpoint_t setpoint;
-
-	while(1)
-    {
-		vTaskDelay(M2T(10));
-
-        // initialize state machine
-        if(reinit)
-            explorerState = explorerInit(crazyfliePosition, maxForwardSpeed, TAKEOFF);
-
-        // Check if decks are properly mounted
-        uint8_t positioningInit = paramGetUint(idPositioningDeck);
-        uint8_t aiDeckInit = paramGetUint(idAIDeck);
-
-        //Get position esimate
+    vTaskDelay(M2T(3000));//After every task, especially those relatig to movement, an appropriate delay must be set
+    while(positioningInit && turnOff == false){
         float xEstimate = logGetFloat(idXEstimate);
         float yEstimate = logGetFloat(idYEstimate);
+        float zEstimate = logGetFloat(idZEstimate);
+        float yawEstimate = logGetFloat(idStabilizerYaw);
 
-        // Get Height estimate
-        float heightEstimate = logGetFloat(idHeightEstimate);
-
-		if (dma_flag == 1)
-		{
-		    dma_flag  = 0;  // clear the flag
-
-            int32_t squareX = aideckRxBuffer[0]; /* load pulp-dronet-v2 NEMO/DORY results */
-            int32_t squareY = aideckRxBuffer[1];
-
-            #ifdef DEBUG_ON
-			DEBUG_PRINT("output 1: %u\n", squareX);
-			DEBUG_PRINT("output 2: %u\n", squareY);
-            #endif
-
-            switch(ControllerState)
-            {
-                case WAITING_FOR_FIRST_MSG:
-                    break;
-                case EXPLORING:
-                    break;
-                case TRAVERSING_GATE:
-                    break;
-                default:
-                    DEBUG_PRINT("Controller state does not exist!\n");
-                    break;
+        switch (currentState)
+        {
+        case TAKEOFF:
+            vTaskDelay(M2T(10));
+            setPositionSetPoint(&setpoint, 0, 0, DESIRED_HEIGHT);
+            commanderSetSetpoint(&setpoint, 3);
+            vTaskDelay(M2T(100));
+            zEstimate = logGetFloat(idZEstimate);
+            vTaskDelay(M2T(10));
+            if(zEstimate >= DESIRED_HEIGHT - TOL){
+                currentState = FORWARD;
             }
+            break;
+        case FORWARD: //Goes forward until it reaches arena edges.
+            if(xEstimate <= ARENA_EDGES && xEstimate >= -ARENA_EDGES && yEstimate <= ARENA_EDGES && yEstimate >= -ARENA_EDGES){
+                vTaskDelay(M2T(10));
+                setVelocitySetPoint(&setpoint, FORWARD_VEL, 0, DESIRED_HEIGHT);
+                commanderSetSetpoint(&setpoint, 3);
+                vTaskDelay(M2T(100));
+            }
+            else{
+                edgeRotation = edgeFinder(xEstimate, yEstimate, yawEstimate);
+                currentState = LOOK_INWARDS;
+            }
+            break;
+        case LOOK_INWARDS:
+            vTaskDelay(M2T(10));
+            setAttitudeSetpoint(&setpoint, xEstimate, yEstimate, DESIRED_HEIGHT, edgeRotation);
+            commanderSetSetpoint(&setpoint, 3);
+            vTaskDelay(M2T(100));
+            yawEstimate = logGetFloat(idStabilizerYaw);
+            vTaskDelay(M2T(10));
+            if (ABS(yawEstimate - edgeRotation) <= 10 ){
+                currentState = FIND_GATE;
+            }
+            break;
+        case FIND_GATE:
+            if((xEstimate <= ARENA_EDGES || xEstimate >= -ARENA_EDGES) && (yEstimate <= ARENA_EDGES || yEstimate >= -ARENA_EDGES)){
+                vTaskDelay(M2T(10));
+                setAttitudeRateSetpoint(&setpoint, xEstimate, yEstimate, DESIRED_HEIGHT, rotationDir*ROTATION_VEL);
+                vTaskDelay(M2T(100));
+                yawEstimate = logGetFloat(idStabilizerYaw);
+                vTaskDelay(M2T(10));
+                if(yawEstimate >= edgeRotation + 90 || yawEstimate <= edgeRotation - 90){
+                    currentState = LAND;
+                }
+            }
+            else{
+                vTaskDelay(M2T(10));
+                setAttitudeRateSetpoint(&setpoint, xEstimate, yEstimate, DESIRED_HEIGHT, edgeRotation + rotationDir*180);
+                vTaskDelay(M2T(100));
+                yawEstimate = logGetFloat(idStabilizerYaw);
+                vTaskDelay(M2T(10));
+                if(yawEstimate >= edgeRotation + 180 || yawEstimate <= edgeRotation - 180){
+                    currentState = LAND;
+                }
+            }
+        case LAND:
+            vTaskDelay(M2T(50));
+            if(down_half == false){
+                setVelocitySetPoint(&setpoint, 0, 0, DESIRED_HEIGHT/2 );
+                commanderSetSetpoint(&setpoint, 3);
+                vTaskDelay(M2T(30));
+                float zEstimate = logGetFloat(idZEstimate);
+                if (ABS(zEstimate - DESIRED_HEIGHT/2) <= TOL){
+                down_half = true;
+                }
+            }
+            else if(down_quarter == false){
+                setVelocitySetPoint(&setpoint, 0, 0, DESIRED_HEIGHT/4);
+                commanderSetSetpoint(&setpoint, 3);
+                vTaskDelay(M2T(30));
+                float zEstimate = logGetFloat(idZEstimate);
+                if (ABS(zEstimate - DESIRED_HEIGHT/4) <= TOL){
+                    down_quarter = true;
+                }
+            }
+            else{
+                setVelocitySetPoint(&setpoint, 0,0,0);
+                commanderSetSetpoint(&setpoint, 3);
+                vTaskDelay(M2T(50));
+                turnOff = true;
+            }
+        }
 
 
-			memset(aideckRxBuffer, 0, BUFFERSIZE);
-		}
-
-
-	}
-}
-#endif
-
-#ifdef TEST_COM
-int32_t squareX;
-int32_t squareY;
-
-void appMain()
-{
-	DEBUG_PRINT("Gate detection started!\n");
-    vTaskDelay(M2T(3000));
-	USART_DMA_Start(115200, (int8_t *)aideckRxBuffer, BUFFERSIZE);
-
-	while(1) {
-		vTaskDelay(M2T(100));
-
-		if (dma_flag == 1)
-		{
-			dma_flag = 0;  // clear the flag
-            squareX = aideckRxBuffer[0];
-            squareY = aideckRxBuffer[1];
-
-            #ifdef DEBUG_ON
-			DEBUG_PRINT("output 1: %ld\n", squareX);
-			DEBUG_PRINT("output 2: %ld\n\n", squareY);
-            #endif
-
-            // maybe remove this?
-            aideckRxBuffer[0] = aideckRxBuffer[1] = 0;
-            squareX = squareY = 0;
-		}
-	}
-}
-#endif
-
-//static void setVelocitySetpoint(setpoint_t *setpoint, float vx, float vy, float z, float yawrate)
-//{
-  //setpoint->mode.z = modeAbs;
-  //setpoint->position.z = z;
-  //setpoint->mode.yaw = modeVelocity;
-  //setpoint->attitudeRate.yaw = yawrate;
-  //setpoint->mode.x = modeVelocity;
-  //setpoint->mode.y = modeVelocity;
-  //setpoint->velocity.x = vx;
-  //setpoint->velocity.y = vy;
-//
-  //setpoint->velocity_body = true;
-//}
-
-
-void __attribute__((used)) DMA1_Stream1_IRQHandler(void)
-{
-    DMA_ClearFlag(DMA1_Stream1, UART3_RX_DMA_ALL_FLAGS);
-    //ControllerState =
-    dma_flag = 1;
+    }
 }
