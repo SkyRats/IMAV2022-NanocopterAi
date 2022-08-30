@@ -76,20 +76,20 @@ if(positioningInit){
     }
   }
 //MOVING HORIZONTALLY  
-//  while (reached_height == true &&  counter <= 400){
-//    vTaskDelay(M2T(10));
-//    setHoverSetpoint(&setpoint, 1, 1, 1, 0);
-//    commanderSetSetpoint(&setpoint, 3);
-//    vTaskDelay(M2T(50));
-//    counter++;
-//    DEBUG_PRINT("Voou?\n");
-// }
+  while (reached_height == true &&  counter <= 400){
+    vTaskDelay(M2T(10));
+    setHoverSetpoint(&setpoint, 1, 1, 1, 0);
+    commanderSetSetpoint(&setpoint, 3);
+    vTaskDelay(M2T(50));
+    counter++;
+    DEBUG_PRINT("Voou?\n");
+  }
 
 //ROTATING 
 
-while(counter <= 800 || ABS(logGetFloat(idStabilizerYaw) - PI)<= TOL){
+while(counter <= 800 && ABS(logGetFloat(idStabilizerYaw) - PI)<= TOL){
     vTaskDelay(M2T(30));
-    setHoverSetpoint(&setpoint, 0, 0, 1, 1);
+    setHoverSetpoint(&setpoint, 1, 1, 1, 1);
     commanderSetSetpoint(&setpoint, 3);
     vTaskDelay(M2T(30));
     DEBUG_PRINT("Girou?\n");
