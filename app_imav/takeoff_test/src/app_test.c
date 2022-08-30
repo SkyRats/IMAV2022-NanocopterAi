@@ -87,14 +87,14 @@ if(positioningInit){
 
 //ROTATING 
 
-while(counter <= 800 && ABS(logGetFloat(idStabilizerYaw) - PI)<= TOL){
-    vTaskDelay(M2T(30));
-    setHoverSetpoint(&setpoint, 1, 1, 1, 1);
-    commanderSetSetpoint(&setpoint, 3);
-    vTaskDelay(M2T(30));
-    DEBUG_PRINT("Girou?\n");
-    counter++;   
-  }
+//while(counter <= 800 && ABS(logGetFloat(idStabilizerYaw) - PI)<= TOL){
+//    vTaskDelay(M2T(30));
+//    setHoverSetpoint(&setpoint, 1, 1, 1, PI);
+//    commanderSetSetpoint(&setpoint, 3);
+//    vTaskDelay(M2T(30));
+//    DEBUG_PRINT("Girou?\n");
+//    counter++;   
+//  }
 
   
 //DESCENDING 
