@@ -22,12 +22,13 @@
 #define DEBUG_MODULE "EXPLORER"
 #define DESIRED_HEIGHT 1.0f
 #define FORWARD_VEL 0.1f
-#define ROTATION_VEL 15.0f
+#define ROTATION_VEL 15
 #define TOL 0.1f
 #define ARENA_EDGES 0.5f
 
 #define ABS(a) ((a>0.0f?a:-a))
 uint8_t rotationDir = 1;
+
 // States
 typedef enum
 {
@@ -37,7 +38,7 @@ typedef enum
     FIND_GATE,
     //AVOID_OBSTACLE,
     LAND,
-    //IDLE
+    IDLE
 } ControllerState;
 
 float edgeFinder(float x, float y, float yaw){
@@ -92,7 +93,7 @@ static void setPositionSetPoint(setpoint_t *setpoint, float x, float y, float z)
 
 static void setVelocitySetPoint(setpoint_t *setpoint, float x, float y, float z){//xy velocity, absolute z, no rotation
   setpoint->mode.yaw = modeVelocity;
-  setpoint->attitude.yaw = 0;
+  setpoint->attitudeRate.yaw = 0;
   setpoint->mode.z = modeAbs;
   setpoint->position.z = z;
   setpoint->mode.x = modeVelocity;
@@ -143,8 +144,11 @@ void appMain(){
     bool down_half = false;
     bool down_quarter = false;
     float edgeRotation = 0;
-    
-    
+    float desiredScanAngle = 0;
+    int idleCounter = 0;
+    int takeoffCounter = 0;
+    float idleX = 0;
+    float idleY = 0;
     memset(&setpoint, 0, sizeof(setpoint_t));
     commanderSetSetpoint(&setpoint, 3);
 
@@ -161,10 +165,11 @@ void appMain(){
             vTaskDelay(M2T(10));
             setPositionSetPoint(&setpoint, 0, 0, DESIRED_HEIGHT);
             commanderSetSetpoint(&setpoint, 3);
-            vTaskDelay(M2T(100));
+            vTaskDelay(M2T(400));
             zEstimate = logGetFloat(idZEstimate);
             vTaskDelay(M2T(10));
-            if(zEstimate >= DESIRED_HEIGHT - TOL){
+            takeoffCounter++;
+            if(zEstimate >= DESIRED_HEIGHT - TOL && takeoffCounter >= 5){
                 currentState = FORWARD;
             }
             break;
@@ -188,30 +193,37 @@ void appMain(){
             yawEstimate = logGetFloat(idStabilizerYaw);
             vTaskDelay(M2T(10));
             if (ABS(yawEstimate - edgeRotation) <= 10 ){
+                if((xEstimate >= ARENA_EDGES || xEstimate <= -ARENA_EDGES) && (yEstimate >= ARENA_EDGES || yEstimate <= -ARENA_EDGES)){
+                    if (rotationDir > 0){
+                        desiredScanAngle = (yawEstimate + 90) >= 360? (yawEstimate + 90) -360 : yawEstimate + 90;
+                    }
+                    else{
+                        desiredScanAngle = (yawEstimate - 90) < 0? (yawEstimate - 90)  + 360 : yawEstimate - 90;
+                    }
+                }
+                else{
+                    if (rotationDir > 0){
+                        desiredScanAngle = (yawEstimate + 180) >= 360? (yawEstimate + 180) -360 : yawEstimate + 180;
+                    }
+                    else{
+                        desiredScanAngle = (yawEstimate - 180) < 0? (yawEstimate - 180)  + 360 : yawEstimate - 180;
+                    }
+                }
                 currentState = FIND_GATE;
+                idleX = xEstimate; idleY = yEstimate;
             }
             break;
         case FIND_GATE:
-            if((xEstimate <= ARENA_EDGES || xEstimate >= -ARENA_EDGES) && (yEstimate <= ARENA_EDGES || yEstimate >= -ARENA_EDGES)){
-                vTaskDelay(M2T(10));
-                setAttitudeRateSetpoint(&setpoint, xEstimate, yEstimate, DESIRED_HEIGHT, rotationDir*ROTATION_VEL);
-                vTaskDelay(M2T(100));
-                yawEstimate = logGetFloat(idStabilizerYaw);
-                vTaskDelay(M2T(10));
-                if(yawEstimate >= edgeRotation + 90 || yawEstimate <= edgeRotation - 90){
-                    currentState = LAND;
-                }
+            vTaskDelay(M2T(10));
+            setAttitudeRateSetpoint(&setpoint, idleX, idleY, DESIRED_HEIGHT, rotationDir*ROTATION_VEL);
+            commanderSetSetpoint(&setpoint, 3);
+            vTaskDelay(M2T(100));
+            yawEstimate = logGetFloat(idStabilizerYaw);
+            vTaskDelay(M2T(30));
+            if(yawEstimate > desiredScanAngle - 10 && yawEstimate < desiredScanAngle + 10){
+                currentState = IDLE;
             }
-            else{
-                vTaskDelay(M2T(10));
-                setAttitudeRateSetpoint(&setpoint, xEstimate, yEstimate, DESIRED_HEIGHT, edgeRotation + rotationDir*180);
-                vTaskDelay(M2T(100));
-                yawEstimate = logGetFloat(idStabilizerYaw);
-                vTaskDelay(M2T(10));
-                if(yawEstimate >= edgeRotation + 180 || yawEstimate <= edgeRotation - 180){
-                    currentState = LAND;
-                }
-            }
+            break;
         case LAND:
             vTaskDelay(M2T(50));
             if(down_half == false){
@@ -238,6 +250,17 @@ void appMain(){
                 vTaskDelay(M2T(50));
                 turnOff = true;
             }
+            break;
+        case IDLE:
+            vTaskDelay(M2T(10));
+            setVelocitySetPoint(&setpoint, 0, 0, DESIRED_HEIGHT);
+            commanderSetSetpoint(&setpoint, 3);
+            vTaskDelay(M2T(300));
+            idleCounter++;
+            if (idleCounter >= 20){
+                currentState = LAND;
+            }
+            break;
         }
 
 
