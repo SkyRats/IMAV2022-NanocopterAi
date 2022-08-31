@@ -11,208 +11,77 @@
 #include "log.h"
 #include "param.h"
 
-#define TOL 0.05f
-#define ANGLE_TOL 0.1f
+
 #define DEBUG_MODULE "TEST"
 #include "debug.h"
+#define TOL 0.05f
 #define ABS(a) ((a>0.0f?a:-a))
-#define PI_OVER_4 0.785398f
+#define MAX_VEL 1
+static setpoint_t setpoint;
+static void setVelocitySetpoint(setpoint_t *setpoint, float vx, float vy, float vz, float yawrate)
+{
+  setpoint->mode.z = modeVelocity;
+  setpoint->position.z = vz;
 
 
-static void setHoverSetpoint(setpoint_t *setpoint, float x, float y, float z, float yawrate){
-  setpoint->mode.z = modeAbs;
-  setpoint->position.z = z;
-
-  //setpoint->mode.yaw = modeVelocity;
-  setpoint->mode.yaw = modeAbs;
-
-  //setpoint->attitudeRate.yaw = yawrate;
-  setpoint->attitude.yaw = yawrate;
+  setpoint->mode.yaw = modeVelocity;
+  setpoint->attitudeRate.yaw = yawrate;
 
 
-  setpoint->mode.x = modeAbs;
-  setpoint->mode.y = modeAbs;
-  setpoint->position.x = x;
-  setpoint->position.y = y;
+  setpoint->mode.x = modeVelocity;
+  setpoint->mode.y = modeVelocity;
+  setpoint->position.x = vx;
+  setpoint->position.y = vy;
 
   setpoint->velocity_body = true;
 }
 
 
-//static void setYawSetpoint(setpoint_t *setpoint, float vx, float vy, float z, float yawrate)
-//{
-//  setpoint->mode.z = modeAbs;
-//  setpoint->position.z = z;
-//
-//
-//  setpoint->mode.yaw = modeVelocity;
-//  setpoint->attitudeRate.yaw = yawrate;
-//
-//
-//  setpoint->mode.x = modeVelocity;
-//  setpoint->mode.y = modeVelocity;
-//  setpoint->position.x = vx;
-//  setpoint->position.y = vy;
-//
-//  setpoint->velocity_body = true;
-//}
-
+static void Proportional(float actual_x, float actual_y, float actual_z, float desired_x, float desired_y, float desired_z){
+  setVelocitySetpoint(&setpoint, desired_x - actual_x, desired_y - actual_y, desired_z - actual_z, 0);
+  commanderSetSetpoint(&setpoint, 3);
+}
+static bool reached(float actual_x, float actual_y, float actual_z, float desired_x, float desired_y, float desired_z){
+    if(ABS(desired_x - actual_x) <= TOL && ABS(desired_y - actual_y)<=TOL && ABS(desired_y-actual_y) <= TOL){
+        return 1;
+    }
+    return 0;
+}
 
 
 void appMain() {
-  logVarId_t idZEstimate = logGetVarId("stateEstimate", "z");
-  //paramVarId_t idMotorPowerSet = paramGetVarId("motorPowerSet", "motorPowerSet.enable");
-  paramVarId_t idPositioningDeck = paramGetVarId("deck", "bcFlow2");
-  //logVarId_t idStabilizerYaw = logGetVarId("stabilizer", "yaw");
-  /*
-  paramSetInt(idMotorPowerSet, 1);
-  while(paramGetInt(idMotorPowerSet) >= 1){
-    DEBUG_PRINT("Waiting for activation ...\n");
-    vTaskDelay(M2T(200));
-  }
-  */
-  static setpoint_t setpoint;
-
-  vTaskDelay(M2T(2000));
-  memset(&setpoint, 0, sizeof(setpoint_t));
-  commanderSetSetpoint(&setpoint, 3);
-  bool reached_height = false;
-  bool up_quarter = false;
-  bool up_half = false;
-  bool down_half = false;
-  bool down_quarter = false;
-  int counter = 0;
-
-  //ASCENDING
-  while (reached_height == false){
+    paramVarId_t idPositioningDeck = paramGetVarId("deck", "bcFlow2");
+    logVarId_t idXEstimate = logGetVarId("stateEstimate", "x");
+    logVarId_t idYEstimate = logGetVarId("stateEstimate", "y");
+    logVarId_t idZEstimate = logGetVarId("stateEstimate", "z");
+    bool reached_pose = false;
     uint8_t positioningInit = paramGetUint(idPositioningDeck);
-    vTaskDelay(M2T(10));
-    if (positioningInit)
-    {
-      float zEstimate = logGetFloat(idZEstimate);
-      vTaskDelay(M2T(10));
-      if(up_quarter ==false){
-        DEBUG_PRINT("Subiu até 0.25?\n");
-        setHoverSetpoint(&setpoint, 0,0,0.25,0);
-        commanderSetSetpoint(&setpoint,3);
-        vTaskDelay(M2T(10));
-        if(ABS(zEstimate - 0.25f) <= TOL){
-          up_quarter = true;
-        }
-      }
-      else if (up_half ==false){
-        DEBUG_PRINT("Subiu até 0.5?\n");
-        setHoverSetpoint(&setpoint, 0, 0, 0.5, 0);
+    if(positioningInit){
+        memset(&setpoint, 0, sizeof(setpoint_t));
         commanderSetSetpoint(&setpoint, 3);
-        vTaskDelay(M2T(10));
-        if(ABS(zEstimate - 0.25f) <= TOL){
-          up_half = true;
+        while(reached_pose == false){
+            float x_actual = logGetFloat(idXEstimate);
+            float y_actual = logGetFloat(idYEstimate);
+            float z_actual = logGetFloat(idZEstimate);
+            Proportional(x_actual, y_actual, z_actual, 0, 0, 1);
+            if (reached(x_actual, y_actual, z_actual, 0, 0, 1)){
+                reached_pose = true;
+            }
         }
-      }
-      else{
-      setHoverSetpoint(&setpoint, 0, 0, 1.0, 0);
-      commanderSetSetpoint(&setpoint, 3);
-      vTaskDelay(M2T(10));
-      DEBUG_PRINT("Decolou?\n");
-      if(ABS(zEstimate - 1.0f) <= TOL){
-        reached_height = true;
-        }      
-      }
+        reached_pose = false;
+        while(reached_pose  == false){
+            float x_actual = logGetFloat(idXEstimate);
+            float y_actual = logGetFloat(idYEstimate);
+            float z_actual = logGetFloat(idZEstimate);
+            Proportional(x_actual, y_actual, z_actual,0, 0, 0);
+            if (reached(x_actual, y_actual, z_actual, 0, 0, 0)){
+                reached_pose = true;
+            }
+        }
     }
-  }
 
 
 
-//MOVING HORIZONTALLY
-  while (reached_height == true &&  counter <= 400){
-    vTaskDelay(M2T(10));
-    setHoverSetpoint(&setpoint, 1, 1, 1, 0);
-    commanderSetSetpoint(&setpoint, 3);
-    vTaskDelay(M2T(25));
-    counter++;
-    DEBUG_PRINT("Voou?\n");
-
- }
-
-//ROTATION WITH CONST VEL
-
-//while(ABS(logGetFloat(idStabilizerYaw)-ANGLE_TOL) <= PI_OVER_4 && counter <=800){
-//  vTaskDelay(M2T(20));
-//  setVelocitySetpoint(&setpoint, 0, 0, 1, 0.5);
-//  commanderSetSetpoint(&setpoint, 3);
-//  vTaskDelay(M2T(25));
-//  counter ++;
-//  DEBUG_PRINT("Girou?\n");
-//}
 
 
-
- //ROTATING AFTER MOVING
-  //while (reached_height == true && counter <=400){
-  //  vTaskDelay(M2T(30));
-  //  setYawSetpoint(&setpoint, 1, 1, 1, 0.5);
-  //  commanderSetSetpoint(&setp  oint, 3);
-  //  vTaskDelay(M2T(30));
-  //  DEBUG_PRINT("Girou?\n");
-  //  counter++;
-  //}
-//
-/*
-//ROTATING FOR A PERIOD
-while (reached_height == true && counter <=100){
-    vTaskDelay(M2T(30));
-    setHoverSetpoint(&setpoint, 0, 0, 1, 1);
-    commanderSetSetpoint(&setpoint, 3);
-    vTaskDelay(M2T(30));
-    DEBUG_PRINT("Girou?\n");
-    counter++;
-}
-*/
-
-//ROTATING TIL AN ANGLE
-//while(reached_height == true && logGetFloat(idStabilizerYaw)<= initial_yaw + (float)PI_OVER_4){
-//    //vTaskDelay(M2T(30));
-//    setYawSetpoint(&setpoint, 0, 0, 1, 0.5);
-//    commanderSetSetpoint(&setpoint, 3);
-//}
-
-
-//DESCENDING
- while(reached_height == true){
-   vTaskDelay(M2T(50));
-   if(down_half == false){
-     DEBUG_PRINT("Chegou na Metade?\n");
-     setHoverSetpoint(&setpoint, 1, 1, 0.5, 0);
-
-     commanderSetSetpoint(&setpoint, 3);
-     vTaskDelay(M2T(30));
-     float zEstimate = logGetFloat(idZEstimate);
-     if (ABS(zEstimate - 0.5f) <= TOL){
-       down_half = true;
-     }
-   }
-   else if(down_quarter == false){
-     setHoverSetpoint(&setpoint, 1, 1, 0.25, 0);
-     commanderSetSetpoint(&setpoint, 3);
-     vTaskDelay(M2T(30));
-     float zEstimate = logGetFloat(idZEstimate);
-     if (ABS(zEstimate - 0.25f) <= TOL){
-       down_quarter = true;
-     }
-     DEBUG_PRINT("Chegou no um quarto?\n");
-   }
-   else{
-    setHoverSetpoint(&setpoint, 1,1,0,0);
-    commanderSetSetpoint(&setpoint, 3);
-    vTaskDelay(M2T(50));
-    DEBUG_PRINT("Pousou?\n");
-    reached_height = false;
-   /*
-   if (ABS(idZEstimate - 0.1f) <= TOL){
-      DEBUG_PRINT("Pousou?\n");
-      paramSetInt(idMotorPowerSet, 1);
-     }
-  */
-  }
- }
 }

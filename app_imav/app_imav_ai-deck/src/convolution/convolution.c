@@ -230,7 +230,8 @@ void __attribute__((noinline)) cl_cannyOperator(void * args)
 
                 if(sqrtApprox >= MIN_EDGE_INTENSITY_CANNY)
                 {
-                    cannyImg->data[pixelIndex] = MIN(sqrtApprox, MAX_PIXEL_VALUE);
+                    //cannyImg->data[pixelIndex] = MIN(sqrtApprox, MAX_PIXEL_VALUE);
+                    cannyImg->data[pixelIndex] = MAX_PIXEL_VALUE;
 
                     /* finding pixel gradient direction */
                     if((absYGradient << 1) <= absXGradient)

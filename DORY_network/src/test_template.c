@@ -44,12 +44,12 @@ void test_uart_dronet(void)
     }
   	to_send = network_setup();
 
-    //while(1)
-    //{
+    while(1)
+    {
         network_run_FabricController();
         pi_uart_write(&uart, to_send, 8);
-        //pi_time_wait_us(500000);
-    //}
+        pi_time_wait_us(10000);
+    }
 
     pi_uart_close(&uart);
 

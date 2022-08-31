@@ -75,7 +75,7 @@ void pEnqueue(PQueue* pq, PQueueNode pqi)
     }
 
     /* copy the contents of the new item to the new node */
-    *(newNode) = pqi;
+    *newNode = pqi;
 
     if(pq->size == 0 || pq->tail->priority < pqi.priority)
     {

@@ -16,7 +16,8 @@
 void cl_maskErosion(void * args)
 {
     #if SEGMENTATION_METHOD == 0
-    const bool mask[8] = {true, true, true, true, true, true, true, true };
+    const bool mask[8] = {false, true, false, true, false, true, false, true };
+    //const bool mask[8] = {true, true, true, true, true, true, true, true };
     #else
     const bool mask[8] = {false, true, false, true, false, true, false, true };
     #endif
@@ -68,7 +69,8 @@ void cl_maskErosion(void * args)
 
 void cl_maskDilation(void * args)
 {
-    const bool mask[8] = {true, true, true, true, true, true, true, true };
+    //const bool mask[8] = {true, true, true, true, true, true, true, true };
+    const bool mask[8] = {false, true, false, true, false, true, false, true };
     uint8_t coreId = pi_core_id();
     clusterCallArgs * realArgs = (clusterCallArgs *)args;
     PGMImage * img = realArgs->inputImage;
