@@ -1,17 +1,13 @@
+
 #include <string.h>
 #include <stdint.h>
 #include <stdbool.h>
 #include "app.h"
-
 #include "commander.h"
-
 #include "FreeRTOS.h"
 #include "task.h"
-
 #include "log.h"
 #include "param.h"
-
-
 #define DEBUG_MODULE "TEST"
 #include "debug.h"
 #define TOL 0.05f
@@ -23,7 +19,6 @@ static void setVelocitySetpoint(setpoint_t *setpoint, float vx, float vy, float 
   setpoint->mode.z = modeVelocity;
   setpoint->position.z = vz;
 
-
   setpoint->mode.yaw = modeVelocity;
   setpoint->attitudeRate.yaw = yawrate;
 
@@ -33,9 +28,17 @@ static void setVelocitySetpoint(setpoint_t *setpoint, float vx, float vy, float 
   setpoint->position.x = vx;
   setpoint->position.y = vy;
 
+static void setAttitudeRateSetpoint(setpoint_t *setpoint,float x, float y, float z, float yawRate){//Velocity rotation
+  setpoint->mode.yaw = modeVelocity;
+  setpoint->attitudeRate.yaw = yawRate;
+  setpoint->mode.z = modeAbs;
+  setpoint->position.z = z;
+  setpoint->mode.x = modeAbs;
+  setpoint->mode.y = modeAbs;
+  setpoint->position.x = x;
+  setpoint->position.y = y;
   setpoint->velocity_body = true;
 }
-
 
 static void Proportional(float actual_x, float actual_y, float actual_z, float desired_x, float desired_y, float desired_z){
   setVelocitySetpoint(&setpoint, desired_x - actual_x, desired_y - actual_y, desired_z - actual_z, 0);
