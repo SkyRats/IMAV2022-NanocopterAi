@@ -98,25 +98,27 @@ void appMain() {
       }
     }
     
+  //MOVING HORIZONTALLY
+    while (logGetFloat(idXEstimate) <= 0.5f && logGetFloat(idXEstimate) >= -0.5f && logGetFloat(idYEstimate) <= 0.5f && logGetFloat(idYEstimate) >= -0.5f){
+      vTaskDelay(M2T(10));
+      //setPositionSetpoint(&setpoint, 0.5, 0.5, 1, 0);
+      setVelocitySetPoint(&setpoint, 0.1, 0, 1, 0);
+      commanderSetSetpoint(&setpoint, 3);
+      vTaskDelay(M2T(100));
+      DEBUG_PRINT("Voou?\n");
+    }
+
     //ROTATING 
     while(logGetFloat(idStabilizerYaw) >= 90 + 10 || logGetFloat(idStabilizerYaw) <= 90 - 10 ){// TODO: Rotation dir selector like on the simulation.
         vTaskDelay(M2T(30));
-        setAttitudeRateSetpoint(&setpoint,0,0,1,-15);//degree/s
+        setAttitudeRateSetpoint(&setpoint,0.5,0,1,-15);//degree/s
         commanderSetSetpoint(&setpoint, 3);
         vTaskDelay(M2T(100));
         DEBUG_PRINT("Girou?\n");
     }
     
 
-    //MOVING HORIZONTALLY
-    while (logGetFloat(idXEstimate) <= 0.5f && logGetFloat(idXEstimate) >= -0.5f && logGetFloat(idYEstimate) <= 0.5f && logGetFloat(idYEstimate) >= -0.5f){
-      vTaskDelay(M2T(10));
-      //setPositionSetpoint(&setpoint, 0.5, 0.5, 1, 0);
-      setVelocitySetPoint(&setpoint, 0.1, 0, 1, 90);
-      commanderSetSetpoint(&setpoint, 3);
-      vTaskDelay(M2T(100));
-      DEBUG_PRINT("Voou?\n");
-    }
+    
     
     //DESCENDING 
     while(reached_height == true){
