@@ -41,6 +41,9 @@
 #define MAX_PIXEL_AMOUNT_EDGES_AND_GRAY_SHADES 40000
 #define MAX_GRAYSHADE_DIFF 10
 
+/* maximum square side size for gate detection */
+#define MAX_SQUARE_SIDE_SIZE 190
+
 #define DEBUG_ON
 
 /*

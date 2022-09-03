@@ -6,6 +6,8 @@
 #include "imageIO.h"
 #include "findGate.h"
 
+#define ABS(x) ((x<0?-x:x))
+
 typedef enum __attribute__((packed))
 {
     BEGIN,
@@ -170,24 +172,28 @@ Point findGate(PGMImage* img, uint8_t Shade)
     printf("greatest vertical distance: %-3u\n", distanceV);
     #endif
 
-    diff = distanceH - distanceV;
-    if(-TOL <= diff && diff <= TOL)
+    //if(-TOL <= diff && diff <= TOL && )
+    if(distanceH <= MAX_SQUARE_SIDE_SIZE && distanceV <= MAX_SQUARE_SIDE_SIZE)
     {
-        uint32_t sumH = 0, sumV = 0;
-        uint16_t pixelIndex, counter = 0;
-        for(pixelIndex = 0; pixelIndex < imageSize; ++pixelIndex)
-            if(img->data[pixelIndex] == Shade)
-            {
-                sumH += pixelIndex % imageWidth;
-                sumV += pixelIndex / imageWidth;
-                counter++;
-            }
-        #ifdef DEBUG_ON
-        printf("sumH/counter: %d\n", sumH/counter);
-        printf("sumV/counter: %d\n", sumV/counter);
-        #endif
+        diff = distanceH - distanceV;
+        if(ABS(diff) <= TOL)
+        {
+            uint32_t sumH = 0, sumV = 0;
+            uint16_t pixelIndex, counter = 0;
+            for(pixelIndex = 0; pixelIndex < imageSize; ++pixelIndex)
+                if(img->data[pixelIndex] == Shade)
+                {
+                    sumH += pixelIndex % imageWidth;
+                    sumV += pixelIndex / imageWidth;
+                    counter++;
+                }
+            #ifdef DEBUG_ON
+            printf("sumH/counter: %d\n", sumH/counter);
+            printf("sumV/counter: %d\n", sumV/counter);
+            #endif
 
-        return (Point){sumH / counter, sumV / counter, 1};
+            return (Point){sumH / counter, sumV / counter, 1};
+        }
     }
 
     return (Point){0, 0, 0};

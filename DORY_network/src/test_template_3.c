@@ -147,6 +147,7 @@ uint8_t * run_gateFinder(struct pi_device * camera_dev)
 
       pmsis_l2_malloc_free(outputImage->data, 40000*sizeof(uint8_t));
       pmsis_l2_malloc_free(outputImage, sizeof(PGMImage));
+      return;
 }
 
 /* Program Entry. */

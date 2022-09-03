@@ -37,8 +37,8 @@ typedef enum __attribute__((packed))
 {
     FILTERING = 0,
     EDGE_DETECTING,
-    THRESHOLDING,
-    ERODING,
+    //THRESHOLDING,
+    //ERODING,
     DILATING,
     SEGMENTING,
     END
@@ -51,9 +51,11 @@ void clusterMain(void * args)
     PGMImage * restrict inputImage = *((PGMImage **)args + 2);
     pi_cl_dma_cmd_t dmaCopyStatus;
     imageProcessingState state = FILTERING;
+
     #if SEGMENTATION_METHOD != 0
     uint8_t erosionCount = 1;
     #endif
+
     PQueue * labels = NULL;
     bool copy = false;
 
@@ -63,7 +65,10 @@ void clusterMain(void * args)
     clusterArgs->inputImage = inputImage;
     clusterArgs->outputImage = outputImage;
     clusterArgs->numOfCores = gap8_ncore();
+
+    #ifdef DEBUG_ON
     printf("Entering state machine\n");
+    #endif
 
     while(state != END)
     {
@@ -76,11 +81,13 @@ void clusterMain(void * args)
                 break;
 
             case EDGE_DETECTING:
+
                 #if EDGE_DETECTION_METHOD == 0
                 cl_sobelOperator((void *)clusterArgs);
                 #else
                 cl_cannyOperator((void *)clusterArgs);
                 #endif
+
                 copy = true;
                 //state = THRESHOLDING;
                 state = DILATING;
@@ -175,7 +182,11 @@ void clusterMain(void * args)
             label = pDequeue(labels);
 
             squareCenter = findGate(clusterArgs->inputImage, label.pQueueItem);
+
+            #ifdef DEBUG_ON
             printf("Square at (%d, %d)\n", squareCenter.x, squareCenter.y);
+            #endif
+
             if( squareCenter.x >= 50 && squareCenter.x <= 150 &&
 		        squareCenter.y >= 50 && squareCenter.y <= 150 &&
 	            squareCenter.grayShade == 1)
@@ -214,10 +225,10 @@ void masterFindGate(void * args)
     PGMImage * restrict originalImage = *((PGMImage **)args);
     PGMImage * restrict outputImage = *((PGMImage **)args + 1);
     pi_cl_dma_cmd_t dmaCopyStatus;
+    #ifdef DEBUG_ON
     printf("cluster master start\n");
-
-
     printf("Square Gate Detector running on %d cores, Source %s image[W=%d, H=%d]\n", gap8_ncore(), "Mono", 200, 200);
+    #endif
 
     /* initial allocation and copy of image to L1 memory */
     PGMImage * inputImage = pmsis_l1_malloc(sizeof(PGMImage));
