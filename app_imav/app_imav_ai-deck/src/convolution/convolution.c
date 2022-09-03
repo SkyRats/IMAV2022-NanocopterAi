@@ -230,8 +230,8 @@ void __attribute__((noinline)) cl_cannyOperator(void * args)
 
                 if(sqrtApprox >= MIN_EDGE_INTENSITY_CANNY)
                 {
-                    //cannyImg->data[pixelIndex] = MIN(sqrtApprox, MAX_PIXEL_VALUE);
-                    cannyImg->data[pixelIndex] = MAX_PIXEL_VALUE;
+                    cannyImg->data[pixelIndex] = MIN(sqrtApprox, MAX_PIXEL_VALUE);
+                    //cannyImg->data[pixelIndex] = MAX_PIXEL_VALUE;
 
                     /* finding pixel gradient direction */
                     if((absYGradient << 1) <= absXGradient)
@@ -283,6 +283,8 @@ void __attribute__((noinline)) cl_cannyOperator(void * args)
                         /* if the pixel's value is greater than its neighbours in its gradient direction*/
                         if(pixel < img->data[pixelIndex - 1] || pixel < img->data[pixelIndex + 1])
                             cannyImg->data[pixelIndex] = MIN_PIXEL_VALUE;
+                        else
+                            cannyImg->data[pixelIndex] = MAX_PIXEL_VALUE;
 
                         break;
 
@@ -291,6 +293,8 @@ void __attribute__((noinline)) cl_cannyOperator(void * args)
                         /* if the pixel's value is greater than its neighbours in its gradient direction*/
                         if(pixel < img->data[pixelIndex - imageWidth + 1] || pixel < img->data[pixelIndex + imageWidth - 1])
                             cannyImg->data[pixelIndex] = MIN_PIXEL_VALUE;
+                        else
+                            cannyImg->data[pixelIndex] = MAX_PIXEL_VALUE;
 
                         break;
 
@@ -299,6 +303,8 @@ void __attribute__((noinline)) cl_cannyOperator(void * args)
                         /* if the pixel's value is greater than its neighbours in its gradient direction*/
                         if(pixel < img->data[pixelIndex - imageWidth] || pixel < img->data[pixelIndex + imageWidth])
                             cannyImg->data[pixelIndex] = MIN_PIXEL_VALUE;
+                        else
+                            cannyImg->data[pixelIndex] = MAX_PIXEL_VALUE;
 
                         break;
 
@@ -307,6 +313,8 @@ void __attribute__((noinline)) cl_cannyOperator(void * args)
                         /* if the pixel's value is greater than its neighbours in its gradient direction*/
                         if(pixel < img->data[pixelIndex - imageWidth - 1] || pixel < img->data[pixelIndex + imageWidth + 1])
                             cannyImg->data[pixelIndex] = MIN_PIXEL_VALUE;
+                        else
+                            cannyImg->data[pixelIndex] = MAX_PIXEL_VALUE;
 
                         break;
 

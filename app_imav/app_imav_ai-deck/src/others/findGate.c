@@ -176,12 +176,16 @@ Point findGate(PGMImage* img, uint8_t Shade)
         uint32_t sumH = 0, sumV = 0;
         uint16_t pixelIndex, counter = 0;
         for(pixelIndex = 0; pixelIndex < imageSize; ++pixelIndex)
-            if(img->data[pixelIndex] ==Shade)
+            if(img->data[pixelIndex] == Shade)
             {
                 sumH += pixelIndex % imageWidth;
                 sumV += pixelIndex / imageWidth;
                 counter++;
             }
+        #ifdef DEBUG_ON
+        printf("sumH/counter: %d\n", sumH/counter);
+        printf("sumV/counter: %d\n", sumV/counter);
+        #endif
 
         return (Point){sumH / counter, sumV / counter, 1};
     }

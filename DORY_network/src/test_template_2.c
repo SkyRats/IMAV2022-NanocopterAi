@@ -86,6 +86,7 @@ static int8_t open_camera()
 
 void test_uart_dronet(void)
 {
+    pi_time_wait_us(5000000);
     printf("Entering main controller\n");
 
     uint32_t errors = 0;
@@ -111,12 +112,9 @@ void test_uart_dronet(void)
     }
     //dronetOutput = network_setup();
 
-    //while(1)
-    //{
-      //camera_dev = network_run_FabricController();
-      //toSend[0] = dronetOutput[0];
-      //toSend[1] = dronetOutput[1];
-
+    while(1)
+    {
+      memset(toSend, 0, 2*sizeof(int32_t));
       PGMImage * originalImage = pmsis_l2_malloc(sizeof(PGMImage));
       NULL_CHECK(originalImage);
       printf("originalImage: %p\n", originalImage);
@@ -130,7 +128,7 @@ void test_uart_dronet(void)
       pi_camera_control(&camera_dev, PI_CAMERA_CMD_START, 0);
       pi_camera_capture(&camera_dev, originalImage->data , 40000);
       pi_camera_control(&camera_dev, PI_CAMERA_CMD_STOP, 0);
-      WriteImageToFile("../../../gate.pgm", 200, 200, sizeof(uint8_t), originalImage->data, GRAY_SCALE_IO);
+      //WriteImageToFile("../../../gate.pgm", 200, 200, sizeof(uint8_t), originalImage->data, GRAY_SCALE_IO);
 
       PGMImage * outputImage = pmsis_l2_malloc(sizeof(PGMImage));
       NULL_CHECK(outputImage);
@@ -168,11 +166,10 @@ void test_uart_dronet(void)
       toSend[0] = outputImage->data[0]; /* x position */
       toSend[1] = outputImage->data[1]; /* y position */
 
-      WriteImageToFile("../../../gateDetector.pgm", 200, 200, sizeof(uint8_t), outputImage->data, GRAY_SCALE_IO);
+      //WriteImageToFile("../../../gateDetector.pgm", 200, 200, sizeof(uint8_t), outputImage->data, GRAY_SCALE_IO);
       printf("x = %d; y = %d\n", toSend[0], toSend[1]);
 
       pi_uart_write(&uart, toSend, 8);
-      memset(toSend, 0, 2*sizeof(int32_t));
       pmsis_l2_malloc_free(task, sizeof(struct pi_cluster_task));
       pmsis_l2_malloc_free(originalImage->data, 40000*sizeof(uint8_t));
       pmsis_l2_malloc_free(originalImage, sizeof(PGMImage));
@@ -180,7 +177,7 @@ void test_uart_dronet(void)
       pmsis_l2_malloc_free(outputImage->data, 40000*sizeof(uint8_t));
       pmsis_l2_malloc_free(outputImage, sizeof(PGMImage));
       pi_time_wait_us(500000);
-    //}
+    }
 
     pi_uart_close(&uart);
 

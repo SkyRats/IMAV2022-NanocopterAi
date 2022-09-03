@@ -95,6 +95,8 @@ deps_/home/default/IMAV2022-NanocopterAi/app_imav/app_imav_crazyflie/src/main.o 
   /home/default/crazyflie-firmware/src/modules/interface/stabilizer_types.h \
   /home/default/crazyflie-firmware/src/hal/interface/imu_types.h \
   /home/default/crazyflie-firmware/src/utils/interface/lighthouse/lighthouse_types.h \
+  /home/default/IMAV2022-NanocopterAi/app_imav/app_imav_crazyflie/src/uart_dma_setup.h \
+  /home/default/IMAV2022-NanocopterAi/app_imav/app_imav_crazyflie/src/uart_dma_pulp.h \
 
 /home/default/IMAV2022-NanocopterAi/app_imav/app_imav_crazyflie/src/main.o: $(deps_/home/default/IMAV2022-NanocopterAi/app_imav/app_imav_crazyflie/src/main.o)
 

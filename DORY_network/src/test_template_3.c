@@ -46,7 +46,6 @@
 /* Variables used. */
 int32_t * dronetOutput;
 int32_t toSend[4];
-static volatile struct pi_device camera_dev;
 
 uint8_t * run_gateFinder(struct pi_device *);
 

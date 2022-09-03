@@ -83,41 +83,42 @@ void clusterMain(void * args)
                 #endif
                 copy = true;
                 //state = THRESHOLDING;
+                state = DILATING;
+                //state = ERODING;
+                break;
+
+            //case THRESHOLDING:
+                //if(pi_core_id() == 0)
+                    //adaptiveHistogramTechnique(clusterArgs->inputImage);
+//
+                //copy = false;
+                //#if EDGE_DETECTION_METHOD == 0
+                //state = ERODING;
+                //#else
                 //state = DILATING;
-                state = ERODING;
-                break;
+                //#endif
+                //break;
 
-            case THRESHOLDING:
-                if(pi_core_id() == 0)
-                    adaptiveHistogramTechnique(clusterArgs->inputImage);
-
-                copy = false;
-                #if EDGE_DETECTION_METHOD == 0
-                state = ERODING;
-                #else
-                state = DILATING;
-                #endif
-                break;
-
-            case ERODING:
-                cl_maskErosion((void *)clusterArgs);
-                #if SEGMENTATION_METHOD == 0
-
-                state = DILATING;
-                #else
-
-                if(erosionCount++ == 2)
-                    state = DILATING;
-
-                #endif
-
-                copy = true;
-                break;
+            //case ERODING:
+                //cl_maskErosion((void *)clusterArgs);
+                //#if SEGMENTATION_METHOD == 0
+//
+                //state = DILATING;
+                //#else
+//
+                //if(erosionCount++ == 2)
+                    //state = DILATING;
+//
+                //#endif
+//
+                //copy = true;
+                //break;
 
             case DILATING:
                 cl_maskDilation((void *)clusterArgs);
                 copy = true;
                 state = SEGMENTING;
+                //state = END;
                 break;
 
             case SEGMENTING:
@@ -174,11 +175,22 @@ void clusterMain(void * args)
             label = pDequeue(labels);
 
             squareCenter = findGate(clusterArgs->inputImage, label.pQueueItem);
+            printf("Square at (%d, %d)\n", squareCenter.x, squareCenter.y);
             if( squareCenter.x >= 50 && squareCenter.x <= 150 &&
-		squareCenter.y >= 50 && squareCenter.y <= 150 &&
-	        squareCenter.grayShade == 1)
+		        squareCenter.y >= 50 && squareCenter.y <= 150 &&
+	            squareCenter.grayShade == 1)
+            //if(squareCenter.grayShade == 1)
                 done = true;
         }
+
+
+        #if SEGMENTATION_METHOD == 0
+        /* copying output from L1 to L2 */
+        //pi_cl_dma_cmd((uint32_t) outputImage->data, (uint32_t) clusterArgs->inputImage->data, 40000*sizeof(uint8_t), PI_CL_DMA_DIR_LOC2EXT, &dmaCopyStatus);
+
+        /* wait for transfer to end */
+        //pi_cl_dma_cmd_wait(&dmaCopyStatus);
+        #endif
 
         if(done)
         {
@@ -190,14 +202,6 @@ void clusterMain(void * args)
             outputImage->data[0] = 0;
             outputImage->data[1] = 0;
         }
-
-        #if SEGMENTATION_METHOD == 0
-        /* copying output from L1 to L2 */
-        pi_cl_dma_cmd((uint32_t) outputImage->data, (uint32_t) clusterArgs->inputImage->data, 40000*sizeof(uint8_t), PI_CL_DMA_DIR_LOC2EXT, &dmaCopyStatus);
-
-        /* wait for transfer to end */
-        pi_cl_dma_cmd_wait(&dmaCopyStatus);
-        #endif
 
         destroyPQueue(labels);
         pmsis_l1_malloc_free(clusterArgs, sizeof(clusterCallArgs));
