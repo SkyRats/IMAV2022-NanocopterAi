@@ -12,7 +12,7 @@
 # We want to execute the main Makefile for the firmware project,
 # it will handle the build for us.
 #
-CRAZYFLIE_BASE := ../../../../crazyflie-firmware
+CRAZYFLIE_BASE := ../../../crazyflie-firmware
 INCLUDES += -Iinc
 
 #
