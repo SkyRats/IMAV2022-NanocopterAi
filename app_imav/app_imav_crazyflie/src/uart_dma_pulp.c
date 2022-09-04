@@ -50,7 +50,7 @@ static void USART_Config(uint32_t baudrate, uint8_t *pulpRxBuffer, uint32_t BUFF
   // Enable the DMA clock
   RCC_AHB1PeriphClockCmd(USARTx_DMAx_CLK, ENABLE);
 
-  // Connect USART pins to Crazyflie RX1 annd TX1 - USART3 in the STM32 */
+  // Connect USART pins to Crazyflie RX1 annd TX1 - USART3 in the STM32
   GPIO_PinAFConfig(USARTx_TX_GPIO_PORT, USARTx_TX_SOURCE, USARTx_TX_AF);
   GPIO_PinAFConfig(USARTx_RX_GPIO_PORT, USARTx_RX_SOURCE, USARTx_RX_AF);
 

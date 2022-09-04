@@ -29,6 +29,7 @@ SEGMENTATION_LIB = $(SRC_DIR)/segmentation
 
 APP = main
 APP_SRCS = DORY_network/src/layerMatMul14_last.c
+
 APP_INC += $(GAP_LIB_PATH)/include
 
 APP_SRCS+=DORY_network/src/layerConvBNRelu12.c
@@ -61,10 +62,11 @@ APP_SRCS+=DORY_network/src/layerAddRelu9.c
 APP_SRCS+=DORY_network/src/layerConvBNRelu11.c
 APP_SRCS+=DORY_network/src/pulp_nn_maxpool.c
 APP_SRCS+=DORY_network/src/layerConvBNRelu6.c
-#APP_SRCS+=DORY_network/src/pulp_nn_depthwise_generic.c
+APP_SRCS+=DORY_network/src/pulp_nn_depthwise_generic.c
 #APP_SRCS+=DORY_network/src/test_template_3.c
 APP_SRCS+=DORY_network/src/test_template_2.c
 #APP_SRCS+=DORY_network/src/test_template.c
+#APP_SRCS+=DORY_network/src/test_template_4.c
 APP_SRCS+=DORY_network/src/pulp_nn_linear_out_32.c
 APP_SRCS+=DORY_network/src/layerAddRelu13.c
 APP_SRCS+=$(GAP_LIB_PATH)/img_io/ImgIO.c

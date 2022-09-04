@@ -25,6 +25,7 @@ int32_t * to_send;
 
 void test_uart_dronet(void)
 {
+    pi_time_wait_us(15000000);                   
     printf("Entering main controller\n");
 
     uint32_t errors = 0;
@@ -33,21 +34,44 @@ void test_uart_dronet(void)
 
     /* Init & open uart. */
     pi_uart_conf_init(&conf);
-    conf.enable_tx = 1;
-    conf.enable_rx = 0;
     conf.baudrate_bps = 115200;
+    conf.enable_rx = 0;
+    conf.enable_tx = 1;
     pi_open_from_conf(&uart, &conf);
     if (pi_uart_open(&uart))
     {
         printf("Uart open failed !\n");
         pmsis_exit(-1);
     }
-  	to_send = network_setup();
+
+   to_send = network_setup();
+   /*
+   pi_uart_write(&uart, (uint8_t*)to_send    , 1);
+   pi_time_wait_us(10000);                   
+   pi_uart_write(&uart, (uint8_t*)to_send    , 1);
+   pi_time_wait_us(10000);                   
+   pi_uart_write(&uart, (uint8_t*)to_send    , 1);
+   pi_time_wait_us(10000);                   
+   */
 
     while(1)
     {
         network_run_FabricController();
-        pi_uart_write(&uart, to_send, 8);
+        pi_uart_write(&uart, (uint8_t*)to_send    , 1);
+        pi_time_wait_us(10000);                   
+        pi_uart_write(&uart, (uint8_t*)to_send + 1, 1);
+        pi_time_wait_us(10000);                   
+        pi_uart_write(&uart, (uint8_t*)to_send + 2, 1);
+        pi_time_wait_us(10000);                   
+        pi_uart_write(&uart, (uint8_t*)to_send + 3, 1);
+        pi_time_wait_us(10000);                   
+        pi_uart_write(&uart, (uint8_t*)to_send + 4, 1);
+        pi_time_wait_us(10000);                   
+        pi_uart_write(&uart, (uint8_t*)to_send + 5, 1);
+        pi_time_wait_us(10000);                   
+        pi_uart_write(&uart, (uint8_t*)to_send + 6, 1);
+        pi_time_wait_us(10000);                   
+        pi_uart_write(&uart, (uint8_t*)to_send + 7, 1);
         pi_time_wait_us(10000);
     }
 

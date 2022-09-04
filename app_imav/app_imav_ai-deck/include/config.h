@@ -10,7 +10,7 @@
 
 /* minimum intensity of edge for the canny algorithm to consider it as such */
 /* TODO: test different values */
-#define MIN_EDGE_INTENSITY_CANNY 25
+#define MIN_EDGE_INTENSITY_CANNY 50
 
 /* tolerance of square side max size difference for gate finding, in pixels */
 #define TOL 15
@@ -34,15 +34,16 @@
   */
 #define SEGMENTATION_METHOD 0
 
+/* maximum square side size for gate detection */
+#define MAX_SQUARE_SIDE_SIZE 190
+#define MIN_SQUARE_SIDE_SIZE 50
+
 /* for a region to be considered valid (potential square) */
-#define MIN_PIXEL_AMOUNT_EDGES_ONLY 50
-#define MAX_PIXEL_AMOUNT_EDGES_ONLY 2000
+#define MIN_PIXEL_AMOUNT_EDGES_ONLY 200 /* MIN_SQUARE_SIDE_SIZE * 4 */
+#define MAX_PIXEL_AMOUNT_EDGES_ONLY 760 /* MAX_SQUARE_SIDE_SIZE * 4 */
 #define MIN_PIXEL_AMOUNT_EDGES_AND_GRAY_SHADES 2000
 #define MAX_PIXEL_AMOUNT_EDGES_AND_GRAY_SHADES 40000
 #define MAX_GRAYSHADE_DIFF 10
-
-/* maximum square side size for gate detection */
-#define MAX_SQUARE_SIDE_SIZE 190
 
 #define DEBUG_ON
 

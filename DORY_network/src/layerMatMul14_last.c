@@ -222,8 +222,8 @@ void layerMatMul14_last(
       {
           printf("Output 1: %d\n", dronetOutput[0]);
           printf("Output 2: %d\n\n", dronetOutput[1]);
-          printf("Output 1: %u\n", (uint32_t)dronetOutput[0]);
-          printf("Output 2: %u\n\n", (uint32_t)dronetOutput[1]);
+          printf("Output 1: %#010x\n", (uint32_t)dronetOutput[0]);
+          printf("Output 2: %#010x\n\n", (uint32_t)dronetOutput[1]);
       }
       /* ************************************************* */
 

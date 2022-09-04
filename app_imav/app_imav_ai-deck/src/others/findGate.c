@@ -173,7 +173,8 @@ Point findGate(PGMImage* img, uint8_t Shade)
     #endif
 
     //if(-TOL <= diff && diff <= TOL && )
-    if(distanceH <= MAX_SQUARE_SIDE_SIZE && distanceV <= MAX_SQUARE_SIDE_SIZE)
+    if(distanceH <= MAX_SQUARE_SIDE_SIZE && distanceV <= MAX_SQUARE_SIDE_SIZE &&
+       distanceH >= MIN_SQUARE_SIDE_SIZE && distanceV >= MIN_SQUARE_SIDE_SIZE)
     {
         diff = distanceH - distanceV;
         if(ABS(diff) <= TOL)

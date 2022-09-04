@@ -37,8 +37,8 @@ typedef enum __attribute__((packed))
 {
     FILTERING = 0,
     EDGE_DETECTING,
-    //THRESHOLDING,
-    //ERODING,
+    THRESHOLDING,
+    ERODING,
     DILATING,
     SEGMENTING,
     END
@@ -89,22 +89,22 @@ void clusterMain(void * args)
                 #endif
 
                 copy = true;
-                //state = THRESHOLDING;
-                state = DILATING;
+                state = THRESHOLDING;
+                //state = DILATING;
                 //state = ERODING;
                 break;
 
-            //case THRESHOLDING:
-                //if(pi_core_id() == 0)
-                    //adaptiveHistogramTechnique(clusterArgs->inputImage);
-//
-                //copy = false;
-                //#if EDGE_DETECTION_METHOD == 0
-                //state = ERODING;
-                //#else
-                //state = DILATING;
-                //#endif
-                //break;
+            case THRESHOLDING:
+                if(pi_core_id() == 0)
+                    adaptiveHistogramTechnique(clusterArgs->inputImage);
+
+                copy = false;
+                #if EDGE_DETECTION_METHOD == 0
+                state = ERODING;
+                #else
+                state = DILATING;
+                #endif
+                break;
 
             //case ERODING:
                 //cl_maskErosion((void *)clusterArgs);
