@@ -53,7 +53,8 @@ APP_CFLAGS += -DAT_CONSTRUCT=$(AT_CONSTRUCT) -DAT_DESTRUCT=$(AT_DESTRUCT) -DAT_C
 
 # this line is needed to flash into the chip the model tensors 
 # and other constants needed by the Autotiler
-READFS_FILES=$(abspath $(MODEL_TENSORS))
+#READFS_FILES=$(abspath $(MODEL_TENSORS))
+READFS_FILES=BUILD_MODEL_SQ8BIT/network_L3_Flash_Const.dat
 PLPBRIDGE_FLAGS += -f
 
 # all depends on the model

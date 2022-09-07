@@ -170,19 +170,19 @@ void test_uart_dronet(void)
       printf("x = %#010x; y = %#010x\n", toSend[0], toSend[1]);
 
       pi_uart_write(&uart, (uint8_t*)toSend    , 1);
-      pi_time_wait_us(10000);                   
+      pi_time_wait_us(10000);
       pi_uart_write(&uart, (uint8_t*)toSend + 1, 1);
-      pi_time_wait_us(10000);                   
+      pi_time_wait_us(10000);
       pi_uart_write(&uart, (uint8_t*)toSend + 2, 1);
-      pi_time_wait_us(10000);                   
+      pi_time_wait_us(10000);
       pi_uart_write(&uart, (uint8_t*)toSend + 3, 1);
-      pi_time_wait_us(10000);                   
+      pi_time_wait_us(10000);
       pi_uart_write(&uart, (uint8_t*)toSend + 4, 1);
-      pi_time_wait_us(10000);                   
+      pi_time_wait_us(10000);
       pi_uart_write(&uart, (uint8_t*)toSend + 5, 1);
-      pi_time_wait_us(10000);                   
+      pi_time_wait_us(10000);
       pi_uart_write(&uart, (uint8_t*)toSend + 6, 1);
-      pi_time_wait_us(10000);                   
+      pi_time_wait_us(10000);
       pi_uart_write(&uart, (uint8_t*)toSend + 7, 1);
       pi_time_wait_us(10000);
       pmsis_l2_malloc_free(task, sizeof(struct pi_cluster_task));

@@ -25,7 +25,7 @@ int32_t * to_send;
 
 void test_uart_dronet(void)
 {
-    pi_time_wait_us(15000000);                   
+    pi_time_wait_us(7000000);                   
     printf("Entering main controller\n");
 
     uint32_t errors = 0;

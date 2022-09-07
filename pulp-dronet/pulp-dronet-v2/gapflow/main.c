@@ -1,25 +1,25 @@
 /*-----------------------------------------------------------------------------
  Copyright (C) 2020-2021 ETH Zurich, Switzerland, University of Bologna, Italy.
- All rights reserved.                                                          
-                                                                               
- Licensed under the Apache License, Version 2.0 (the "License");               
- you may not use this file except in compliance with the License.              
- See LICENSE.apache.md in the top directory for details.                       
- You may obtain a copy of the License at                                       
-                                                                               
-   http://www.apache.org/licenses/LICENSE-2.0                                  
-                                                                               
- Unless required by applicable law or agreed to in writing, software           
- distributed under the License is distributed on an "AS IS" BASIS,             
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.      
- See the License for the specific language governing permissions and           
- limitations under the License.                                                
-                                                                               
- File:    main.c   
+ All rights reserved.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ See LICENSE.apache.md in the top directory for details.
+ You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+
+ File:    main.c
  Authors: Vlad Niculescu   	<vladn@iis.ee.ethz.ch>
           Lorenzo Lamberti 	<lorenzo.lamberti@unibo.it>
           Daniele Palossi  <dpalossi@iis.ee.ethz.ch> <daniele.palossi@idsia.ch>
- Date:    15.03.2021                                                           
+ Date:    15.03.2021
 -------------------------------------------------------------------------------*/
 
 
@@ -44,12 +44,12 @@
 #define AT_INPUT_SIZE 	(AT_INPUT_WIDTH*AT_INPUT_HEIGHT*AT_INPUT_COLORS)
 
 #define __XSTR(__s) __STR(__s)
-#define __STR(__s) #__s 
+#define __STR(__s) #__s
 
 typedef signed char NETWORK_OUT_TYPE;
 
 // Global Variables
-struct pi_device camera;
+static volatile struct pi_device camera_dev;
 static pi_buffer_t buffer;
 struct pi_device HyperRam;
 
@@ -57,6 +57,51 @@ L2_MEM NETWORK_OUT_TYPE *ResOut;
 static uint32_t l3_buff;
 AT_HYPERFLASH_FS_EXT_ADDR_TYPE AT_L3_ADDR = 0;
 
+static volatile struct pi_himax_conf camera_conf;
+
+static volatile uint8_t asyncImgTransfFlag = 1;
+
+
+static void handle_transfer_end(void *arg)
+{
+    pi_camera_control(&camera_dev, PI_CAMERA_CMD_STOP, 0);
+    asyncImgTransfFlag = 1;
+}
+
+static int8_t open_camera()
+{
+    printf("initiating camera conf\n");
+    pi_himax_conf_init(&camera_conf);
+
+    camera_conf.format = PI_CAMERA_QVGA; /* 320 x 240 */
+    camera_conf.roi.h = 200;
+    camera_conf.roi.slice_en = 1;
+    camera_conf.roi.w = 200;
+    camera_conf.roi.x = 60; /* 320 / 2 - 100 */
+    camera_conf.roi.y = 40; /* 240 - 200 */
+
+    printf("opening from conf\n");
+    pi_open_from_conf(&camera_dev, &camera_conf);
+    if(pi_camera_open(&camera_dev))
+    {
+        printf("failed to open camera.\n");
+        return -1;
+    }
+
+    /* rotate image -- image is upside down by default */
+    uint8_t set_value = 3;
+    uint8_t reg_value;
+    printf("setting registers\n");
+    pi_camera_reg_set(&camera_dev, IMG_ORIENTATION, &set_value);
+    pi_camera_reg_get(&camera_dev, IMG_ORIENTATION, &reg_value);
+    if(set_value != reg_value)
+    {
+        printf("failed to rotate image.\n");
+        return -1;
+    }
+    pi_camera_control(&camera_dev, PI_CAMERA_CMD_AEG_INIT, 0);
+    return 0;
+}
 
 static void RunNetwork()
 {
@@ -71,13 +116,14 @@ static void RunNetwork()
 
 int body(void)
 {
+        pi_time_wait_us(7000000);
 	// Voltage-Frequency settings
 	uint32_t voltage =1200;
 	pi_freq_set(PI_FREQ_DOMAIN_FC, FREQ_FC*1000*1000);
 	pi_freq_set(PI_FREQ_DOMAIN_CL, FREQ_CL*1000*1000);
 	PMU_set_voltage(voltage, 0);
-	printf("Set VDD voltage as %.2f, FC Frequency as %d MHz, CL Frequency = %d MHz\n", 
-		(float)voltage/1000, FREQ_FC, FREQ_CL);
+	printf("Set VDD voltage as %.2f, FC Frequency as %d MHz, CL Frequency = %d MHz\n",
+			(float)voltage/1000, FREQ_FC, FREQ_CL);
 
     pi_fs_file_t *file;
     struct pi_device fs;
@@ -103,7 +149,22 @@ int body(void)
         pmsis_exit(-2);
     }
 
-	// Initialize the ram 
+    struct pi_device uart;
+    struct pi_uart_conf uart_conf;
+    /* Init & open uart. */
+    pi_uart_conf_init(&uart_conf);
+    uart_conf.baudrate_bps = 115200;
+    uart_conf.enable_rx = 0;
+    uart_conf.enable_tx = 1;
+    pi_open_from_conf(&uart, &uart_conf);
+    if (pi_uart_open(&uart))
+    {
+        printf("Uart open failed !\n");
+        pmsis_exit(-1);
+    }
+
+
+	// Initialize the ram
   	struct pi_hyperram_conf hyper_conf;
   	pi_hyperram_conf_init(&hyper_conf);
   	pi_open_from_conf(&HyperRam, &hyper_conf);
@@ -113,7 +174,7 @@ int body(void)
 		pmsis_exit(-3);
 	}
 
-	// Allocate L3 buffer to store input data 
+	// Allocate L3 buffer to store input data
 	if (pi_ram_alloc(&HyperRam, &l3_buff, (uint32_t) AT_INPUT_SIZE))
 	{
 		printf("Ram malloc failed !\n");
@@ -127,81 +188,104 @@ int body(void)
 		pmsis_exit(1);
 	}
 
-	char *ImageName = __XSTR(AT_IMAGE);
-	printf("Reading image from %s\n",ImageName);
+    printf("opening camera\n");
+    if(open_camera())
+    {
+        printf("Failed to open camera.\n");
+        return NULL;
+    }
+    printf("initiating camera\n");
+    pi_camera_control(&camera_dev, PI_CAMERA_CMD_START, 0);
+    pi_camera_capture(&camera_dev, Input_1 , 40000);
+    pi_camera_control(&camera_dev, PI_CAMERA_CMD_STOP, 0);
 
-	// Read image
-	img_io_out_t type = IMGIO_OUTPUT_CHAR;
-	if (ReadImageFromFile(ImageName, AT_INPUT_WIDTH, AT_INPUT_HEIGHT, AT_INPUT_COLORS, Input_1, AT_INPUT_SIZE*sizeof(char), type, 0)) {
-		printf("Failed to load image %s\n", ImageName);
-		pmsis_exit(-1);
-	}
-	printf("Finished reading image %s\n", ImageName);
+    struct pi_cluster_task *cl_task = pmsis_l2_malloc(sizeof(struct pi_cluster_task));
+    if(cl_task==NULL) {
+      printf("pi_cluster_task alloc Error!\n");
+      pmsis_exit(-1);
+    }
+    printf("Stack size is %d and %d\n",STACK_SIZE,SLAVE_STACK_SIZE );
+    // Task setup
+    memset(cl_task, 0, sizeof(struct pi_cluster_task));
+    cl_task->entry = &RunNetwork;
+    cl_task->stack_size = STACK_SIZE;
+    cl_task->slave_stack_size = SLAVE_STACK_SIZE;
+    cl_task->arg = NULL;
 
-	// Write greyscale image to RAM
-	pi_ram_write(&HyperRam, (l3_buff), Input_1, (uint32_t) AT_INPUT_SIZE);
-	pmsis_l2_malloc_free(Input_1, AT_INPUT_SIZE*sizeof(char));
 
-	// Open the cluster
-	struct pi_device cluster_dev;
-	struct pi_cluster_conf conf;
-	pi_cluster_conf_init(&conf);
-	pi_open_from_conf(&cluster_dev, (void *)&conf);
-	pi_cluster_open(&cluster_dev);
+    // Allocate the output tensor
+    ResOut = (NETWORK_OUT_TYPE *) AT_L2_ALLOC(0, NUM_CLASSES*sizeof(NETWORK_OUT_TYPE));
+    if (ResOut==0) {
+        printf("Failed to allocate Memory for Result (%ld bytes)\n", 2*sizeof(char));
+        return 1;
+    }
 
-	// Task setup
-	struct pi_cluster_task *task = pmsis_l2_malloc(sizeof(struct pi_cluster_task));
-	if(task==NULL) {
-	  printf("pi_cluster_task alloc Error!\n");
-	  pmsis_exit(-1);
-	}
-	printf("Stack size is %d and %d\n",STACK_SIZE,SLAVE_STACK_SIZE );
-	memset(task, 0, sizeof(struct pi_cluster_task));
-	task->entry = &RunNetwork;
-	task->stack_size = STACK_SIZE;
-	task->slave_stack_size = SLAVE_STACK_SIZE;
-	task->arg = NULL;
+    // Open the cluster
+    struct pi_device cluster_dev;
+    struct pi_cluster_conf conf;
+    pi_cluster_conf_init(&conf);
+    pi_open_from_conf(&cluster_dev, (void *)&conf);
+    pi_cluster_open(&cluster_dev);
 
-	// Allocate the output tensor
-	ResOut = (NETWORK_OUT_TYPE *) AT_L2_ALLOC(0, NUM_CLASSES*sizeof(NETWORK_OUT_TYPE));
-	if (ResOut==0) {
-		printf("Failed to allocate Memory for Result (%ld bytes)\n", 2*sizeof(char));
-		return 1;
-	}
+    pi_task_t task;
+	signed char to_send[2];
+    while(1)
+    {
+        while(asyncImgTransfFlag == 0)
+            pi_time_wait_us(10000);
+        asyncImgTransfFlag = 0;
 
-	// Network Constructor
-	int err_const = AT_CONSTRUCT();
-	if (err_const)
-	{
-	  printf("Graph constructor exited with error: %d\n", err_const);
-	  return 1;
-	}
-	printf("Network Constructor was OK!\n");
+        // Write greyscale image to RAM
+        pi_ram_write(&HyperRam, (l3_buff), Input_1, (uint32_t) AT_INPUT_SIZE);
 
-	// Dispatch task on the cluster 
-	pi_cluster_send_task_to_cl(&cluster_dev, task);
+        pi_camera_capture_async(&camera_dev, Input_1, 40000, pi_task_callback(&task, handle_transfer_end, NULL));
+        pi_camera_control(&camera_dev, PI_CAMERA_CMD_START, 0);
 
-    printf("Model:\t%s\n\n", __XSTR(AT_MODEL_PREFIX));
-	double out1 = 0.2460539 * (double)ResOut[0];
-	double out2 = 0.00787402 * (double)ResOut[1];
+        // Network Constructor
+        int err_const = AT_CONSTRUCT();
+        if (err_const)
+        {
+          printf("Graph constructor exited with error: %d\n", err_const);
+          return 1;
+        }
+        printf("Network Constructor was OK!\n");
 
-	printf("With quantization: \n");
-	printf("Output 1:\t%.6f\n", out1);
-	printf("Output 2:\t%.6f\n", out2);
+        // Dispatch task on the cluster
+        pi_cluster_send_task_to_cl(&cluster_dev, cl_task);
 
-	// Performance counters
-	unsigned int TotalCycles = 0, TotalOper = 0;
-	printf("\n");
-	for (int i=0; i<(sizeof(AT_GraphPerf)/sizeof(unsigned int)); i++) {
-		printf("%45s: Cycles: %10d, Operations: %10d, Operations/Cycle: %f\n", AT_GraphNodeNames[i], AT_GraphPerf[i], AT_GraphOperInfosNames[i], ((float) AT_GraphOperInfosNames[i])/ AT_GraphPerf[i]);
-		TotalCycles += AT_GraphPerf[i]; TotalOper += AT_GraphOperInfosNames[i];
-	}
-	printf("\n");
-	printf("\t\t\t %s: Cycles: %10d, Operations: %10d, Operations/Cycle: %f\n", "Total", TotalCycles, TotalOper, ((float) TotalOper)/ TotalCycles);
-	printf("\n");
+        printf("Model:\t%s\n\n", __XSTR(AT_MODEL_PREFIX));
+        double out1 = 0.2460539 * (double)ResOut[0];
+        double out2 = 0.00787402 * (double)ResOut[1];
 
-	// Netwrok Destructor
-	AT_DESTRUCT();
+        printf("With quantization: \n");
+        printf("Output 1:\t%.6f\n", out1);
+        printf("Output 2:\t%.6f\n", out2);
+
+
+	to_send[0] = ResOut[0];
+	to_send[1] = ResOut[1];
+
+        pi_uart_write(&uart, (uint8_t*)to_send    , 1);
+        pi_time_wait_us(10000);
+        pi_uart_write(&uart, (uint8_t*)to_send + 1, 1);
+        pi_time_wait_us(10000);
+
+        // Performance counters
+        //unsigned int TotalCycles = 0, TotalOper = 0;
+        //printf("\n");
+        //for (int i=0; i<(sizeof(AT_GraphPerf)/sizeof(unsigned int)); i++) {
+            //printf("%45s: Cycles: %10d, Operations: %10d, Operations/Cycle: %f\n", AT_GraphNodeNames[i], AT_GraphPerf[i], AT_GraphOperInfosNames[i], ((float) AT_GraphOperInfosNames[i])/ AT_GraphPerf[i]);
+            //TotalCycles += AT_GraphPerf[i]; TotalOper += AT_GraphOperInfosNames[i];
+        //}
+        //printf("\n");
+        //printf("\t\t\t %s: Cycles: %10d, Operations: %10d, Operations/Cycle: %f\n", "Total", TotalCycles, TotalOper, ((float) TotalOper)/ TotalCycles);
+        //printf("\n");
+
+        // Netwrok Destructor
+        AT_DESTRUCT();
+        pi_time_wait_us(500000);
+    }
+	pi_uart_close(&uart);
 	pmsis_exit(0);
 	return 0;
 }
