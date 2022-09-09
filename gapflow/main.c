@@ -116,7 +116,7 @@ static void RunNetwork()
 
 int body(void)
 {
-        pi_time_wait_us(7000000);
+    pi_time_wait_us(7000000);
 	// Voltage-Frequency settings
 	uint32_t voltage =1200;
 	pi_freq_set(PI_FREQ_DOMAIN_FC, FREQ_FC*1000*1000);
@@ -229,29 +229,37 @@ int body(void)
 
     pi_task_t task;
 	signed char to_send[2];
+
+    // Network Constructor
+    int err_const = AT_CONSTRUCT();
+    if (err_const)
+    {
+      printf("Graph constructor exited with error: %d\n", err_const);
+      return 1;
+    }
+    printf("Network Constructor was OK!\n");
+
     while(1)
     {
         while(asyncImgTransfFlag == 0)
-            pi_time_wait_us(10000);
-        asyncImgTransfFlag = 0;
+            pi_yield();
 
         // Write greyscale image to RAM
         pi_ram_write(&HyperRam, (l3_buff), Input_1, (uint32_t) AT_INPUT_SIZE);
 
+        asyncImgTransfFlag = 0;
         pi_camera_capture_async(&camera_dev, Input_1, 40000, pi_task_callback(&task, handle_transfer_end, NULL));
         pi_camera_control(&camera_dev, PI_CAMERA_CMD_START, 0);
 
-        // Network Constructor
-        int err_const = AT_CONSTRUCT();
-        if (err_const)
-        {
-          printf("Graph constructor exited with error: %d\n", err_const);
-          return 1;
-        }
-        printf("Network Constructor was OK!\n");
-
         // Dispatch task on the cluster
         pi_cluster_send_task_to_cl(&cluster_dev, cl_task);
+
+        // Task setup
+        memset(cl_task, 0, sizeof(struct pi_cluster_task));
+        cl_task->entry = &RunNetwork;
+        cl_task->stack_size = STACK_SIZE;
+        cl_task->slave_stack_size = SLAVE_STACK_SIZE;
+        cl_task->arg = NULL;
 
         printf("Model:\t%s\n\n", __XSTR(AT_MODEL_PREFIX));
         double out1 = 0.2460539 * (double)ResOut[0];
@@ -261,30 +269,18 @@ int body(void)
         printf("Output 1:\t%.6f\n", out1);
         printf("Output 2:\t%.6f\n", out2);
 
-
-	to_send[0] = ResOut[0];
-	to_send[1] = ResOut[1];
+        to_send[0] = ResOut[0];
+        to_send[1] = ResOut[1];
 
         pi_uart_write(&uart, (uint8_t*)to_send    , 1);
         pi_time_wait_us(10000);
         pi_uart_write(&uart, (uint8_t*)to_send + 1, 1);
         pi_time_wait_us(10000);
-
-        // Performance counters
-        //unsigned int TotalCycles = 0, TotalOper = 0;
-        //printf("\n");
-        //for (int i=0; i<(sizeof(AT_GraphPerf)/sizeof(unsigned int)); i++) {
-            //printf("%45s: Cycles: %10d, Operations: %10d, Operations/Cycle: %f\n", AT_GraphNodeNames[i], AT_GraphPerf[i], AT_GraphOperInfosNames[i], ((float) AT_GraphOperInfosNames[i])/ AT_GraphPerf[i]);
-            //TotalCycles += AT_GraphPerf[i]; TotalOper += AT_GraphOperInfosNames[i];
-        //}
-        //printf("\n");
-        //printf("\t\t\t %s: Cycles: %10d, Operations: %10d, Operations/Cycle: %f\n", "Total", TotalCycles, TotalOper, ((float) TotalOper)/ TotalCycles);
-        //printf("\n");
-
-        // Netwrok Destructor
-        AT_DESTRUCT();
-        pi_time_wait_us(500000);
     }
+
+    // Netwrok Destructor
+    AT_DESTRUCT();
+
 	pi_uart_close(&uart);
 	pmsis_exit(0);
 	return 0;

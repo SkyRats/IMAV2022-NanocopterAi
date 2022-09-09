@@ -39,7 +39,7 @@ USE_PMSIS_BSP=1
 
 APP = imagenet
 MAIN ?= main.c
-APP_SRCS += $(MAIN) $(MODEL_GEN_C) $(MODEL_COMMON_SRCS) $(CNN_LIB) 
+APP_SRCS += $(MAIN) $(MODEL_GEN_C) $(MODEL_COMMON_SRCS) $(CNN_LIB)
 
 APP_CFLAGS += -g -O3 -w -mno-memcpy -fno-tree-loop-distribute-patterns
 # list of includes file
@@ -48,13 +48,13 @@ APP_CFLAGS += -I. -I$(MODEL_COMMON_INC) -I$(TILER_EMU_INC) -I$(TILER_INC) $(CNN_
 APP_CFLAGS += -DAT_MODEL_PREFIX=$(MODEL_PREFIX) $(MODEL_SIZE_CFLAGS)
 APP_CFLAGS += -DSTACK_SIZE=$(CLUSTER_STACK_SIZE) -DSLAVE_STACK_SIZE=$(CLUSTER_SLAVE_STACK_SIZE)
 APP_CFLAGS += -DAT_IMAGE=$(IMAGE) -DPERF -DMODEL_ID=$(MODEL_ID) -DFREQ_FC=$(FREQ_FC) -DFREQ_CL=$(FREQ_CL)
-APP_CFLAGS += -DAT_CONSTRUCT=$(AT_CONSTRUCT) -DAT_DESTRUCT=$(AT_DESTRUCT) -DAT_CNN=$(AT_CNN) -DAT_L3_ADDR=$(AT_L3_ADDR)
+APP_CFLAGS += -DAT_CONSTRUCT=$(AT_CONSTRUCT) -DAT_DESTRUCT=$(AT_DESTRUCT) -DAT_CNN=$(AT_CNN) -DAT_L3_ADDR=$(AT_L3_ADDR) -DFROM_FILE
 # APP_CFLAGS 	+= -DASYNC=1
 
-# this line is needed to flash into the chip the model tensors 
+# this line is needed to flash into the chip the model tensors
 # and other constants needed by the Autotiler
 #READFS_FILES=$(abspath $(MODEL_TENSORS))
-READFS_FILES=BUILD_MODEL_SQ8BIT/network_L3_Flash_Const.dat
+READFS_FILES := BUILD_MODEL_SQ8BIT/network_L3_Flash_Const.dat
 PLPBRIDGE_FLAGS += -f
 
 # all depends on the model
