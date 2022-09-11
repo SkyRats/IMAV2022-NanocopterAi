@@ -23,15 +23,21 @@
 #include "uart_dma_setup.h"
 
 #define DEBUG_MODULE "EXPLORER"
-#define BUFFERSIZE 8
 
 
 //#define TEST_COM
-//#define TEST_AI
+#define TEST_AI
 //#define TEST_AI_AND_GATE
 #define DEBUG_ON
 
+#ifdef TEST_AI
+#define BUFFERSIZE 2
+uint8_t aideckRxBuffer[BUFFERSIZE];
+#else
+#define BUFFERSIZE 8
 uint32_t aideckRxBuffer[BUFFERSIZE/4]; /* 8 bytes of data == 2 32-bit integers */
+#endif
+
 volatile uint8_t dma_flag = 0;
 
 #ifdef TEST_COM
@@ -69,8 +75,8 @@ void appMain()
 }
 
 #elif defined TEST_AI
-int32_t steer;
-uint32_t collision;
+int8_t steer;
+uint8_t collision;
 //const uint32_t bitMask = 0xFF;
 
 void appMain()
@@ -89,11 +95,11 @@ void appMain()
 
          //steer = (*(aideckRxBuffer))/2147483647.0;
          //collision = (*((uint32_t*)aideckRxBuffer + 1))/4294967295.0;
-         steer = (*(aideckRxBuffer));
-         collision = (*((uint32_t*)aideckRxBuffer + 1));
+         steer = *(aideckRxBuffer);
+         collision = *(aideckRxBuffer + 1);
           #ifdef DEBUG_ON
-  		  DEBUG_PRINT("output 1: %f\n", steer);
-  		  DEBUG_PRINT("output 2: %f\n", collision);
+  		  DEBUG_PRINT("output 1: %d\n", steer);
+  		  DEBUG_PRINT("output 2: %d\n", collision);
           #endif
 
           memset(aideckRxBuffer, 0, BUFFERSIZE);
@@ -184,7 +190,7 @@ float edgeFinder(float x, float y, float yaw){
         }
         else if (y < -ARENA_EDGES){
             rotationDir = yaw >= -45 ? 1: -1 ;      //corner 1
-            desiredScanAngle = yaw >= -45 ? 180: 90; 
+            desiredScanAngle = yaw >= -45 ? 180: 90;
             return yaw >= -45 ? 90: -180;
         }
         else{
@@ -205,10 +211,10 @@ float edgeFinder(float x, float y, float yaw){
             return yaw >= -135 ? 0: 90;
         }
         else{
-            rotationDir = (yaw >= 90)? -1 : 1;       //line 6   
-            desiredScanAngle = (yaw >= 90)? -90 : 90; 
+            rotationDir = (yaw >= 90)? -1 : 1;       //line 6
+            desiredScanAngle = (yaw >= 90)? -90 : 90;
             return (yaw >= 90)? 90 : -90;
-        } 
+        }
     }
     else if (y >= ARENA_EDGES){     // region 4
         rotationDir = yaw >= 90? 1 : -1;
@@ -218,54 +224,54 @@ float edgeFinder(float x, float y, float yaw){
     else{       //region 7
         rotationDir = yaw >= -90? 1 : -1;
         desiredScanAngle = yaw >= -90? 180:0;
-        return yaw >= -90? 0: -180; 
+        return yaw >= -90? 0: -180;
     }
 }
 */
 float edgeFinder(float x, float y){
     if (x >= 0.5f){//Maybe add a tolerance?
         if (y >= ARENA_EDGES){//corner 0
-            
-            desiredScanAngle = -90;   
+
+            desiredScanAngle = -90;
             return 180;
         }
         else if (y < -ARENA_EDGES){ //corner 1
-                
-            desiredScanAngle = 180; 
+
+            desiredScanAngle = 180;
             return  90;
         }
         else{// line 5
-               
+
             desiredScanAngle =  -90;
             return 90;
         }
     }
     else if (x < -ARENA_EDGES){
        if (y >= ARENA_EDGES){ //corner 3
-             
+
             desiredScanAngle =  0;
             return  -90;
         }
         else if (y < -ARENA_EDGES){//corner 2
-              
+
             desiredScanAngle =  90;
             return  0;
         }
         else{
-            //line 6   
-            desiredScanAngle = 90; 
+            //line 6
+            desiredScanAngle = 90;
             return  -90;
-        } 
+        }
     }
     else if (y >= ARENA_EDGES){     // region 4
-        
+
         desiredScanAngle = 0;
         return  180;
     }
     else{       //region 7
-        
+
         desiredScanAngle = 180;
-        return 0; 
+        return 0;
     }
 }
 static void setPositionSetPoint(setpoint_t *setpoint, float x, float y, float z){//Absolute xyz, no rotation
@@ -334,7 +340,7 @@ void appMain(){
 
     vTaskDelay(M2T(1000));//After every task, especially those relating to movement, an appropriate delay must be set
     USART_DMA_Start(115200, (int8_t *)aideckRxBuffer, BUFFERSIZE);
-    
+
     //Initialize Sensors
     paramVarId_t idAiDeck = paramGetVarId("deck", "bcAI");
     uint8_t aiInit = paramGetUint(idAiDeck);
@@ -355,9 +361,9 @@ void appMain(){
     bool down_half = false;//Part of the landing procedure.
     bool down_quarter = false;
     float edgeRotation = 0;
-    
+
     int idleCounter = 0;
-    
+
     int takeoffCounter = 0;
     float idleX = 0;
     float idleY = 0;
@@ -365,18 +371,18 @@ void appMain(){
     commanderSetSetpoint(&setpoint, 3);
 
     vTaskDelay(M2T(3000));//After every task, especially those relating to movement, an appropriate delay must be set
-    
+
     while(positioningInit && turnOff == false && aiInit){
         if (dma_flag == 1){
-            
+
             dma_flag = 0;  // clear the flag
             squareX = (*((uint32_t*)aideckRxBuffer));
             squareY = (*((uint32_t*)aideckRxBuffer + 1));
 
-            
+
         }
 
-        
+
             float xEstimate = logGetFloat(idXEstimate);
             float yEstimate = logGetFloat(idYEstimate);
             float zEstimate = logGetFloat(idZEstimate);
@@ -389,7 +395,7 @@ void appMain(){
                 else{
                     currentState = LAND;
                 }
-                
+
             }
 
             #ifdef DEBUG_ON
@@ -397,7 +403,7 @@ void appMain(){
   		        //DEBUG_PRINT("yEstimate: %f\n", (double)yEstimate);
                 //DEBUG_PRINT("zEstimate: %f\n\n ", (double)zEstimate);
             #endif
-        
+
             switch (currentState)
             {
             case TAKEOFF:
@@ -422,20 +428,20 @@ void appMain(){
                             vTaskDelay(M2T(10));
                             setVelocitySetPoint(&setpoint, FORWARD_VEL, -SIDEWAYS_VEL, 0);
                             commanderSetSetpoint(&setpoint, 3);
-                            vTaskDelay(M2T(500)); 
+                            vTaskDelay(M2T(500));
                         }
                         else if(squareX <= 90){
                             vTaskDelay(M2T(10));
                             setVelocitySetPoint(&setpoint, FORWARD_VEL, SIDEWAYS_VEL, 0);
                             commanderSetSetpoint(&setpoint, 3);
-                            vTaskDelay(M2T(500)); 
-                        }    
+                            vTaskDelay(M2T(500));
+                        }
                         else{
                         vTaskDelay(M2T(10));
                         setVelocitySetPoint(&setpoint, FORWARD_VEL, 0, 0);
                         commanderSetSetpoint(&setpoint, 3);
                         vTaskDelay(M2T(500));
-                        }                        
+                        }
                     }
                     else{
                         vTaskDelay(M2T(10));
@@ -461,20 +467,20 @@ void appMain(){
                             vTaskDelay(M2T(10));
                             setVelocitySetPoint(&setpoint, FORWARD_VEL, -SIDEWAYS_VEL, 0);
                             commanderSetSetpoint(&setpoint, 3);
-                            vTaskDelay(M2T(200)); 
+                            vTaskDelay(M2T(200));
                         }
                         else if(squareX <= 90){
                             vTaskDelay(M2T(10));
                             setVelocitySetPoint(&setpoint, FORWARD_VEL, SIDEWAYS_VEL, 0);
                             commanderSetSetpoint(&setpoint, 3);
-                            vTaskDelay(M2T(200)); 
-                        }    
+                            vTaskDelay(M2T(200));
+                        }
                         else{
                         vTaskDelay(M2T(10));
                         setVelocitySetPoint(&setpoint, FORWARD_VEL, 0, 0);
                         commanderSetSetpoint(&setpoint, 3);
                         vTaskDelay(M2T(200));
-                        }                        
+                        }
                     }
                     else{
                         vTaskDelay(M2T(10));
@@ -483,7 +489,7 @@ void appMain(){
                         vTaskDelay(M2T(200));
                     }
                     DEBUG_PRINT("gate found!\n");
-                    
+
                 }
                 else{
                     currentState = FORWARD;
@@ -493,7 +499,7 @@ void appMain(){
                 break;
             case LOOK_INWARDS:
                 vTaskDelay(M2T(10));
-                //setAttitudeSetpoint(&setpoint, idleX, idleY, DESIRED_HEIGHT, edgeRotation);        
+                //setAttitudeSetpoint(&setpoint, idleX, idleY, DESIRED_HEIGHT, edgeRotation);
                 setAttitudeRateSetpoint(&setpoint, idleX, idleY, DESIRED_HEIGHT, ROTATION_VEL);
                 commanderSetSetpoint(&setpoint, 3);
                 vTaskDelay(M2T(300));
@@ -520,12 +526,12 @@ void appMain(){
                         setAttitudeRateSetpoint(&setpoint,idleX, idleY, DESIRED_HEIGHT, -ROTATION_VEL);
                     else
                         setVelocitySetPoint(&setpoint, FORWARD_VEL, 0, DESIRED_HEIGHT);
-                        
+
                     //setPositionSetPoint(&setpoint, xEstimate, yEstimate, DESIRED_HEIGHT);
-                    vTaskDelay(M2T(500)); 
+                    vTaskDelay(M2T(500));
                     commanderSetSetpoint(&setpoint, 3);
                     currentState = GATE_FOUND;
-                    
+
                 }
                 else{
                     vTaskDelay(M2T(10));
@@ -540,14 +546,14 @@ void appMain(){
   		            DEBUG_PRINT("output 2: %ld\n\n", squareY);
                     DEBUG_PRINT("Finding gate..");
                     #endif
-                
+
                     if (ABS(delta) <= 10.0f){
                         commanderRelaxPriority();
                         vTaskDelay(M2T(10));
                         currentState = IDLE;
                     }
                 }
-                
+
                 break;
             case LAND:
                 vTaskDelay(M2T(50));
@@ -584,13 +590,13 @@ void appMain(){
                 vTaskDelay(M2T(300));
                 idleCounter++;
                 DEBUG_PRINT("Idle\n");
-                
+
                 if (idleCounter >= 20){
                     currentState = LAND;
                     commanderRelaxPriority();
                     vTaskDelay(M2T(10));
                 }
-                
+
                 break;
             }
         squareX = 0;
@@ -604,5 +610,5 @@ void __attribute__((used)) DMA1_Stream1_IRQHandler(void)
     //static bool first = false;
     DMA_ClearFlag(DMA1_Stream1, UART3_RX_DMA_ALL_FLAGS);
     dma_flag = 1;
-    
+
 }

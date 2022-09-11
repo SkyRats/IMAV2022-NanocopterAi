@@ -50,7 +50,6 @@ typedef signed char NETWORK_OUT_TYPE;
 
 // Global Variables
 static volatile struct pi_device camera_dev;
-static pi_buffer_t buffer;
 struct pi_device HyperRam;
 
 L2_MEM NETWORK_OUT_TYPE *ResOut;
@@ -149,20 +148,6 @@ int body(void)
         pmsis_exit(-2);
     }
 
-    struct pi_device uart;
-    struct pi_uart_conf uart_conf;
-    /* Init & open uart. */
-    pi_uart_conf_init(&uart_conf);
-    uart_conf.baudrate_bps = 115200;
-    uart_conf.enable_rx = 0;
-    uart_conf.enable_tx = 1;
-    pi_open_from_conf(&uart, &uart_conf);
-    if (pi_uart_open(&uart))
-    {
-        printf("Uart open failed !\n");
-        pmsis_exit(-1);
-    }
-
 
 	// Initialize the ram
   	struct pi_hyperram_conf hyper_conf;
@@ -228,7 +213,7 @@ int body(void)
     pi_cluster_open(&cluster_dev);
 
     pi_task_t task;
-	signed char to_send[2];
+    uint8_t to_send[2];
 
     // Network Constructor
     int err_const = AT_CONSTRUCT();
@@ -239,10 +224,26 @@ int body(void)
     }
     printf("Network Constructor was OK!\n");
 
+    struct pi_device uart;
+    struct pi_uart_conf uart_conf;
+    /* Init & open uart. */
+    pi_uart_conf_init(&uart_conf);
+    uart_conf.baudrate_bps = 115200;
+    uart_conf.enable_rx = 0;
+    uart_conf.enable_tx = 1;
+    pi_open_from_conf(&uart, &uart_conf);
+    if (pi_uart_open(&uart))
+    {
+        printf("Uart open failed !\n");
+        pmsis_exit(-1);
+    }
+
+
     while(1)
+        //if(asyncImgTransfFlag == 1)
     {
         while(asyncImgTransfFlag == 0)
-            pi_yield();
+	    pi_yield();
 
         // Write greyscale image to RAM
         pi_ram_write(&HyperRam, (l3_buff), Input_1, (uint32_t) AT_INPUT_SIZE);
@@ -272,18 +273,18 @@ int body(void)
         to_send[0] = ResOut[0];
         to_send[1] = ResOut[1];
 
-        pi_uart_write(&uart, (uint8_t*)to_send    , 1);
+        pi_uart_write(&uart, (uint8_t*)ResOut    , 1);
         pi_time_wait_us(10000);
-        pi_uart_write(&uart, (uint8_t*)to_send + 1, 1);
-        pi_time_wait_us(10000);
+        pi_uart_write(&uart, (((uint8_t*)ResOut) + 1), 1);
+        pi_time_wait_us(1000000);
     }
 
     // Netwrok Destructor
     AT_DESTRUCT();
 
-	pi_uart_close(&uart);
-	pmsis_exit(0);
-	return 0;
+    pi_uart_close(&uart);
+    pmsis_exit(0);
+    return 0;
 }
 
 

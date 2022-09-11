@@ -166,7 +166,7 @@ void test_uart_dronet(void)
       toSend[0] = outputImage->data[0]; /* x position */
       toSend[1] = outputImage->data[1]; /* y position */
 
-      //WriteImageToFile("../../../gateDetector.pgm", 200, 200, sizeof(uint8_t), outputImage->data, GRAY_SCALE_IO);
+      //WriteImageToFile("../../../test.pgm", 200, 200, sizeof(uint8_t), outputImage->data, GRAY_SCALE_IO);
       printf("x = %#010x; y = %#010x\n", toSend[0], toSend[1]);
 
       pi_uart_write(&uart, (uint8_t*)toSend    , 1);
