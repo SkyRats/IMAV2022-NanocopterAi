@@ -1,3 +1,4 @@
+
 /*-----------------------------------------------------------------------------
  Copyright (C) 2020-2021 ETH Zurich, Switzerland, University of Bologna, Italy.
  All rights reserved.
@@ -22,7 +23,6 @@
  Date:    15.03.2021
 -------------------------------------------------------------------------------*/
 
-#include <stdint.h>
 
 #include "pmsis.h"
 #include "bsp/flash/hyperflash.h"
@@ -36,15 +36,17 @@
 #include "bsp/flash/hyperflash.h"
 #include "bsp/fs/readfs.h"
 
+#include "config.h"
 #include "main.h"
 #include "networkKernels.h"
-#include "gateFinder.h"
 #include "imageIO.h"
+#include "gateFinder.h"
+
+uint8_t toSend[4];
 
 
 /* Defines */
 #define NUM_CLASSES 	2
-#define STACK_SIZE      2048
 #define AT_INPUT_SIZE 	(AT_INPUT_WIDTH*AT_INPUT_HEIGHT*AT_INPUT_COLORS)
 
 #define __XSTR(__s) __STR(__s)
@@ -56,14 +58,13 @@
         exit(-1);                                        \
     }
 
-
-uint8_t * run_gateFinder(struct pi_device *);
+void run_gateFinder();
 
 typedef signed char NETWORK_OUT_TYPE;
 
 // Global Variables
 static volatile struct pi_device camera_dev;
-static pi_buffer_t buffer;
+static struct pi_device cluster_dev;
 struct pi_device HyperRam;
 
 L2_MEM NETWORK_OUT_TYPE *ResOut;
@@ -71,11 +72,9 @@ static uint32_t l3_buff;
 AT_HYPERFLASH_FS_EXT_ADDR_TYPE AT_L3_ADDR = 0;
 
 static volatile struct pi_himax_conf camera_conf;
-static uint8_t * Input_1;
-static struct pi_device cluster_dev;
-uint8_t to_send[4];
 
 static volatile uint8_t asyncImgTransfFlag = 1;
+static uint8_t * Input_1;
 
 static void handle_transfer_end(void *arg)
 {
@@ -131,12 +130,13 @@ static void RunNetwork()
 
 int body(void)
 {
-	// Voltage-Frequency settings
-	uint32_t voltage =1200;
-	pi_freq_set(PI_FREQ_DOMAIN_FC, FREQ_FC*1000*1000);
-	pi_freq_set(PI_FREQ_DOMAIN_CL, FREQ_CL*1000*1000);
-	PMU_set_voltage(voltage, 0);
-	printf("Set VDD voltage as %.2f, FC Frequency as %d MHz, CL Frequency = %d MHz\n",
+    pi_time_wait_us(7000000);
+    // Voltage-Frequency settings
+    uint32_t voltage =1200;
+    pi_freq_set(PI_FREQ_DOMAIN_FC, FREQ_FC*1000*1000);
+    pi_freq_set(PI_FREQ_DOMAIN_CL, FREQ_CL*1000*1000);
+    PMU_set_voltage(voltage, 0);
+    printf("Set VDD voltage as %.2f, FC Frequency as %d MHz, CL Frequency = %d MHz\n",
 		(float)voltage/1000, FREQ_FC, FREQ_CL);
 
     pi_fs_file_t *file;
@@ -163,19 +163,6 @@ int body(void)
         pmsis_exit(-2);
     }
 
-    struct pi_device uart;
-    struct pi_uart_conf uart_conf;
-    /* Init & open uart. */
-    pi_uart_conf_init(&uart_conf);
-    uart_conf.baudrate_bps = 115200;
-    uart_conf.enable_rx = 0;
-    uart_conf.enable_tx = 1;
-    pi_open_from_conf(&uart, &uart_conf);
-    if (pi_uart_open(&uart))
-    {
-        printf("Uart open failed !\n");
-        pmsis_exit(-1);
-    }
 
 	// Initialize the ram
   	struct pi_hyperram_conf hyper_conf;
@@ -201,15 +188,6 @@ int body(void)
 		pmsis_exit(1);
 	}
 
-	//char *ImageName = __XSTR(AT_IMAGE);
-	//printf("Reading image from %s\n",ImageName);
-
-	// Read image
-	//img_io_out_t type = IMGIO_OUTPUT_CHAR;
-	//if (ReadImageFromFile(ImageName, AT_INPUT_WIDTH, AT_INPUT_HEIGHT, AT_INPUT_COLORS, Input_1, AT_INPUT_SIZE*sizeof(char), type, 0)) {
-		//printf("Failed to load image %s\n", ImageName);
-		//pmsis_exit(-1);
-	//}
     printf("opening camera\n");
     if(open_camera())
     {
@@ -249,78 +227,149 @@ int body(void)
     pi_cluster_open(&cluster_dev);
 
     pi_task_t task;
+
+
+    struct pi_device uart;
+    struct pi_uart_conf uart_conf;
+    /* Init & open uart. */
+    pi_uart_conf_init(&uart_conf);
+    uart_conf.baudrate_bps = 115200;
+    uart_conf.enable_rx = 0;
+    uart_conf.enable_tx = 1;
+    pi_open_from_conf(&uart, &uart_conf);
+    if (pi_uart_open(&uart))
+    {
+        printf("Uart open failed !\n");
+        pmsis_exit(-1);
+    }
+
+
     while(1)
+        //if(asyncImgTransfFlag == 1)
     {
         while(asyncImgTransfFlag == 0)
-            pi_time_wait_us(10000);
-        asyncImgTransfFlag = 0;
+	    pi_yield();
+	
+	// Network Constructor
+        int err_const = AT_CONSTRUCT();
+        pi_time_wait_us(10000);
+	if (err_const)
+	{
+		printf("Graph constructor exited with error: %d\n", err_const);
+	        return 1;
+	}
+	printf("Network Constructor was OK!\n");
 
         // Write greyscale image to RAM
         pi_ram_write(&HyperRam, (l3_buff), Input_1, (uint32_t) AT_INPUT_SIZE);
-        //pmsis_l2_malloc_free(Input_1, AT_INPUT_SIZE*sizeof(char));
 
+        asyncImgTransfFlag = 0;
         pi_camera_capture_async(&camera_dev, Input_1, 40000, pi_task_callback(&task, handle_transfer_end, NULL));
         pi_camera_control(&camera_dev, PI_CAMERA_CMD_START, 0);
-        //printf("Finished reading image %s\n", ImageName);
-
-        // Network Constructor
-        int err_const = AT_CONSTRUCT();
-        if (err_const)
-        {
-          printf("Graph constructor exited with error: %d\n", err_const);
-          return 1;
-        }
-        printf("Network Constructor was OK!\n");
 
         // Dispatch task on the cluster
         pi_cluster_send_task_to_cl(&cluster_dev, cl_task);
+
+        // Task setup
+        memset(cl_task, 0, sizeof(struct pi_cluster_task));
+        cl_task->entry = &RunNetwork;
+        cl_task->stack_size = STACK_SIZE;
+        cl_task->slave_stack_size = SLAVE_STACK_SIZE;
+        cl_task->arg = NULL;
 
         printf("Model:\t%s\n\n", __XSTR(AT_MODEL_PREFIX));
         double out1 = 0.2460539 * (double)ResOut[0];
         double out2 = 0.00787402 * (double)ResOut[1];
 
+	printf("ResOut[0]: %d\n", ResOut[0]);
+	printf("ResOut[1]: %d\n", ResOut[1]);
+
         printf("With quantization: \n");
         printf("Output 1:\t%.6f\n", out1);
         printf("Output 2:\t%.6f\n", out2);
 
-        // Performance counters
-        unsigned int TotalCycles = 0, TotalOper = 0;
-        printf("\n");
-        for (int i=0; i<(sizeof(AT_GraphPerf)/sizeof(unsigned int)); i++) {
-            printf("%45s: Cycles: %10d, Operations: %10d, Operations/Cycle: %f\n", AT_GraphNodeNames[i], AT_GraphPerf[i], AT_GraphOperInfosNames[i], ((float) AT_GraphOperInfosNames[i])/ AT_GraphPerf[i]);
-            TotalCycles += AT_GraphPerf[i]; TotalOper += AT_GraphOperInfosNames[i];
-        }
-        printf("\n");
-        printf("\t\t\t %s: Cycles: %10d, Operations: %10d, Operations/Cycle: %f\n", "Total", TotalCycles, TotalOper, ((float) TotalOper)/ TotalCycles);
-        printf("\n");
 
-        // Netwrok Destructor
-        AT_DESTRUCT();
+        toSend[0] = ResOut[0];
+        toSend[1] = ResOut[1];
+	
+	// Netwrok Destructor
+	AT_DESTRUCT();
+        pi_time_wait_us(10000);
 
-        if(out2 <= 0.8)
-            run_gateFinder(camera_dev);
-        else
-        {
-            to_send[2] = 0;
-            to_send[3] = 0;
-        }
-        to_send[0] = out1;
-        to_send[1] = out2;
+	if(out2 <= 0.8)
+	{
+		while(asyncImgTransfFlag != 1)
+		    pi_yield();
 
+		run_gateFinder();
+	}
+	else
+	{
+		toSend[2] = 0;
+		toSend[3] = 0;
+	}
 
-        pi_uart_write(&uart, to_send    , 1);
+	printf("toSend[0]: %d\ntoSend[1]: %d\ntoSend[2]: %d\ntoSend[3]: %d\n", toSend[0], toSend[1], toSend[2], toSend[3]);
+
+        pi_time_wait_us(5000);
+        pi_uart_write(&uart, (uint8_t*)toSend    , 1);
         pi_time_wait_us(10000);
-        pi_uart_write(&uart, to_send + 1, 1);
+        pi_uart_write(&uart, (((uint8_t*)toSend) + 1), 1);
         pi_time_wait_us(10000);
-        pi_uart_write(&uart, to_send + 2, 1);
+        pi_uart_write(&uart, (((uint8_t*)toSend) + 2), 1);
         pi_time_wait_us(10000);
-        pi_uart_write(&uart, to_send + 3, 1);
-        pi_time_wait_us(10000);
+        pi_uart_write(&uart, (((uint8_t*)toSend) + 3), 1);
+        pi_time_wait_us(1000000);
     }
-	pmsis_exit(0);
-	return 0;
+
+    pi_uart_close(&uart);
+    pmsis_exit(0);
+    return 0;
 }
 
+void run_gateFinder()
+{
+      PGMImage * originalImage = pmsis_l2_malloc(sizeof(PGMImage));
+      NULL_CHECK(originalImage);
+      printf("originalImage: %p\n", originalImage);
+      originalImage->x = 200;
+      originalImage->y = 200;
+      originalImage->data = Input_1;
+      NULL_CHECK(originalImage->data);
+
+      printf("Acquiring image\n");
+
+      PGMImage * outputImage = pmsis_l2_malloc(sizeof(PGMImage));
+      NULL_CHECK(outputImage);
+      outputImage->x = 200;
+      outputImage->y = 200;
+      outputImage->data = pmsis_l2_malloc(40000*sizeof(uint8_t));
+      NULL_CHECK(outputImage->data);
+
+      PGMImage * args[2];
+      args[0] = originalImage;
+      args[1] = outputImage;
+
+      struct pi_cluster_task *task = pmsis_l2_malloc(sizeof(struct pi_cluster_task));
+      NULL_CHECK(task);
+      memset(task, 0, sizeof(struct pi_cluster_task));
+      task->entry = masterFindGate;
+      task->arg = (void *)args;
+      task->stack_size = (uint32_t) 2048;
+
+      /* Synchronous call to cluster, execution will start only on Master Core (core 0) */
+      pi_cluster_send_task_to_cl(&cluster_dev, task);
+      toSend[2] = outputImage->data[0]; /* x position */
+      toSend[3] = outputImage->data[1]; /* y position */
+
+      pmsis_l2_malloc_free(task, sizeof(struct pi_cluster_task));
+      //pmsis_l2_malloc_free(originalImage->data, 40000*sizeof(uint8_t));
+      pmsis_l2_malloc_free(originalImage, sizeof(PGMImage));
+
+      pmsis_l2_malloc_free(outputImage->data, 40000*sizeof(uint8_t));
+      pmsis_l2_malloc_free(outputImage, sizeof(PGMImage));
+      return;
+}
 
 int main(void)
 {
@@ -328,51 +377,3 @@ int main(void)
     return pmsis_kickoff((void *) body);
 }
 
-uint8_t * run_gateFinder(struct pi_device * camera_dev)
-{
-    while(asyncImgTransfFlag == 0)
-        ;
-    asyncImgTransfFlag = 0;
-
-    PGMImage * originalImage = pmsis_l2_malloc(sizeof(PGMImage));
-    NULL_CHECK(originalImage);
-    printf("originalImage: %p\n", originalImage);
-    originalImage->x = 200;
-    originalImage->y = 200;
-    originalImage->data = Input_1;
-
-    PGMImage * outputImage = pmsis_l2_malloc(sizeof(PGMImage));
-    NULL_CHECK(outputImage);
-    outputImage->x = 200;
-    outputImage->y = 200;
-    outputImage->data = pmsis_l2_malloc(40000*sizeof(uint8_t));
-    NULL_CHECK(outputImage->data);
-
-    PGMImage * args[2];
-    args[0] = originalImage;
-    args[1] = outputImage;
-
-    struct pi_cluster_task * task = pmsis_l2_malloc(sizeof(struct pi_cluster_task));
-    NULL_CHECK(task);
-    memset(task, 0, sizeof(struct pi_cluster_task));
-    task->entry = masterFindGate;
-    task->arg = (void *)args;
-    task->stack_size = (uint32_t) STACK_SIZE;
-
-    /* Synchronous call to cluster, execution will start only on Master Core (core 0) */
-    pi_cluster_send_task_to_cl(&cluster_dev, task);
-
-    pi_camera_capture_async(&camera_dev, Input_1, 40000, pi_task_callback(&task, handle_transfer_end, NULL));
-    pi_camera_control(&camera_dev, PI_CAMERA_CMD_START, 0);
-
-    toSend[2] = outputImage->data[0]; /* x position */
-    toSend[3] = outputImage->data[1]; /* y position */
-
-    pmsis_l2_malloc_free(task, sizeof(struct pi_cluster_task));
-    pmsis_l2_malloc_free(originalImage->data, 40000*sizeof(uint8_t));
-    pmsis_l2_malloc_free(originalImage, sizeof(PGMImage));
-
-    pmsis_l2_malloc_free(outputImage->data, 40000*sizeof(uint8_t));
-    pmsis_l2_malloc_free(outputImage, sizeof(PGMImage));
-    return;
-}

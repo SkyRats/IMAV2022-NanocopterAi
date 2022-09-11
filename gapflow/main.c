@@ -116,13 +116,13 @@ static void RunNetwork()
 int body(void)
 {
     pi_time_wait_us(7000000);
-	// Voltage-Frequency settings
-	uint32_t voltage =1200;
-	pi_freq_set(PI_FREQ_DOMAIN_FC, FREQ_FC*1000*1000);
-	pi_freq_set(PI_FREQ_DOMAIN_CL, FREQ_CL*1000*1000);
-	PMU_set_voltage(voltage, 0);
-	printf("Set VDD voltage as %.2f, FC Frequency as %d MHz, CL Frequency = %d MHz\n",
-			(float)voltage/1000, FREQ_FC, FREQ_CL);
+    // Voltage-Frequency settings
+    uint32_t voltage =1200;
+    pi_freq_set(PI_FREQ_DOMAIN_FC, FREQ_FC*1000*1000);
+    pi_freq_set(PI_FREQ_DOMAIN_CL, FREQ_CL*1000*1000);
+    PMU_set_voltage(voltage, 0);
+    printf("Set VDD voltage as %.2f, FC Frequency as %d MHz, CL Frequency = %d MHz\n",
+		(float)voltage/1000, FREQ_FC, FREQ_CL);
 
     pi_fs_file_t *file;
     struct pi_device fs;
@@ -265,6 +265,9 @@ int body(void)
         printf("Model:\t%s\n\n", __XSTR(AT_MODEL_PREFIX));
         double out1 = 0.2460539 * (double)ResOut[0];
         double out2 = 0.00787402 * (double)ResOut[1];
+
+	printf("ResOut[0]: %d\n", ResOut[0]);
+	printf("ResOut[1]: %d\n", ResOut[1]);
 
         printf("With quantization: \n");
         printf("Output 1:\t%.6f\n", out1);

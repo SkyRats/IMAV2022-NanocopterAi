@@ -92,7 +92,7 @@ APP_CFLAGS += -I$(TILER_EMU_INC) -I$(TILER_INC) -I$(GATE_FINDER_INC)
 APP_LDFLAGS += -lm -flto -Wl,--gc-sections
 
 
-FLASH_FILES = DORY_network/ConvBNRelu0_weights.hex
+FLASH_FILES  = DORY_network/ConvBNRelu0_weights.hex
 FLASH_FILES += DORY_network/ConvBNRelu2_weights.hex
 FLASH_FILES += DORY_network/ConvBNRelu3_weights.hex
 FLASH_FILES += DORY_network/ConvBNRelu4_weights.hex

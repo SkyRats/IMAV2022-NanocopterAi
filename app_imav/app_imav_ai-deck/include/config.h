@@ -45,7 +45,7 @@
 #define MAX_PIXEL_AMOUNT_EDGES_AND_GRAY_SHADES 40000
 #define MAX_GRAYSHADE_DIFF 10
 
-#define DEBUG_ON
+//#define DEBUG_ON
 
 /*
  * if you wish to use the values defined

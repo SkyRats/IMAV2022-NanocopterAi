@@ -5,10 +5,11 @@
 #include "pmsis.h"
 
 /* Autotiler includes. */
-#include "Gap8.h"
+//#include "Gap8.h"
+#include "Gap.h"
 
-/* Gap_lib includes. */
-#include "gaplib/ImgIO.h"
+///* Gap_lib includes. */
+//#include "gaplib/ImgIO.h"
 
 /* gate detector includes */
 #include "config.h"
@@ -64,7 +65,7 @@ void clusterMain(void * args)
     NULL_CHECK(clusterArgs);
     clusterArgs->inputImage = inputImage;
     clusterArgs->outputImage = outputImage;
-    clusterArgs->numOfCores = gap8_ncore();
+    clusterArgs->numOfCores = gap_ncore();
 
     #ifdef DEBUG_ON
     printf("Entering state machine\n");
@@ -162,10 +163,11 @@ void clusterMain(void * args)
 
         if(pi_core_id() == 0 && copy)
         {
-            pi_cl_dma_cmd((uint32_t) clusterArgs->outputImage->data, (uint32_t) clusterArgs->inputImage->data, 40000*sizeof(uint8_t), PI_CL_DMA_DIR_EXT2LOC, &dmaCopyStatus);
+            //pi_cl_dma_cmd((uint32_t) clusterArgs->outputImage->data, (uint32_t) clusterArgs->inputImage->data, 40000*sizeof(uint8_t), PI_CL_DMA_DIR_EXT2LOC, &dmaCopyStatus);
 
             /* wait for transfer to end */
-            pi_cl_dma_cmd_wait(&dmaCopyStatus);
+            //pi_cl_dma_cmd_wait(&dmaCopyStatus);
+	    memcpy(inputImage->data, originalImage->data, 40000*sizeof(uint8_t));
         }
 
         pi_cl_team_barrier(0);
@@ -227,19 +229,24 @@ void masterFindGate(void * args)
     pi_cl_dma_cmd_t dmaCopyStatus;
     #ifdef DEBUG_ON
     printf("cluster master start\n");
-    printf("Square Gate Detector running on %d cores, Source %s image[W=%d, H=%d]\n", gap8_ncore(), "Mono", 200, 200);
     #endif
 
     /* initial allocation and copy of image to L1 memory */
-    PGMImage * inputImage = pmsis_l1_malloc(sizeof(PGMImage));
+    printf("b\n");
+    PGMImage * inputImage = pmsis_l2_malloc(sizeof(PGMImage));
+    printf("r\n");
     NULL_CHECK(inputImage);
     inputImage->x = originalImage->x;
     inputImage->y = originalImage->y;
-    inputImage->data = pmsis_l1_malloc(40000*sizeof(uint8_t));
-    NULL_CHECK(inputImage->data);
+    printf("u\n");
+    inputImage->data = pmsis_l2_malloc(40000*sizeof(uint8_t));
+    printf("h\n");
+    //NULL_CHECK(inputImage->data);
 
     /* copy of first input from L2 to L1 */
-    pi_cl_dma_cmd((uint32_t) originalImage->data, (uint32_t) inputImage->data, 40000*sizeof(uint8_t), PI_CL_DMA_DIR_EXT2LOC, &dmaCopyStatus);
+    printf("dma copy starting\n");
+    //pi_cl_dma_cmd((uint32_t) originalImage->data, (uint32_t) inputImage->data, 40000*sizeof(uint8_t), PI_CL_DMA_DIR_EXT2LOC, &dmaCopyStatus);
+    memcpy(inputImage->data, originalImage->data, 40000*sizeof(uint8_t));
 
     /* wait for transfer to end */
     pi_cl_dma_cmd_wait(&dmaCopyStatus);
@@ -251,9 +258,10 @@ void masterFindGate(void * args)
     forkArgs[2] = inputImage;
 
     // Start Square Gate Detector on core 0, which will dispatch the algorithm to the other cores.
-    pi_cl_team_fork(gap8_ncore(),(void *)clusterMain, forkArgs);
+    printf("forking\n");
+    pi_cl_team_fork(gap_ncore(),(void *)clusterMain, forkArgs);
 
-    pmsis_l1_malloc_free(inputImage->data, 40000*sizeof(uint8_t));
-    pmsis_l1_malloc_free(inputImage, sizeof(PGMImage));
+    pmsis_l2_malloc_free(inputImage->data, 40000*sizeof(uint8_t));
+    pmsis_l2_malloc_free(inputImage, sizeof(PGMImage));
 
 }

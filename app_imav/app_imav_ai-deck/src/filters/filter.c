@@ -2,7 +2,8 @@
 #include "pmsis.h"
 
 /* Autotiler includes */
-#include "Gap8.h"
+//#include "Gap8.h"
+#include "Gap.h"
 
 #include <stdlib.h>
 #include <stdint.h>
@@ -62,12 +63,12 @@ void __attribute__((noinline)) cl_vectorial_gaussianFilter(void * args)
                                 *(img->data + pixelIndex                     + 2), /* right */
                                 *(img->data + pixelIndex + (imageWidth)      + 2)}; /* pixel under */
 
-                convolutedPixel = gap8_dotpu4(pixelVector0, gaussianMask0);
-                convolutedPixel = gap8_sumdotpu4(pixelVector1, gaussianMask1, convolutedPixel);
-                convolutedPixel = gap8_sumdotpu4(pixelVector2, gaussianMask2, convolutedPixel);
-                convolutedPixel = gap8_sumdotpu4(pixelVector3, gaussianMask1, convolutedPixel);
-                convolutedPixel = gap8_sumdotpu4(pixelVector4, gaussianMask0, convolutedPixel);
-                convolutedPixel = gap8_sumdotpu4(pixelVector5, gaussianMask0, convolutedPixel);
+                convolutedPixel = gap_dotpu4(pixelVector0, gaussianMask0);
+                convolutedPixel = gap_sumdotpu4(pixelVector1, gaussianMask1, convolutedPixel);
+                convolutedPixel = gap_sumdotpu4(pixelVector2, gaussianMask2, convolutedPixel);
+                convolutedPixel = gap_sumdotpu4(pixelVector3, gaussianMask1, convolutedPixel);
+                convolutedPixel = gap_sumdotpu4(pixelVector4, gaussianMask0, convolutedPixel);
+                convolutedPixel = gap_sumdotpu4(pixelVector5, gaussianMask0, convolutedPixel);
                 convolutedPixel += ((*(img->data + pixelIndex + (imageWidth << 1)      + 2))<<1);
 
                 convolutedImg->data[pixelIndex] = (convolutedPixel*normFactor)>>15;

@@ -8,7 +8,8 @@
 #include "convolution.h"
 
 /* Autotiler includes. */
-#include "Gap8.h"
+//#include "Gap8.h"
+#include "Gap.h"
 
 #define ABS(x) (x>0?x:(-x))
 #define MAX(x,y) (x>y?x:y)
