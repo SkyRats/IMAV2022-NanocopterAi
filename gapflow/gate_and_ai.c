@@ -243,13 +243,6 @@ int body(void)
         pmsis_exit(-1);
     }
 
-
-    while(1)
-        //if(asyncImgTransfFlag == 1)
-    {
-        while(asyncImgTransfFlag == 0)
-            pi_yield();
-
 	// Network Constructor
         int err_const = AT_CONSTRUCT();
         pi_time_wait_us(10000);
@@ -259,6 +252,13 @@ int body(void)
 	        return 1;
 	    }
 	    printf("Network Constructor was OK!\n");
+
+    while(1)
+        //if(asyncImgTransfFlag == 1)
+    {
+        while(asyncImgTransfFlag == 0)
+            pi_yield();
+
 
         // Write greyscale image to RAM
         pi_ram_write(&HyperRam, (l3_buff), Input_1, (uint32_t) AT_INPUT_SIZE);
@@ -281,8 +281,8 @@ int body(void)
         double out1 = 0.2460539 * (double)ResOut[0];
         double out2 = 0.00787402 * (double)ResOut[1];
 
-	printf("ResOut[0]: %d\n", ResOut[0]);
-	printf("ResOut[1]: %d\n", ResOut[1]);
+	    printf("ResOut[0]: %d\n", ResOut[0]);
+	    printf("ResOut[1]: %d\n", ResOut[1]);
 
         printf("With quantization: \n");
         printf("Output 1:\t%.6f\n", out1);
@@ -292,8 +292,6 @@ int body(void)
         toSend[0] = ResOut[0];
         toSend[1] = ResOut[1];
 
-	// Netwrok Destructor
-	AT_DESTRUCT();
         pi_time_wait_us(10000);
 
 	if(out2 <= 0.8)
@@ -320,8 +318,10 @@ int body(void)
         pi_time_wait_us(10000);
         pi_uart_write(&uart, (((uint8_t*)toSend) + 3), 1);
         pi_time_wait_us(1000000);
-        printf("sent\n");
     }
+
+	// Netwrok Destructor
+	AT_DESTRUCT();
 
     pi_uart_close(&uart);
     pmsis_exit(0);

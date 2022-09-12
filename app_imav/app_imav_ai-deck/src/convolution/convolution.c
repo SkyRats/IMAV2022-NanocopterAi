@@ -255,12 +255,14 @@ void __attribute__((noinline)) cl_cannyOperator(void * args)
 
     if(coreId == 0)
     {
-        pi_cl_dma_cmd_t dmaCopyStatus;
+        //pi_cl_dma_cmd_t dmaCopyStatus;
 
-        pi_cl_dma_cmd((uint32_t) cannyImg->data, (uint32_t) img->data, 40000*sizeof(uint8_t), PI_CL_DMA_DIR_EXT2LOC, &dmaCopyStatus);
+        //pi_cl_dma_cmd((uint32_t) cannyImg->data, (uint32_t) img->data, 40000*sizeof(uint8_t), PI_CL_DMA_DIR_EXT2LOC, &dmaCopyStatus);
 
         /* wait for transfer to end */
-        pi_cl_dma_cmd_wait(&dmaCopyStatus);
+        //pi_cl_dma_cmd_wait(&dmaCopyStatus);
+        memcpy(img->data, cannyImg->data, 40000*sizeof(uint8_t));
+
     }
 
     pi_cl_team_barrier(0);
