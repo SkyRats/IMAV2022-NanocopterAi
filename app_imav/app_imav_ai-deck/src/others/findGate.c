@@ -27,6 +27,10 @@ Point findGate(PGMImage* img, uint8_t Shade)
 
     gateFinderStates gateFinderState = FIND_FIRST;
 
+    #ifdef DEBUG_ON
+    printf("label: %-3u\n", Shade);
+    #endif
+
     while(gateFinderState != END)
     {
         switch(gateFinderState)
@@ -189,8 +193,8 @@ Point findGate(PGMImage* img, uint8_t Shade)
                     counter++;
                 }
             #ifdef DEBUG_ON
-            printf("sumH/counter: %d\n", sumH/counter);
-            printf("sumV/counter: %d\n", sumV/counter);
+            printf("sumH/counter: %ld\n", sumH/counter);
+            printf("sumV/counter: %ld\n", sumV/counter);
             #endif
 
             return (Point){sumH / counter, sumV / counter, 1};

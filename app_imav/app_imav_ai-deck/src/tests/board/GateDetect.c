@@ -174,7 +174,6 @@ void clusterMain(void * args)
 
     }
 
-    pmsis_l1_malloc_free(clusterArgs, sizeof(clusterCallArgs));
 
     if(pi_core_id() == 0 && labels != NULL)
     {
@@ -205,6 +204,7 @@ void clusterMain(void * args)
 
         /* wait for transfer to end */
         //pi_cl_dma_cmd_wait(&dmaCopyStatus);
+        pmsis_l1_malloc_free(clusterArgs, sizeof(clusterCallArgs));
         #endif
 
         if(done)

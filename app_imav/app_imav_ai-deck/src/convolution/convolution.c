@@ -262,7 +262,6 @@ void __attribute__((noinline)) cl_cannyOperator(void * args)
         /* wait for transfer to end */
         //pi_cl_dma_cmd_wait(&dmaCopyStatus);
         memcpy(img->data, cannyImg->data, 40000*sizeof(uint8_t));
-
     }
 
     pi_cl_team_barrier(0);
