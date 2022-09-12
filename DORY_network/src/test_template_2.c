@@ -128,7 +128,7 @@ void test_uart_dronet(void)
       pi_camera_control(&camera_dev, PI_CAMERA_CMD_START, 0);
       pi_camera_capture(&camera_dev, originalImage->data , 40000);
       pi_camera_control(&camera_dev, PI_CAMERA_CMD_STOP, 0);
-      //WriteImageToFile("../../../test_01.pgm", 200, 200, sizeof(uint8_t), originalImage->data, GRAY_SCALE_IO);
+      WriteImageToFile("../../../test_01.pgm", 200, 200, sizeof(uint8_t), originalImage->data, GRAY_SCALE_IO);
 
       PGMImage * outputImage = pmsis_l2_malloc(sizeof(PGMImage));
       NULL_CHECK(outputImage);
@@ -166,7 +166,7 @@ void test_uart_dronet(void)
       toSend[0] = outputImage->data[0]; /* x position */
       toSend[1] = outputImage->data[1]; /* y position */
 
-      //WriteImageToFile("../../../test_02.pgm", 200, 200, sizeof(uint8_t), outputImage->data, GRAY_SCALE_IO);
+      WriteImageToFile("../../../test_02.pgm", 200, 200, sizeof(uint8_t), outputImage->data, GRAY_SCALE_IO);
       printf("x = %#010x; y = %#010x\n", toSend[0], toSend[1]);
 
       pi_uart_write(&uart, (uint8_t*)toSend    , 1);

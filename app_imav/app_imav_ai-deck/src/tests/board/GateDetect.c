@@ -272,6 +272,6 @@ void masterFindGate(void * args)
 
     pi_cl_l2_free(inputImage->data, 40000*sizeof(uint8_t), &free_req);
     pi_cl_l2_free_wait(&free_req);
-    pi_cl_l2_free(inputImage, inputImage, &free_reqn);
+    pi_cl_l2_free(inputImage, sizeof(PGMImage), &free_reqn);
     pi_cl_l2_free_wait(&free_reqn);
 }

@@ -36,10 +36,10 @@
 
 /* maximum square side size for gate detection */
 #define MAX_SQUARE_SIDE_SIZE 190
-#define MIN_SQUARE_SIDE_SIZE 50
+#define MIN_SQUARE_SIDE_SIZE 30
 
 /* for a region to be considered valid (potential square) */
-#define MIN_PIXEL_AMOUNT_EDGES_ONLY 200 /* MIN_SQUARE_SIDE_SIZE * 4 */
+#define MIN_PIXEL_AMOUNT_EDGES_ONLY 120 /* MIN_SQUARE_SIDE_SIZE * 4 */
 #define MAX_PIXEL_AMOUNT_EDGES_ONLY 760 /* MAX_SQUARE_SIDE_SIZE * 4 */
 #define MIN_PIXEL_AMOUNT_EDGES_AND_GRAY_SHADES 2000
 #define MAX_PIXEL_AMOUNT_EDGES_AND_GRAY_SHADES 40000

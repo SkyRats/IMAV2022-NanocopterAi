@@ -5,7 +5,8 @@
 #include "pmsis.h"
 
 /* Autotiler includes. */
-#include "Gap8.h"
+//#include "Gap8.h"
+#include "Gap.h"
 
 /* Gap_lib includes. */
 #include "gaplib/ImgIO.h"
@@ -23,18 +24,6 @@
 #include "regionGrowing.h"
 
 #define STACK_SIZE      2048
-
-#ifndef MIN_PIXEL_AMOUNT_EDGES_AND_GRAY_SHADES
-#define MIN_PIXEL_AMOUNT_EDGES_AND_GRAY_SHADES 2000
-#endif
-
-#ifndef MAX_PIXEL_AMOUNT_EDGES_AND_GRAY_SHADES
-#define MAX_PIXEL_AMOUNT_EDGES_AND_GRAY_SHADES 40000
-#endif
-
-#ifndef MAX_GRAYSHADE_DIFF
-#define MAX_GRAYSHADE_DIFF 10
-#endif
 
 #define Max(a, b) (((a)>(b))?(a):(b))
 #define Min(a, b) (((a)<(b))?(a):(b))
@@ -61,12 +50,14 @@ void clusterMain(void * args)
     PGMImage * restrict originalImage = *((PGMImage **)args);
     PGMImage * restrict outputImage = *((PGMImage **)args + 1);
     PGMImage * restrict inputImage = *((PGMImage **)args + 2);
-    static int FullReport = 1;
-    unsigned long int Time, TimeIndex = 0;
     pi_cl_dma_cmd_t dmaCopyStatus;
     imageProcessingState state = FILTERING;
+
+    #if SEGMENTATION_METHOD != 0
     uint8_t erosionCount = 1;
-    PQueue * labels;
+    #endif
+
+    PQueue * labels = NULL;
     bool copy = false;
 
     /* initializing cluster argument structure */
@@ -74,8 +65,11 @@ void clusterMain(void * args)
     NULL_CHECK(clusterArgs);
     clusterArgs->inputImage = inputImage;
     clusterArgs->outputImage = outputImage;
-    clusterArgs->numOfCores = gap8_ncore();
+    clusterArgs->numOfCores = gap_ncore();
+
+    #ifdef DEBUG_ON
     printf("Entering state machine\n");
+    #endif
 
     while(state != END)
     {
@@ -88,13 +82,17 @@ void clusterMain(void * args)
                 break;
 
             case EDGE_DETECTING:
+
                 #if EDGE_DETECTION_METHOD == 0
                 cl_sobelOperator((void *)clusterArgs);
                 #else
                 cl_cannyOperator((void *)clusterArgs);
                 #endif
+
                 copy = true;
                 state = THRESHOLDING;
+                //state = DILATING;
+                //state = ERODING;
                 break;
 
             case THRESHOLDING:
@@ -109,25 +107,26 @@ void clusterMain(void * args)
                 #endif
                 break;
 
-            case ERODING:
-                cl_maskErosion((void *)clusterArgs);
-                #if SEGMENTATION_METHOD == 0
-
-                state = DILATING;
-                #else
-
-                if(erosionCount++ == 2)
-                    state = DILATING;
-
-                #endif
-
-                copy = true;
-                break;
+            //case ERODING:
+                //cl_maskErosion((void *)clusterArgs);
+                //#if SEGMENTATION_METHOD == 0
+//
+                //state = DILATING;
+                //#else
+//
+                //if(erosionCount++ == 2)
+                    //state = DILATING;
+//
+                //#endif
+//
+                //copy = true;
+                //break;
 
             case DILATING:
                 cl_maskDilation((void *)clusterArgs);
                 copy = true;
                 state = SEGMENTING;
+                //state = END;
                 break;
 
             case SEGMENTING:
@@ -164,40 +163,62 @@ void clusterMain(void * args)
 
         if(pi_core_id() == 0 && copy)
         {
-            pi_cl_dma_cmd((uint32_t) clusterArgs->outputImage->data, (uint32_t) clusterArgs->inputImage->data, 40000*sizeof(uint8_t), PI_CL_DMA_DIR_EXT2LOC, &dmaCopyStatus);
+            //pi_cl_dma_cmd((uint32_t) clusterArgs->outputImage->data, (uint32_t) clusterArgs->inputImage->data, 40000*sizeof(uint8_t), PI_CL_DMA_DIR_EXT2LOC, &dmaCopyStatus);
 
             /* wait for transfer to end */
-            pi_cl_dma_cmd_wait(&dmaCopyStatus);
+            //pi_cl_dma_cmd_wait(&dmaCopyStatus);
+            memcpy(clusterArgs->inputImage->data, clusterArgs->outputImage->data, 40000*sizeof(uint8_t));
         }
 
         pi_cl_team_barrier(0);
 
     }
 
-    if(pi_core_id() == 0)
+    pmsis_l1_malloc_free(clusterArgs, sizeof(clusterCallArgs));
+
+    if(pi_core_id() == 0 && labels != NULL)
     {
         Point squareCenter;
         PQueueNode label;
-        while(!pQueueIsEmpty(labels))
+        bool done = false;
+        while(!pQueueIsEmpty(labels) && !done)
         {
             label = pDequeue(labels);
 
             squareCenter = findGate(clusterArgs->inputImage, label.pQueueItem);
+
+            #ifdef DEBUG_ON
+            printf("Square at (%d, %d)\n", squareCenter.x, squareCenter.y);
+            #endif
+
+            if( squareCenter.x >= 50 && squareCenter.x <= 150 &&
+		        squareCenter.y >= 50 && squareCenter.y <= 150 &&
+	            squareCenter.grayShade == 1)
+            //if(squareCenter.grayShade == 1)
+                done = true;
         }
 
+
         #if SEGMENTATION_METHOD == 0
-        ///* copying output from L1 to L2 */
+        /* copying output from L1 to L2 */
         //pi_cl_dma_cmd((uint32_t) outputImage->data, (uint32_t) clusterArgs->inputImage->data, 40000*sizeof(uint8_t), PI_CL_DMA_DIR_LOC2EXT, &dmaCopyStatus);
 
-        ///* wait for transfer to end */
+        /* wait for transfer to end */
         //pi_cl_dma_cmd_wait(&dmaCopyStatus);
-
-        outputImage->data[0] = squareCenter.x;
-        outputImage->data[1] = squareCenter.y;
-
         #endif
 
-        pmsis_l1_malloc_free(clusterArgs, sizeof(clusterCallArgs));
+        if(done)
+        {
+            outputImage->data[0] = squareCenter.x;
+            outputImage->data[1] = squareCenter.y;
+        }
+        else
+        {
+            outputImage->data[0] = 0;
+            outputImage->data[1] = 0;
+        }
+
+        destroyPQueue(labels);
     }
 }
 
@@ -205,25 +226,36 @@ void masterFindGate(void * args)
 {
     PGMImage * restrict originalImage = *((PGMImage **)args);
     PGMImage * restrict outputImage = *((PGMImage **)args + 1);
-    pi_cl_dma_cmd_t dmaCopyStatus;
+    //pi_cl_dma_cmd_t dmaCopyStatus;
+    pi_cl_alloc_req_t alloc_req, alloc_reqn;
+    pi_cl_free_req_t free_req, free_reqn;
+    #ifdef DEBUG_ON
     printf("cluster master start\n");
-
-
-    printf("Square Gate Detector running on %d cores, Source %s image[W=%d, H=%d]\n", gap8_ncore(), "Mono", 200, 200);
+    #endif
 
     /* initial allocation and copy of image to L1 memory */
-    PGMImage * inputImage = pmsis_l1_malloc(sizeof(PGMImage));
+    printf("b\n");
+    //PGMImage * inputImage = pmsis_l1_malloc(sizeof(PGMImage));
+    pi_cl_l2_malloc(sizeof(PGMImage), &alloc_req);
+    PGMImage * inputImage = pi_cl_l2_malloc_wait(&alloc_req);
+    printf("r\n");
     NULL_CHECK(inputImage);
     inputImage->x = originalImage->x;
     inputImage->y = originalImage->y;
-    inputImage->data = pmsis_l1_malloc(40000*sizeof(uint8_t));
+    printf("u\n");
+    //inputImage->data = pmsis_l1_malloc(40000*sizeof(uint8_t));
+    pi_cl_l2_malloc(40000*sizeof(uint8_t), &alloc_reqn);
+    inputImage->data = pi_cl_l2_malloc_wait(&alloc_reqn);
+    printf("h\n");
     NULL_CHECK(inputImage->data);
 
     /* copy of first input from L2 to L1 */
-    pi_cl_dma_cmd((uint32_t) originalImage->data, (uint32_t) inputImage->data, 40000*sizeof(uint8_t), PI_CL_DMA_DIR_EXT2LOC, &dmaCopyStatus);
+    printf("dma copy starting\n");
+    //pi_cl_dma_cmd((uint32_t) originalImage->data, (uint32_t) inputImage->data, 40000*sizeof(uint8_t), PI_CL_DMA_DIR_EXT2LOC, &dmaCopyStatus);
+    memcpy(inputImage->data, originalImage->data, 40000*sizeof(uint8_t));
 
     /* wait for transfer to end */
-    pi_cl_dma_cmd_wait(&dmaCopyStatus);
+    //pi_cl_dma_cmd_wait(&dmaCopyStatus);
 
     /* cluster call arguments */
     PGMImage * forkArgs[3];
@@ -232,18 +264,23 @@ void masterFindGate(void * args)
     forkArgs[2] = inputImage;
 
     // Start Square Gate Detector on core 0, which will dispatch the algorithm to the other cores.
-    pi_cl_team_fork(gap8_ncore(),(void *)clusterMain, forkArgs);
+    printf("forking\n");
+    pi_cl_team_fork(gap_ncore(),(void *)clusterMain, forkArgs);
 
-    pmsis_l1_malloc_free(inputImage->data, 40000*sizeof(uint8_t));
-    pmsis_l1_malloc_free(inputImage, sizeof(PGMImage));
+    //pmsis_l1_malloc_free(inputImage->data, 40000*sizeof(uint8_t));
+    //pmsis_l1_malloc_free(inputImage, sizeof(PGMImage));
 
+    pi_cl_l2_free(inputImage->data, 40000*sizeof(uint8_t), &free_req);
+    pi_cl_l2_free_wait(&free_req);
+    pi_cl_l2_free(inputImage, sizeof(PGMImage), &free_reqn);
+    pi_cl_l2_free_wait(&free_reqn);
 }
 
 void gateDetectorDemo(void)
 {
     printf("Start of application\n");
 
-	char *Imagefile = "frame_1_cropped.pgm";
+	char *Imagefile = "gate_definitive_2.pgm";
     PGMImage * originalImage = pmsis_l2_malloc(sizeof(PGMImage));
     NULL_CHECK(originalImage);
     printf("originalImage: %p\n", originalImage);
@@ -313,8 +350,9 @@ void gateDetectorDemo(void)
     pmsis_exit(0);
 }
 
+
 int main(int argc, char *argv[])
 {
-printf("\n\n\t *** Gate Detector ***\n\n");
-return pmsis_kickoff((void *) gateDetectorDemo);
+    printf("\n\n\t *** Gate Detector ***\n\n");
+    return pmsis_kickoff((void *) gateDetectorDemo);
 }
