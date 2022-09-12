@@ -1,0 +1,1 @@
+cmd_/home/default/IMAV2022-NanocopterAi/app_imav/app_imav_Kind/built-in.o :=  arm-none-eabi-gcc --specs=nosys.specs --specs=nano.specs -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -nostdlib   -r -o /home/default/IMAV2022-NanocopterAi/app_imav/app_imav_Kind/built-in.o /home/default/IMAV2022-NanocopterAi/app_imav/app_imav_Kind/src/built-in.o
