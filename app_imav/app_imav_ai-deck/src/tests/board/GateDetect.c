@@ -163,16 +163,17 @@ void clusterMain(void * args)
 
         if(pi_core_id() == 0 && copy)
         {
-            //pi_cl_dma_cmd((uint32_t) clusterArgs->outputImage->data, (uint32_t) clusterArgs->inputImage->data, 40000*sizeof(uint8_t), PI_CL_DMA_DIR_EXT2LOC, &dmaCopyStatus);
+            pi_cl_dma_cmd((uint32_t) clusterArgs->outputImage->data, (uint32_t) clusterArgs->inputImage->data, 40000*sizeof(uint8_t), PI_CL_DMA_DIR_EXT2LOC, &dmaCopyStatus);
 
             /* wait for transfer to end */
-            //pi_cl_dma_cmd_wait(&dmaCopyStatus);
-	    memcpy(inputImage->data, originalImage->data, 40000*sizeof(uint8_t));
+            pi_cl_dma_cmd_wait(&dmaCopyStatus);
         }
 
         pi_cl_team_barrier(0);
 
     }
+
+    pmsis_l1_malloc_free(clusterArgs, sizeof(clusterCallArgs));
 
     if(pi_core_id() == 0 && labels != NULL)
     {
@@ -217,9 +218,7 @@ void clusterMain(void * args)
         }
 
         destroyPQueue(labels);
-        pmsis_l1_malloc_free(clusterArgs, sizeof(clusterCallArgs));
     }
-    pi_cl_team_barrier(0);
 }
 
 void masterFindGate(void * args)
@@ -233,20 +232,19 @@ void masterFindGate(void * args)
 
     /* initial allocation and copy of image to L1 memory */
     printf("b\n");
-    PGMImage * inputImage = pmsis_l2_malloc(sizeof(PGMImage));
+    PGMImage * inputImage = pmsis_l1_malloc(sizeof(PGMImage));
     printf("r\n");
     NULL_CHECK(inputImage);
     inputImage->x = originalImage->x;
     inputImage->y = originalImage->y;
     printf("u\n");
-    inputImage->data = pmsis_l2_malloc(40000*sizeof(uint8_t));
+    inputImage->data = pmsis_l1_malloc(40000*sizeof(uint8_t));
     printf("h\n");
     //NULL_CHECK(inputImage->data);
 
     /* copy of first input from L2 to L1 */
     printf("dma copy starting\n");
-    //pi_cl_dma_cmd((uint32_t) originalImage->data, (uint32_t) inputImage->data, 40000*sizeof(uint8_t), PI_CL_DMA_DIR_EXT2LOC, &dmaCopyStatus);
-    memcpy(inputImage->data, originalImage->data, 40000*sizeof(uint8_t));
+    pi_cl_dma_cmd((uint32_t) originalImage->data, (uint32_t) inputImage->data, 40000*sizeof(uint8_t), PI_CL_DMA_DIR_EXT2LOC, &dmaCopyStatus);
 
     /* wait for transfer to end */
     pi_cl_dma_cmd_wait(&dmaCopyStatus);
@@ -261,7 +259,7 @@ void masterFindGate(void * args)
     printf("forking\n");
     pi_cl_team_fork(gap_ncore(),(void *)clusterMain, forkArgs);
 
-    pmsis_l2_malloc_free(inputImage->data, 40000*sizeof(uint8_t));
-    pmsis_l2_malloc_free(inputImage, sizeof(PGMImage));
+    pmsis_l1_malloc_free(inputImage->data, 40000*sizeof(uint8_t));
+    pmsis_l1_malloc_free(inputImage, sizeof(PGMImage));
 
 }

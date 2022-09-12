@@ -6,11 +6,11 @@
 
 PQueue * createPQueue()
 {
-    pi_cl_alloc_req_t alloc_req;
+    //pi_cl_alloc_req_t alloc_req;
 
-    pi_cl_l2_malloc(sizeof(PQueue), &alloc_req);
-    PQueue *pq = pi_cl_l2_malloc_wait(&alloc_req);
-    //PQueue *pq = pmsis_l1_malloc(sizeof(PQueue));
+    //pi_cl_l2_malloc(sizeof(PQueue), &alloc_req);
+    //PQueue *pq = pi_cl_l2_malloc_wait(&alloc_req);
+    PQueue *pq = pmsis_l1_malloc(sizeof(PQueue));
 
     if(pq == NULL)
     {
@@ -27,23 +27,23 @@ PQueue * createPQueue()
 
 void destroyPQueue(PQueue* pq)
 {
-    pi_cl_free_req_t free_req;
+    //pi_cl_free_req_t free_req;
 
     PQueueNode* pqn = pq->pQueueItem, *pqnn;
 
-    pi_cl_l2_free(pq, sizeof(PQueue), &free_req);
-    pi_cl_l2_free_wait(&free_req);
-    //pmsis_l1_malloc_free(pq, sizeof(PQueue));
+    //pi_cl_l2_free(pq, sizeof(PQueue), &free_req);
+    //pi_cl_l2_free_wait(&free_req);
+    pmsis_l1_malloc_free(pq, sizeof(PQueue));
 
     while(pqn != NULL)
     {
-        pi_cl_free_req_t free_reqn;
+        //pi_cl_free_req_t free_reqn;
 
         pqnn = pqn->nextNode;
 
-        pi_cl_l2_free(pqn, sizeof(PQueueNode), &free_reqn);
-        pi_cl_l2_free_wait(&free_reqn);
-	//pmsis_l1_malloc_free(pqn, sizeof(PQueueNode));
+        //pi_cl_l2_free(pqn, sizeof(PQueueNode), &free_reqn);
+        //pi_cl_l2_free_wait(&free_reqn);
+	pmsis_l1_malloc_free(pqn, sizeof(PQueueNode));
 
         pqn = pqnn;
     }
@@ -61,11 +61,11 @@ PQueueNode pQueuePeek(PQueue* pq)
 
 void pEnqueue(PQueue* pq, PQueueNode pqi)
 {
-    pi_cl_alloc_req_t alloc_req;
+    //pi_cl_alloc_req_t alloc_req;
 
-    pi_cl_l2_malloc(sizeof(PQueueNode), &alloc_req);
-    PQueueNode* newNode = pi_cl_l2_malloc_wait(&alloc_req);
-    //PQueueNode * newNode = pmsis_l1_malloc(sizeof(PQueueNode));
+    //pi_cl_l2_malloc(sizeof(PQueueNode), &alloc_req);
+    //PQueueNode* newNode = pi_cl_l2_malloc_wait(&alloc_req);
+    PQueueNode * newNode = pmsis_l1_malloc(sizeof(PQueueNode));
     if(newNode == NULL)
     {
         #ifdef DEBUG_ON
@@ -119,12 +119,12 @@ PQueueNode pDequeue(PQueue* pq)
 
     PQueueNode pqi = *pqn;
 
-    pi_cl_free_req_t free_req;
+    //pi_cl_free_req_t free_req;
 
-    pi_cl_l2_free(pqn, sizeof(PQueueNode), &free_req);
-    pi_cl_l2_free_wait(&free_req);
-    
-    //pmsis_l1_malloc_free(pqn, sizeof(PQueueNode));
+    //pi_cl_l2_free(pqn, sizeof(PQueueNode), &free_req);
+    //pi_cl_l2_free_wait(&free_req);
+
+    pmsis_l1_malloc_free(pqn, sizeof(PQueueNode));
 
     pq->size -= 1;
 

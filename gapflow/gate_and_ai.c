@@ -248,17 +248,17 @@ int body(void)
         //if(asyncImgTransfFlag == 1)
     {
         while(asyncImgTransfFlag == 0)
-	    pi_yield();
-	
+            pi_yield();
+
 	// Network Constructor
         int err_const = AT_CONSTRUCT();
         pi_time_wait_us(10000);
-	if (err_const)
-	{
-		printf("Graph constructor exited with error: %d\n", err_const);
+	    if (err_const)
+	    {
+		    printf("Graph constructor exited with error: %d\n", err_const);
 	        return 1;
-	}
-	printf("Network Constructor was OK!\n");
+	    }
+	    printf("Network Constructor was OK!\n");
 
         // Write greyscale image to RAM
         pi_ram_write(&HyperRam, (l3_buff), Input_1, (uint32_t) AT_INPUT_SIZE);
@@ -291,7 +291,7 @@ int body(void)
 
         toSend[0] = ResOut[0];
         toSend[1] = ResOut[1];
-	
+
 	// Netwrok Destructor
 	AT_DESTRUCT();
         pi_time_wait_us(10000);
@@ -320,6 +320,7 @@ int body(void)
         pi_time_wait_us(10000);
         pi_uart_write(&uart, (((uint8_t*)toSend) + 3), 1);
         pi_time_wait_us(1000000);
+        printf("sent\n");
     }
 
     pi_uart_close(&uart);
