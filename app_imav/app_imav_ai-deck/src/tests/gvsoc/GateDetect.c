@@ -93,7 +93,6 @@ void clusterMain(void * args)
                 state = THRESHOLDING;
                 //state = DILATING;
                 //state = ERODING;
-		//state = END;
                 break;
 
             case THRESHOLDING:
@@ -193,10 +192,10 @@ void clusterMain(void * args)
             printf("Square at (%d, %d)\n", squareCenter.x, squareCenter.y);
             #endif
 
-            //if( squareCenter.x >= 50 && squareCenter.x <= 150 &&
-	//	        squareCenter.y >= 50 && squareCenter.y <= 150 &&
-	 //           squareCenter.grayShade == 1)
-            if(squareCenter.grayShade == 1)
+            if( squareCenter.x >= 50 && squareCenter.x <= 150 &&
+		        squareCenter.y >= 50 && squareCenter.y <= 150 &&
+	            squareCenter.grayShade == 1)
+            //if(squareCenter.grayShade == 1)
                 done = true;
         }
 
@@ -344,7 +343,7 @@ void gateDetectorDemo(void)
     pi_cluster_send_task_to_cl(&cluster_dev, task);
 
     char imgName[50];
-    sprintf(imgName, "../../../img_OUT.pgm");
+    sprintf(imgName, "../../../segmentation.pgm");
     printf("imgName: %s\n", imgName);
     WriteImageToFile(imgName, 200, 200, 1, outputImage->data, sizeof(uint8_t));
 

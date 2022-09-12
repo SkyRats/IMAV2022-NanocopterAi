@@ -317,7 +317,7 @@ int body(void)
         pi_uart_write(&uart, (((uint8_t*)toSend) + 2), 1);
         pi_time_wait_us(10000);
         pi_uart_write(&uart, (((uint8_t*)toSend) + 3), 1);
-        pi_time_wait_us(1000000);
+        pi_time_wait_us(600000);
     }
 
 	// Netwrok Destructor
