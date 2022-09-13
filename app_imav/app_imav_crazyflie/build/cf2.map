@@ -5336,7 +5336,7 @@ LOAD /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/
  *(.flashtext)
                 0x0000000008004188                . = ALIGN (0x4)
 
-.text           0x00000000080041c0    0x3d330
+.text           0x00000000080041c0    0x3d380
                 0x00000000080041c0                . = ALIGN (0x4)
                 0x00000000080041c0                _stext = .
  *(.text)
@@ -10221,1075 +10221,1075 @@ LOAD /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/
                 0x0000000008034d7c       0xb0 /home/default/IMAV2022-NanocopterAi/app_imav/app_imav_crazyflie/built-in.o
                 0x0000000008034d7c                edgeFinder
  *fill*         0x0000000008034e2c        0x4 
- .text.appMain  0x0000000008034e30      0x91c /home/default/IMAV2022-NanocopterAi/app_imav/app_imav_crazyflie/built-in.o
+ .text.appMain  0x0000000008034e30      0x96c /home/default/IMAV2022-NanocopterAi/app_imav/app_imav_crazyflie/built-in.o
                 0x0000000008034e30                appMain
  .text.DMA1_Stream1_IRQHandler
-                0x000000000803574c       0x20 /home/default/IMAV2022-NanocopterAi/app_imav/app_imav_crazyflie/built-in.o
-                0x000000000803574c                DMA1_Stream1_IRQHandler
+                0x000000000803579c       0x20 /home/default/IMAV2022-NanocopterAi/app_imav/app_imav_crazyflie/built-in.o
+                0x000000000803579c                DMA1_Stream1_IRQHandler
  .text.USART_DMA_Start
-                0x000000000803576c      0x124 /home/default/IMAV2022-NanocopterAi/app_imav/app_imav_crazyflie/built-in.o
-                0x000000000803576c                USART_DMA_Start
+                0x00000000080357bc      0x124 /home/default/IMAV2022-NanocopterAi/app_imav/app_imav_crazyflie/built-in.o
+                0x00000000080357bc                USART_DMA_Start
  *(.rodata)
- .rodata        0x0000000008035890      0x158 src/built-in.o
- .rodata        0x00000000080359e8        0x5 vendor/built-in.o
- *fill*         0x00000000080359ed        0x3 
- .rodata        0x00000000080359f0       0x20 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_atan.o)
- .rodata        0x0000000008035a10       0x18 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_exp.o)
- .rodata        0x0000000008035a28      0x398 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_rem_pio2.o)
- .rodata        0x0000000008035dc0       0x38 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-kf_rem_pio2.o)
- .rodata        0x0000000008035df8        0x8 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_rint.o)
- .rodata        0x0000000008035e00      0x101 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libc.a(lib_a-ctype_.o)
-                0x0000000008035e00                _ctype_
+ .rodata        0x00000000080358e0      0x158 src/built-in.o
+ .rodata        0x0000000008035a38        0x5 vendor/built-in.o
+ *fill*         0x0000000008035a3d        0x3 
+ .rodata        0x0000000008035a40       0x20 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_atan.o)
+ .rodata        0x0000000008035a60       0x18 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_exp.o)
+ .rodata        0x0000000008035a78      0x398 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_rem_pio2.o)
+ .rodata        0x0000000008035e10       0x38 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-kf_rem_pio2.o)
+ .rodata        0x0000000008035e48        0x8 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_rint.o)
+ .rodata        0x0000000008035e50      0x101 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libc.a(lib_a-ctype_.o)
+                0x0000000008035e50                _ctype_
  *(.rodata*)
  .rodata.DECK_GPIO_IO1
-                0x0000000008035f01        0x1 src/built-in.o
-                0x0000000008035f01                DECK_GPIO_IO1
+                0x0000000008035f51        0x1 src/built-in.o
+                0x0000000008035f51                DECK_GPIO_IO1
  .rodata.DECK_GPIO_IO2
-                0x0000000008035f02        0x1 src/built-in.o
-                0x0000000008035f02                DECK_GPIO_IO2
+                0x0000000008035f52        0x1 src/built-in.o
+                0x0000000008035f52                DECK_GPIO_IO2
  .rodata.DECK_GPIO_IO3
-                0x0000000008035f03        0x1 src/built-in.o
-                0x0000000008035f03                DECK_GPIO_IO3
+                0x0000000008035f53        0x1 src/built-in.o
+                0x0000000008035f53                DECK_GPIO_IO3
  .rodata.DECK_GPIO_IO4
-                0x0000000008035f04        0x1 src/built-in.o
-                0x0000000008035f04                DECK_GPIO_IO4
+                0x0000000008035f54        0x1 src/built-in.o
+                0x0000000008035f54                DECK_GPIO_IO4
  .rodata.DECK_GPIO_RX1
-                0x0000000008035f05        0x1 src/built-in.o
-                0x0000000008035f05                DECK_GPIO_RX1
+                0x0000000008035f55        0x1 src/built-in.o
+                0x0000000008035f55                DECK_GPIO_RX1
  .rodata.DECK_GPIO_TX1
-                0x0000000008035f06        0x1 src/built-in.o
-                0x0000000008035f06                DECK_GPIO_TX1
- *fill*         0x0000000008035f07        0x1 
+                0x0000000008035f56        0x1 src/built-in.o
+                0x0000000008035f56                DECK_GPIO_TX1
+ *fill*         0x0000000008035f57        0x1 
  .rodata.deckGPIOMapping
-                0x0000000008035f08       0x9c src/built-in.o
-                0x0000000008035f08                deckGPIOMapping
+                0x0000000008035f58       0x9c src/built-in.o
+                0x0000000008035f58                deckGPIOMapping
  .rodata.spiExchange.str1.1
-                0x0000000008035fa4       0x39 src/built-in.o
+                0x0000000008035ff4       0x39 src/built-in.o
                                          0x3a (size before relaxing)
  .rodata.printDeckInfo.str1.1
-                0x0000000008035fdd       0x2f src/built-in.o
+                0x000000000803602d       0x2f src/built-in.o
  .rodata.deckInfoInit.str1.1
-                0x000000000803600c      0x3a1 src/built-in.o
- *fill*         0x00000000080363ad        0x3 
+                0x000000000803605c      0x3a1 src/built-in.o
+ *fill*         0x00000000080363fd        0x3 
  .rodata.dummyDriver
-                0x00000000080363b0       0x24 src/built-in.o
+                0x0000000008036400       0x24 src/built-in.o
  .rodata.memoryDef
-                0x00000000080363d4       0x38 src/built-in.o
+                0x0000000008036424       0x38 src/built-in.o
  .rodata.deckInit.str1.1
-                0x000000000803640c       0x74 src/built-in.o
+                0x000000000803645c       0x74 src/built-in.o
  .rodata.deckTest.str1.1
-                0x0000000008036480       0x40 src/built-in.o
+                0x00000000080364d0       0x40 src/built-in.o
  .rodata.exptestTestAllPins.str1.1
-                0x00000000080364c0       0x19 src/built-in.o
+                0x0000000008036510       0x19 src/built-in.o
  .rodata.str1.1
-                0x00000000080364d9     0x1751 src/built-in.o
+                0x0000000008036529     0x1751 src/built-in.o
                                        0x1d20 (size before relaxing)
- *fill*         0x0000000008037c2a        0x2 
+ *fill*         0x0000000008037c7a        0x2 
  .rodata.exptest_deck
-                0x0000000008037c2c       0x24 src/built-in.o
+                0x0000000008037c7c       0x24 src/built-in.o
  .rodata.exptestRRTestAllPins.str1.1
-                0x0000000008037c50       0x19 src/built-in.o
+                0x0000000008037ca0       0x19 src/built-in.o
  .rodata.exptestRR_deck
-                0x0000000008037c50       0x24 src/built-in.o
+                0x0000000008037ca0       0x24 src/built-in.o
  .rodata.exptestTestPin.str1.1
-                0x0000000008037c74       0x1e src/built-in.o
- *fill*         0x0000000008037c92        0x2 
+                0x0000000008037cc4       0x1e src/built-in.o
+ *fill*         0x0000000008037ce2        0x2 
  .rodata.exptestbolt_deck
-                0x0000000008037c94       0x24 src/built-in.o
+                0x0000000008037ce4       0x24 src/built-in.o
  .rodata.activeMarkerDeckTest.str1.1
-                0x0000000008037cb8       0x3d src/built-in.o
+                0x0000000008037d08       0x3d src/built-in.o
  .rodata.activeMarkerDeckInit.str1.1
-                0x0000000008037cf5       0x2d src/built-in.o
- *fill*         0x0000000008037d22        0x2 
+                0x0000000008037d45       0x2d src/built-in.o
+ *fill*         0x0000000008037d72        0x2 
  .rodata.__eventTriggerPayloadDesc__activeMarkerModeChanged__
-                0x0000000008037d24        0x8 src/built-in.o
+                0x0000000008037d74        0x8 src/built-in.o
  .rodata.deck_info
-                0x0000000008037d2c       0x24 src/built-in.o
+                0x0000000008037d7c       0x24 src/built-in.o
  .rodata.aideckInit.str1.1
-                0x0000000008037d50       0x1d src/built-in.o
- *fill*         0x0000000008037d6d        0x3 
+                0x0000000008037da0       0x1d src/built-in.o
+ *fill*         0x0000000008037dbd        0x3 
  .rodata.aideck_deck
-                0x0000000008037d70       0x24 src/built-in.o
+                0x0000000008037dc0       0x24 src/built-in.o
  .rodata.espMemoryDef
-                0x0000000008037d94       0x28 src/built-in.o
+                0x0000000008037de4       0x28 src/built-in.o
  .rodata.gap8MemoryDef
-                0x0000000008037dbc       0x28 src/built-in.o
+                0x0000000008037e0c       0x28 src/built-in.o
  .rodata.buzzer_deck
-                0x0000000008037de4       0x24 src/built-in.o
+                0x0000000008037e34       0x24 src/built-in.o
  .rodata.flowdeck2Test.str1.1
-                0x0000000008037e08       0x2d src/built-in.o
+                0x0000000008037e58       0x2d src/built-in.o
                                          0x38 (size before relaxing)
  .rodata.flowdeck1Init.str1.1
-                0x0000000008037e35        0x5 src/built-in.o
+                0x0000000008037e85        0x5 src/built-in.o
                                           0xf (size before relaxing)
- *fill*         0x0000000008037e3a        0x2 
+ *fill*         0x0000000008037e8a        0x2 
  .rodata.flowdeck1_deck
-                0x0000000008037e3c       0x24 src/built-in.o
+                0x0000000008037e8c       0x24 src/built-in.o
  .rodata.flowdeck2_deck
-                0x0000000008037e60       0x24 src/built-in.o
+                0x0000000008037eb0       0x24 src/built-in.o
  .rodata.boatEffect.str1.1
-                0x0000000008037e84        0xc src/built-in.o
+                0x0000000008037ed4        0xc src/built-in.o
  .rodata.locSrvStatus.str1.1
-                0x0000000008037e90       0x16 src/built-in.o
+                0x0000000008037ee0       0x16 src/built-in.o
  .rodata.rssiEffect.str1.1
-                0x0000000008037e90       0x17 src/built-in.o
+                0x0000000008037ee0       0x17 src/built-in.o
  .rodata.batteryChargeEffect.str1.1
-                0x0000000008037e90        0x5 src/built-in.o
+                0x0000000008037ee0        0x5 src/built-in.o
  .rodata.brightnessEffect.str1.1
-                0x0000000008037e90        0xb src/built-in.o
+                0x0000000008037ee0        0xb src/built-in.o
  .rodata.gravityLight.str1.1
-                0x0000000008037e90       0x16 src/built-in.o
+                0x0000000008037ee0       0x16 src/built-in.o
  .rodata.tiltEffect.str1.1
-                0x0000000008037e90        0x7 src/built-in.o
+                0x0000000008037ee0        0x7 src/built-in.o
  .rodata.ledring12Init.str1.1
-                0x0000000008037e90        0xa src/built-in.o
+                0x0000000008037ee0        0xa src/built-in.o
  .rodata.blueRing
-                0x0000000008037e9a       0x24 src/built-in.o
+                0x0000000008037eea       0x24 src/built-in.o
  .rodata.colorRing
-                0x0000000008037ebe       0x24 src/built-in.o
- *fill*         0x0000000008037ee2        0x2 
+                0x0000000008037f0e       0x24 src/built-in.o
+ *fill*         0x0000000008037f32        0x2 
  .rodata.ledring12_deck
-                0x0000000008037ee4       0x24 src/built-in.o
- .rodata.ledringmemDef
-                0x0000000008037f08       0x10 src/built-in.o
- .rodata.test_pat
-                0x0000000008037f18        0x9 src/built-in.o
- *fill*         0x0000000008037f21        0x3 
- .rodata.timingmemDef
-                0x0000000008037f24       0x10 src/built-in.o
- .rodata.whiteRing
                 0x0000000008037f34       0x24 src/built-in.o
+ .rodata.ledringmemDef
+                0x0000000008037f58       0x10 src/built-in.o
+ .rodata.test_pat
+                0x0000000008037f68        0x9 src/built-in.o
+ *fill*         0x0000000008037f71        0x3 
+ .rodata.timingmemDef
+                0x0000000008037f74       0x10 src/built-in.o
+ .rodata.whiteRing
+                0x0000000008037f84       0x24 src/built-in.o
  .rodata.lighthouseInit.str1.1
-                0x0000000008037f58        0xc src/built-in.o
+                0x0000000008037fa8        0xc src/built-in.o
  .rodata.lighthouse_deck
-                0x0000000008037f64       0x24 src/built-in.o
+                0x0000000008037fb4       0x24 src/built-in.o
  .rodata.dwm1000Test.str1.1
-                0x0000000008037f88       0x27 src/built-in.o
+                0x0000000008037fd8       0x27 src/built-in.o
  .rodata.dwm1000Init.str1.1
-                0x0000000008037faf       0x27 src/built-in.o
+                0x0000000008037fff       0x27 src/built-in.o
  .rodata.uwbTask.str1.1
-                0x0000000008037fd6       0x3d src/built-in.o
- *fill*         0x0000000008038013        0x1 
+                0x0000000008038026       0x3d src/built-in.o
+ *fill*         0x0000000008038063        0x1 
  .rodata.dwm1000_deck
-                0x0000000008038014       0x24 src/built-in.o
+                0x0000000008038064       0x24 src/built-in.o
  .rodata.memDef
-                0x0000000008038038       0x50 src/built-in.o
+                0x0000000008038088       0x50 src/built-in.o
  .rodata.onEvent.str1.1
-                0x0000000008038088       0x88 src/built-in.o
+                0x00000000080380d8       0x88 src/built-in.o
                                          0x8a (size before relaxing)
  .rodata.twrTagOnEvent.str1.1
-                0x0000000008038110       0x42 src/built-in.o
+                0x0000000008038160       0x42 src/built-in.o
                                          0x48 (size before relaxing)
  .rodata.mrInitSensor.str1.1
-                0x0000000008038152       0x34 src/built-in.o
+                0x00000000080381a2       0x34 src/built-in.o
  .rodata.mrTest.str1.1
-                0x0000000008038186       0x19 src/built-in.o
+                0x00000000080381d6       0x19 src/built-in.o
  .rodata.mrInit.str1.1
-                0x0000000008038186        0x3 src/built-in.o
- *fill*         0x0000000008038189        0x3 
+                0x00000000080381d6        0x3 src/built-in.o
+ *fill*         0x00000000080381d9        0x3 
  .rodata.multiranger_deck
-                0x000000000803818c       0x24 src/built-in.o
+                0x00000000080381dc       0x24 src/built-in.o
  .rodata.oaTest.str1.1
-                0x00000000080381b0      0x13f src/built-in.o
+                0x0000000008038200      0x13f src/built-in.o
  .rodata.oaInit.str1.1
-                0x00000000080382ef      0x13f src/built-in.o
+                0x000000000803833f      0x13f src/built-in.o
                                           0x3 (size before relaxing)
- *fill*         0x00000000080382ef        0x1 
+ *fill*         0x000000000803833f        0x1 
  .rodata.oa_deck
-                0x00000000080382f0       0x24 src/built-in.o
+                0x0000000008038340       0x24 src/built-in.o
  .rodata.usdTest.str1.1
-                0x0000000008038314       0x28 src/built-in.o
+                0x0000000008038364       0x28 src/built-in.o
  .rodata.usdInit.str1.1
-                0x000000000803833c       0x3d src/built-in.o
+                0x000000000803838c       0x3d src/built-in.o
                                          0x3e (size before relaxing)
  .rodata.usdWriteData.str1.1
-                0x0000000008038379       0x50 src/built-in.o
+                0x00000000080383c9       0x50 src/built-in.o
  .rodata.usddeckWriteEventData.str1.1
-                0x00000000080383c9        0x6 src/built-in.o
+                0x0000000008038419        0x6 src/built-in.o
  .rodata.usdWriteTask.str1.1
-                0x00000000080383c9       0x7a src/built-in.o
+                0x0000000008038419       0x7a src/built-in.o
                                          0x7e (size before relaxing)
  .rodata.usdLogTask.str1.1
-                0x0000000008038443      0x135 src/built-in.o
+                0x0000000008038493      0x135 src/built-in.o
  .rodata.usd_deck
-                0x0000000008038578       0x24 src/built-in.o
+                0x00000000080385c8       0x24 src/built-in.o
  .rodata.zRangerInit.str1.1
-                0x000000000803859c        0x8 src/built-in.o
+                0x00000000080385ec        0x8 src/built-in.o
  .rodata.zranger_deck
-                0x00000000080385a4       0x24 src/built-in.o
+                0x00000000080385f4       0x24 src/built-in.o
  .rodata.zRanger2Init.str1.1
-                0x00000000080385c8       0x3d src/built-in.o
- *fill*         0x0000000008038605        0x3 
+                0x0000000008038618       0x3d src/built-in.o
+ *fill*         0x0000000008038655        0x3 
  .rodata.zranger2_deck
-                0x0000000008038608       0x24 src/built-in.o
+                0x0000000008038658       0x24 src/built-in.o
  .rodata.ak8963EvaluateSelfTest.str1.1
-                0x000000000803862c       0x3e src/built-in.o
+                0x000000000803867c       0x3e src/built-in.o
  .rodata.ak8963SelfTest.str1.1
-                0x000000000803866a       0x19 src/built-in.o
+                0x00000000080386ba       0x19 src/built-in.o
                                          0x1f (size before relaxing)
  .rodata.eepromTest.str1.1
-                0x0000000008038683       0x3e src/built-in.o
+                0x00000000080386d3       0x3e src/built-in.o
  .rodata.i2cdrvCreateMessage.str1.1
-                0x00000000080386c1       0x3b src/built-in.o
+                0x0000000008038711       0x3b src/built-in.o
                                          0x3c (size before relaxing)
  .rodata.deckBusDef
-                0x00000000080386fc       0x50 src/built-in.o
- .rodata.sensorBusDef
                 0x000000000803874c       0x50 src/built-in.o
+ .rodata.sensorBusDef
+                0x000000000803879c       0x50 src/built-in.o
  .rodata.ledSet.str1.1
-                0x000000000803879c       0x45 src/built-in.o
- *fill*         0x00000000080387e1        0x3 
+                0x00000000080387ec       0x45 src/built-in.o
+ *fill*         0x0000000008038831        0x3 
  .rodata.led_pin
-                0x00000000080387e4       0x18 src/built-in.o
+                0x0000000008038834       0x18 src/built-in.o
  .rodata.led_polarity
-                0x00000000080387fc       0x18 src/built-in.o
+                0x000000000803884c       0x18 src/built-in.o
  .rodata.led_port
-                0x0000000008038814       0x18 src/built-in.o
+                0x0000000008038864       0x18 src/built-in.o
  .rodata.lhblFlashWritePage.str1.1
-                0x000000000803882c       0x74 src/built-in.o
+                0x000000000803887c       0x74 src/built-in.o
  .rodata.lps25hEvaluateSelfTest.str1.1
-                0x00000000080388a0       0x47 src/built-in.o
+                0x00000000080388f0       0x47 src/built-in.o
  .rodata.lps25hSelfTest.str1.1
-                0x00000000080388e7        0xc src/built-in.o
+                0x0000000008038937        0xc src/built-in.o
                                          0x15 (size before relaxing)
  .rodata.motorsSetRatio.str1.1
-                0x00000000080388f3       0x4d src/built-in.o
+                0x0000000008038943       0x4d src/built-in.o
  .rodata.motorsInit.str1.1
-                0x0000000008038940       0x32 src/built-in.o
- *fill*         0x0000000008038972        0x2 
+                0x0000000008038990       0x32 src/built-in.o
+ *fill*         0x00000000080389c2        0x2 
  .rodata.MOTORS
-                0x0000000008038974       0x10 src/built-in.o
-                0x0000000008038974                MOTORS
+                0x00000000080389c4       0x10 src/built-in.o
+                0x00000000080389c4                MOTORS
  .rodata.MOTORS_PA15_TIM2_CH1_BRUSHED
-                0x0000000008038984       0x5c src/built-in.o
+                0x00000000080389d4       0x5c src/built-in.o
  .rodata.MOTORS_PA15_TIM2_CH1_BRUSHLESS_OD
-                0x00000000080389e0       0x5c src/built-in.o
+                0x0000000008038a30       0x5c src/built-in.o
  .rodata.MOTORS_PA1_TIM2_CH2_BRUSHED
-                0x0000000008038a3c       0x5c src/built-in.o
+                0x0000000008038a8c       0x5c src/built-in.o
  .rodata.MOTORS_PA1_TIM2_CH2_BRUSHLESS_OD
-                0x0000000008038a98       0x5c src/built-in.o
+                0x0000000008038ae8       0x5c src/built-in.o
  .rodata.MOTORS_PB10_TIM2_CH3_BRUSHLESS_OD
-                0x0000000008038af4       0x5c src/built-in.o
+                0x0000000008038b44       0x5c src/built-in.o
  .rodata.MOTORS_PB11_TIM2_CH4_BRUSHED
-                0x0000000008038b50       0x5c src/built-in.o
+                0x0000000008038ba0       0x5c src/built-in.o
  .rodata.MOTORS_PB11_TIM2_CH4_BRUSHLESS_OD
-                0x0000000008038bac       0x5c src/built-in.o
+                0x0000000008038bfc       0x5c src/built-in.o
  .rodata.MOTORS_PB9_TIM4_CH4_BRUSHED
-                0x0000000008038c08       0x5c src/built-in.o
+                0x0000000008038c58       0x5c src/built-in.o
  .rodata.brushedMotorHealthTestSettings
-                0x0000000008038c64        0x8 src/built-in.o
-                0x0000000008038c64                brushedMotorHealthTestSettings
+                0x0000000008038cb4        0x8 src/built-in.o
+                0x0000000008038cb4                brushedMotorHealthTestSettings
  .rodata.brushlessMotorHealthTestSettings
-                0x0000000008038c6c        0x8 src/built-in.o
-                0x0000000008038c6c                brushlessMotorHealthTestSettings
+                0x0000000008038cbc        0x8 src/built-in.o
+                0x0000000008038cbc                brushlessMotorHealthTestSettings
  .rodata.testsound
-                0x0000000008038c74        0x8 src/built-in.o
-                0x0000000008038c74                testsound
+                0x0000000008038cc4        0x8 src/built-in.o
+                0x0000000008038cc4                testsound
  .rodata.unknownMotorHealthTestSettings
-                0x0000000008038c7c        0x8 src/built-in.o
-                0x0000000008038c7c                unknownMotorHealthTestSettings
+                0x0000000008038ccc        0x8 src/built-in.o
+                0x0000000008038ccc                unknownMotorHealthTestSettings
  .rodata.mpu6500EvaluateSelfTest.str1.1
-                0x0000000008038c84       0x48 src/built-in.o
+                0x0000000008038cd4       0x48 src/built-in.o
  .rodata.mpu6500SelfTest.str1.1
-                0x0000000008038ccc       0x27 src/built-in.o
- *fill*         0x0000000008038cf3        0x1 
+                0x0000000008038d1c       0x27 src/built-in.o
+ *fill*         0x0000000008038d43        0x1 
  .rodata.mpu6500StTb
-                0x0000000008038cf4      0x200 src/built-in.o
+                0x0000000008038d44      0x200 src/built-in.o
  .rodata.printHardFault.str1.1
-                0x0000000008038ef4       0x97 src/built-in.o
+                0x0000000008038f44       0x97 src/built-in.o
  .rodata.MemManage_Handler.str1.1
-                0x0000000008038f8b        0xa src/built-in.o
+                0x0000000008038fdb        0xa src/built-in.o
  .rodata.BusFault_Handler.str1.1
-                0x0000000008038f95        0x9 src/built-in.o
+                0x0000000008038fe5        0x9 src/built-in.o
  .rodata.UsageFault_Handler.str1.1
-                0x0000000008038f9e        0xb src/built-in.o
+                0x0000000008038fee        0xb src/built-in.o
  .rodata.pmw3901Init.str1.1
-                0x0000000008038fa9       0x20 src/built-in.o
+                0x0000000008038ff9       0x20 src/built-in.o
  .rodata.uart2Init.str1.1
-                0x0000000008038fc9       0x42 src/built-in.o
+                0x0000000008039019       0x42 src/built-in.o
  .rodata.uartslkIsr.str1.1
-                0x000000000803900b       0x40 src/built-in.o
+                0x000000000803905b       0x40 src/built-in.o
                                          0x42 (size before relaxing)
  .rodata.vl53l0xInitSensor.str1.1
-                0x000000000803904b       0x3c src/built-in.o
+                0x000000000803909b       0x3c src/built-in.o
  .rodata.watchdogNormalStartTest.str1.1
-                0x0000000008039087       0x3a src/built-in.o
+                0x00000000080390d7       0x3a src/built-in.o
  .rodata.ws2812Init.str1.1
-                0x00000000080390c1       0x3e src/built-in.o
+                0x0000000008039111       0x3e src/built-in.o
                                          0x3f (size before relaxing)
  .rodata.vApplicationMallocFailedHook.str1.1
-                0x00000000080390ff       0x1f src/built-in.o
+                0x000000000803914f       0x1f src/built-in.o
  .rodata.vApplicationStackOverflowHook.str1.1
-                0x000000000803911e       0x21 src/built-in.o
+                0x000000000803916e       0x21 src/built-in.o
  .rodata.ledseqInit.str1.1
-                0x000000000803913f       0x16 src/built-in.o
+                0x000000000803918f       0x16 src/built-in.o
  .rodata.owSyslinkTransfer.str1.1
-                0x0000000008039155       0x51 src/built-in.o
+                0x00000000080391a5       0x51 src/built-in.o
                                          0x67 (size before relaxing)
  .rodata.owRead.str1.1
-                0x00000000080391a6       0x16 src/built-in.o
+                0x00000000080391f6       0x16 src/built-in.o
  .rodata.pmInit.str1.1
-                0x00000000080391bc        0x8 src/built-in.o
+                0x000000000803920c        0x8 src/built-in.o
  .rodata.LiPoTypicalChargeCurve
-                0x00000000080391c4       0x28 src/built-in.o
+                0x0000000008039214       0x28 src/built-in.o
  .rodata.radiolinkSendCRTPPacket.str1.1
-                0x00000000080391ec       0x57 src/built-in.o
+                0x000000000803923c       0x57 src/built-in.o
  .rodata.radiolinkInit.str1.1
-                0x0000000008039243       0x13 src/built-in.o
+                0x0000000008039293       0x13 src/built-in.o
  .rodata.radiolinkSyslinkDispatch.str1.1
-                0x0000000008039256       0x3a src/built-in.o
+                0x00000000080392a6       0x3a src/built-in.o
  .rodata.sensorsDeviceInit.str1.1
-                0x0000000008039290       0xd3 src/built-in.o
+                0x00000000080392e0       0xd3 src/built-in.o
  .rodata.sensorsTaskInit.str1.1
-                0x0000000008039363        0x8 src/built-in.o
+                0x00000000080393b3        0x8 src/built-in.o
  .rodata.gyroSelftest.str1.1
-                0x000000000803936b       0x77 src/built-in.o
+                0x00000000080393bb       0x77 src/built-in.o
  .rodata.sensorsBmi088Bmp388Init_I2C.str1.1
-                0x00000000080393e2       0x23 src/built-in.o
+                0x0000000008039432       0x23 src/built-in.o
  .rodata.sensorsBmi088Bmp388Test.str1.1
-                0x0000000008039405       0x14 src/built-in.o
+                0x0000000008039455       0x14 src/built-in.o
  .rodata.sensorsBmi088Bmp388ManufacturingTest.str1.1
-                0x0000000008039419       0x44 src/built-in.o
+                0x0000000008039469       0x44 src/built-in.o
  .rodata.sensorsBmi088Bmp388SetAccMode.str1.1
-                0x000000000803945d       0x18 src/built-in.o
+                0x00000000080394ad       0x18 src/built-in.o
  .rodata.sensorsMpu9250Lps25hInit.str1.1
-                0x0000000008039475       0xb6 src/built-in.o
+                0x00000000080394c5       0xb6 src/built-in.o
                                          0xbe (size before relaxing)
  .rodata.sensorsMpu9250Lps25hTest.str1.1
-                0x000000000803952b       0x27 src/built-in.o
+                0x000000000803957b       0x27 src/built-in.o
  .rodata.sensorsMpu9250Lps25hManufacturingTest.str1.1
-                0x0000000008039552       0x78 src/built-in.o
- *fill*         0x00000000080395ca        0x2 
+                0x00000000080395a2       0x78 src/built-in.o
+ *fill*         0x000000000803961a        0x2 
  .rodata.sensorImplementations
-                0x00000000080395cc       0x68 src/built-in.o
+                0x000000000803961c       0x68 src/built-in.o
  .rodata.storageTest.str1.1
-                0x0000000008039634       0x73 src/built-in.o
+                0x0000000008039684       0x73 src/built-in.o
  .rodata.syslinkTask.str1.1
-                0x00000000080396a7       0x8b src/built-in.o
+                0x00000000080396f7       0x8b src/built-in.o
  .rodata.syslinkInit.str1.1
-                0x0000000008039732       0x15 src/built-in.o
+                0x0000000008039782       0x15 src/built-in.o
  .rodata.syslinkSendPacket.str1.1
-                0x0000000008039747       0x52 src/built-in.o
+                0x0000000008039797       0x52 src/built-in.o
  .rodata.USBD_USR_ManufacturerStrDescriptor.str1.1
-                0x0000000008039799        0xc src/built-in.o
+                0x00000000080397e9        0xc src/built-in.o
  .rodata.USBD_USR_ProductStrDescriptor.str1.1
-                0x00000000080397a5       0x2f src/built-in.o
+                0x00000000080397f5       0x2f src/built-in.o
  .rodata.USBD_USR_ConfigStrDescriptor.str1.1
-                0x00000000080397d4        0xb src/built-in.o
+                0x0000000008039824        0xb src/built-in.o
  .rodata.USBD_USR_InterfaceStrDescriptor.str1.1
-                0x00000000080397df       0x21 src/built-in.o
+                0x000000000803982f       0x21 src/built-in.o
  .rodata.bin2hex
-                0x0000000008039800       0x10 src/built-in.o
+                0x0000000008039850       0x10 src/built-in.o
  .rodata.usblinkSendPacket.str1.1
-                0x0000000008039810       0x4d src/built-in.o
+                0x0000000008039860       0x4d src/built-in.o
  .rodata.usblinkInit.str1.1
-                0x000000000803985d        0x8 src/built-in.o
+                0x00000000080398ad        0x8 src/built-in.o
  .rodata.get_ldnumber.str1.1
-                0x0000000008039865        0x8 src/built-in.o
+                0x00000000080398b5        0x8 src/built-in.o
                                           0x3 (size before relaxing)
  .rodata.check_fs.str1.1
-                0x0000000008039865        0x9 src/built-in.o
+                0x00000000080398b5        0x9 src/built-in.o
  .rodata.follow_path.str1.1
-                0x000000000803986e       0x10 src/built-in.o
- .rodata.ExCvt  0x000000000803987e       0x80 src/built-in.o
+                0x00000000080398be       0x10 src/built-in.o
+ .rodata.ExCvt  0x00000000080398ce       0x80 src/built-in.o
  .rodata.LfnOfs
-                0x00000000080398fe        0xd src/built-in.o
- *fill*         0x000000000803990b        0x1 
+                0x000000000803994e        0xd src/built-in.o
+ *fill*         0x000000000803995b        0x1 
  .rodata.cvt1.5809
-                0x000000000803990c      0x1f2 src/built-in.o
+                0x000000000803995c      0x1f2 src/built-in.o
  .rodata.cvt2.5810
-                0x0000000008039afe       0xbc src/built-in.o
- .rodata.uc850  0x0000000008039bba      0x100 src/built-in.o
+                0x0000000008039b4e       0xbc src/built-in.o
+ .rodata.uc850  0x0000000008039c0a      0x100 src/built-in.o
  .rodata.CSWTCH.23
-                0x0000000008039cba        0x4 src/built-in.o
+                0x0000000008039d0a        0x4 src/built-in.o
  .rodata.SetPresetMode.str1.1
-                0x0000000008039cbe        0xc src/built-in.o
+                0x0000000008039d0e        0xc src/built-in.o
  .rodata.CSWTCH.74
-                0x0000000008039cca       0x10 src/built-in.o
+                0x0000000008039d1a       0x10 src/built-in.o
  .rodata.appInit.str1.1
-                0x0000000008039cda        0x4 src/built-in.o
+                0x0000000008039d2a        0x4 src/built-in.o
  .rodata.commanderInit.str1.1
-                0x0000000008039cde       0x59 src/built-in.o
+                0x0000000008039d2e       0x59 src/built-in.o
  .rodata.commanderSetSetpoint.str1.1
-                0x0000000008039d37       0x15 src/built-in.o
+                0x0000000008039d87       0x15 src/built-in.o
  .rodata.nullSetpoint
-                0x0000000008039d4c       0xe8 src/built-in.o
+                0x0000000008039d9c       0xe8 src/built-in.o
  .rodata.priorityDisable
-                0x0000000008039e34        0x4 src/built-in.o
+                0x0000000008039e84        0x4 src/built-in.o
  .rodata.consolePutchar.str1.1
-                0x0000000008039e38        0x5 src/built-in.o
+                0x0000000008039e88        0x5 src/built-in.o
  .rodata.controllerInit.str1.1
-                0x0000000008039e3d       0x26 src/built-in.o
- *fill*         0x0000000008039e63        0x1 
+                0x0000000008039e8d       0x26 src/built-in.o
+ *fill*         0x0000000008039eb3        0x1 
  .rodata.controllerFunctions
-                0x0000000008039e64       0x40 src/built-in.o
+                0x0000000008039eb4       0x40 src/built-in.o
  .rodata.hoverDecoder.str1.1
-                0x0000000008039ea4       0x72 src/built-in.o
+                0x0000000008039ef4       0x72 src/built-in.o
  .rodata.altHoldDecoder.str1.1
-                0x0000000008039f16       0x2a src/built-in.o
+                0x0000000008039f66       0x2a src/built-in.o
  .rodata.cppmEmuDecoder.str1.1
-                0x0000000008039f40       0x3b src/built-in.o
+                0x0000000008039f90       0x3b src/built-in.o
  .rodata.zDistanceDecoder.str1.1
-                0x0000000008039f7b       0x2c src/built-in.o
+                0x0000000008039fcb       0x2c src/built-in.o
  .rodata.velocityDecoder.str1.1
-                0x0000000008039fa7       0x2b src/built-in.o
+                0x0000000008039ff7       0x2b src/built-in.o
  .rodata.fullStateDecoder.str1.1
-                0x0000000008039fd2       0x2c src/built-in.o
+                0x000000000803a022       0x2c src/built-in.o
  .rodata.crtpCommanderGenericDecodeSetpoint.str1.1
-                0x0000000008039ffe        0xd src/built-in.o
- *fill*         0x000000000803a00b        0x1 
+                0x000000000803a04e        0xd src/built-in.o
+ *fill*         0x000000000803a05b        0x1 
  .rodata.packetDecoders
-                0x000000000803a00c       0x20 src/built-in.o
+                0x000000000803a05c       0x20 src/built-in.o
  .rodata.crtpCommanderHighLevelInit.str1.1
-                0x000000000803a02c        0x6 src/built-in.o
+                0x000000000803a07c        0x6 src/built-in.o
  .rodata.notifySetpointsStopDecoder.str1.1
-                0x000000000803a032       0x76 src/built-in.o
+                0x000000000803a082       0x76 src/built-in.o
  .rodata.crtpCommanderRpytDecodeSetpoint.str1.1
-                0x000000000803a0a8       0x47 src/built-in.o
+                0x000000000803a0f8       0x47 src/built-in.o
                                          0x4d (size before relaxing)
  .rodata.locSrvSendRangeFloat.str1.1
-                0x000000000803a0ef       0x73 src/built-in.o
+                0x000000000803a13f       0x73 src/built-in.o
  .rodata.crtpInit.str1.1
-                0x000000000803a162       0x10 src/built-in.o
+                0x000000000803a1b2       0x10 src/built-in.o
  .rodata.crtpInitTaskQueue.str1.1
-                0x000000000803a172       0x4f src/built-in.o
+                0x000000000803a1c2       0x4f src/built-in.o
  .rodata.crtpReceivePacket.str1.1
-                0x000000000803a1c1        0xf src/built-in.o
+                0x000000000803a211        0xf src/built-in.o
                                          0x11 (size before relaxing)
  .rodata.crtpSendPacket.str1.1
-                0x000000000803a1d0       0x1e src/built-in.o
+                0x000000000803a220       0x1e src/built-in.o
  .rodata.crtpSrvTask.str1.1
-                0x000000000803a1d0       0x13 src/built-in.o
+                0x000000000803a220       0x13 src/built-in.o
  .rodata.crtpserviceInit.str1.1
-                0x000000000803a1e3        0x9 src/built-in.o
+                0x000000000803a233        0x9 src/built-in.o
  .rodata.espDeckFlasherWrite.str1.1
-                0x000000000803a1ec       0xb6 src/built-in.o
+                0x000000000803a23c       0xb6 src/built-in.o
  .rodata.estimatorKalmanTaskInit.str1.1
-                0x000000000803a2a2        0x7 src/built-in.o
+                0x000000000803a2f2        0x7 src/built-in.o
  .rodata.kalmanTask.str1.1
-                0x000000000803a2a9       0x61 src/built-in.o
+                0x000000000803a2f9       0x61 src/built-in.o
  .rodata.stateEstimatorSwitchTo.str1.1
-                0x000000000803a30a       0x24 src/built-in.o
- *fill*         0x000000000803a32e        0x2 
+                0x000000000803a35a       0x24 src/built-in.o
+ *fill*         0x000000000803a37e        0x2 
  .rodata.__eventTriggerPayloadDesc__estDistance__
-                0x000000000803a330       0x10 src/built-in.o
+                0x000000000803a380       0x10 src/built-in.o
  .rodata.__eventTriggerPayloadDesc__estPosition__
-                0x000000000803a340        0x8 src/built-in.o
+                0x000000000803a390        0x8 src/built-in.o
  .rodata.__eventTriggerPayloadDesc__estSweepAngle__
-                0x000000000803a348       0x28 src/built-in.o
+                0x000000000803a398       0x28 src/built-in.o
  .rodata.__eventTriggerPayloadDesc__estTDOA__
-                0x000000000803a370       0x18 src/built-in.o
+                0x000000000803a3c0       0x18 src/built-in.o
  .rodata.__eventTriggerPayloadDesc__estYawError__
-                0x000000000803a388        0x8 src/built-in.o
+                0x000000000803a3d8        0x8 src/built-in.o
  .rodata.estimatorFunctions
-                0x000000000803a390       0x3c src/built-in.o
+                0x000000000803a3e0       0x3c src/built-in.o
  .rodata.healthRunTests.str1.1
-                0x000000000803a3cc      0x14b src/built-in.o
+                0x000000000803a41c      0x14b src/built-in.o
  .rodata.logRunBlock.str1.1
-                0x000000000803a517       0x37 src/built-in.o
+                0x000000000803a567       0x37 src/built-in.o
  .rodata.logInit.str1.1
-                0x000000000803a54e       0x37 src/built-in.o
+                0x000000000803a59e       0x37 src/built-in.o
                                          0x3c (size before relaxing)
  .rodata.logTask.str1.1
-                0x000000000803a585       0x49 src/built-in.o
+                0x000000000803a5d5       0x49 src/built-in.o
  .rodata.logGetInt.str1.1
-                0x000000000803a5ce       0x17 src/built-in.o
+                0x000000000803a61e       0x17 src/built-in.o
  .rodata.typeLength
-                0x000000000803a5e5       0x14 src/built-in.o
+                0x000000000803a635       0x14 src/built-in.o
  .rodata.handleMemTesterWrite.str1.1
-                0x000000000803a5f9       0x3a src/built-in.o
+                0x000000000803a649       0x3a src/built-in.o
  .rodata.memoryRegisterHandler.str1.1
-                0x000000000803a633       0x90 src/built-in.o
+                0x000000000803a683       0x90 src/built-in.o
  .rodata.memInit.str1.1
-                0x000000000803a6c3        0x4 src/built-in.o
+                0x000000000803a713        0x4 src/built-in.o
  .rodata.memoryRegisterOwHandler.str1.1
-                0x000000000803a6c7       0x12 src/built-in.o
- *fill*         0x000000000803a6d9        0x3 
+                0x000000000803a717       0x12 src/built-in.o
+ *fill*         0x000000000803a729        0x3 
  .rodata.memTesterDef
-                0x000000000803a6dc       0x10 src/built-in.o
+                0x000000000803a72c       0x10 src/built-in.o
  .rodata.paramLogicInit.str1.1
-                0x000000000803a6ec       0x3f src/built-in.o
+                0x000000000803a73c       0x3f src/built-in.o
                                          0x40 (size before relaxing)
  .rodata.paramTOCProcess.str1.1
-                0x000000000803a72b       0x25 src/built-in.o
+                0x000000000803a77b       0x25 src/built-in.o
                                          0x43 (size before relaxing)
  .rodata.generateStorageKey.str1.1
-                0x000000000803a750       0x67 src/built-in.o
+                0x000000000803a7a0       0x67 src/built-in.o
                                          0x69 (size before relaxing)
  .rodata.paramGetInt.str1.1
-                0x000000000803a7b7       0x1c src/built-in.o
+                0x000000000803a807       0x1c src/built-in.o
  .rodata.CSWTCH.139
-                0x000000000803a7d3        0x3 src/built-in.o
- *fill*         0x000000000803a7d6        0x2 
+                0x000000000803a823        0x3 src/built-in.o
+ *fill*         0x000000000803a826        0x2 
  .rodata.dummyZero64
-                0x000000000803a7d8        0x8 src/built-in.o
+                0x000000000803a828        0x8 src/built-in.o
  .rodata.invalidVarId
-                0x000000000803a7e0        0x4 src/built-in.o
+                0x000000000803a830        0x4 src/built-in.o
  .rodata.paramInit.str1.1
-                0x000000000803a7e4        0x6 src/built-in.o
+                0x000000000803a834        0x6 src/built-in.o
  .rodata.platformserviceInit.str1.1
-                0x000000000803a7ea        0xd src/built-in.o
+                0x000000000803a83a        0xd src/built-in.o
  .rodata.control_points_by_type
-                0x000000000803a7f7        0x4 src/built-in.o
- *fill*         0x000000000803a7fb        0x1 
- .rodata.facs   0x000000000803a7fc       0x20 src/built-in.o
+                0x000000000803a847        0x4 src/built-in.o
+ *fill*         0x000000000803a84b        0x1 
+ .rodata.facs   0x000000000803a84c       0x20 src/built-in.o
  .rodata.BL_ConnectEx.str1.1
-                0x000000000803a81c        0x4 src/built-in.o
+                0x000000000803a86c        0x4 src/built-in.o
  .rodata.esc4wayProcess.str1.1
-                0x000000000803a820        0xa src/built-in.o
+                0x000000000803a870        0xa src/built-in.o
  .rodata.soundTimer.str1.1
-                0x000000000803a82a       0x22 src/built-in.o
+                0x000000000803a87a       0x22 src/built-in.o
  .rodata.tilt.str1.1
-                0x000000000803a84c       0x16 src/built-in.o
+                0x000000000803a89c       0x16 src/built-in.o
  .rodata.soundInit.str1.1
-                0x000000000803a84c        0xb src/built-in.o
- *fill*         0x000000000803a857        0x1 
+                0x000000000803a89c        0xb src/built-in.o
+ *fill*         0x000000000803a8a7        0x1 
  .rodata.calibrated
-                0x000000000803a858      0x148 src/built-in.o
+                0x000000000803a8a8      0x148 src/built-in.o
  .rodata.chg_done
-                0x000000000803a9a0      0x148 src/built-in.o
+                0x000000000803a9f0      0x148 src/built-in.o
  .rodata.factory_test
-                0x000000000803aae8      0x148 src/built-in.o
+                0x000000000803ab38      0x148 src/built-in.o
  .rodata.lowbatt
-                0x000000000803ac30      0x148 src/built-in.o
+                0x000000000803ac80      0x148 src/built-in.o
  .rodata.range_fast
-                0x000000000803ad78      0x148 src/built-in.o
+                0x000000000803adc8      0x148 src/built-in.o
  .rodata.range_slow
-                0x000000000803aec0      0x148 src/built-in.o
+                0x000000000803af10      0x148 src/built-in.o
  .rodata.startup
-                0x000000000803b008      0x148 src/built-in.o
+                0x000000000803b058      0x148 src/built-in.o
  .rodata.starwars
-                0x000000000803b150      0x148 src/built-in.o
+                0x000000000803b1a0      0x148 src/built-in.o
  .rodata.usb_connect
-                0x000000000803b298      0x148 src/built-in.o
+                0x000000000803b2e8      0x148 src/built-in.o
  .rodata.usb_disconnect
-                0x000000000803b3e0      0x148 src/built-in.o
+                0x000000000803b430      0x148 src/built-in.o
  .rodata.valkyries
-                0x000000000803b528      0x148 src/built-in.o
+                0x000000000803b578      0x148 src/built-in.o
  .rodata.stabilizerTask.str1.1
-                0x000000000803b670       0x6d src/built-in.o
+                0x000000000803b6c0       0x6d src/built-in.o
  .rodata.stabilizerInit.str1.1
-                0x000000000803b6dd        0xb src/built-in.o
+                0x000000000803b72d        0xb src/built-in.o
  .rodata.timerHandler.part.0.str1.1
-                0x000000000803b6e8       0xbe src/built-in.o
+                0x000000000803b738       0xbe src/built-in.o
  .rodata.sysLoadInit.str1.1
-                0x000000000803b7a6       0x21 src/built-in.o
+                0x000000000803b7f6       0x21 src/built-in.o
  .rodata.systemLaunch.str1.1
-                0x000000000803b7c7        0x7 src/built-in.o
+                0x000000000803b817        0x7 src/built-in.o
  .rodata.systemInit.str1.1
-                0x000000000803b7ce       0xb8 src/built-in.o
+                0x000000000803b81e       0xb8 src/built-in.o
  .rodata.systemTask.str1.1
-                0x000000000803b886      0x1a6 src/built-in.o
+                0x000000000803b8d6      0x1a6 src/built-in.o
  .rodata.systemSyslinkReceive.str1.1
-                0x000000000803ba2c       0x18 src/built-in.o
+                0x000000000803ba7c       0x18 src/built-in.o
  .rodata.passthroughInit.str1.1
-                0x000000000803ba44        0xc src/built-in.o
+                0x000000000803ba94        0xc src/built-in.o
  .rodata.passthroughVcpRxSendFromISR.str1.1
-                0x000000000803ba50       0x8e src/built-in.o
+                0x000000000803baa0       0x8e src/built-in.o
  .rodata.passthroughVcpRxReceive.str1.1
-                0x000000000803bade        0xd src/built-in.o
+                0x000000000803bb2e        0xd src/built-in.o
  .rodata.passthroughVcpTxSend.str1.1
-                0x000000000803baeb       0x28 src/built-in.o
+                0x000000000803bb3b       0x28 src/built-in.o
  .rodata.route.str1.1
-                0x000000000803bb13       0x3f src/built-in.o
+                0x000000000803bb63       0x3f src/built-in.o
  .rodata.router_from_internal.str1.1
-                0x000000000803bb52        0x6 src/built-in.o
+                0x000000000803bba2        0x6 src/built-in.o
  .rodata.router_from_uart.str1.1
-                0x000000000803bb58        0x6 src/built-in.o
+                0x000000000803bba8        0x6 src/built-in.o
  .rodata.cpxExternalRouterInit.str1.1
-                0x000000000803bb58       0x98 src/built-in.o
+                0x000000000803bba8       0x98 src/built-in.o
  .rodata.cpxInternalRouterRouteIn.str1.1
-                0x000000000803bbf0       0x41 src/built-in.o
+                0x000000000803bc40       0x41 src/built-in.o
  .rodata.CPX_UART_RX.str1.1
-                0x000000000803bc31       0x63 src/built-in.o
+                0x000000000803bc81       0x63 src/built-in.o
  .rodata.CPX_UART_TX.str1.1
-                0x000000000803bc94       0x8e src/built-in.o
+                0x000000000803bce4       0x8e src/built-in.o
  .rodata.cpxUARTTransportSend.str1.1
-                0x000000000803bd22       0x34 src/built-in.o
+                0x000000000803bd72       0x34 src/built-in.o
  .rodata.cpxUARTTransportInit.str1.1
-                0x000000000803bd56       0x37 src/built-in.o
+                0x000000000803bda6       0x37 src/built-in.o
  .rodata.cpx.str1.1
-                0x000000000803bd8d       0xf5 src/built-in.o
+                0x000000000803bddd       0xf5 src/built-in.o
  .rodata.cpxInit.str1.1
-                0x000000000803be82        0x4 src/built-in.o
+                0x000000000803bed2        0x4 src/built-in.o
  .rodata.assert_aligned_4_bytes.isra.0.str1.1
-                0x000000000803be86       0x54 src/built-in.o
+                0x000000000803bed6       0x54 src/built-in.o
                                         0x150 (size before relaxing)
  .rodata.arm_sqrt.str1.1
-                0x000000000803beda       0x1b src/built-in.o
+                0x000000000803bf2a       0x1b src/built-in.o
  .rodata.kalmanCoreScalarUpdate.str1.1
-                0x000000000803bef5       0x85 src/built-in.o
+                0x000000000803bf45       0x85 src/built-in.o
  .rodata.kalmanCoreUpdateWithDistance.str1.1
-                0x000000000803bf7a       0x5a src/built-in.o
+                0x000000000803bfca       0x5a src/built-in.o
  .rodata.mat_trans.str1.1
-                0x000000000803bf7a       0x36 src/built-in.o
+                0x000000000803bfca       0x36 src/built-in.o
  .rodata.assert_aligned_4_bytes.isra.0.part.0.str1.1
-                0x000000000803bf7a       0x69 src/built-in.o
+                0x000000000803bfca       0x69 src/built-in.o
  .rodata.mat_mult.constprop.0.str1.1
-                0x000000000803bf7a       0x1b src/built-in.o
+                0x000000000803bfca       0x1b src/built-in.o
  .rodata.lighthouseCoreLedTimer.str1.1
-                0x000000000803bf7a       0x4e src/built-in.o
+                0x000000000803bfca       0x4e src/built-in.o
                                          0x54 (size before relaxing)
  .rodata.lighthouseCoreTask.str1.1
-                0x000000000803bfc8       0xa9 src/built-in.o
- *fill*         0x000000000803c071        0x3 
+                0x000000000803c018       0xa9 src/built-in.o
+ *fill*         0x000000000803c0c1        0x3 
  .rodata.bsRates
-                0x000000000803c074       0x10 src/built-in.o
+                0x000000000803c0c4       0x10 src/built-in.o
  .rodata.lighthouseDeckFlasherCheckVersionAndBoot.str1.1
-                0x000000000803c084      0x171 src/built-in.o
+                0x000000000803c0d4      0x171 src/built-in.o
                                         0x178 (size before relaxing)
  .rodata.mat_trans.constprop.0.str1.1
-                0x000000000803c1f5       0x1b src/built-in.o
- *fill*         0x000000000803c1f5        0x3 
+                0x000000000803c245       0x1b src/built-in.o
+ *fill*         0x000000000803c245        0x3 
  .rodata.bsEstRates
-                0x000000000803c1f8       0x10 src/built-in.o
+                0x000000000803c248       0x10 src/built-in.o
  .rodata.lighthouseStoragePersistData.str1.1
-                0x000000000803c208       0x1c src/built-in.o
+                0x000000000803c258       0x1c src/built-in.o
  .rodata.lhPersistDataWorker.str1.1
-                0x000000000803c224       0x4b src/built-in.o
+                0x000000000803c274       0x4b src/built-in.o
  .rodata.lighthouseStoragePersistSystemType.str1.1
-                0x000000000803c26f        0xe src/built-in.o
+                0x000000000803c2bf        0xe src/built-in.o
  .rodata.lighthouseStorageVerifySetStorageVersion.str1.1
-                0x000000000803c27d        0x7 src/built-in.o
+                0x000000000803c2cd        0x7 src/built-in.o
                                           0xa (size before relaxing)
  .rodata.platformGetDeviceTypeString.str1.1
-                0x000000000803c284        0x7 src/built-in.o
+                0x000000000803c2d4        0x7 src/built-in.o
  .rodata.platformSetLowInterferenceRadioMode.str1.1
-                0x000000000803c28b       0x42 src/built-in.o
+                0x000000000803c2db       0x42 src/built-in.o
  .rodata.assertFail.str1.1
-                0x000000000803c2cd       0x1a src/built-in.o
+                0x000000000803c31d       0x1a src/built-in.o
  .rodata.printAssertSnapshotData.str1.1
-                0x000000000803c2e7       0xcf src/built-in.o
+                0x000000000803c337       0xcf src/built-in.o
  .rodata.cfAssertNormalStartTest.str1.1
-                0x000000000803c3b6       0x39 src/built-in.o
+                0x000000000803c406       0x39 src/built-in.o
  .rodata.configblockInit.str1.1
-                0x000000000803c3ef       0x3d src/built-in.o
- .rodata.digit  0x000000000803c42c       0x10 src/built-in.o
+                0x000000000803c43f       0x3d src/built-in.o
+ .rodata.digit  0x000000000803c47c       0x10 src/built-in.o
  .rodata.V_MODIFIED
-                0x000000000803c43c        0x1 src/built-in.o
-                0x000000000803c43c                V_MODIFIED
+                0x000000000803c48c        0x1 src/built-in.o
+                0x000000000803c48c                V_MODIFIED
  .rodata.V_PRODUCTION_RELEASE
-                0x000000000803c43d        0x1 src/built-in.o
-                0x000000000803c43d                V_PRODUCTION_RELEASE
- *fill*         0x000000000803c43e        0x2 
+                0x000000000803c48d        0x1 src/built-in.o
+                0x000000000803c48d                V_PRODUCTION_RELEASE
+ *fill*         0x000000000803c48e        0x2 
  .rodata.V_REVISION_0
-                0x000000000803c440        0x4 src/built-in.o
-                0x000000000803c440                V_REVISION_0
+                0x000000000803c490        0x4 src/built-in.o
+                0x000000000803c490                V_REVISION_0
  .rodata.V_REVISION_1
-                0x000000000803c444        0x2 src/built-in.o
-                0x000000000803c444                V_REVISION_1
- *fill*         0x000000000803c446        0x2 
+                0x000000000803c494        0x2 src/built-in.o
+                0x000000000803c494                V_REVISION_1
+ *fill*         0x000000000803c496        0x2 
  .rodata.uxTopUsedPriority
-                0x000000000803c448        0x4 src/built-in.o
-                0x000000000803c448                uxTopUsedPriority
+                0x000000000803c498        0x4 src/built-in.o
+                0x000000000803c498                uxTopUsedPriority
  .rodata.appendItemToEnd.constprop.0.str1.1
-                0x000000000803c44c       0x2d src/built-in.o
+                0x000000000803c49c       0x2d src/built-in.o
  .rodata.lighthouseCalibrationMeasurementModelLh1.str1.1
-                0x000000000803c479       0x5a src/built-in.o
+                0x000000000803c4c9       0x5a src/built-in.o
  .rodata.vec_length.str1.1
-                0x000000000803c479       0x5a src/built-in.o
- *fill*         0x000000000803c479        0x3 
+                0x000000000803c4c9       0x5a src/built-in.o
+ *fill*         0x000000000803c4c9        0x3 
  .rodata.CYCLE_PERIODS
-                0x000000000803c47c       0x40 src/built-in.o
+                0x000000000803c4cc       0x40 src/built-in.o
  .rodata.sinTable_f32
-                0x000000000803c4bc      0x804 vendor/built-in.o
-                0x000000000803c4bc                sinTable_f32
+                0x000000000803c50c      0x804 vendor/built-in.o
+                0x000000000803c50c                sinTable_f32
  .rodata.xEventGroupCreateStatic.str1.1
-                0x000000000803ccc0       0x73 vendor/built-in.o
+                0x000000000803cd10       0x73 vendor/built-in.o
  .rodata.xEventGroupWaitBits.str1.1
-                0x000000000803cd33       0xb0 vendor/built-in.o
+                0x000000000803cd83       0xb0 vendor/built-in.o
  .rodata.xEventGroupClearBits.str1.1
-                0x000000000803cde3       0x37 vendor/built-in.o
+                0x000000000803ce33       0x37 vendor/built-in.o
  .rodata.xEventGroupSetBits.str1.1
-                0x000000000803ce1a       0x35 vendor/built-in.o
+                0x000000000803ce6a       0x35 vendor/built-in.o
  .rodata.prvTaskExitError.str1.1
-                0x000000000803ce4f       0x68 vendor/built-in.o
+                0x000000000803ce9f       0x68 vendor/built-in.o
  .rodata.vPortEnterCritical.str1.1
-                0x000000000803ceb7       0x35 vendor/built-in.o
+                0x000000000803cf07       0x35 vendor/built-in.o
  .rodata.vPortExitCritical.str1.1
-                0x000000000803ceec       0x12 vendor/built-in.o
+                0x000000000803cf3c       0x12 vendor/built-in.o
  .rodata.xPortStartScheduler.str1.1
-                0x000000000803cefe       0x89 vendor/built-in.o
+                0x000000000803cf4e       0x89 vendor/built-in.o
  .rodata.vPortValidateInterruptPriority.str1.1
-                0x000000000803cf87       0x6c vendor/built-in.o
+                0x000000000803cfd7       0x6c vendor/built-in.o
  .rodata.pvPortMalloc.str1.1
-                0x000000000803cff3       0xd2 vendor/built-in.o
+                0x000000000803d043       0xd2 vendor/built-in.o
  .rodata.vPortFree.str1.1
-                0x000000000803d0c5       0x51 vendor/built-in.o
+                0x000000000803d115       0x51 vendor/built-in.o
  .rodata.xQueueGenericReset.str1.1
-                0x000000000803d116       0x41 vendor/built-in.o
+                0x000000000803d166       0x41 vendor/built-in.o
  .rodata.xQueueGenericCreateStatic.str1.1
-                0x000000000803d157       0xc3 vendor/built-in.o
+                0x000000000803d1a7       0xc3 vendor/built-in.o
  .rodata.xQueueGenericCreate.str1.1
-                0x000000000803d21a       0x4f vendor/built-in.o
+                0x000000000803d26a       0x4f vendor/built-in.o
  .rodata.xQueueGenericSend.str1.1
-                0x000000000803d269       0x97 vendor/built-in.o
+                0x000000000803d2b9       0x97 vendor/built-in.o
                                          0xed (size before relaxing)
  .rodata.xQueueGenericSendFromISR.str1.1
-                0x000000000803d300       0x19 vendor/built-in.o
+                0x000000000803d350       0x19 vendor/built-in.o
  .rodata.xQueueGiveFromISR.str1.1
-                0x000000000803d319       0x80 vendor/built-in.o
+                0x000000000803d369       0x80 vendor/built-in.o
  .rodata.xQueueReceive.str1.1
-                0x000000000803d399       0x5f vendor/built-in.o
+                0x000000000803d3e9       0x5f vendor/built-in.o
  .rodata.xQueueSemaphoreTake.str1.1
-                0x000000000803d3f8       0x20 vendor/built-in.o
+                0x000000000803d448       0x20 vendor/built-in.o
  .rodata.xQueueReceiveFromISR.str1.1
-                0x000000000803d418       0x64 vendor/built-in.o
+                0x000000000803d468       0x64 vendor/built-in.o
  .rodata.uxQueueMessagesWaiting.str1.1
-                0x000000000803d47c       0x64 vendor/built-in.o
+                0x000000000803d4cc       0x64 vendor/built-in.o
                                           0x7 (size before relaxing)
  .rodata.prvTaskIsTaskSuspended.str1.1
-                0x000000000803d47c       0x3f vendor/built-in.o
+                0x000000000803d4cc       0x3f vendor/built-in.o
  .rodata.prvDeleteTCB.str1.1
-                0x000000000803d4bb       0x46 vendor/built-in.o
+                0x000000000803d50b       0x46 vendor/built-in.o
  .rodata.xTaskCreateStatic.str1.1
-                0x000000000803d501       0x45 vendor/built-in.o
+                0x000000000803d551       0x45 vendor/built-in.o
  .rodata.vTaskDelete.str1.1
-                0x000000000803d546       0x1a vendor/built-in.o
+                0x000000000803d596       0x1a vendor/built-in.o
  .rodata.eTaskGetState.str1.1
-                0x000000000803d560        0x6 vendor/built-in.o
+                0x000000000803d5b0        0x6 vendor/built-in.o
  .rodata.vTaskResume.str1.1
-                0x000000000803d566        0xe vendor/built-in.o
+                0x000000000803d5b6        0xe vendor/built-in.o
  .rodata.vTaskStartScheduler.str1.1
-                0x000000000803d574       0x36 vendor/built-in.o
+                0x000000000803d5c4       0x36 vendor/built-in.o
  .rodata.xTaskIncrementTick.str1.1
-                0x000000000803d5aa       0x2b vendor/built-in.o
+                0x000000000803d5fa       0x2b vendor/built-in.o
  .rodata.xTaskResumeAll.str1.1
-                0x000000000803d5d5       0x15 vendor/built-in.o
+                0x000000000803d625       0x15 vendor/built-in.o
  .rodata.vTaskDelayUntil.str1.1
-                0x000000000803d5ea       0x2b vendor/built-in.o
+                0x000000000803d63a       0x2b vendor/built-in.o
  .rodata.vTaskSwitchContext.str1.1
-                0x000000000803d615       0x47 vendor/built-in.o
+                0x000000000803d665       0x47 vendor/built-in.o
  .rodata.vTaskPlaceOnEventList.str1.1
-                0x000000000803d65c        0xc vendor/built-in.o
+                0x000000000803d6ac        0xc vendor/built-in.o
  .rodata.vTaskPlaceOnUnorderedEventList.str1.1
-                0x000000000803d668       0x1a vendor/built-in.o
+                0x000000000803d6b8       0x1a vendor/built-in.o
  .rodata.xTaskRemoveFromEventList.str1.1
-                0x000000000803d682        0xf vendor/built-in.o
+                0x000000000803d6d2        0xf vendor/built-in.o
  .rodata.vTaskRemoveFromUnorderedEventList.str1.1
-                0x000000000803d691       0x20 vendor/built-in.o
+                0x000000000803d6e1       0x20 vendor/built-in.o
  .rodata.vTaskSetTimeOutState.str1.1
-                0x000000000803d6b1        0xa vendor/built-in.o
+                0x000000000803d701        0xa vendor/built-in.o
  .rodata.xTaskCheckForTimeOut.str1.1
-                0x000000000803d6bb        0xe vendor/built-in.o
+                0x000000000803d70b        0xe vendor/built-in.o
  .rodata.xTaskPriorityDisinherit.str1.1
-                0x000000000803d6c9       0x2b vendor/built-in.o
+                0x000000000803d719       0x2b vendor/built-in.o
  .rodata.vTaskPriorityDisinheritAfterTimeout.str1.1
-                0x000000000803d6f4       0x16 vendor/built-in.o
+                0x000000000803d744       0x16 vendor/built-in.o
  .rodata.ulTaskGenericNotifyTake.str1.1
-                0x000000000803d70a       0x36 vendor/built-in.o
+                0x000000000803d75a       0x36 vendor/built-in.o
  .rodata.xTaskGenericNotify.str1.1
-                0x000000000803d740       0xa3 vendor/built-in.o
+                0x000000000803d790       0xa3 vendor/built-in.o
  .rodata.xTaskGenericNotifyStateClear.str1.1
-                0x000000000803d7e3       0x37 vendor/built-in.o
+                0x000000000803d833       0x37 vendor/built-in.o
  .rodata.prvCheckForValidListAndQueue.str1.1
-                0x000000000803d81a        0x5 vendor/built-in.o
+                0x000000000803d86a        0x5 vendor/built-in.o
  .rodata.xTimerCreateTimerTask.str1.1
-                0x000000000803d81f       0x4a vendor/built-in.o
+                0x000000000803d86f       0x4a vendor/built-in.o
  .rodata.xTimerCreate.str1.1
-                0x000000000803d869       0x1c vendor/built-in.o
+                0x000000000803d8b9       0x1c vendor/built-in.o
  .rodata.xTimerCreateStatic.str1.1
-                0x000000000803d885       0x29 vendor/built-in.o
+                0x000000000803d8d5       0x29 vendor/built-in.o
  .rodata.xTimerGenericCommand.str1.1
-                0x000000000803d8ae        0x7 vendor/built-in.o
+                0x000000000803d8fe        0x7 vendor/built-in.o
  .rodata.prvSwitchTimerLists.str1.1
-                0x000000000803d8b5        0x8 vendor/built-in.o
+                0x000000000803d905        0x8 vendor/built-in.o
  .rodata.prvTimerTask.str1.1
-                0x000000000803d8bd       0x25 vendor/built-in.o
+                0x000000000803d90d       0x25 vendor/built-in.o
  .rodata.prvInitialiseNewStreamBuffer.str1.1
-                0x000000000803d8e2       0x89 vendor/built-in.o
+                0x000000000803d932       0x89 vendor/built-in.o
  .rodata.prvWriteBytesToBuffer.str1.1
-                0x000000000803d96b       0x83 vendor/built-in.o
+                0x000000000803d9bb       0x83 vendor/built-in.o
  .rodata.prvReadBytesFromBuffer.str1.1
-                0x000000000803d9ee       0x66 vendor/built-in.o
+                0x000000000803da3e       0x66 vendor/built-in.o
  .rodata.xStreamBufferGenericCreate.str1.1
-                0x000000000803da54       0x6f vendor/built-in.o
+                0x000000000803daa4       0x6f vendor/built-in.o
  .rodata.vStreamBufferDelete.str1.1
-                0x000000000803dac3        0xf vendor/built-in.o
+                0x000000000803db13        0xf vendor/built-in.o
  .rodata.xStreamBufferSend.str1.1
-                0x000000000803dad2       0x56 vendor/built-in.o
+                0x000000000803db22       0x56 vendor/built-in.o
  .rodata.xStreamBufferReceive.str1.1
-                0x000000000803db28       0x37 vendor/built-in.o
+                0x000000000803db78       0x37 vendor/built-in.o
  .rodata.BIAS_500_16
-                0x000000000803db5f       0x12 vendor/built-in.o
+                0x000000000803dbaf       0x12 vendor/built-in.o
  .rodata.BIAS_500_64
-                0x000000000803db71       0x12 vendor/built-in.o
+                0x000000000803dbc1       0x12 vendor/built-in.o
  .rodata.BIAS_900_16
-                0x000000000803db83       0x12 vendor/built-in.o
+                0x000000000803dbd3       0x12 vendor/built-in.o
  .rodata.BIAS_900_64
-                0x000000000803db95       0x12 vendor/built-in.o
+                0x000000000803dbe5       0x12 vendor/built-in.o
  .rodata.MODE_LONGDATA_RANGE_LOWPOWER
-                0x000000000803dba7        0x3 vendor/built-in.o
-                0x000000000803dba7                MODE_LONGDATA_RANGE_LOWPOWER
+                0x000000000803dbf7        0x3 vendor/built-in.o
+                0x000000000803dbf7                MODE_LONGDATA_RANGE_LOWPOWER
  .rodata.MODE_SHORTDATA_FAST_ACCURACY
-                0x000000000803dbaa        0x3 vendor/built-in.o
-                0x000000000803dbaa                MODE_SHORTDATA_FAST_ACCURACY
+                0x000000000803dbfa        0x3 vendor/built-in.o
+                0x000000000803dbfa                MODE_SHORTDATA_FAST_ACCURACY
  .rodata.appMain.str1.1
-                0x000000000803dbad       0xc6 /home/default/IMAV2022-NanocopterAi/app_imav/app_imav_crazyflie/built-in.o
+                0x000000000803dbfd       0xc6 /home/default/IMAV2022-NanocopterAi/app_imav/app_imav_crazyflie/built-in.o
                                         0x104 (size before relaxing)
- *fill*         0x000000000803dc73        0x1 
+ *fill*         0x000000000803dcc3        0x1 
  .rodata.str1.4
-                0x000000000803dc74        0x1 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-wf_acos.o)
+                0x000000000803dcc4        0x1 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-wf_acos.o)
  .rodata.str1.4
-                0x000000000803dc75        0x1 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-wf_asin.o)
+                0x000000000803dcc5        0x1 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-wf_asin.o)
  .rodata.str1.4
-                0x000000000803dc75        0x1 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-wf_log10.o)
+                0x000000000803dcc5        0x1 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-wf_log10.o)
  .rodata.str1.4
-                0x000000000803dc75        0x1 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_pow.o)
+                0x000000000803dcc5        0x1 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_pow.o)
  *(.glue_7)
- .glue_7        0x000000000803dc75        0x0 linker stubs
+ .glue_7        0x000000000803dcc5        0x0 linker stubs
  *(.glue_7t)
- .glue_7t       0x000000000803dc75        0x0 linker stubs
+ .glue_7t       0x000000000803dcc5        0x0 linker stubs
  *(.init)
  *(.fini)
  *(.eh_frame)
-                0x000000000803dc78                . = ALIGN (0x4)
- *fill*         0x000000000803dc75        0x3 
-                0x000000000803dc78                _param_start = .
+                0x000000000803dcc8                . = ALIGN (0x4)
+ *fill*         0x000000000803dcc5        0x3 
+                0x000000000803dcc8                _param_start = .
  *(.param)
  *(.param.*)
  .param.activeMarker
-                0x000000000803dc78       0xa0 src/built-in.o
- .param.deck    0x000000000803dd18      0x2e4 src/built-in.o
- .param.motion  0x000000000803dffc       0x64 src/built-in.o
- .param.ring    0x000000000803e060       0xf0 src/built-in.o
- .param.system  0x000000000803e150       0xdc src/built-in.o
- .param.loco    0x000000000803e22c       0x3c src/built-in.o
- .param.tdoa2   0x000000000803e268       0x3c src/built-in.o
- .param.tdoa3   0x000000000803e2a4       0x3c src/built-in.o
+                0x000000000803dcc8       0xa0 src/built-in.o
+ .param.deck    0x000000000803dd68      0x2e4 src/built-in.o
+ .param.motion  0x000000000803e04c       0x64 src/built-in.o
+ .param.ring    0x000000000803e0b0       0xf0 src/built-in.o
+ .param.system  0x000000000803e1a0       0xdc src/built-in.o
+ .param.loco    0x000000000803e27c       0x3c src/built-in.o
+ .param.tdoa2   0x000000000803e2b8       0x3c src/built-in.o
+ .param.tdoa3   0x000000000803e2f4       0x3c src/built-in.o
  .param.multiranger
-                0x000000000803e2e0       0x3c src/built-in.o
- .param.usd     0x000000000803e31c       0x50 src/built-in.o
- .param.led     0x000000000803e36c       0x3c src/built-in.o
+                0x000000000803e330       0x3c src/built-in.o
+ .param.usd     0x000000000803e36c       0x50 src/built-in.o
+ .param.led     0x000000000803e3bc       0x3c src/built-in.o
  .param.motorPowerSet
-                0x000000000803e3a8       0x8c src/built-in.o
- .param.pm      0x000000000803e434       0x50 src/built-in.o
+                0x000000000803e3f8       0x8c src/built-in.o
+ .param.pm      0x000000000803e484       0x50 src/built-in.o
  .param.imu_sensors
-                0x000000000803e484       0x8c src/built-in.o
+                0x000000000803e4d4       0x8c src/built-in.o
  .param.imu_tests
-                0x000000000803e510       0x64 src/built-in.o
+                0x000000000803e560       0x64 src/built-in.o
  .param.syslink
-                0x000000000803e574       0x3c src/built-in.o
+                0x000000000803e5c4       0x3c src/built-in.o
  .param.pid_attitude
-                0x000000000803e5b0       0xdc src/built-in.o
+                0x000000000803e600       0xdc src/built-in.o
  .param.pid_rate
-                0x000000000803e68c       0xdc src/built-in.o
- .param.colAv   0x000000000803e768      0x168 src/built-in.o
+                0x000000000803e6dc       0xdc src/built-in.o
+ .param.colAv   0x000000000803e7b8      0x168 src/built-in.o
  .param.commander
-                0x000000000803e8d0       0x3c src/built-in.o
+                0x000000000803e920       0x3c src/built-in.o
  .param.ctrlINDI
-                0x000000000803e90c      0x190 src/built-in.o
+                0x000000000803e95c      0x190 src/built-in.o
  .param.ctrlMel
-                0x000000000803ea9c      0x1a4 src/built-in.o
+                0x000000000803eaec      0x1a4 src/built-in.o
  .param.cmdrCPPM
-                0x000000000803ec40       0x8c src/built-in.o
+                0x000000000803ec90       0x8c src/built-in.o
  .param.hlCommander
-                0x000000000803eccc       0x50 src/built-in.o
+                0x000000000803ed1c       0x50 src/built-in.o
  .param.flightmode
-                0x000000000803ed1c       0xb4 src/built-in.o
- .param.locSrv  0x000000000803edd0       0x78 src/built-in.o
+                0x000000000803ed6c       0xb4 src/built-in.o
+ .param.locSrv  0x000000000803ee20       0x78 src/built-in.o
  .param.crtpsrv
-                0x000000000803ee48       0x3c src/built-in.o
- .param.kalman  0x000000000803ee84      0x1b8 src/built-in.o
- .param.health  0x000000000803f03c       0x64 src/built-in.o
- .param.memTst  0x000000000803f0a0       0x3c src/built-in.o
+                0x000000000803ee98       0x3c src/built-in.o
+ .param.kalman  0x000000000803eed4      0x1b8 src/built-in.o
+ .param.health  0x000000000803f08c       0x64 src/built-in.o
+ .param.memTst  0x000000000803f0f0       0x3c src/built-in.o
  .param.posCtrlIndi
-                0x000000000803f0dc       0xb4 src/built-in.o
+                0x000000000803f12c       0xb4 src/built-in.o
  .param.posCtlPid
-                0x000000000803f190      0x168 src/built-in.o
+                0x000000000803f1e0      0x168 src/built-in.o
  .param.velCtlPid
-                0x000000000803f2f8      0x104 src/built-in.o
+                0x000000000803f348      0x104 src/built-in.o
  .param.posEstAlt
-                0x000000000803f3fc       0x8c src/built-in.o
+                0x000000000803f44c       0x8c src/built-in.o
  .param.powerDist
-                0x000000000803f488       0x3c src/built-in.o
+                0x000000000803f4d8       0x3c src/built-in.o
  .param.sensfusion6
-                0x000000000803f4c4       0x64 src/built-in.o
- .param.sound   0x000000000803f528       0x64 src/built-in.o
+                0x000000000803f514       0x64 src/built-in.o
+ .param.sound   0x000000000803f578       0x64 src/built-in.o
  .param.stabilizer
-                0x000000000803f58c       0x64 src/built-in.o
- .param.cpu     0x000000000803f5f0       0x78 src/built-in.o
+                0x000000000803f5dc       0x64 src/built-in.o
+ .param.cpu     0x000000000803f640       0x78 src/built-in.o
  .param.tdoaEngine
-                0x000000000803f668       0x64 src/built-in.o
+                0x000000000803f6b8       0x64 src/built-in.o
  .param.lighthouse
-                0x000000000803f6cc      0x104 src/built-in.o
+                0x000000000803f71c      0x104 src/built-in.o
  .param.firmware
-                0x000000000803f7d0       0x64 src/built-in.o
-                0x000000000803f834                _param_stop = .
-                0x000000000803f834                . = ALIGN (0x4)
-                0x000000000803f834                _log_start = .
+                0x000000000803f820       0x64 src/built-in.o
+                0x000000000803f884                _param_stop = .
+                0x000000000803f884                . = ALIGN (0x4)
+                0x000000000803f884                _log_start = .
  *(.log)
  *(.log.*)
  .log.activeMarker
-                0x000000000803f834       0x30 src/built-in.o
- .log.aideck    0x000000000803f864       0x24 src/built-in.o
- .log.motion    0x000000000803f888       0x90 src/built-in.o
- .log.ring      0x000000000803f918       0x24 src/built-in.o
- .log.loco      0x000000000803f93c       0x3c src/built-in.o
- .log.ranging   0x000000000803f978       0xfc src/built-in.o
- .log.tdoa2     0x000000000803fa74      0x138 src/built-in.o
- .log.twr       0x000000000803fbac       0xa8 src/built-in.o
- .log.oa        0x000000000803fc54       0x54 src/built-in.o
- .log.usd       0x000000000803fca8       0x3c src/built-in.o
- .log.motor     0x000000000803fce4       0x48 src/built-in.o
- .log.pwm       0x000000000803fd2c       0x54 src/built-in.o
- .log.pm        0x000000000803fd80       0x78 src/built-in.o
- .log.radio     0x000000000803fdf8       0x30 src/built-in.o
- .log.gyro      0x000000000803fe28       0x9c src/built-in.o
+                0x000000000803f884       0x30 src/built-in.o
+ .log.aideck    0x000000000803f8b4       0x24 src/built-in.o
+ .log.motion    0x000000000803f8d8       0x90 src/built-in.o
+ .log.ring      0x000000000803f968       0x24 src/built-in.o
+ .log.loco      0x000000000803f98c       0x3c src/built-in.o
+ .log.ranging   0x000000000803f9c8       0xfc src/built-in.o
+ .log.tdoa2     0x000000000803fac4      0x138 src/built-in.o
+ .log.twr       0x000000000803fbfc       0xa8 src/built-in.o
+ .log.oa        0x000000000803fca4       0x54 src/built-in.o
+ .log.usd       0x000000000803fcf8       0x3c src/built-in.o
+ .log.motor     0x000000000803fd34       0x48 src/built-in.o
+ .log.pwm       0x000000000803fd7c       0x54 src/built-in.o
+ .log.pm        0x000000000803fdd0       0x78 src/built-in.o
+ .log.radio     0x000000000803fe48       0x30 src/built-in.o
+ .log.gyro      0x000000000803fe78       0x9c src/built-in.o
  .log.pid_attitude
-                0x000000000803fec4       0x84 src/built-in.o
- .log.pid_rate  0x000000000803ff48       0x84 src/built-in.o
- .log.colAv     0x000000000803ffcc       0x24 src/built-in.o
- .log.ctrlINDI  0x000000000803fff0      0x168 src/built-in.o
- .log.ctrlMel   0x0000000008040158       0xc0 src/built-in.o
+                0x000000000803ff14       0x84 src/built-in.o
+ .log.pid_rate  0x000000000803ff98       0x84 src/built-in.o
+ .log.colAv     0x000000000804001c       0x24 src/built-in.o
+ .log.ctrlINDI  0x0000000008040040      0x168 src/built-in.o
+ .log.ctrlMel   0x00000000080401a8       0xc0 src/built-in.o
  .log.controller
-                0x0000000008040218       0xf0 src/built-in.o
- .log.ext_pos   0x0000000008040308       0x3c src/built-in.o
- .log.locSrv    0x0000000008040344       0x6c src/built-in.o
- .log.locSrvZ   0x00000000080403b0       0x24 src/built-in.o
- .log.crtp      0x00000000080403d4       0x30 src/built-in.o
- .log.kalman    0x0000000008040404      0x150 src/built-in.o
- .log.outlierf  0x0000000008040554       0x90 src/built-in.o
+                0x0000000008040268       0xf0 src/built-in.o
+ .log.ext_pos   0x0000000008040358       0x3c src/built-in.o
+ .log.locSrv    0x0000000008040394       0x6c src/built-in.o
+ .log.locSrvZ   0x0000000008040400       0x24 src/built-in.o
+ .log.crtp      0x0000000008040424       0x30 src/built-in.o
+ .log.kalman    0x0000000008040454      0x150 src/built-in.o
+ .log.outlierf  0x00000000080405a4       0x90 src/built-in.o
  .log.estimator
-                0x00000000080405e4       0x30 src/built-in.o
- .log.extrx     0x0000000008040614       0x6c src/built-in.o
+                0x0000000008040634       0x30 src/built-in.o
+ .log.extrx     0x0000000008040664       0x6c src/built-in.o
  .log.extrx_raw
-                0x0000000008040680       0x78 src/built-in.o
- .log.health    0x00000000080406f8       0xa8 src/built-in.o
- .log.memTst    0x00000000080407a0       0x24 src/built-in.o
+                0x00000000080406d0       0x78 src/built-in.o
+ .log.health    0x0000000008040748       0xa8 src/built-in.o
+ .log.memTst    0x00000000080407f0       0x24 src/built-in.o
  .log.posCtrlIndi
-                0x00000000080407c4      0x1e0 src/built-in.o
- .log.posCtl    0x00000000080409a4      0x120 src/built-in.o
+                0x0000000008040814      0x1e0 src/built-in.o
+ .log.posCtl    0x00000000080409f4      0x120 src/built-in.o
  .log.posEstAlt
-                0x0000000008040ac4       0x3c src/built-in.o
- .log.range     0x0000000008040b00       0x60 src/built-in.o
+                0x0000000008040b14       0x3c src/built-in.o
+ .log.range     0x0000000008040b50       0x60 src/built-in.o
  .log.sensfusion6
-                0x0000000008040b60       0x90 src/built-in.o
- .log.acc       0x0000000008040bf0       0x3c src/built-in.o
- .log.baro      0x0000000008040c2c       0x3c src/built-in.o
+                0x0000000008040bb0       0x90 src/built-in.o
+ .log.acc       0x0000000008040c40       0x3c src/built-in.o
+ .log.baro      0x0000000008040c7c       0x3c src/built-in.o
  .log.ctrltarget
-                0x0000000008040c68       0xa8 src/built-in.o
+                0x0000000008040cb8       0xa8 src/built-in.o
  .log.ctrltargetZ
-                0x0000000008040d10       0x84 src/built-in.o
- .log.mag       0x0000000008040d94       0x3c src/built-in.o
+                0x0000000008040d60       0x84 src/built-in.o
+ .log.mag       0x0000000008040de4       0x3c src/built-in.o
  .log.stabilizer
-                0x0000000008040dd0       0x60 src/built-in.o
+                0x0000000008040e20       0x60 src/built-in.o
  .log.stateEstimate
-                0x0000000008040e30       0xd8 src/built-in.o
+                0x0000000008040e80       0xd8 src/built-in.o
  .log.stateEstimateZ
-                0x0000000008040f08       0xb4 src/built-in.o
- .log.sys       0x0000000008040fbc       0x60 src/built-in.o
+                0x0000000008040f58       0xb4 src/built-in.o
+ .log.sys       0x000000000804100c       0x60 src/built-in.o
  .log.tdoaEngine
-                0x000000000804101c       0x90 src/built-in.o
+                0x000000000804106c       0x90 src/built-in.o
  .log.kalman_pred
-                0x00000000080410ac       0x48 src/built-in.o
+                0x00000000080410fc       0x48 src/built-in.o
  .log.lighthouse
-                0x00000000080410f4      0x2b8 src/built-in.o
-                0x00000000080413ac                _log_stop = .
-                0x00000000080413ac                . = ALIGN (0x4)
-                0x00000000080413ac                _deckDriver_start = .
+                0x0000000008041144      0x2b8 src/built-in.o
+                0x00000000080413fc                _log_stop = .
+                0x00000000080413fc                . = ALIGN (0x4)
+                0x00000000080413fc                _deckDriver_start = .
  *(.deckDriver)
  *(.deckDriver.*)
  .deckDriver.exptest_deck
-                0x00000000080413ac        0x4 src/built-in.o
-                0x00000000080413ac                driver_exptest_deck
+                0x00000000080413fc        0x4 src/built-in.o
+                0x00000000080413fc                driver_exptest_deck
  .deckDriver.exptestRR_deck
-                0x00000000080413b0        0x4 src/built-in.o
-                0x00000000080413b0                driver_exptestRR_deck
+                0x0000000008041400        0x4 src/built-in.o
+                0x0000000008041400                driver_exptestRR_deck
  .deckDriver.exptestbolt_deck
-                0x00000000080413b4        0x4 src/built-in.o
-                0x00000000080413b4                driver_exptestbolt_deck
+                0x0000000008041404        0x4 src/built-in.o
+                0x0000000008041404                driver_exptestbolt_deck
  .deckDriver.deck_info
-                0x00000000080413b8        0x4 src/built-in.o
-                0x00000000080413b8                driver_deck_info
+                0x0000000008041408        0x4 src/built-in.o
+                0x0000000008041408                driver_deck_info
  .deckDriver.aideck_deck
-                0x00000000080413bc        0x4 src/built-in.o
-                0x00000000080413bc                driver_aideck_deck
+                0x000000000804140c        0x4 src/built-in.o
+                0x000000000804140c                driver_aideck_deck
  .deckDriver.buzzer_deck
-                0x00000000080413c0        0x4 src/built-in.o
-                0x00000000080413c0                driver_buzzer_deck
+                0x0000000008041410        0x4 src/built-in.o
+                0x0000000008041410                driver_buzzer_deck
  .deckDriver.flowdeck1_deck
-                0x00000000080413c4        0x4 src/built-in.o
-                0x00000000080413c4                driver_flowdeck1_deck
+                0x0000000008041414        0x4 src/built-in.o
+                0x0000000008041414                driver_flowdeck1_deck
  .deckDriver.flowdeck2_deck
-                0x00000000080413c8        0x4 src/built-in.o
-                0x00000000080413c8                driver_flowdeck2_deck
+                0x0000000008041418        0x4 src/built-in.o
+                0x0000000008041418                driver_flowdeck2_deck
  .deckDriver.ledring12_deck
-                0x00000000080413cc        0x4 src/built-in.o
-                0x00000000080413cc                driver_ledring12_deck
+                0x000000000804141c        0x4 src/built-in.o
+                0x000000000804141c                driver_ledring12_deck
  .deckDriver.lighthouse_deck
-                0x00000000080413d0        0x4 src/built-in.o
-                0x00000000080413d0                driver_lighthouse_deck
+                0x0000000008041420        0x4 src/built-in.o
+                0x0000000008041420                driver_lighthouse_deck
  .deckDriver.dwm1000_deck
-                0x00000000080413d4        0x4 src/built-in.o
-                0x00000000080413d4                driver_dwm1000_deck
+                0x0000000008041424        0x4 src/built-in.o
+                0x0000000008041424                driver_dwm1000_deck
  .deckDriver.multiranger_deck
-                0x00000000080413d8        0x4 src/built-in.o
-                0x00000000080413d8                driver_multiranger_deck
+                0x0000000008041428        0x4 src/built-in.o
+                0x0000000008041428                driver_multiranger_deck
  .deckDriver.oa_deck
-                0x00000000080413dc        0x4 src/built-in.o
-                0x00000000080413dc                driver_oa_deck
+                0x000000000804142c        0x4 src/built-in.o
+                0x000000000804142c                driver_oa_deck
  .deckDriver.usd_deck
-                0x00000000080413e0        0x4 src/built-in.o
-                0x00000000080413e0                driver_usd_deck
+                0x0000000008041430        0x4 src/built-in.o
+                0x0000000008041430                driver_usd_deck
  .deckDriver.zranger_deck
-                0x00000000080413e4        0x4 src/built-in.o
-                0x00000000080413e4                driver_zranger_deck
+                0x0000000008041434        0x4 src/built-in.o
+                0x0000000008041434                driver_zranger_deck
  .deckDriver.zranger2_deck
-                0x00000000080413e8        0x4 src/built-in.o
-                0x00000000080413e8                driver_zranger2_deck
-                0x00000000080413ec                _deckDriver_stop = .
-                0x00000000080413ec                . = ALIGN (0x4)
-                0x00000000080413ec                _eventtrigger_start = .
+                0x0000000008041438        0x4 src/built-in.o
+                0x0000000008041438                driver_zranger2_deck
+                0x000000000804143c                _deckDriver_stop = .
+                0x000000000804143c                . = ALIGN (0x4)
+                0x000000000804143c                _eventtrigger_start = .
  *(.eventtrigger)
  *(.eventtrigger.*)
  .eventtrigger.activeMarkerModeChanged
-                0x00000000080413ec       0x14 src/built-in.o
- .eventtrigger.estAbsoluteHeight
-                0x0000000008041400       0x14 src/built-in.o
- .eventtrigger.estAcceleration
-                0x0000000008041414       0x14 src/built-in.o
- .eventtrigger.estBarometer
-                0x0000000008041428       0x14 src/built-in.o
- .eventtrigger.estDistance
                 0x000000000804143c       0x14 src/built-in.o
- .eventtrigger.estFlow
+ .eventtrigger.estAbsoluteHeight
                 0x0000000008041450       0x14 src/built-in.o
- .eventtrigger.estGyroscope
+ .eventtrigger.estAcceleration
                 0x0000000008041464       0x14 src/built-in.o
- .eventtrigger.estPose
+ .eventtrigger.estBarometer
                 0x0000000008041478       0x14 src/built-in.o
- .eventtrigger.estPosition
+ .eventtrigger.estDistance
                 0x000000000804148c       0x14 src/built-in.o
- .eventtrigger.estSweepAngle
+ .eventtrigger.estFlow
                 0x00000000080414a0       0x14 src/built-in.o
- .eventtrigger.estTDOA
+ .eventtrigger.estGyroscope
                 0x00000000080414b4       0x14 src/built-in.o
- .eventtrigger.estTOF
+ .eventtrigger.estPose
                 0x00000000080414c8       0x14 src/built-in.o
- .eventtrigger.estYawError
+ .eventtrigger.estPosition
                 0x00000000080414dc       0x14 src/built-in.o
-                0x00000000080414f0                _eventtrigger_stop = .
-                0x00000000080414f0                _etext = .
+ .eventtrigger.estSweepAngle
+                0x00000000080414f0       0x14 src/built-in.o
+ .eventtrigger.estTDOA
+                0x0000000008041504       0x14 src/built-in.o
+ .eventtrigger.estTOF
+                0x0000000008041518       0x14 src/built-in.o
+ .eventtrigger.estYawError
+                0x000000000804152c       0x14 src/built-in.o
+                0x0000000008041540                _eventtrigger_stop = .
+                0x0000000008041540                _etext = .
 
-.vfp11_veneer   0x00000000080414f0        0x0
- .vfp11_veneer  0x00000000080414f0        0x0 linker stubs
+.vfp11_veneer   0x0000000008041540        0x0
+ .vfp11_veneer  0x0000000008041540        0x0 linker stubs
 
-.v4_bx          0x00000000080414f0        0x0
- .v4_bx         0x00000000080414f0        0x0 linker stubs
+.v4_bx          0x0000000008041540        0x0
+ .v4_bx         0x0000000008041540        0x0 linker stubs
 
-.iplt           0x00000000080414f0        0x0
- .iplt          0x00000000080414f0        0x0 src/built-in.o
+.iplt           0x0000000008041540        0x0
+ .iplt          0x0000000008041540        0x0 src/built-in.o
 
-.libc           0x00000000080414f0        0x8
-                0x00000000080414f0                . = ALIGN (0x4)
+.libc           0x0000000008041540        0x8
+                0x0000000008041540                . = ALIGN (0x4)
  *(.ARM.exidx*)
- .ARM.exidx     0x00000000080414f0        0x8 /usr/lib/gcc/arm-none-eabi/9.2.1/thumb/v7e-m+fp/hard/libgcc.a(_udivmoddi4.o)
-                0x00000000080414f8                . = ALIGN (0x4)
-                0x00000000080414f8                _elibc = .
+ .ARM.exidx     0x0000000008041540        0x8 /usr/lib/gcc/arm-none-eabi/9.2.1/thumb/v7e-m+fp/hard/libgcc.a(_udivmoddi4.o)
+                0x0000000008041548                . = ALIGN (0x4)
+                0x0000000008041548                _elibc = .
 
-.rel.dyn        0x00000000080414f8        0x0
- .rel.iplt      0x00000000080414f8        0x0 src/built-in.o
+.rel.dyn        0x0000000008041548        0x0
+ .rel.iplt      0x0000000008041548        0x0 src/built-in.o
 
 .flashpatch     0x0000000000000000        0x0
                 0x0000000000000000                . = ALIGN (0x4)
@@ -11301,7 +11301,7 @@ LOAD /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/
  *(.endflash)
                 0x0000000000000000                . = ALIGN (0x4)
 
-.data           0x0000000020000000     0x1cb4 load address 0x00000000080414f8
+.data           0x0000000020000000     0x1cb4 load address 0x0000000008041548
                 0x0000000020000000                . = ALIGN (0x4)
                 0x0000000020000000                _sdata = .
  *(.data)
@@ -11853,12 +11853,12 @@ LOAD /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/
  *(.RAMtext)
                 0x0000000020001cb4                . = ALIGN (0x4)
                 0x0000000020001cb4                _edata = .
-                0x00000000080414f8                _sidata = LOADADDR (.data)
+                0x0000000008041548                _sidata = LOADADDR (.data)
 
-.igot.plt       0x0000000020001cb4        0x0 load address 0x00000000080431ac
+.igot.plt       0x0000000020001cb4        0x0 load address 0x00000000080431fc
  .igot.plt      0x0000000020001cb4        0x0 src/built-in.o
 
-.bss            0x0000000020001cb8    0x12e50 load address 0x00000000080431ac
+.bss            0x0000000020001cb8    0x12e50 load address 0x00000000080431fc
                 0x0000000020001cb8                . = ALIGN (0x4)
                 0x0000000020001cb8                _sbss = .
  *(.bss)
@@ -13158,7 +13158,7 @@ LOAD /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/
  .bss.integralComponent
                 0x0000000020012a70        0x8 /home/default/IMAV2022-NanocopterAi/app_imav/app_imav_crazyflie/built-in.o
                 0x0000000020012a70                integralComponent
- .bss.setpoint.10666
+ .bss.setpoint.10673
                 0x0000000020012a78       0x74 /home/default/IMAV2022-NanocopterAi/app_imav/app_imav_crazyflie/built-in.o
  *(COMMON)
  *fill*         0x0000000020012aec        0x4 
@@ -13207,14 +13207,14 @@ LOAD /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/
                 0x000000001000e870                . = ALIGN (0x4)
                 0x000000001000e870                _eccmbss = .
 
-.ccmdata        0x000000001000e870        0x0 load address 0x00000000080431ac
+.ccmdata        0x000000001000e870        0x0 load address 0x00000000080431fc
                 0x000000001000e870                . = ALIGN (0x4)
                 0x000000001000e870                _sccmdata = .
  *(.ccmdata)
  *(.ccmdata*)
                 0x000000001000e870                . = ALIGN (0x4)
                 0x000000001000e870                _eccmdata = .
-                0x00000000080431ac                _siccmdata = LOADADDR (.ccmdata)
+                0x00000000080431fc                _siccmdata = LOADADDR (.ccmdata)
 
 .nzds           0x0000000020014b08       0x28
                 0x0000000020014b08                . = ALIGN (0x4)
@@ -13497,44 +13497,44 @@ LOAD /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x0000000000000000   0x240244
+.debug_info     0x0000000000000000   0x2402d2
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x0000000000000000   0x13a9bd src/built-in.o
  .debug_info    0x000000000013a9bd    0xecb7a vendor/built-in.o
- .debug_info    0x0000000000227537     0x2505 /home/default/IMAV2022-NanocopterAi/app_imav/app_imav_crazyflie/built-in.o
- .debug_info    0x0000000000229a3c      0xb11 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_atan.o)
- .debug_info    0x000000000022a54d      0xaac /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_cos.o)
- .debug_info    0x000000000022aff9      0xa00 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_fabs.o)
- .debug_info    0x000000000022b9f9      0x9b9 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_fmax.o)
- .debug_info    0x000000000022c3b2      0x9b9 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_fmin.o)
- .debug_info    0x000000000022cd6b      0x9d7 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_fpclassify.o)
- .debug_info    0x000000000022d742      0xab7 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_sin.o)
- .debug_info    0x000000000022e1f9      0xa7c /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_tan.o)
- .debug_info    0x000000000022ec75      0xa2c /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-wf_acos.o)
- .debug_info    0x000000000022f6a1      0xa2c /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-wf_asin.o)
- .debug_info    0x00000000002300cd      0x9dc /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-wf_atan2.o)
- .debug_info    0x0000000000230aa9      0xa3b /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-wf_exp.o)
- .debug_info    0x00000000002314e4      0xa12 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-wf_log10.o)
- .debug_info    0x0000000000231ef6      0xac4 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-wf_pow.o)
- .debug_info    0x00000000002329ba      0xc13 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_acos.o)
- .debug_info    0x00000000002335cd      0xc0f /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_asin.o)
- .debug_info    0x00000000002341dc      0xba1 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_atan2.o)
- .debug_info    0x0000000000234d7d      0xbe8 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_exp.o)
- .debug_info    0x0000000000235965      0xadc /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_log10.o)
- .debug_info    0x0000000000236441     0x1111 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_pow.o)
- .debug_info    0x0000000000237552      0xcbb /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_rem_pio2.o)
- .debug_info    0x000000000023820d      0x982 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_sqrt.o)
- .debug_info    0x0000000000238b8f      0xaef /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-kf_cos.o)
- .debug_info    0x000000000023967e      0xcb6 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-kf_rem_pio2.o)
- .debug_info    0x000000000023a334      0xab4 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-kf_sin.o)
- .debug_info    0x000000000023ade8      0xbe5 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-kf_tan.o)
- .debug_info    0x000000000023b9cd      0x94b /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-s_lib_ver.o)
- .debug_info    0x000000000023c318      0x9e4 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_finite.o)
- .debug_info    0x000000000023ccfc      0xa4a /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_floor.o)
- .debug_info    0x000000000023d746      0x97a /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_nan.o)
- .debug_info    0x000000000023e0c0      0xb0c /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_rint.o)
- .debug_info    0x000000000023ebcc      0xabe /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_scalbn.o)
- .debug_info    0x000000000023f68a      0xbba /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_log.o)
+ .debug_info    0x0000000000227537     0x2593 /home/default/IMAV2022-NanocopterAi/app_imav/app_imav_crazyflie/built-in.o
+ .debug_info    0x0000000000229aca      0xb11 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_atan.o)
+ .debug_info    0x000000000022a5db      0xaac /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_cos.o)
+ .debug_info    0x000000000022b087      0xa00 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_fabs.o)
+ .debug_info    0x000000000022ba87      0x9b9 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_fmax.o)
+ .debug_info    0x000000000022c440      0x9b9 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_fmin.o)
+ .debug_info    0x000000000022cdf9      0x9d7 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_fpclassify.o)
+ .debug_info    0x000000000022d7d0      0xab7 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_sin.o)
+ .debug_info    0x000000000022e287      0xa7c /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_tan.o)
+ .debug_info    0x000000000022ed03      0xa2c /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-wf_acos.o)
+ .debug_info    0x000000000022f72f      0xa2c /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-wf_asin.o)
+ .debug_info    0x000000000023015b      0x9dc /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-wf_atan2.o)
+ .debug_info    0x0000000000230b37      0xa3b /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-wf_exp.o)
+ .debug_info    0x0000000000231572      0xa12 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-wf_log10.o)
+ .debug_info    0x0000000000231f84      0xac4 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-wf_pow.o)
+ .debug_info    0x0000000000232a48      0xc13 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_acos.o)
+ .debug_info    0x000000000023365b      0xc0f /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_asin.o)
+ .debug_info    0x000000000023426a      0xba1 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_atan2.o)
+ .debug_info    0x0000000000234e0b      0xbe8 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_exp.o)
+ .debug_info    0x00000000002359f3      0xadc /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_log10.o)
+ .debug_info    0x00000000002364cf     0x1111 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_pow.o)
+ .debug_info    0x00000000002375e0      0xcbb /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_rem_pio2.o)
+ .debug_info    0x000000000023829b      0x982 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_sqrt.o)
+ .debug_info    0x0000000000238c1d      0xaef /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-kf_cos.o)
+ .debug_info    0x000000000023970c      0xcb6 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-kf_rem_pio2.o)
+ .debug_info    0x000000000023a3c2      0xab4 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-kf_sin.o)
+ .debug_info    0x000000000023ae76      0xbe5 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-kf_tan.o)
+ .debug_info    0x000000000023ba5b      0x94b /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-s_lib_ver.o)
+ .debug_info    0x000000000023c3a6      0x9e4 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_finite.o)
+ .debug_info    0x000000000023cd8a      0xa4a /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_floor.o)
+ .debug_info    0x000000000023d7d4      0x97a /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_nan.o)
+ .debug_info    0x000000000023e14e      0xb0c /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_rint.o)
+ .debug_info    0x000000000023ec5a      0xabe /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_scalbn.o)
+ .debug_info    0x000000000023f718      0xbba /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_log.o)
 
 .debug_abbrev   0x0000000000000000    0x60f68
  *(.debug_abbrev)
@@ -13575,44 +13575,44 @@ LOAD /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/
  .debug_abbrev  0x0000000000060a9d      0x25e /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_scalbn.o)
  .debug_abbrev  0x0000000000060cfb      0x26d /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_log.o)
 
-.debug_line     0x0000000000000000   0x110485
+.debug_line     0x0000000000000000   0x1104d1
  *(.debug_line)
  .debug_line    0x0000000000000000    0xb198c src/built-in.o
  .debug_line    0x00000000000b198c    0x5733e vendor/built-in.o
- .debug_line    0x0000000000108cca     0x191c /home/default/IMAV2022-NanocopterAi/app_imav/app_imav_crazyflie/built-in.o
- .debug_line    0x000000000010a5e6      0x33a /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_atan.o)
- .debug_line    0x000000000010a920      0x262 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_cos.o)
- .debug_line    0x000000000010ab82      0x1e1 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_fabs.o)
- .debug_line    0x000000000010ad63      0x171 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_fmax.o)
- .debug_line    0x000000000010aed4      0x171 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_fmin.o)
- .debug_line    0x000000000010b045      0x1df /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_fpclassify.o)
- .debug_line    0x000000000010b224      0x262 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_sin.o)
- .debug_line    0x000000000010b486      0x23e /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_tan.o)
- .debug_line    0x000000000010b6c4      0x1cb /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-wf_acos.o)
- .debug_line    0x000000000010b88f      0x1cb /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-wf_asin.o)
- .debug_line    0x000000000010ba5a      0x185 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-wf_atan2.o)
- .debug_line    0x000000000010bbdf      0x1e3 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-wf_exp.o)
- .debug_line    0x000000000010bdc2      0x1e3 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-wf_log10.o)
- .debug_line    0x000000000010bfa5      0x2a7 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-wf_pow.o)
- .debug_line    0x000000000010c24c      0x3a6 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_acos.o)
- .debug_line    0x000000000010c5f2      0x36d /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_asin.o)
- .debug_line    0x000000000010c95f      0x369 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_atan2.o)
- .debug_line    0x000000000010ccc8      0x3a0 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_exp.o)
- .debug_line    0x000000000010d068      0x2ec /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_log10.o)
- .debug_line    0x000000000010d354      0x85c /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_pow.o)
- .debug_line    0x000000000010dbb0      0x53b /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_rem_pio2.o)
- .debug_line    0x000000000010e0eb      0x147 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_sqrt.o)
- .debug_line    0x000000000010e232      0x2a9 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-kf_cos.o)
- .debug_line    0x000000000010e4db      0x95f /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-kf_rem_pio2.o)
- .debug_line    0x000000000010ee3a      0x24d /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-kf_sin.o)
- .debug_line    0x000000000010f087      0x392 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-kf_tan.o)
- .debug_line    0x000000000010f419      0x127 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-s_lib_ver.o)
- .debug_line    0x000000000010f540      0x1a9 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_finite.o)
- .debug_line    0x000000000010f6e9      0x2aa /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_floor.o)
- .debug_line    0x000000000010f993      0x13c /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_nan.o)
- .debug_line    0x000000000010facf      0x2d4 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_rint.o)
- .debug_line    0x000000000010fda3      0x2b9 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_scalbn.o)
- .debug_line    0x000000000011005c      0x429 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_log.o)
+ .debug_line    0x0000000000108cca     0x1968 /home/default/IMAV2022-NanocopterAi/app_imav/app_imav_crazyflie/built-in.o
+ .debug_line    0x000000000010a632      0x33a /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_atan.o)
+ .debug_line    0x000000000010a96c      0x262 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_cos.o)
+ .debug_line    0x000000000010abce      0x1e1 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_fabs.o)
+ .debug_line    0x000000000010adaf      0x171 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_fmax.o)
+ .debug_line    0x000000000010af20      0x171 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_fmin.o)
+ .debug_line    0x000000000010b091      0x1df /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_fpclassify.o)
+ .debug_line    0x000000000010b270      0x262 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_sin.o)
+ .debug_line    0x000000000010b4d2      0x23e /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_tan.o)
+ .debug_line    0x000000000010b710      0x1cb /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-wf_acos.o)
+ .debug_line    0x000000000010b8db      0x1cb /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-wf_asin.o)
+ .debug_line    0x000000000010baa6      0x185 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-wf_atan2.o)
+ .debug_line    0x000000000010bc2b      0x1e3 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-wf_exp.o)
+ .debug_line    0x000000000010be0e      0x1e3 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-wf_log10.o)
+ .debug_line    0x000000000010bff1      0x2a7 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-wf_pow.o)
+ .debug_line    0x000000000010c298      0x3a6 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_acos.o)
+ .debug_line    0x000000000010c63e      0x36d /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_asin.o)
+ .debug_line    0x000000000010c9ab      0x369 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_atan2.o)
+ .debug_line    0x000000000010cd14      0x3a0 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_exp.o)
+ .debug_line    0x000000000010d0b4      0x2ec /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_log10.o)
+ .debug_line    0x000000000010d3a0      0x85c /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_pow.o)
+ .debug_line    0x000000000010dbfc      0x53b /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_rem_pio2.o)
+ .debug_line    0x000000000010e137      0x147 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_sqrt.o)
+ .debug_line    0x000000000010e27e      0x2a9 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-kf_cos.o)
+ .debug_line    0x000000000010e527      0x95f /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-kf_rem_pio2.o)
+ .debug_line    0x000000000010ee86      0x24d /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-kf_sin.o)
+ .debug_line    0x000000000010f0d3      0x392 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-kf_tan.o)
+ .debug_line    0x000000000010f465      0x127 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-s_lib_ver.o)
+ .debug_line    0x000000000010f58c      0x1a9 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_finite.o)
+ .debug_line    0x000000000010f735      0x2aa /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_floor.o)
+ .debug_line    0x000000000010f9df      0x13c /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_nan.o)
+ .debug_line    0x000000000010fb1b      0x2d4 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_rint.o)
+ .debug_line    0x000000000010fdef      0x2b9 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_scalbn.o)
+ .debug_line    0x00000000001100a8      0x429 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_log.o)
 
 .debug_frame    0x0000000000000000    0x18ba8
  *(.debug_frame)
@@ -13652,117 +13652,117 @@ LOAD /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/
  .debug_frame   0x0000000000018b24       0x3c /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_scalbn.o)
  .debug_frame   0x0000000000018b60       0x48 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_log.o)
 
-.debug_str      0x0000000000000000    0xf054a
+.debug_str      0x0000000000000000    0xf055d
  *(.debug_str)
  .debug_str     0x0000000000000000    0xe01d0 src/built-in.o
                                     0x4e9b2ef (size before relaxing)
  .debug_str     0x00000000000e01d0     0xee5f vendor/built-in.o
                                      0xd1a299 (size before relaxing)
- .debug_str     0x00000000000ef02f      0x955 /home/default/IMAV2022-NanocopterAi/app_imav/app_imav_crazyflie/built-in.o
-                                      0xcff27 (size before relaxing)
- .debug_str     0x00000000000ef984      0x153 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_atan.o)
+ .debug_str     0x00000000000ef02f      0x968 /home/default/IMAV2022-NanocopterAi/app_imav/app_imav_crazyflie/built-in.o
+                                      0xcff3a (size before relaxing)
+ .debug_str     0x00000000000ef997      0x153 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_atan.o)
                                         0x638 (size before relaxing)
- .debug_str     0x00000000000efad7       0x62 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_cos.o)
+ .debug_str     0x00000000000efaea       0x62 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_cos.o)
                                         0x64d (size before relaxing)
- .debug_str     0x00000000000efb39       0x38 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_fabs.o)
+ .debug_str     0x00000000000efb4c       0x38 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_fabs.o)
                                         0x61a (size before relaxing)
- .debug_str     0x00000000000efb71      0x13e /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_fmax.o)
+ .debug_str     0x00000000000efb84      0x13e /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_fmax.o)
                                         0x603 (size before relaxing)
- .debug_str     0x00000000000efcaf       0x35 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_fmin.o)
+ .debug_str     0x00000000000efcc2       0x35 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_fmin.o)
                                         0x603 (size before relaxing)
- .debug_str     0x00000000000efce4       0x3b /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_fpclassify.o)
+ .debug_str     0x00000000000efcf7       0x3b /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_fpclassify.o)
                                         0x634 (size before relaxing)
- .debug_str     0x00000000000efd1f       0x32 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_sin.o)
+ .debug_str     0x00000000000efd32       0x32 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_sin.o)
                                         0x64d (size before relaxing)
- .debug_str     0x00000000000efd51       0x40 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_tan.o)
+ .debug_str     0x00000000000efd64       0x40 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_tan.o)
                                         0x63f (size before relaxing)
- .debug_str     0x00000000000efd91       0x50 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-wf_acos.o)
+ .debug_str     0x00000000000efda4       0x50 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-wf_acos.o)
                                         0x61e (size before relaxing)
- .debug_str     0x00000000000efde1       0x43 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-wf_asin.o)
+ .debug_str     0x00000000000efdf4       0x43 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-wf_asin.o)
                                         0x61e (size before relaxing)
- .debug_str     0x00000000000efe24       0x45 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-wf_atan2.o)
+ .debug_str     0x00000000000efe37       0x45 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-wf_atan2.o)
                                         0x60e (size before relaxing)
- .debug_str     0x00000000000efe69       0x61 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-wf_exp.o)
+ .debug_str     0x00000000000efe7c       0x61 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-wf_exp.o)
                                         0x630 (size before relaxing)
- .debug_str     0x00000000000efeca       0x45 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-wf_log10.o)
+ .debug_str     0x00000000000efedd       0x45 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-wf_log10.o)
                                         0x61b (size before relaxing)
- .debug_str     0x00000000000eff0f       0x41 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-wf_pow.o)
+ .debug_str     0x00000000000eff22       0x41 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-wf_pow.o)
                                         0x61e (size before relaxing)
- .debug_str     0x00000000000eff50       0x53 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_acos.o)
+ .debug_str     0x00000000000eff63       0x53 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_acos.o)
                                         0x64e (size before relaxing)
- .debug_str     0x00000000000effa3       0x3b /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_asin.o)
+ .debug_str     0x00000000000effb6       0x3b /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_asin.o)
                                         0x661 (size before relaxing)
- .debug_str     0x00000000000effde       0x4d /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_atan2.o)
+ .debug_str     0x00000000000efff1       0x4d /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_atan2.o)
                                         0x65a (size before relaxing)
- .debug_str     0x00000000000f002b       0x52 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_exp.o)
+ .debug_str     0x00000000000f003e       0x52 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_exp.o)
                                         0x651 (size before relaxing)
- .debug_str     0x00000000000f007d       0x64 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_log10.o)
+ .debug_str     0x00000000000f0090       0x64 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_log10.o)
                                         0x665 (size before relaxing)
- .debug_str     0x00000000000f00e1       0x7d /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_pow.o)
+ .debug_str     0x00000000000f00f4       0x7d /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_pow.o)
                                         0x6a1 (size before relaxing)
- .debug_str     0x00000000000f015e       0x99 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_rem_pio2.o)
+ .debug_str     0x00000000000f0171       0x99 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_rem_pio2.o)
                                         0x6ad (size before relaxing)
- .debug_str     0x00000000000f01f7       0x9f /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_sqrt.o)
+ .debug_str     0x00000000000f020a       0x9f /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_sqrt.o)
                                         0x606 (size before relaxing)
- .debug_str     0x00000000000f0296       0x32 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-kf_cos.o)
+ .debug_str     0x00000000000f02a9       0x32 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-kf_cos.o)
                                         0x62b (size before relaxing)
- .debug_str     0x00000000000f02c8       0x6c /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-kf_rem_pio2.o)
+ .debug_str     0x00000000000f02db       0x6c /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-kf_rem_pio2.o)
                                         0x646 (size before relaxing)
- .debug_str     0x00000000000f0334       0x32 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-kf_sin.o)
+ .debug_str     0x00000000000f0347       0x32 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-kf_sin.o)
                                         0x62b (size before relaxing)
- .debug_str     0x00000000000f0366       0x3e /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-kf_tan.o)
+ .debug_str     0x00000000000f0379       0x3e /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-kf_tan.o)
                                         0x63d (size before relaxing)
- .debug_str     0x00000000000f03a4       0x37 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-s_lib_ver.o)
+ .debug_str     0x00000000000f03b7       0x37 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-s_lib_ver.o)
                                         0x5f1 (size before relaxing)
- .debug_str     0x00000000000f03db       0x37 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_finite.o)
+ .debug_str     0x00000000000f03ee       0x37 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_finite.o)
                                         0x634 (size before relaxing)
- .debug_str     0x00000000000f0412       0x3e /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_floor.o)
+ .debug_str     0x00000000000f0425       0x3e /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_floor.o)
                                         0x63c (size before relaxing)
- .debug_str     0x00000000000f0450       0x34 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_nan.o)
+ .debug_str     0x00000000000f0463       0x34 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_nan.o)
                                         0x5fa (size before relaxing)
- .debug_str     0x00000000000f0484       0x43 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_rint.o)
+ .debug_str     0x00000000000f0497       0x43 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_rint.o)
                                         0x63b (size before relaxing)
- .debug_str     0x00000000000f04c7       0x3e /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_scalbn.o)
+ .debug_str     0x00000000000f04da       0x3e /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_scalbn.o)
                                         0x650 (size before relaxing)
- .debug_str     0x00000000000f0505       0x45 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_log.o)
+ .debug_str     0x00000000000f0518       0x45 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_log.o)
                                         0x64a (size before relaxing)
 
-.debug_loc      0x0000000000000000    0x4bfad
+.debug_loc      0x0000000000000000    0x4bfa9
  *(.debug_loc)
  .debug_loc     0x0000000000000000    0x2e8d4 src/built-in.o
  .debug_loc     0x000000000002e8d4    0x17bf9 vendor/built-in.o
- .debug_loc     0x00000000000464cd      0x573 /home/default/IMAV2022-NanocopterAi/app_imav/app_imav_crazyflie/built-in.o
- .debug_loc     0x0000000000046a40      0x211 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_atan.o)
- .debug_loc     0x0000000000046c51       0xd2 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_cos.o)
- .debug_loc     0x0000000000046d23       0x7c /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_fabs.o)
- .debug_loc     0x0000000000046d9f       0x76 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_fmax.o)
- .debug_loc     0x0000000000046e15       0x76 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_fmin.o)
- .debug_loc     0x0000000000046e8b       0x49 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_fpclassify.o)
- .debug_loc     0x0000000000046ed4       0xd2 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_sin.o)
- .debug_loc     0x0000000000046fa6       0xc5 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_tan.o)
- .debug_loc     0x000000000004706b       0x7a /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-wf_acos.o)
- .debug_loc     0x00000000000470e5       0x7a /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-wf_asin.o)
- .debug_loc     0x000000000004715f       0x50 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-wf_atan2.o)
- .debug_loc     0x00000000000471af       0x84 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-wf_exp.o)
- .debug_loc     0x0000000000047233       0x7a /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-wf_log10.o)
- .debug_loc     0x00000000000472ad      0x11c /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-wf_pow.o)
- .debug_loc     0x00000000000473c9      0x31e /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_acos.o)
- .debug_loc     0x00000000000476e7      0x2b6 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_asin.o)
- .debug_loc     0x000000000004799d      0x6a4 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_atan2.o)
- .debug_loc     0x0000000000048041      0x447 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_exp.o)
- .debug_loc     0x0000000000048488      0x1f3 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_log10.o)
- .debug_loc     0x000000000004867b     0x10a3 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_pow.o)
- .debug_loc     0x000000000004971e      0x655 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_rem_pio2.o)
- .debug_loc     0x0000000000049d73       0x3e /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_sqrt.o)
- .debug_loc     0x0000000000049db1      0x233 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-kf_cos.o)
- .debug_loc     0x0000000000049fe4      0xb2e /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-kf_rem_pio2.o)
- .debug_loc     0x000000000004ab12      0x12f /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-kf_sin.o)
- .debug_loc     0x000000000004ac41      0x41d /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-kf_tan.o)
- .debug_loc     0x000000000004b05e       0x44 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_finite.o)
- .debug_loc     0x000000000004b0a2      0x256 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_floor.o)
- .debug_loc     0x000000000004b2f8      0x3e9 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_rint.o)
- .debug_loc     0x000000000004b6e1      0x3b0 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_scalbn.o)
- .debug_loc     0x000000000004ba91      0x51c /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_log.o)
+ .debug_loc     0x00000000000464cd      0x56f /home/default/IMAV2022-NanocopterAi/app_imav/app_imav_crazyflie/built-in.o
+ .debug_loc     0x0000000000046a3c      0x211 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_atan.o)
+ .debug_loc     0x0000000000046c4d       0xd2 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_cos.o)
+ .debug_loc     0x0000000000046d1f       0x7c /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_fabs.o)
+ .debug_loc     0x0000000000046d9b       0x76 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_fmax.o)
+ .debug_loc     0x0000000000046e11       0x76 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_fmin.o)
+ .debug_loc     0x0000000000046e87       0x49 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_fpclassify.o)
+ .debug_loc     0x0000000000046ed0       0xd2 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_sin.o)
+ .debug_loc     0x0000000000046fa2       0xc5 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_tan.o)
+ .debug_loc     0x0000000000047067       0x7a /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-wf_acos.o)
+ .debug_loc     0x00000000000470e1       0x7a /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-wf_asin.o)
+ .debug_loc     0x000000000004715b       0x50 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-wf_atan2.o)
+ .debug_loc     0x00000000000471ab       0x84 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-wf_exp.o)
+ .debug_loc     0x000000000004722f       0x7a /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-wf_log10.o)
+ .debug_loc     0x00000000000472a9      0x11c /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-wf_pow.o)
+ .debug_loc     0x00000000000473c5      0x31e /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_acos.o)
+ .debug_loc     0x00000000000476e3      0x2b6 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_asin.o)
+ .debug_loc     0x0000000000047999      0x6a4 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_atan2.o)
+ .debug_loc     0x000000000004803d      0x447 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_exp.o)
+ .debug_loc     0x0000000000048484      0x1f3 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_log10.o)
+ .debug_loc     0x0000000000048677     0x10a3 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_pow.o)
+ .debug_loc     0x000000000004971a      0x655 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_rem_pio2.o)
+ .debug_loc     0x0000000000049d6f       0x3e /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_sqrt.o)
+ .debug_loc     0x0000000000049dad      0x233 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-kf_cos.o)
+ .debug_loc     0x0000000000049fe0      0xb2e /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-kf_rem_pio2.o)
+ .debug_loc     0x000000000004ab0e      0x12f /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-kf_sin.o)
+ .debug_loc     0x000000000004ac3d      0x41d /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-kf_tan.o)
+ .debug_loc     0x000000000004b05a       0x44 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_finite.o)
+ .debug_loc     0x000000000004b09e      0x256 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_floor.o)
+ .debug_loc     0x000000000004b2f4      0x3e9 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_rint.o)
+ .debug_loc     0x000000000004b6dd      0x3b0 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_scalbn.o)
+ .debug_loc     0x000000000004ba8d      0x51c /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_log.o)
 
 .debug_macinfo
  *(.debug_macinfo)
@@ -13784,29 +13784,29 @@ LOAD /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/
 LOAD /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a
 LOAD /usr/lib/gcc/arm-none-eabi/9.2.1/thumb/v7e-m+fp/hard/libgcc.a
 
-.debug_ranges   0x0000000000000000    0x122e8
+.debug_ranges   0x0000000000000000    0x12328
  .debug_ranges  0x0000000000000000     0xe420 src/built-in.o
  .debug_ranges  0x000000000000e420     0x3878 vendor/built-in.o
- .debug_ranges  0x0000000000011c98      0x1d0 /home/default/IMAV2022-NanocopterAi/app_imav/app_imav_crazyflie/built-in.o
- .debug_ranges  0x0000000000011e68       0x20 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_atan.o)
- .debug_ranges  0x0000000000011e88       0x18 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_cos.o)
- .debug_ranges  0x0000000000011ea0       0x10 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_fabs.o)
- .debug_ranges  0x0000000000011eb0       0x10 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_fpclassify.o)
- .debug_ranges  0x0000000000011ec0       0x18 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_sin.o)
- .debug_ranges  0x0000000000011ed8       0x18 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_tan.o)
- .debug_ranges  0x0000000000011ef0       0x58 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_acos.o)
- .debug_ranges  0x0000000000011f48       0x18 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_asin.o)
- .debug_ranges  0x0000000000011f60       0x38 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_atan2.o)
- .debug_ranges  0x0000000000011f98       0x50 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_exp.o)
- .debug_ranges  0x0000000000011fe8       0x38 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_log10.o)
- .debug_ranges  0x0000000000012020      0x190 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_pow.o)
- .debug_ranges  0x00000000000121b0       0x38 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_rem_pio2.o)
- .debug_ranges  0x00000000000121e8       0x10 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_sqrt.o)
- .debug_ranges  0x00000000000121f8       0x38 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-kf_tan.o)
- .debug_ranges  0x0000000000012230       0x10 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_finite.o)
- .debug_ranges  0x0000000000012240       0x18 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_rint.o)
- .debug_ranges  0x0000000000012258       0x48 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_scalbn.o)
- .debug_ranges  0x00000000000122a0       0x48 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_log.o)
+ .debug_ranges  0x0000000000011c98      0x210 /home/default/IMAV2022-NanocopterAi/app_imav/app_imav_crazyflie/built-in.o
+ .debug_ranges  0x0000000000011ea8       0x20 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_atan.o)
+ .debug_ranges  0x0000000000011ec8       0x18 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_cos.o)
+ .debug_ranges  0x0000000000011ee0       0x10 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_fabs.o)
+ .debug_ranges  0x0000000000011ef0       0x10 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_fpclassify.o)
+ .debug_ranges  0x0000000000011f00       0x18 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_sin.o)
+ .debug_ranges  0x0000000000011f18       0x18 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_tan.o)
+ .debug_ranges  0x0000000000011f30       0x58 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_acos.o)
+ .debug_ranges  0x0000000000011f88       0x18 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_asin.o)
+ .debug_ranges  0x0000000000011fa0       0x38 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_atan2.o)
+ .debug_ranges  0x0000000000011fd8       0x50 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_exp.o)
+ .debug_ranges  0x0000000000012028       0x38 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_log10.o)
+ .debug_ranges  0x0000000000012060      0x190 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_pow.o)
+ .debug_ranges  0x00000000000121f0       0x38 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_rem_pio2.o)
+ .debug_ranges  0x0000000000012228       0x10 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_sqrt.o)
+ .debug_ranges  0x0000000000012238       0x38 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-kf_tan.o)
+ .debug_ranges  0x0000000000012270       0x10 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_finite.o)
+ .debug_ranges  0x0000000000012280       0x18 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_rint.o)
+ .debug_ranges  0x0000000000012298       0x48 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-sf_scalbn.o)
+ .debug_ranges  0x00000000000122e0       0x48 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a(lib_a-ef_log.o)
 
 .debug_macro    0x0000000000000000    0x657b4
  .debug_macro   0x0000000000000000    0x2c85f src/built-in.o
