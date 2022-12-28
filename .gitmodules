@@ -1,0 +1,6 @@
+[submodule "AI-deck/pulp-dronet"]
+	path = AI-deck/pulp-dronet
+	url = https://github.com/pulp-platform/pulp-dronet.git
+[submodule "crazyflie/crazyflie-firmware"]
+	path = crazyflie/crazyflie-firmware
+	url = https://github.com/bitcraze/crazyflie-firmware.git
