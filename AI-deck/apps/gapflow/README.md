@@ -9,7 +9,7 @@ source configs/ai_deck.sh
 make autotiler
 ```
 
-Then, after configuring your license, run, on **separate** terminal:
+Then, after configuring your license, run, on a **separate** terminal:
 
 ```
 docker commit myAiDeckContainer aideck-with-autotiler
