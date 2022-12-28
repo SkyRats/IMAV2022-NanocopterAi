@@ -2,10 +2,6 @@
 
 This directory contains source code used during the development of the image processing algorithm for the gate detection module. Some of the inspiration for the code was derived from Dwayne Phillips's book Image Processing in C, which is available [here](https://github.com/Dwayne-Phillips/CIPS/blob/master/cips2ed.pdf).
 
-<div style="text-align:center">
-    <img src="../../images/imav2022_NC_gate1-1536x1152.jpeg" alt="Orange Gate"/>
-</div>
-
 ## src directory
 
 - `common` contains code used for reading and writing to PGM files. Not actually flashed into the AI-deck (used during initial development stages for algorithm testing on [GVSoC](https://greenwaves-technologies.com/gvsoc-the-full-system-simulator-for-profiling-gap-applications/));
@@ -20,3 +16,8 @@ This directory contains source code used during the development of the image pro
 ## include directory
 
 Notably, the file `config.h` contains macros for configuring compilation. The rest of the files contain mostly function declarations and type definitions.
+
+<div style="text-align:center">
+    <img src="../../images/imav2022_NC_gate1-1536x1152.jpeg" alt="Orange Gate"/>
+</div>
+
