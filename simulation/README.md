@@ -1,14 +1,9 @@
-# IMAV2022 Nanocopter AI Challenge
 
-
-This repository is meant to house the development of a [crazyflie 2.x. challenge, for the 2022 IMAV competition](https://2022.imavs.org/index.php/competition/nanocopter-ai-challenge/).
-
-This repository is divided in three directories, one used for simulating the drone and AI using [webots](https://cyberbotics.com/#cyberbotics), one used for the actual drone (crazyflie), and one for the AI-deck.
-
-## This is the simulation directory
+## Simulation
 
 This repository is based on the [crazyflie_simulation by Bitcraze](https://github.com/bitcraze/crazyflie-simulation), as well as the [simulation enviroment created by IMAV](https://github.com/tudelft/crazyflie-simulation).
 
+This simulation is meant to test the use of our gate detection algorithm, the obstacle detection AI, as well as the overall strategy employed at the competition.
 ---
 
 # Webots
