@@ -13,7 +13,6 @@
 # it will handle the build for us.
 #
 CRAZYFLIE_BASE := ../../crazyflie-firmware
-INCLUDES += -Iinc
 
 #
 # We override the default OOT_CONFIG here, we could also name our config

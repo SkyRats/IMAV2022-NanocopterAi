@@ -1,1 +1,0 @@
-cmd_src/init/built-in.o :=  arm-none-eabi-gcc --specs=nosys.specs --specs=nano.specs -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -nostdlib   -r -o src/init/built-in.o src/init/main.o src/init/startup_stm32f40xx.o
